@@ -1,54 +1,32 @@
 # Introdução
 
-Imagine que você deseja apresentar este projeto para investidores que deverão decidir se investem ou não no desenvolvimento da sua ferramenta.
+Os pequenos negócios têm se consolidado como a força motriz da economia brasileira. Dados do SEBRAE revelam que o país conta com mais de 16 milhões de micro ou pequenas empresas e cerca de 20 milhões de empreendedores informais. Apesar de sua inegável importância econômica, este segmento vital da economia enfrenta um desafio comum: a necessidade de uma gestão eficiente para garantir a sobrevivência de seu negócio. Este projeto nasce do reconhecimento de que muitos empreendedores operam sem ferramentas de gestão adequadas à sua realidade.
 
-A **Introdução** consiste das etapas: *Contextualização -- Definição do problema -- Definição dos Objetivos -- Justificativa*, e tem como função situar o seu trabalho dentro de um contexto de mercado e mostrar a importância da sua proposta para resolver a dor de um usuário.
-
-A Contextualização deve situar sem projeto em um determinado contexto de mercado, a fim de fornecer informações adicionais que possam ajudar a entender melhor o assunto que você irá abordar. Serve também para definir a relevância do seu assunto, uma vez que mostra o tamanho do mercado em que se está inserido. Ela pode envolver a análise de vários aspectos, como o ambiente histórico, cultural, político e social em que o problema a ser atacado surgiu.
-
-Escreva de 2 a 3 parágrafos para contetualizar o seu projeto.
 
 ## Problema
 
-Nesse momento você deve apresentar o problema que a sua aplicação deve resolver. No entanto, **não** é a hora de comentar sobre a solução/aplicação.
+As soluções de gestão empresarial disponíveis no mercado são, em sua maioria, concebidas para empresas de maior porte, com estruturas complexas e recursos para investir em software. Essa desconexão cria uma barreira para os pequenos empreendedores, que encontram dificuldades na implementação desses sistemas devido às suas restrições financeiras, humanas e à falta de capacitação técnica (DIAS, 2022). As opções existentes são geralmente complexas e, mesmo quando oferecem versões gratuitas, impõem limites de funcionalidades. Como resultado, muitos se veem forçados a recorrer a métodos manuais ineficientes. Prova disso é que, segundo pesquisa do Centro de Apoio aos Pequenos Empreendimentos (CEAPE), 61% dos empreendedores brasileiros ainda utilizam caderno físico para controlar suas finanças (MONITOR MERCANTIL, 2023), uma prática suscetível a erros e que limita a visão estratégica do negócio.
 
-Descreva também o contexto em que essa aplicação será usada, se  houver: empresa, tecnologias, etc. Novamente, descreva apenas o que de fato existir, pois ainda não é a hora de apresentar requisitos detalhados ou projetos.
-
-Nesse momento, o grupo pode optar por fazer uso  de ferramentas como Design Thinking, que permite um olhar de ponta a ponta para o problema.
-
-> **Links Úteis**:
-> - [Objetivos, Problema de pesquisa e Justificativa](https://medium.com/@versioparole/objetivos-problema-de-pesquisa-e-justificativa-c98c8233b9c3)
-> - [Matriz Certezas, Suposições e Dúvidas](https://medium.com/educa%C3%A7%C3%A3o-fora-da-caixa/matriz-certezas-suposi%C3%A7%C3%B5es-e-d%C3%BAvidas-fa2263633655)
-> - [Brainstorming](https://www.euax.com.br/2018/09/brainstorming/)
 
 ## Objetivos
 
-Aqui você deve descrever os objetivos do trabalho indicando que o objetivo geral é desenvolver um software para solucionar o problema apresentado acima. 
+#### Objetivos Gerais
+Desenvolver um sistema de gestão gratuito para pequenos empreendedores, que se adeque à sua realidade operacional, financeira e tecnológica.
 
-Apresente também alguns (pelo menos 2) objetivos específicos dependendo de onde você vai querer concentrar a sua prática investigativa, ou como você vai aprofundar no seu trabalho.
- 
-> **Links Úteis**:
-> - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
+#### Objetivos Específicos
+**Identificar** as ferramentas de gestão essenciais para o pequeno empreendedor;
+**Planejar** uma interface intuitiva para reduzir a curva de aprendizagem;
+**Criar** um sistema de gestão objetivo e minimalista, com foco no que é realmente necessário para o pequeno empreendedor.
+
 
 ## Justificativa
 
-Descreva a importância ou a motivação para trabalhar com esta aplicação que você escolheu. Indique as razões pelas quais você escolheu seus objetivos específicos ou as razões para aprofundar em certos aspectos do software.
-
-Lembre-se de pesquisar e utilizar números que justifiquem por que é importante que tal problema seja resolvido ou que mostrem o impacto do problema na vida das pessoas.
-
-O grupo de trabalho pode fazer uso de questionários, entrevistas e dados estatísticos, que podem ser apresentados, com o objetivo de esclarecer detalhes do problema que será abordado pelo grupo.
-
-> **Links Úteis**:
-> - [Como montar a justificativa](https://guiadamonografia.com.br/como-montar-justificativa-do-tcc/)
+O projeto **Meu Negócio Fácil** justifica-se como uma resposta direta à carência de ferramentas acessíveis para o microempreendedor. Ao oferecer um sistema gratuito, intuitivo e focado nas funcionalidades essenciais de gestão, a iniciativa visa remover as barreiras de custo e complexidade que limitam a competitividade desse setor. A longevidade e o crescimento dos pequenos negócios dependem diretamente de uma gestão eficiente. Dessa forma, a plataforma não apenas otimiza a rotina operacional, mas também capacita o empreendedor para uma tomada de decisão mais informada, promovendo o crescimento sustentável e a inclusão digital neste segmento vital da economia.
 
 ## Público-Alvo
 
-Descreva quem serão as pessoas que usarão a sua aplicação indicando os diferentes perfis. O objetivo aqui não é definir quem serão os clientes ou quais serão os papéis dos usuários na aplicação. A ideia é, dentro do possível, conhecer um pouco mais sobre o perfil dos usuários: conhecimentos prévios, relação com a tecnologia, relações hierárquicas, etc.
-
-Adicione informações sobre o público-alvo por meio de uma descrição textual, diagramas de personas e mapa de stakeholders.
-
-> **Links Úteis**:
-> - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
-> - [Como definir o público alvo](https://exame.com/pme/5-dicas-essenciais-para-definir-o-publico-alvo-do-seu-negocio/)
-> - [Público-alvo: o que é, tipos, como definir seu público e exemplos](https://klickpages.com.br/blog/publico-alvo-o-que-e/)
-> - [Qual a diferença entre público-alvo e persona?](https://rockcontent.com/blog/diferenca-publico-alvo-e-persona/)
+O projeto é direcionado a microempreendedores e trabalhadores autônomos, em sua maioria MEIs acima de 30 anos, que encontram dificuldades com sistemas complexos na gestão do dia a dia de seus negócios.
+ 
+Este público diverso, que vai de prestadores de serviços a pequenos comerciantes, busca uma ferramenta simples e intuitiva para gerenciar suas operações de forma prática, sem exigir conhecimento técnico avançado ou alto investimento.
+  
+A plataforma atenderá a esse segmento, historicamente negligenciado por soluções tradicionais, auxiliando na organização e crescimento dos negócios. Além disso, o projeto serve como um passo inicial para a inclusão digital e a futura formalização desses trabalhadores.
