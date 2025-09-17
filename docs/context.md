@@ -14,9 +14,9 @@ As soluções de gestão empresarial disponíveis no mercado são, em sua maiori
 Desenvolver um sistema de gestão gratuito para pequenos empreendedores, que se adeque à sua realidade operacional, financeira e tecnológica.
 
 ### Objetivos Específicos
-**Identificar** as ferramentas de gestão essenciais para o pequeno empreendedor;  
-**Planejar** uma interface intuitiva para reduzir a curva de aprendizagem;  
-**Criar** um sistema de gestão objetivo e minimalista, com foco no que é realmente necessário para o pequeno empreendedor.  
+* **Identificar** as ferramentas de gestão essenciais para o pequeno empreendedor;  
+* **Planejar** uma interface intuitiva para reduzir a curva de aprendizagem;  
+* **Criar** um sistema de gestão objetivo e minimalista, com foco no que é realmente necessário para o pequeno empreendedor.  
 
 
 ## Justificativa
