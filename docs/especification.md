@@ -1,91 +1,54 @@
 # Especificações do Projeto
 
-Definição do problema e ideia de solução a partir da perspectiva do usuário. É composta pela definição do  diagrama de personas, histórias de usuários, requisitos funcionais e não funcionais além das restrições do projeto.
-
-Apresente uma visão geral do que será abordado nesta parte do documento, enumerando as técnicas e/ou ferramentas utilizadas para realizar a especificações do projeto.
-
-Caso deseje atribuir uma imagem a sua persona, utilize o site https://thispersondoesnotexist.com/
-
 ## Personas
 
-Pedro Paulo tem 26 anos, é arquiteto recém-formado e autônomo. Pensa em se desenvolver profissionalmente através de um mestrado fora do país, pois adora viajar, é solteiro e sempre quis fazer um intercâmbio. Está buscando uma agência que o ajude a encontrar universidades na Europa que aceitem alunos estrangeiros.
+Optou-se pela abordagem de Personas, ao invés de Perfis de Usuário, por ser a mais adequada ao público-alvo do projeto: pequenos empreendedores que geralmente gerenciam seus negócios sozinhos. Dessa forma, é importante compreender a fundo suas motivações e desafios. A metodologia de Personas permite projetar uma solução mais empática, intuitiva e que resolve problemas reais do seu dia a dia.  
 
-Enumere e detalhe as personas da sua solução. Para tanto, baseie-se tanto nos documentos disponibilizados na disciplina e/ou nos seguintes links:
-
-> **Links Úteis**:
-> - [Rock Content](https://rockcontent.com/blog/personas/)
-> - [Hotmart](https://blog.hotmart.com/pt-br/como-criar-persona-negocio/)
-> - [O que é persona?](https://resultadosdigitais.com.br/blog/persona-o-que-e/)
-> - [Persona x Público-alvo](https://flammo.com.br/blog/persona-e-publico-alvo-qual-a-diferenca/)
-> - [Mapa de Empatia](https://resultadosdigitais.com.br/blog/mapa-da-empatia/)
-> - [Mapa de Stalkeholders](https://www.racecomunicacao.com.br/blog/como-fazer-o-mapeamento-de-stakeholders/)
->
-Lembre-se que você deve ser enumerar e descrever precisamente e personalizada todos os clientes ideais que sua solução almeja.
+**João, o Comerciante (50 anos)**: Proprietário de uma pequena mercearia, busca otimizar seu controle de estoque, ter um cadastro dos seus clientes e realizar o cálculo de suas vendas de forma mais prática.  
+ 
+**Roberto, o Prestador de Serviços (45 anos)**: Atende chamados e agendamentos. Seu objetivo é manter um histórico dos serviços realizados, organizar a agenda e registrar rapidamente os insumos utilizados nos atendimentos.  
 
 ## Histórias de Usuários
 
-Com base na análise das personas forma identificadas as seguintes histórias de usuários:
-
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
 |--------------------|------------------------------------|----------------------------------------|
-|Usuário do sistema  | Registrar minhas tarefas           | Não esquecer de fazê-las               |
-|Administrador       | Alterar permissões                 | Permitir que possam administrar contas |
-
-Apresente aqui as histórias de usuário que são relevantes para o projeto de sua solução. As Histórias de Usuário consistem em uma ferramenta poderosa para a compreensão e elicitação dos requisitos funcionais e não funcionais da sua aplicação. Se possível, agrupe as histórias de usuário por contexto, para facilitar consultas recorrentes à essa parte do documento.
-
-> **Links Úteis**:
-> - [Histórias de usuários com exemplos e template](https://www.atlassian.com/br/agile/project-management/user-stories)
-> - [Como escrever boas histórias de usuário (User Stories)](https://medium.com/vertice/como-escrever-boas-users-stories-hist%C3%B3rias-de-usu%C3%A1rios-b29c75043fac)
-> - [User Stories: requisitos que humanos entendem](https://www.luiztools.com.br/post/user-stories-descricao-de-requisitos-que-humanos-entendem/)
-> - [Histórias de Usuários: mais exemplos](https://www.reqview.com/doc/user-stories-example.html)
-> - [9 Common User Story Mistakes](https://airfocus.com/blog/user-story-mistakes/)
+ | Comerciante | Que meus dados estejam protegidos por senha | Evitar o acesso não autorizado | 
+ | Comerciante | Cadastrar meus clientes e fornecedores | Organizar a base de clientes, facilitar emissão de recibos e acompanhar clientes recorrentes | 
+ | Comerciante | Cadastrar meus produtos e controlar o estoque | Controlar o estoque, manter preços atualizados e ter base de dados para emissão de vendas | 
+ | Comerciante | Registrar as vendas de forma rápida e simples | Controlar as movimentações, acompanhar o fluxo de caixa e o estoque | 
+ | Comerciante | Cadastrar e acompanhar faturas a receber e a pagar | Controlar melhor as faturas a pagar e a receber | 
+ | Prestador de Serviços | Cadastrar os tipos de serviços que ofereço | Para organizar preços e agilizar lançamentos de vendas | 
+ | Prestador de Serviços | Registrar e acompanhar minhas ordens de serviço | Orçar e registrar os serviços prestados e ter acompanhamento dos serviços em aberto | 
+ | Prestador de Serviços | Uma agenda de compromissos | Ter clareza nos prazos de entrega, nos agendamentos com clientes e na gestão de recorrências | 
+ | Prestador de Serviços | Emitir relatórios de vendas e insumos | Ter clareza dos ganhos e acompanhar o dia-a-dia do pequeno negócio | 
 
 ## Requisitos
 
-As tabelas que se seguem apresentam os requisitos funcionais e não funcionais que detalham o escopo do projeto.
 
 ### Requisitos Funcionais
 
 |ID    | Descrição do Requisito  | Prioridade | 
 |------|-----------------------------------------|----| 
-|RF-001| A aplicação deve permitir que o usuário gerencie suas tarefas | ALTA |  
-|RF-002| A aplicação deve permitir a emissão de um relatório de tarefas realizadas no mês   | MÉDIA | 
+ | RF-01 | O sistema deve permitir o cadastro de usuários e login com email e senha. | Alta | 
+ | RF-02 | O sistema deve exibir na tela inicial um dashboard mostrando informações relevantes, como as vendas do mês. | Média | 
+ | RF-03 | O sistema deve permitir o cadastro de clientes e fornecedores e exibir todos em uma lista com filtros. | Alta | 
+ | RF-04 | O sistema deve permitir cadastrar produtos e serviços e exibir todos em uma lista com filtros. | Alta | 
+ | RF-05 | O sistema deve permitir a emissão de venda de produtos, possibilitando a seleção de cliente, produtos e forma de pagamento. | Alta | 
+ | RF-06 | O sistema deve permitir a emissão de serviços com seleção de cliente, serviços realizados, forma de pagamento e lançamento de insumos. | Alta | 
+ | RF-07 | O sistema deve permitir salvar as vendas e serviços como "em aberto", exibindo-os em uma lista e possibilitando editar ou finalizar o item desejado. | Baixa | 
+ | RF-08 | O sistema deve permitir listar as faturas a receber e a pagar e permitir o cadastro de novas faturas. | Média | 
+ | RF-09 | O sistema deve permitir ao usuário criar compromissos e administrá-los por meio de uma agenda e gerir compromissos recorrentes. | Média | 
+ | RF-10 | O sistema deve permitir a emissão de relatórios de vendas e serviços realizados, possibilitando filtrar por cliente ou por data. | Baixa | 
+ | RF-11 | O sistema deve permitir a emissão de relatório de faturas pagas, a pagar, recebidas, a receber e de fluxo de caixa. | Baixa | 
+ | RF-12 | O sistema deve permitir a emissão de relatório de produtos, com saldos em estoque, ou de serviços, estilo tabela de preços. | Baixa |  
 
 
 ### Requisitos não Funcionais
 
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
-|RNF-001| A aplicação deve ser responsiva | MÉDIA | 
-|RNF-002| A aplicação deve processar requisições do usuário em no máximo 3s |  BAIXA | 
-
-Com base nas Histórias de Usuário, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
-
-- [Requisitos Funcionais
- (RF)](https://pt.wikipedia.org/wiki/Requisito_funcional):
- correspondem a uma funcionalidade que deve estar presente na
-  plataforma (ex: cadastro de usuário).
-- [Requisitos Não Funcionais
-  (RNF)](https://pt.wikipedia.org/wiki/Requisito_n%C3%A3o_funcional):
-  correspondem a uma característica técnica, seja de usabilidade,
-  desempenho, confiabilidade, segurança ou outro (ex: suporte a
-  dispositivos iOS e Android).
-Lembre-se que cada requisito deve corresponder à uma e somente uma
-característica alvo da sua solução. Além disso, certifique-se de que
-todos os aspectos capturados nas Histórias de Usuário foram cobertos.
-
-## Restrições
-
-O projeto está restrito pelos itens apresentados na tabela a seguir.
-
-|ID| Restrição                                             |
-|--|-------------------------------------------------------|
-|01| O projeto deverá ser entregue até o final do semestre |
-|02| Não pode ser desenvolvido um módulo de backend        |
-
-
-Enumere as restrições à sua solução. Lembre-se de que as restrições geralmente limitam a solução candidata.
-
-> **Links Úteis**:
-> - [O que são Requisitos Funcionais e Requisitos Não Funcionais?](https://codificar.com.br/requisitos-funcionais-nao-funcionais/)
-> - [O que são requisitos funcionais e requisitos não funcionais?](https://analisederequisitos.com.br/requisitos-funcionais-e-requisitos-nao-funcionais-o-que-sao/)
+ | RNF-01 | A interface deve ser minimalista e proporcionar um aprendizado rápido. | Alta | 
+ | RNF-02 | Garantir que a interface seja responsiva, proporcionando acesso em dispositivos móveis. | Alta | 
+ | RNF-03 | O sistema deve ser totalmente gratuito, sem limitações de acesso às funcionalidades. | Alta | 
+ | RNF-04 | Garantir que cada usuário tenha acesso apenas aos dados da organização da qual faz parte. | Alta | 
+ | RNF-05 | Permitir acesso offline. | Média | 
