@@ -1,45 +1,78 @@
-:root{ --primary-color:#2988CA; }
-body{ background:#f8f9fa; 
+:root {
+  --primary-color: #2988CA;
+}
+
+body {
+  background: #f8f9fa;
   font-family: "Outfit", sans-serif;
+  font-weight: 400;
 }
 
-
-.topbar{
-  background:var(--primary-color);
-  color:#fff;
-  height:56px;
-}
-.brand{ font-weight:600; }
-
-.app{ min-height:calc(100vh - 56px); }
-
-.sidebar{
-  width:260px;
-  background:#fff;
-  border-right:1px solid #e9ecef;
+.topbar {
+  background: var(--primary-color);
+  color: #fff;
+  height: 56px;
 }
 
-.nav-link{
-  border-radius:.5rem;
-  font-weight:500;
-  color:#212529;
+.brand {
+  font-weight: 700;
 }
 
-.nav-sublink{
-  border-radius:.5rem;
-  font-weight:500;
-  font-size: small;
-  color:#212529;
+.app {
+  min-height: calc(100vh - 56px);
 }
 
-.nav-link.active{
-  background:var(--primary-color);
-  color:#fff;
+.sidebar {
+  width: 260px;
+  background: #fff;
+  border-right: 1px solid #e9ecef;
+  font-family: 'Outfit', sans-serif; 
 }
 
-.nav-link:hover{
-  background:#eef6fc;
-  color:#0d6efd;
+/* Links principais */
+.nav-link {
+  border-radius: .5rem;
+  font-weight: 500;
+  font-size: 1rem; /* ajuste opcional do tamanho */
+  color: #212529;
+  display: flex;
+  justify-content: space-between; /* seta à direita, ícone+texto à esquerda */
+  align-items: center;
 }
 
-.text-primary{ color:var(--primary-color)!important; }
+/* Ícone + texto juntos */
+.nav-link span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* espaço entre ícone e texto */
+}
+
+/* Sublinks */
+.nav-sublink {
+  border-radius: .5rem;
+  font-weight: 500;
+  font-size: 0.9rem; /* mantém tamanho menor que o link principal */
+  padding-left: 1.5rem;
+  color: #212529;
+  font-family: 'Outfit', sans-serif; /* garante fonte uniforme */
+}
+
+.nav-link.active {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.nav-link:hover {
+  background: #eef6fc;
+  color: #0d6efd;
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+/* Ícoone da seta gira */
+.nav-link[aria-expanded="true"] .bi-chevron-down {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
