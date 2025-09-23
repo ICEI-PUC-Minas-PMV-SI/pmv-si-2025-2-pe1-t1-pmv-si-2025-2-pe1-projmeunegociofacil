@@ -1,5 +1,8 @@
 :root{ --primary-color:#2988CA; }
-body{ background:#f8f9fa; }
+body{ background:#f8f9fa; 
+  font-family: "Outfit", sans-serif;
+}
+
 
 .topbar{
   background:var(--primary-color);
@@ -19,6 +22,13 @@ body{ background:#f8f9fa; }
 .nav-link{
   border-radius:.5rem;
   font-weight:500;
+  color:#212529;
+}
+
+.nav-sublink{
+  border-radius:.5rem;
+  font-weight:500;
+  font-size: small;
   color:#212529;
 }
 
