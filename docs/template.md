@@ -3,7 +3,7 @@
 ![Acesso](img/template_layout.png)
 
 Foi construído também o layout em HTML/CSS, que pode ser acessado aqui:  
-* ## [Acessar Template](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-2-pe1-t1-pmv-si-2025-2-pe1-projmeunegociofacil/refs/heads/main/docs/template/index.html)
+* ## [Acessar Template](https://icei-puc-minas-pmv-si.github.io/pmv-si-2025-2-pe1-t1-pmv-si-2025-2-pe1-projmeunegociofacil/template/index.html)
 * ## [Acessar Código-Fonte](template/index.html)
 
 ## Design
