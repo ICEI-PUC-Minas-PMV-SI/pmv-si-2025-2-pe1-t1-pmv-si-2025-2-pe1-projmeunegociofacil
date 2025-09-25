@@ -1,31 +1,27 @@
 
 # Projeto de Interface
 
-Visão geral da interação do usuário pelas telas do sistema e protótipo interativo das telas com as funcionalidades que fazem parte do sistema (wireframes).
-
- Apresente as principais interfaces da plataforma. Discuta como ela foi elaborada de forma a atender os requisitos funcionais, não funcionais e histórias de usuário abordados nas <a href="2-Especificação do Projeto.md"> Documentação de Especificação</a>.
+O projeto de interface do Meu Negócio Fácil foi focado em usabilidade, em alinhamento com os requisitos priorizados nas especificações de projeto. O fluxo de navegação está estruturado em módulos essenciais, como: dashboard, cadastros, faturamento, agenda, financeiro, relatórios e configurações. Já o design minimalista e responsivo foi expressado na forma de protótipo, com características similares às reais do sistema.
 
 ## User Flow
 
-### Acesso ao site
 ![Acesso](img/uf_acesso.png)
 
-### Cadastros
+
 ![Cadastro](img/uf_cadastros.png)
 
-### Agenda
-![Agenda](img/uf_agenda.png)
-
-### Faturamento
 ![Faturamento](img/uf_faturamento.png)
 
-### Relatórios
-![Relatórios](img/uf_relatorios.png)
 
-### Financeiro
+
+![Agenda](img/uf_agenda.png)
+
+
 ![Financeiro](img/uf_financeiro.png)
 
-### Configurações
+![Relatórios](img/uf_relatorios.png)
+
+
 ![Configurações](img/uf_configuracoes.png)
 
 
