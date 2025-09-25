@@ -1,15 +1,16 @@
 # Template padrão do site
 
-![Acesso](img/template_layout.png)
 
-Foi construído também o layout em HTML/CSS, que pode ser acessado aqui:  
-* ## [Acessar Template](https://icei-puc-minas-pmv-si.github.io/pmv-si-2025-2-pe1-t1-pmv-si-2025-2-pe1-projmeunegociofacil/template/index.html)
-* ## [Acessar Código-Fonte](template/index.html)
 
 ## Design
 
 Toda a identidade visual do **Meu Negócio Fácil** foi pensada com o intuito de ser o mais minimalista e intuitiva possivel.
 
+![Acesso](img/template_layout.png)
+
+Foi construído também o layout em HTML/CSS, que pode ser acessado aqui:  
+* ## [Acessar Template](https://icei-puc-minas-pmv-si.github.io/pmv-si-2025-2-pe1-t1-pmv-si-2025-2-pe1-projmeunegociofacil/template/index.html)
+* ## [Acessar Código-Fonte](template/index.html)
 
 ## Cores
 
