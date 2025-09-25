@@ -1,26 +1,21 @@
 
 # Projeto de Interface
 
-O projeto de interface do **Meu Negócio Fácil** foi focado em usabilidade, em alinhamento com os requisitos priorizados nas especificações de projeto. O fluxo de navegação está estruturado em módulos essenciais, como: dashboard, cadastros, faturamento, agenda, financeiro e relatórios. Já o design minimalista e responsivo foi expressado na forma de protótipo, com características similares às reais do sistema.
+O projeto de interface do **Meu Negócio Fácil** foi construído com foco na usabilidade, em alinhamento com os requisitos priorizados nas especificações de projeto. O fluxo de navegação está estruturado em módulos essenciais como: dashboard, cadastros, faturamento, agenda, financeiro e relatórios. Já o design minimalista e responsivo foi expressado na forma de protótipo, com características similares às reais que o  sistema terá.
 
 ## User Flow
 
 ![Acesso](img/uf_acesso.png)
 
-
 ![Cadastro](img/uf_cadastros.png)
 
 ![Faturamento](img/uf_faturamento.png)
 
-
-
 ![Agenda](img/uf_agenda.png)
-
 
 ![Financeiro](img/uf_financeiro.png)
 
 ![Relatórios](img/uf_relatorios.png)
-
 
 ![Configurações](img/uf_configuracoes.png)
 
