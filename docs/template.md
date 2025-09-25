@@ -1,8 +1,9 @@
 # Template padrão do site
 
-Layout padrão do site (HTML e CSS) que será utilizado em todas as páginas com a definição de identidade visual, aspectos de responsividade e iconografia.
+![Acesso](img/template_layout.png)
 
-Explique as guias de estilo utilizadas no seu projeto.
+Foi construído também o layout em HTML/CSS:
+([template/index.html](template/index.html))
 
 ## Design
 
