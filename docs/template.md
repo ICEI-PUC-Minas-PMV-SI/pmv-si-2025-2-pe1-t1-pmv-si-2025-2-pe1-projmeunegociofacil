@@ -2,17 +2,19 @@
 
 ![Acesso](img/template_layout.png)
 
-Foi construído também o layout em HTML/CSS, que pode ser acessado aqui:
-([https://htmlpreview.github.io/?https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-2-pe1-t1-pmv-si-2025-2-pe1-projmeunegociofacil/refs/heads/main/docs/template/index.html](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-2-pe1-t1-pmv-si-2025-2-pe1-projmeunegociofacil/refs/heads/main/docs/template/index.html))
+Foi construído também o layout em HTML/CSS, que pode ser acessado aqui:  
+* ## [Acessar Template](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-2-pe1-t1-pmv-si-2025-2-pe1-projmeunegociofacil/refs/heads/main/docs/template/index.html)
+* ## [Acessar Código-Fonte](template/index.html)
 
 ## Design
 
-Detalhe os layouts que serão utilizados. Apresente onde será colocado o logo do sistema. Defina os menus padrões, entre outras coisas.
+Toda a identidade visual do **Meu Negócio Fácil** foi pensada com o intuito de ser o mais minimalista e intuitiva possivel.
 
 
 ## Cores
 
-Apresente a paleta de cores que será utilizada. Uma ferramenta interessante para a criação de palestas de cores é o *Adobe Color* ([https://color.adobe.com/pt/create/color-wheel](https://color.adobe.com/pt/create/color-wheel)).
+![Paleta de Cores](img/template_colors.png)
+
 
 
 ## Tipografia
