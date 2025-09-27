@@ -4,7 +4,7 @@
 
 ## Design
 
-Toda a identidade visual do **Meu Negócio Fácil** foi pensada com o intuito de ser o mais minimalista e intuitiva possivel.
+A identidade visual do **Meu Negócio Fácil** foi pensada com para ser o mais minimalista e interativa possível. Escolheu-se uma interface clean, facilitando a navegação e otimizando a experiência de uso, em alinhamento com as especificações do projeto.
 
 ![Acesso](img/template_layout.png)
 
@@ -15,6 +15,7 @@ Foi construído também o layout em HTML/CSS, que pode ser acessado aqui:
 ## Cores
 
 ![Paleta de Cores](img/template_colors.png)
+
 Seguindo a estratégia de ser o mais intuitivo possível, o sistema será todo construído com base nas cores da marca **Meu Negócio Fácil**.
 
 
@@ -24,7 +25,7 @@ Seguindo a estratégia de ser o mais intuitivo possível, o sistema será todo c
 
 ## Tipografia
 
-A fonte escolhida para ser padrão do **Meu Negócio Fácil** é a Outfit. Disponível no Google Fonts e de licensa aberta, em mais de 275mil sites.
+Para a tipografia, foi escolhida a fonte **Outfit**, disponível no Google Fonts sob licença aberta. A escolha se justifica por sua legibilidade e versatilidade, oferecendo pesos que vão do ExtraLight ao Bold, permitindo uma hierarquia visual clara e consistente, contribuindo para a usabilidade e a estética minimalista do projeto.
 
 ![Fonte](img/template_font.png)
 
@@ -41,7 +42,7 @@ A fonte escolhida para ser padrão do **Meu Negócio Fácil** é a Outfit. Dispo
 
 ## Iconografia
 
-Os ícones utilizados foram:
+A iconografia do sistema foi selecionada para ser facilmente reconhecível e consistente com a proposta visual minimalista. Os ícones facilitam a identificação rápida das funcionalidades, tornando a navegação mais ágil e intuitiva.
 
 Ícone do site no navegador  
 ![Favicon](img/ico/favicon.png) 
