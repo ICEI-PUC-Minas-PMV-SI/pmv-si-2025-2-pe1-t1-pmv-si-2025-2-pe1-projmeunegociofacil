@@ -1,5 +1,5 @@
 {
-  "empresas_usuarias": [
+  "user": [
     {
       "id": 1,
       "tem_cnpj": true,
@@ -66,6 +66,7 @@
       "data_venda": "2025-09-26T15:00:00Z",
       "status": "finalizada", 
       "valor_total": 89.90,
+      "observacoes": "o cliente irá buscar amanhã",
       "itens": [
         {
           "produtos_servicosId": 301, 
@@ -76,11 +77,21 @@
           "unidade": "un"
         }
       ],
-      "insumos_servico": []
+      "insumos_servico": [
+        {
+            "descricao": "20m fio 5mm",
+            "valor": 50.00
+        },
+        {
+            "descricao": "10m fio 10mm",
+            "valor": 10.00
+        }
+
+      ]
     }
   ],
 
-  "lancamentos_financeiros": [
+  "faturas": [
     {
       "id": 601,
       "tipo": "receber", 
@@ -109,11 +120,21 @@
     {
       "id": 801,
       "titulo": "Reunião com Cliente Exemplo SA",
-      "data_inicio": "2025-10-05T14:00:00Z",
-      "data_fim": "2025-10-05T15:00:00Z",
+      "data_hora": "2025-10-05T14:00:00Z",
       "vendaId": null,
       "clientes_fornecedoresId": 101, 
-      "recorrencia": null
+      "recorrencia": []
+    },
+     {
+      "id": 801,
+      "titulo": "Reunião com Cliente Exemplo SA",
+      "data_hora": "2025-10-05T14:00:00Z",
+      "vendaId": null,
+      "clientes_fornecedoresId": 101, 
+      "recorrencia": [
+        "2025-11-05T14:00:00Z",
+        "2025-12-05T14:00:00Z"
+      ]
     }
   ]
 }
