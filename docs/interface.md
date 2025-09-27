@@ -5,19 +5,19 @@ O projeto de interface do **Meu Negócio Fácil** foi construído com foco na us
 
 ## User Flow
 
-![Acesso](img/uf_acesso.png)
+![User Flow](img/userflow.png)
 
-![Cadastro](img/uf_cadastros.png)
+De forma a facilitar o entendimento, simplificamos os nomes de algumas telas no User Flow, conforme a tabela a seguir:
+| Caminho no Userflow | Caminho Completo | 
+| ----------------|----------------------|
+| Cadastros > Produtos | Cadastros > Produtos/Serviços | 
+| Cadastros > Clientes | Cadastros > Clientes/Fornecedores | 
+| Faturamento > Em Aberto | Faturamento > Vendas em Aberto | 
+| Financeiro > Pagar | Financeiro > Contas a Pagar | 
+| Financeiro > Receber | Financeiro > Contas a Receber | 
+| Financeiro > Receber | Financeiro > Contas a Receber | 
+| Relatórios > Produtos | Relatórios > Produtos/Serviços | 
 
-![Faturamento](img/uf_faturamento.png)
-
-![Agenda](img/uf_agenda.png)
-
-![Financeiro](img/uf_financeiro.png)
-
-![Relatórios](img/uf_relatorios.png)
-
-![Configurações](img/uf_configuracoes.png)
 
 
 ## Wireframes

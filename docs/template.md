@@ -15,26 +15,57 @@ Foi construído também o layout em HTML/CSS, que pode ser acessado aqui:
 ## Cores
 
 ![Paleta de Cores](img/template_colors.png)
+Seguindo a estratégia de ser o mais intuitivo possível, o sistema será todo construído com base nas cores da marca **Meu Negócio Fácil**.
+
+
+
 
 
 
 ## Tipografia
 
-Apresente as fontes que serão utilizadas e sua função no site. As principais funções são: Título de página, Título de Seção, Rótulos de componentes e Corpo de Texto.
+A fonte escolhida para ser padrão do **Meu Negócio Fácil** é a Outfit. Disponível no Google Fonts e de licensa aberta, em mais de 275mil sites.
+
+![Fonte](img/template_font.png)
+
+| Tag Html | Uso | Fonte | Tamanho |
+|-----------|-----|---------|-----------|
+| h1 | Títulos de Página | Outfit Bold | 40 px |
+| h2 | Títulos de Seção | Outfit SemiBold | 32 px |
+| h3 | Subtítulos | Outfit Bold | 28 px |
+| p | Parágrafos | Outfit Regular | 16 px |
+| small | Legendas | Outfit Regular | 14 px |
+
+
 
 
 ## Iconografia
 
-Defina os ícones que serão utilizados e suas respectivas funções.
+Os ícones utilizados foram:
 
-Apresente os estilos CSS criados para cada um dos elementos apresentados.
-Outras seções podem ser adicionadas neste documento para apresentar padrões de componentes, de menus, etc.
+Ícone do site no navegador  
+![Favicon](img/ico/favicon.png) 
 
+Página Inicial  
+![Home](img/ico/home.png) 
 
-> **Links Úteis**:
->
-> -  [Como criar um guia de estilo de design da Web](https://edrodrigues.com.br/blog/como-criar-um-guia-de-estilo-de-design-da-web/#)
-> - [CSS Website Layout (W3Schools)](https://www.w3schools.com/css/css_website_layout.asp)
-> - [Website Page Layouts](http://www.cellbiol.com/bioinformatics_web_development/chapter-3-your-first-web-page-learning-html-and-css/website-page-layouts/)
-> - [Perfect Liquid Layout](https://matthewjamestaylor.com/perfect-liquid-layouts)
-> - [How and Why Icons Improve Your Web Design](https://usabilla.com/blog/how-and-why-icons-improve-you-web-design/)
+Página de Cadastros  
+![Cadastros](img/ico/cadastros.png)  
+
+Página de Faturamento  
+![Faturamento](img/ico/faturamento.png)  
+
+Página de Agenda e alternância entre agenda diária e agenda mensal  
+![Agenda](img/ico/agenda.png)  
+
+Página de Financeiro  
+![Financeiro](img/ico/financeiro.png)  
+
+Página de Relatórios e Filtros  
+![Relatórios](img/ico/relatorios.png)  
+
+Página de Configurações  
+![Configurações](img/ico/configuracao.png) 
+
+Botões de Ação (Edição, Gravação e Deleção)  
+![Ações](img/ico/acoes.png)  
