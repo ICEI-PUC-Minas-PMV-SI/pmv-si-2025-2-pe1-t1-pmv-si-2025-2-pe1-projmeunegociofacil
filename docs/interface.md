@@ -126,7 +126,7 @@ Pagina que mostra um relatório financeiro em forma de gráfico que contem infor
 
 ### 17. Relatório/Faturamento
 
-O sistema deve permitir a emissão de relatórios de vendas e serviços realizados. Representa o Requisito Funcional RF-10.
+Página que exibe relatórios de vendas e serviços realizados. Representa o Requisito Funcional RF-10.
 
 ![Relatorios Faturamento](<img/wireframes/17 Relatorios Faturamento.png>)
 
