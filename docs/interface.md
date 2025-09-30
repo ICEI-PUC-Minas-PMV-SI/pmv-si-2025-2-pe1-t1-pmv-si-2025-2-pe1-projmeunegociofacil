@@ -27,10 +27,21 @@ De forma a facilitar o entendimento, simplificamos os nomes de algumas telas no 
 
 
 ## Wireframes
-
-
-
-### Exemplo
-
-A tela inicial apresenta um menu lateral com as principais seções do portal, enquanto a navigation bar, ao topo, apresenta informações de envio de imagens ou navegação pela galeria de fotos. A área central apresenta a galeria de fotos na forma de uma grade. Nesta tela, são apresentados os seguintes requisitos
-
+![Home](<img/wireframes/1 HOME.png>)
+![Login](<img/wireframes/2 Login.png>)
+![Cadastro](<img/wireframes/3 Cadastro.png>)
+![Dashboard](<img/wireframes/4 Dashboard.png>)
+![Cadastros de Clientes e Fornecedores](<img/wireframes/5 Cadastros Clientes Fornecedores.png>)
+![Novo Cadastro de Clientes e Fornecedores](<img/wireframes/6 Novo Cadastro Clientes Fornecedores.png>)
+![Cadastros de Produtos e Servicos](<img/wireframes/7 Cadastros Produtos Servicos.png>)
+![Novo Cadastro de Produtos e Servicos](<img/wireframes/8 Novo Cadastro Produtos Servicos.png>)
+![Faturamento de Produto](<img/wireframes/9 Faturamento de Produto.png>)
+![Faturamento de Serviços](<img/wireframes/10 Faturamento Serviços.png>)
+![Faturamento Vendas em Aberto](<img/wireframes/11 Faturamento Vendas Em Aberto.png>)
+![Agenda](<img/wireframes/12 Agenda.png>)
+![Financeiro contas a pagar](<img/wireframes/13 Financeiro Contas a Pagar.png>)
+![Financeiro contas a receber](<img/wireframes/14 Financeiro contas a receber.png>)
+![Relatorios Produtos e Serviços](<img/wireframes/15 Relatorios Produtos e Serviços.png>)
+![Relatorios Financeiro](<img/wireframes/16 Relatorios Financeiro.png>)
+![Relatorios Faturamento](<img/wireframes/17 Relatorios Faturamento.png>)
+![Configuracoes](<img/wireframes/18 Configuracoes.png>)
