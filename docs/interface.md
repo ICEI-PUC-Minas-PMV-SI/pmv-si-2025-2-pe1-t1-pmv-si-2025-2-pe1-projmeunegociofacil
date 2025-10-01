@@ -13,7 +13,7 @@ O fluxo de navegação está estruturado em módulos essenciais como: dashboard,
 
 ![User Flow](img/userflow.png)
 
-De forma a facilitar o entendimento, simplificamos os nomes de algumas telas no User Flow, conforme a tabela a seguir:  
+Algumas telas tiveram o nome simplificado no User Flow, conforme a tabela a seguir:  
 | Caminho no Userflow | Caminho Completo | 
 | ----------------|----------------------|
 | Cadastros > Produtos | Cadastros > Produtos/Serviços | 
