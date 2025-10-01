@@ -44,28 +44,28 @@ Para a tipografia, foi escolhida a fonte **Outfit**, disponível no Google Fonts
 
 A iconografia do sistema foi selecionada para ser facilmente reconhecível e consistente com a proposta visual minimalista. Os ícones facilitam a identificação rápida das funcionalidades, tornando a navegação mais ágil e intuitiva.
 
-Ícone do site no navegador  
+Ícone do site no navegador (favicon)
 ![Favicon](img/ico/favicon.png) 
 
-Página Inicial  
+Icone alusivo à Página Inicial  
 ![Home](img/ico/home.png) 
 
-Página de Cadastros  
+Icone alusivo à tela de Cadastros  
 ![Cadastros](img/ico/cadastros.png)  
 
-Página de Faturamento  
+Icone alusivo à tela de Faturamento  
 ![Faturamento](img/ico/faturamento.png)  
 
-Página de Agenda e alternância entre agenda diária e agenda mensal  
+Icone alusivo à tela de Agenda e alternância entre agenda diária e agenda mensal  
 ![Agenda](img/ico/agenda.png)  
 
-Página de Financeiro  
+Icone alusivo à tel Financeiro  
 ![Financeiro](img/ico/financeiro.png)  
 
-Página de Relatórios e Filtros  
+Icone alusivo à tela Relatórios e Filtros  
 ![Relatórios](img/ico/relatorios.png)  
 
-Página de Configurações  
+Icone alusivo à tela Configurações  
 ![Configurações](img/ico/configuracao.png) 
 
 Botões de Ação (Edição, Gravação e Deleção)  
