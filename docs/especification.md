@@ -55,15 +55,15 @@ Optou-se pela abordagem de Personas, ao invés de Perfis de Usuário, por ser a 
 
  ### Metodologia
 
- Para o desenvolvimento do projeto, foi adotada a metodologia ágil **SCRUM**. Essa escolha se justifica por sua flexibilidade e foco na entrega de valor contínuo, o que é ideal para um projeto que evolui com base no feedback e nas necessidades dos usuários.  
+Para o gerenciamento do projeto adotou-se a metodologia ágil **SCRUM**, por sua flexibilidade e foco na entrega de valor contínuo.   
 
-O trabalho foi organizado em Sprints semanais, ciclos curtos de desenvolvimento com entregas funcionais ao final de cada um. Para a gestão visual das tarefas e o acompanhamento do progresso de cada Sprint, utilizamos um quadro Kanban na ferramenta Trello, com colunas como "A Fazer", "Em Andamento" e "Concluído". Reuniões semanais foram realizadas para planejar as atividades da semana seguinte e revisar o que foi entregue.
+O trabalho foi organizado em Sprints semanais. Para a gestão visual das tarefas e o acompanhamento do progresso de cada Sprint, utilizou-se um quadro Kanban na ferramenta Trello, com colunas como **Product Backlog, Sprint Backlog, Em Andamento e Concluído**. Reuniões semanais serão realizadas para planejar as atividades da semana seguinte e revisar o que foi entregue.
 
  #### Ferramentas de apoio
-* Trello: Utilizado para a gestão de tarefas e organização do quadro Kanban, garantindo transparência sobre o andamento do projeto.
+* **Trello**: Utilizado para a gestão de tarefas e organização do quadro Kanban.  
 
-* Figma: Ferramenta de design utilizada para a prototipagem da interface e criação da identidade visual do sistema.
+* **Figma**: Ferramenta de design utilizada para a prototipagem da interface e criação da identidade visual do sistema.
 
-* VS Code: Ambiente de desenvolvimento principal para a codificação do projeto.
+* **VS Code**: Ambiente de desenvolvimento principal para a codificação do projeto.
 
-* Git & GitHub: Essencial para o controle de versão do código, permitindo o trabalho colaborativo e a gestão segura das alterações.
+* **Git & GitHub**: Essencial para o controle de versionamento do projeto.
