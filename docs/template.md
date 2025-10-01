@@ -50,19 +50,19 @@ A iconografia do sistema foi selecionada para ser facilmente reconhecível e con
 Icone alusivo à Página Inicial  
 ![Home](img/ico/home.png) 
 
-Icone alusivo à tela de Cadastros  
+Icone alusivo às telas de Cadastro  
 ![Cadastros](img/ico/cadastros.png)  
 
-Icone alusivo à tela de Faturamento  
+Icone alusivo às telas de Faturamento  
 ![Faturamento](img/ico/faturamento.png)  
 
-Icone alusivo à tela de Agenda e alternância entre agenda diária e agenda mensal  
+Icone alusivo à tela Agenda e alternância entre agenda diária e agenda mensal  
 ![Agenda](img/ico/agenda.png)  
 
-Icone alusivo à tel Financeiro  
+Icone alusivo às telas do Financeiro  
 ![Financeiro](img/ico/financeiro.png)  
 
-Icone alusivo à tela Relatórios e Filtros  
+Icone alusivo às telas de Relatórios e Filtros  
 ![Relatórios](img/ico/relatorios.png)  
 
 Icone alusivo à tela Configurações  
