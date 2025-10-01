@@ -44,7 +44,7 @@ Para a tipografia, foi escolhida a fonte **Outfit**, disponível no Google Fonts
 
 A iconografia do sistema foi selecionada para ser facilmente reconhecível e consistente com a proposta visual minimalista. Os ícones facilitam a identificação rápida das funcionalidades, tornando a navegação mais ágil e intuitiva.
 
-Ícone do site no navegador (favicon)
+Ícone do site no navegador (favicon)  
 ![Favicon](img/ico/favicon.png) 
 
 Icone alusivo à Página Inicial  

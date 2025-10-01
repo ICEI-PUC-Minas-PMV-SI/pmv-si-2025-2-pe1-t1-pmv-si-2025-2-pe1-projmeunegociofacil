@@ -1,7 +1,7 @@
 
 # Projeto de Interface
 
-O projeto de interface do **Meu Negócio Fácil** foi desenvolvido com foco na usabilidade, em  alinhamento com os requisitos funcionais e não funcionais priorizados nas especificações do projeto. O UserFlow foi estruturado para garantir uma jornada de  fluida e eficiente, permitindo ao usuário rápida curva de aprendizado.
+O projeto de interface do **Meu Negócio Fácil** foi desenvolvido com foco na usabilidade, em  alinhamento com os requisitos funcionais e não funcionais priorizados nas especificações do projeto. A navegação foi estruturada para garantir uma jornada fluida e eficiente, permitindo ao usuário rápida curva de aprendizado.
 
 Com design minimalista e responsivo, o sistema foi demonstrado em forma de protótipo, com características similares às reais. A paleta de cores foi escolhida para garantir um bom contraste, facilitando a legibilidade, e a estrutura de navegação clara visa atender inclusive usuários com pouca familiaridade com tecnologia. O **Dashboard**, por exemplo, é chamado no menu de **Página Inicial**, podendo ser encontrado de forma fácil.
 
