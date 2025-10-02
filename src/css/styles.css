@@ -95,6 +95,11 @@ body {
   /* opacity: 1; Opcional: Ajuste a opacidade conforme necessário */
 }
 
+.form-control::placeholder {
+  color: #194f74;
+}
+
+
 .totallizer {
   background-color: #2988CA;
   border-radius: 0 0 20px 20px;
@@ -110,6 +115,6 @@ body {
   color: #fff;
 }
 .btn-primary:hover {
-  background-color: #2988CA;
+  background-color: #2c91d9;
   color: #fff;
 }
