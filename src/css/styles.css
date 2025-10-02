@@ -94,3 +94,22 @@ body {
   text-align: left;
   /* opacity: 1; Opcional: Ajuste a opacidade conforme necessário */
 }
+
+.totallizer {
+  background-color: #2988CA;
+  border-radius: 0 0 20px 20px;
+  color: #fff;
+}
+
+.btn-light {
+  color: #194f74;
+  font-weight: 500;
+}
+.btn-primary {
+  background-color: #2988CA;
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #2988CA;
+  color: #fff;
+}

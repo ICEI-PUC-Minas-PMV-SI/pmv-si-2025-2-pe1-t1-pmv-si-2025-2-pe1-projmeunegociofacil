@@ -18,7 +18,11 @@
   <!-- Start Header -->
   <div class="topbar d-flex align-items-center justify-content-between px-3">
     <div class="brand">Nome do Usuário Logado</div>
-    <a href="index.html"><button class="btn btn-sm btn-light">Logout</button></a>
+    <div class="align-items-end">
+      <a href="index.html">
+        <button class="btn btn-sm btn-light">Logout</button>
+      </a>
+    </div>
   </div>
   <!-- End Header -->
 
@@ -116,25 +120,97 @@
 
 
     <!-- Start Main -->
-    <main class="flex-grow-1 p-4">
+    <main class="d-flex flex-column flex-grow-1 p-4">
       <h1 class="h4 mb-3">Faturamento de Produtos</h1>
+      <!-- Start Filters -->
+      <div class="container">
+        <div class="row g-2 align-items-center">
 
-      <div class="container text-center">
-        <div class="row justify-content-md-center">
-          <div class="col-5">
-            <input id="select_cliente_produto" class="form-control" type="text" value="Consumidor Final"
-              aria-label="Disabled input example" disabled readonly>
+          <div class="col-12 col-md-5">
+            <input id="select_cliente_produto" class="form-control" type="text" value="Consumidor Final" disabled
+              readonly>
           </div>
-          <div class="col-5">
-            <input id="select_product" class="form-control" type="text" placeholder="Digite o código"
-              aria-label="Disabled input example">
+
+          <div class="col-12 col-md-5">
+            <input id="select_product" class="form-control" type="text" placeholder="Digite o código">
           </div>
-          <div class="col-2">
-            <a class="btn btn-primary" href="#" role="button">Buscar Produto</a>
+
+          <div class="col-12 col-md-2">
+            <a class="btn btn-primary w-100" href="#" role="button">Buscar Produto</a>
           </div>
         </div>
+
       </div>
+      <!-- End Filters -->
+
+      <!-- Start Products -->
+      <div class="container">
+        <div class="row g-2 align-items-center p-3">
+
+          <table class="table table-striped">
+            <thead style="background-color: rgb(237, 237, 237)">
+              <tr>
+                <th scope="col">Código</th>
+                <th scope="col" >Descrição</th>
+                <th scope="col">Quantidade</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Ação</th>
+
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr>
+                <th scope="row">1234567891011</th>
+                <td>Descrição do produto</td>
+                <td>1</td>
+                <td>159,90</td>
+                <td><i class="bi bi-trash3-fill"></i></td>
+              </tr>
+              <tr>
+                <th scope="row">1234567891011</th>
+                <td>Descrição do produto</td>
+                <td>1</td>
+                <td>159,90</td>
+                <td><i class="bi bi-trash3-fill"></i></td>
+              </tr>
+              <tr>
+                <th scope="row">1234567891011</th>
+                <td>Descrição do produto</td>
+                <td>1</td>
+                <td>159,90</td>
+                <td><i class="bi bi-trash3-fill"></i></td>
+              </tr>
+          </table>
+        </div>
+
+      </div>
+      <!-- End Products -->
+
+      <!-- Start Totallizer -->
+      <div class="container">
+        <div class=" totallizer p-1">
+          <div class="d-flex mt-2">
+            <div class="col-12 col-md-6 text-end me-2">
+              <p><strong>Itens:  </strong></p>
+            </div>
+            <div class="col-12 col-md-2">
+              <p>03</p>
+            </div>
+            <div class="col-12 col-md-1  text-end me-2">
+              <p><strong>Total: </strong></p>
+            </div>
+
+            <div class="col-12 col-md-1">
+              <p>159,90</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- End Totallizer -->
+
       <img src="img/fat_produto.png">
+
     </main>
     <!-- End Main -->
   </div>
