@@ -76,3 +76,21 @@ body {
   transform: rotate(180deg);
   transition: transform 0.3s ease;
 }
+
+.form-control:disabled, .form-control[readonly] {
+  background-color: #ffffff;
+  color: #194f74;
+  border-color: #194f74;
+  border-width: 0.1rem;
+  text-align: center;
+  /* opacity: 1; Opcional: Ajuste a opacidade conforme necessário */
+}
+
+.form-control{
+  background-color: #ffffff;
+  color: #194f74;
+  border-color: #194f74;
+  border-width: 0.1rem;
+  text-align: left;
+  /* opacity: 1; Opcional: Ajuste a opacidade conforme necessário */
+}
