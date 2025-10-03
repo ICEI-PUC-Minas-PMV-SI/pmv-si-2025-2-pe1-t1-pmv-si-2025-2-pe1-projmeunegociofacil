@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" href="favicon.png" />
 </head>
 
-<body>
+<body d-flex flex-column vh-100>
   <!-- Start Header -->
   <div class="topbar d-flex align-items-center justify-content-between px-3">
     <div class="brand">Nome do Usuário Logado</div>
@@ -124,7 +124,7 @@
       <h1 class="h4 mb-3">Faturamento de Produtos</h1>
       <!-- Start Filters -->
       <div class="container">
-        <div class="row g-2 align-items-center">
+        <div class="row g-2 align-items-center ms-1 me-1">
 
           <div class="col-12 col-md-5 p-3">
             <input id="select_cliente_produto" class="form-control" type="text" value="Consumidor Final" disabled
@@ -145,13 +145,13 @@
 
       <!-- Start Products -->
       <div class="container">
-        <div class="row g-2 align-items-center p-3">
+        <div class="products_list row g-2 align-items-center ms-3 me-3">
 
-          <table class="table table-striped">
-            <thead style="background-color: rgb(237, 237, 237)">
+          <table class="table table-hover">
+            <thead style="background-color: #DDE1E6">
               <tr>
                 <th scope="col">Código</th>
-                <th scope="col" >Descrição</th>
+                <th scope="col">Descrição</th>
                 <th scope="col">Quantidade</th>
                 <th scope="col">Valor</th>
                 <th scope="col">Ação</th>
@@ -188,10 +188,10 @@
 
       <!-- Start Totallizer -->
       <div class="container">
-        <div class=" totallizer p-1">
+        <div class=" totallizer ms-3 me-3 pt-2">
           <div class="d-flex mt-2">
             <div class="col-12 col-md-6 text-end me-2">
-              <p><strong>Itens:  </strong></p>
+              <p><strong>Itens: </strong></p>
             </div>
             <div class="col-12 col-md-2">
               <p>03</p>
@@ -208,8 +208,20 @@
 
       </div>
       <!-- End Totallizer -->
+      <!-- Start Buttons -->
+      <div class="container">
+        <div class="d-grid d-md-block mt-2 me-3 text-end">
 
-      <img src="img/fat_produto.png">
+            <a class="btn btn-secondary ps-4 pe-4 m-2" href="#" role="button">Cancelar</a>
+
+            <a class="btn btn-secondary ps-4 pe-4 m-2" href="#" role="button">Salvar</a>
+
+            <a class="btn btn-primary ps-4 pe-4 m-2" href="#" role="button">Concluir</a>
+          </div>
+
+      </div>
+      <!-- End Buttons -->
+
 
     </main>
     <!-- End Main -->
