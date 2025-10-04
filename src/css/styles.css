@@ -26,17 +26,19 @@ body {
   width: 260px;
   background: #fff;
   border-right: 1px solid #e9ecef;
-  font-family: 'Outfit', sans-serif; 
+  font-family: 'Outfit', sans-serif;
 }
 
 /* Links principais */
 .nav-link {
   border-radius: .5rem;
   font-weight: 500;
-  font-size: 1rem; /* ajuste opcional do tamanho */
+  font-size: 1rem;
+  /* ajuste opcional do tamanho */
   color: #212529;
   display: flex;
-  justify-content: space-between; /* seta à direita, ícone+texto à esquerda */
+  justify-content: space-between;
+  /* seta à direita, ícone+texto à esquerda */
   align-items: center;
 }
 
@@ -44,17 +46,20 @@ body {
 .nav-link span {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* espaço entre ícone e texto */
+  gap: 0.5rem;
+  /* espaço entre ícone e texto */
 }
 
 /* Sublinks */
 .nav-sublink {
   border-radius: .5rem;
   font-weight: 500;
-  font-size: 0.9rem; /* mantém tamanho menor que o link principal */
+  font-size: 0.9rem;
+  /* mantém tamanho menor que o link principal */
   padding-left: 1.5rem;
   color: #212529;
-  font-family: 'Outfit', sans-serif; /* garante fonte uniforme */
+  font-family: 'Outfit', sans-serif;
+  /* garante fonte uniforme */
 }
 
 .nav-link.active {
@@ -77,7 +82,8 @@ body {
   transition: transform 0.3s ease;
 }
 
-.form-control:disabled, .form-control[readonly] {
+.form-control:disabled,
+.form-control[readonly] {
   background-color: #ffffff;
   color: #194f74;
   border-color: #194f74;
@@ -86,7 +92,7 @@ body {
   /* opacity: 1; Opcional: Ajuste a opacidade conforme necessário */
 }
 
-.form-control{
+.form-control {
   background-color: #ffffff;
   color: #194f74;
   border-color: #194f74;
@@ -110,14 +116,45 @@ body {
   color: #194f74;
   font-weight: 500;
 }
+
 .btn-primary {
   background-color: #2988CA;
   color: #fff;
 }
+
 .btn-primary:hover {
   background-color: #2c91d9;
   color: #fff;
 }
+
+main {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 56px);
+}
+
+.main-content-flexible {
+  flex-grow: 1;
+  overflow: auto;
+}
+
 .products_list {
   background-color: #F5F5F5;
+  position: relative;
+  height: 100%; 
+
+}
+.products_list thead th {
+  position: sticky; 
+  top: 0;
+  background-color: #DDE1E6;
+  z-index: 1; 
+}
+
+.bi-trash3-fill {
+  color: #212529;
+}
+
+.input-quantidade {
+  max-width: 4rem;
 }
