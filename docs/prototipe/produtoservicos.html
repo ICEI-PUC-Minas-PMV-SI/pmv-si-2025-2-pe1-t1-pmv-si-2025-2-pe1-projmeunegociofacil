@@ -211,5 +211,102 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let nextItemId = 4; // Começa do próximo ID disponível
+
+    function abrirModalProdutoServico(id) {
+      const modalTitle = document.getElementById('produtoServicoModalLabel');
+      const form = document.getElementById('formProdutoServico');
+
+      // Limpa o formulário
+      form.reset();
+      document.getElementById('itemId').value = ''; // Limpa o ID oculto
+
+      if (id) {
+        modalTitle.textContent = 'Editar Produto/Serviço';
+        document.getElementById('itemId').value = id;
+
+        // Preencher os campos do modal com os dados da linha
+        const row = document.getElementById(`item-${id}`);
+        if (row) {
+          document.getElementById('modalCodigo').value = row.dataset.codigo;
+          document.getElementById('modalTipo').value = row.dataset.tipo;
+          document.getElementById('modalDescricao').value = row.dataset.descricao;
+          document.getElementById('modalUnidade').value = row.dataset.unidade;
+        }
+      } else {
+        modalTitle.textContent = 'Adicionar Novo Produto/Serviço';
+      }
+    }
+
+    function salvarProdutoServico() {
+      const id = document.getElementById('itemId').value;
+      const codigo = document.getElementById('modalCodigo').value;
+      const tipo = document.getElementById('modalTipo').value;
+      const descricao = document.getElementById('modalDescricao').value;
+      const unidade = document.getElementById('modalUnidade').value;
+
+      if (!codigo || !tipo || !descricao || !unidade) {
+        alert('Por favor, preencha todos os campos.');
+        return;
+      }
+
+      const tabela = document.querySelector('#tabelaProdutosServicos tbody');
+
+      if (id) {
+        // Editar item existente
+        const row = document.getElementById(`item-${id}`);
+        if (row) {
+          row.children[0].textContent = codigo;
+          row.children[1].textContent = tipo;
+          row.children[2].textContent = descricao;
+          row.children[3].textContent = unidade;
+          
+          // Atualiza os data-atributos
+          row.dataset.codigo = codigo;
+          row.dataset.tipo = tipo;
+          row.dataset.descricao = descricao;
+          row.dataset.unidade = unidade;
+
+          alert(`Item (ID: ${id}) atualizado com sucesso (simulado)!`);
+        }
+      } else {
+        // Adicionar novo item
+        const newId = nextItemId++;
+        const newRow = `
+          <tr id="item-${newId}" data-codigo="${codigo}" data-tipo="${tipo}" data-descricao="${descricao}" data-unidade="${unidade}">
+            <td>${codigo}</td>
+            <td>${tipo}</td>
+            <td>${descricao}</td>
+            <td>${unidade}</td>
+            <td>
+              <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#produtoServicoModal" onclick="abrirModalProdutoServico(${newId})"><i class="bi bi-pencil"></i></button>
+              <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('item', ${newId})"><i class="bi bi-trash"></i></button>
+            </td>
+          </tr>
+        `;
+        tabela.insertAdjacentHTML('beforeend', newRow);
+        alert(`Item "${descricao}" adicionado com sucesso (simulado)!`);
+      }
+
+      // Fecha o modal
+      const modal = bootstrap.Modal.getInstance(document.getElementById('produtoServicoModal'));
+      modal.hide();
+    }
+
+    function excluirItem(tipo, id) {
+      if (confirm(`Tem certeza que deseja excluir este ${tipo} (ID: ${id})?`)) {
+        const rowId = `${tipo}-${id}`;
+        const row = document.getElementById(rowId);
+        if (row) {
+          row.remove();
+          alert(`${tipo.charAt(0).toUpperCase() + tipo.slice(1)} (ID: ${id}) excluído com sucesso (simulado)!`);
+        } else {
+          alert(`Erro: Linha com ID "${rowId}" não encontrada.`);
+        }
+      }
+    }
+  </script>
 </body>
 </html>

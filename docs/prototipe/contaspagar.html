@@ -222,6 +222,114 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let nextContaPagarId = 4; // Começa do próximo ID disponível
 
+    function formatarDataParaExibicao(dataString) {
+      if (!dataString) return '';
+      const [ano, mes, dia] = dataString.split('-');
+      return `${dia}/${mes}/${ano}`;
+    }
+
+    function abrirModalContaPagar(id) {
+      const modalTitle = document.getElementById('contaPagarModalLabel');
+      const form = document.getElementById('formContaPagar');
+
+      // Limpa o formulário
+      form.reset();
+      document.getElementById('contaPagarId').value = '';
+
+      if (id) {
+        modalTitle.textContent = 'Editar Conta a Pagar';
+        document.getElementById('contaPagarId').value = id;
+
+        // Preencher os campos do modal com os dados da linha
+        const row = document.getElementById(`conta-pagar-${id}`);
+        if (row) {
+          document.getElementById('modalStatusConta').value = row.dataset.status;
+          document.getElementById('modalTipoConta').value = row.dataset.tipo;
+          document.getElementById('modalValorConta').value = parseFloat(row.dataset.valor).toFixed(2);
+          document.getElementById('modalDescricaoConta').value = row.dataset.descricao;
+          document.getElementById('modalVencimentoConta').value = row.dataset.vencimento; // Data no formato YYYY-MM-DD
+        }
+      } else {
+        modalTitle.textContent = 'Adicionar Nova Conta a Pagar';
+      }
+    }
+
+    function salvarContaPagar() {
+      const id = document.getElementById('contaPagarId').value;
+      const status = document.getElementById('modalStatusConta').value;
+      const tipo = document.getElementById('modalTipoConta').value;
+      const valor = parseFloat(document.getElementById('modalValorConta').value).toFixed(2);
+      const descricao = document.getElementById('modalDescricaoConta').value;
+      const vencimento = document.getElementById('modalVencimentoConta').value; // Formato YYYY-MM-DD
+
+      if (!status || !tipo || !valor || !descricao || !vencimento) {
+        alert('Por favor, preencha todos os campos corretamente.');
+        return;
+      }
+
+      const tabela = document.querySelector('#tabelaContasPagar tbody');
+      const vencimentoFormatado = formatarDataParaExibicao(vencimento);
+
+      if (id) {
+        // Editar conta existente
+        const row = document.getElementById(`conta-pagar-${id}`);
+        if (row) {
+          row.children[0].textContent = status;
+          row.children[1].textContent = tipo;
+          row.children[2].textContent = valor.replace('.', ',');
+          row.children[3].textContent = descricao;
+          row.children[4].textContent = vencimentoFormatado;
+          
+          // Atualiza os data-atributos
+          row.dataset.status = status;
+          row.dataset.tipo = tipo;
+          row.dataset.valor = valor;
+          row.dataset.descricao = descricao;
+          row.dataset.vencimento = vencimento;
+
+          alert(`Conta a Pagar (ID: ${id}) atualizada com sucesso (simulado)!`);
+        }
+      } else {
+        // Adicionar nova conta
+        const newId = nextContaPagarId++;
+        const newRow = `
+          <tr id="conta-pagar-${newId}" data-status="${status}" data-tipo="${tipo}" data-valor="${valor}" data-descricao="${descricao}" data-vencimento="${vencimento}">
+            <td>${status}</td>
+            <td>${tipo}</td>
+            <td>${valor.replace('.', ',')}</td>
+            <td>${descricao}</td>
+            <td>${vencimentoFormatado}</td>
+            <td>
+              <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaPagarModal" onclick="abrirModalContaPagar(${newId})"><i class="bi bi-pencil"></i></button>
+              <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a pagar', ${newId})"><i class="bi bi-trash"></i></button>
+            </td>
+          </tr>
+        `;
+        tabela.insertAdjacentHTML('beforeend', newRow);
+        alert(`Conta a Pagar "${descricao}" adicionada com sucesso (simulado)!`);
+      }
+
+      // Fecha o modal
+      const modal = bootstrap.Modal.getInstance(document.getElementById('contaPagarModal'));
+      modal.hide();
+    }
+
+    function excluirItem(tipo, id) {
+      if (confirm(`Tem certeza que deseja excluir esta ${tipo} (ID: ${id})?`)) {
+        const rowId = `conta-pagar-${id}`;
+        const row = document.getElementById(rowId);
+        if (row) {
+          row.remove();
+          alert(`${tipo.charAt(0).toUpperCase() + tipo.slice(1)} (ID: ${id}) excluída com sucesso (simulado)!`);
+        } else {
+          alert(`Erro: Linha com ID "${rowId}" não encontrada.`);
+        }
+      }
+    }
+  </script>
 </body>
 </html>
