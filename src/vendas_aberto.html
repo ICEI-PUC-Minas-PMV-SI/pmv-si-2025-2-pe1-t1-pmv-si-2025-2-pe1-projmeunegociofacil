@@ -114,7 +114,76 @@
 <!-- Start Main -->
     <main class="flex-grow-1 p-4">
       <h1 class="h4 mb-3">Vendas em Aberto</h1>
-      <img src="img/vendas_aberto.png">
+      
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        
+        <style>
+          .imput-goup{
+            margin-left: 500px;
+          }
+        </style>
+          
+          </button>
+          <div class="input-group" style="margin-left:  900px;">
+              <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar">
+              <button class="btn btn-outline-secondary" type="button" id="button-search-pagar"><i class="bi bi-search"></i></button>
+              <button class="btn btn-outline-secondary" type="button" id="button-filter-pagar"><i class="bi bi-filter"></i></button>
+          </div>
+      </div>
+
+      <div class="card mb-4">
+          <div class="card-body p-0">
+              <div class="table-responsive">
+                  <table class="table table-hover mb-0" id="tabelaContasPagar">
+                      <thead class="table-light">
+                          <tr>
+                              <th scope="col">Código</th>
+                              <th scope="col">Tipo</th>
+                              <th scope="col">Cliente</th>
+                              <th scope="col">Produtos / Serviços</th>
+                              <th scope="col">Ultima Modificação</th>
+                              <th scope="col">Ação</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr id="conta-pagar-1" data-status="Pendente" data-tipo="Fornecedor" data-valor="450.00" data-descricao="Biscoito Recheado, arr..." data-vencimento="2025-09-30">
+                              <td>1</td>
+                              <td>Produto</td>
+                              <td>Maria de Oliveira</td>
+                              <td>Biscoito Recheado, arr...</td>
+                              <td>07/09/2025</td>
+                              <td>
+                                  <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaPagarModal" onclick="abrirModalContaPagar(1)"><i class="bi bi-pencil"></i></button>
+                                  <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a pagar', 1)"><i class="bi bi-trash"></i></button>
+                              </td>
+                          </tr>
+                          <tr id="conta-pagar-2" data-status="Pendente" data-tipo="Fornecedor" data-valor="670.00" data-descricao="Detergente" data-vencimento="2025-10-23">
+                              <td>2</td>
+                              <td>Produto</td>
+                              <td>José da Silva</td>
+                              <td>Detergente</td>
+                              <td>08/09/2025</td>
+                              <td>
+                                  <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaPagarModal" onclick="abrirModalContaPagar(2)"><i class="bi bi-pencil"></i></button>
+                                  <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a pagar', 2)"><i class="bi bi-trash"></i></button>
+                              </td>
+                          </tr>
+                          <tr id="conta-pagar-3" data-status="Pendente" data-tipo="Aluguel" data-valor="2500.00" data-descricao="Aluguel" data-vencimento="2025-10-15">
+                              <td>3</td>
+                              <td>Serviço</td>
+                              <td>Marcus Aurélio</td>
+                              <td>Pintura de Porta</td>
+                              <td>06/09/2025</td>
+                              <td>
+                                  <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaPagarModal" onclick="abrirModalContaPagar(3)"><i class="bi bi-pencil"></i></button>
+                                  <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a pagar', 3)"><i class="bi bi-trash"></i></button>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
     </main>
   <!-- End Main -->
   </div>
