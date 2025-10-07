@@ -185,6 +185,50 @@
           </div>
       </div>
     </main>
+
+    <div class="modal fade" id="contaPagarModal" tabindex="-1" aria-labelledby="contaPagarModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="contaPagarModalLabel">Adicionar/Editar Conta a Pagar</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formContaPagar">
+            <input type="hidden" id="contaPagarId" value="">
+            <div class="mb-3">
+              <label for="modalValorConta" class="form-label">Código</label>
+              <input type="number" step="1" class="form-control" id="modalValorConta" placeholder="0.00">
+            </div>
+            <div class="mb-3">
+              <label for="modalStatusConta" class="form-label">Tipo</label>
+              <select class="form-select" id="modalStatusConta">
+                <option value="Pendente">Produto</option>
+                <option value="Pago">Serviço</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="modalTipoConta" class="form-label">Cliente</label>
+              <input type="text" class="form-control" id="modalTipoConta" placeholder="Nome do Cliente">
+            </div>
+            
+            <div class="mb-3">
+              <label for="modalDescricaoConta" class="form-label">Descrição (Produtos/Serviços)</label>
+              <textarea class="form-control" id="modalDescricaoConta" rows="3" placeholder="Descrição do Produto/Serviço"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="modalVencimentoConta" class="form-label">Ultima Modificação</label>
+              <input type="date" class="form-control" id="modalVencimentoConta">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="salvarContaPagar()">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- End Main -->
   </div>
 
