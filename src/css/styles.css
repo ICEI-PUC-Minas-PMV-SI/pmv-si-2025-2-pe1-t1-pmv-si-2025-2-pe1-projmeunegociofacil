@@ -82,26 +82,23 @@ body {
   transition: transform 0.3s ease;
 }
 
-.form-control:disabled,
-.form-control[readonly] {
+#select_cliente_fat_produtos  {
   background-color: #ffffff;
   color: #194f74;
   border-color: #194f74;
-  border-width: 0.1rem;
+  /* border-width: 0.1rem; */
   text-align: center;
-  /* opacity: 1; Opcional: Ajuste a opacidade conforme necessário */
 }
 
-.form-control {
+#select_produto_fat_produtos {
   background-color: #ffffff;
   color: #194f74;
   border-color: #194f74;
-  border-width: 0.1rem;
+  /* border-width: 0.1rem; */
   text-align: left;
-  /* opacity: 1; Opcional: Ajuste a opacidade conforme necessário */
 }
 
-.form-control::placeholder {
+#select_produto_fat_produtos::placeholder {
   color: #194f74;
 }
 
@@ -139,7 +136,7 @@ main {
 }
 
 .products_list {
-  background-color: #F5F5F5;
+  /* background-color: #F5F5F5; */
   position: relative;
   height: 100%; 
 
@@ -147,7 +144,7 @@ main {
 .products_list thead th {
   position: sticky; 
   top: 0;
-  background-color: #DDE1E6;
+  /* background-color: #DDE1E6; */
   z-index: 1; 
 }
 
@@ -157,4 +154,9 @@ main {
 
 .input-quantidade {
   max-width: 4rem;
+
+}
+.tabelaModal a {
+  color: #194f74;
+  text-decoration: none;
 }
