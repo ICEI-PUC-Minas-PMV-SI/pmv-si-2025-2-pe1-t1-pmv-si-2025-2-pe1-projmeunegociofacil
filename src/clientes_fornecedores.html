@@ -112,11 +112,110 @@
 
 
 <!-- Start Main -->
-    <main class="flex-grow-1 p-4">
-      <h1 class="h4 mb-3">Cadastro de Clientes/Fornecedores</h1>
-      <a href="novo_clientes_fornecedores.html">
-        "<img src="img/cadastro_cliente_fornecedor.png"></a>
-    </main>
+<main class="flex-grow-1 p-4">
+  <h1 class="h4 mb-3">Cadastro de Clientes/Fornecedores</h1>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clienteFornecedorModal" onclick="abrirModalClienteFornecedor(null)">
+          <i class="bi bi-plus-lg me-2"></i>Novo Cliente/Fornecedor
+      </button>
+      <div class="input-group" style="width: 300px;">
+          <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar">
+          <button class="btn btn-outline-secondary" type="button" id="button-search"><i class="bi bi-search"></i></button>
+          <button class="btn btn-outline-secondary" type="button" id="button-filter"><i class="bi bi-filter"></i></button>
+      </div>
+  </div>
+
+  <div class="card mb-4">
+      <div class="card-body p-0">
+          <div class="table-responsive">
+              <table class="table table-hover mb-0" id="tabelaClientesFornecedores">
+                  <thead class="table-light">
+                      <tr>
+                          <th scope="col">Código</th>
+                          <th scope="col">Tipo</th>
+                          <th scope="col">Nome/Razão Social</th>
+                          <th scope="col">CPF/CNPJ</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr id="item-1" data-codigo="1" data-tipo="Cliente" data-nome="Maria de Oliveira" data-id="123.456.789-01">
+                          <td>1</td>
+                          <td>Cliente</td>
+                          <td>Maria de Oliveira</td>
+                          <td>123.456.789-01</td>
+                          <td>
+                            <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#clienteFornecedorModal" onclick="abrirModalClienteFornecedor(1)"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('item', 1)"><i class="bi bi-trash"></i></button>
+                          </td>
+                      </tr>
+                      <tr id="item-2" data-codigo="2" data-tipo="Cliente" data-nome="José da Silva" data-id="109.876.543-21">
+                          <td>2</td>
+                          <td>Cliente</td>
+                          <td>José da Silva</td>
+                          <td>109.876.543-21</td>
+                          <td>
+                            <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#clienteFornecedorModal" onclick="abrirModalClienteFornecedor(1)"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('item', 1)"><i class="bi bi-trash"></i></button>
+                          </td>
+                      </tr>
+                      <tr id="item-3" data-codigo="3" data-tipo="Serviço" data-nome="Tintas Mineiras ME" data-id="12.345.678/0001-99">
+                          <td>3</td>
+                          <td>Fornecedor</td>
+                          <td>Tintas Mineiras ME</td>
+                          <td>12.345.678/0001-99</td>
+                          <td>
+                            <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#clienteFornecedorModal" onclick="abrirModalClienteFornecedor(1)"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('item', 1)"><i class="bi bi-trash"></i></button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+</main>
+</div>
+
+<div class="modal fade" id="clienteFornecedorModal" tabindex="-1" aria-labelledby="clienteFornecedorModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="clienteFornecedorModalLabel">Adicionar/Editar Cliente/Fornecedor</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form id="formClienteFornecedor">
+        <input type="hidden" id="itemId" value="">
+        <div class="mb-3">
+          <label for="modalCodigo" class="form-label">Código</label>
+          <input type="text" class="form-control" id="modalCodigo" placeholder="Código do cliente/fornecedor">
+        </div>
+        <div class="mb-3">
+          <label for="modalTipo" class="form-label">Tipo</label>
+          <select class="form-select" id="modalTipo">
+            <option value="">Selecione...</option>
+            <option value="Cliente">Cliente</option>
+            <option value="Fornecedor">Fornecedor</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="modalNome" class="form-label">Nome ou Razão Social</label>
+          <textarea class="form-control" id="modalNome" rows="1" placeholder="Coloque aqui o nome"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="modalid" class="form-label">CPF/CNPJ</label>
+          <input type="text" class="form-control" id="modalid" placeholder="xxx.xxx...">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+      <button type="button" class="btn btn-primary" onclick="salvarClienteFornecedor()">Salvar</button>
+    </div>
+  </div>
+</div>
+</div>
   <!-- End Main -->
   </div>
 
