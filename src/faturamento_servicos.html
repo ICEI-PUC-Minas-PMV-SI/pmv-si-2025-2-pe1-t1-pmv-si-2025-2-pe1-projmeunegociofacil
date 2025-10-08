@@ -236,7 +236,7 @@
             </div>
 
           </div>
-          <div class="container p-4"></div>
+          <div class="container p-2"></div>
           <hr class="sep-insumos-produtos">
           <p class="titulo-sep-insumos-produtos" style="font-size: small">Insumos Utilizados:</p>
           <div class="container">
@@ -245,10 +245,10 @@
               <table class="table table-hover">
                 <thead class="table-light x-small" style="font-size: small;">
                   <tr>
-                    <th class="text-center pe-4 ps-4" scope="col">Quantidade</th>
                     <th class="text-start pe-4 ps-4" scope="col">Descrição</th>
                     <th class="text-center pe-4 ps-4" scope="col">Unidade</th>
-                    <th class="text-end pe-4 ps-4" scope="col">Valor Unitário</th>
+                    <th class="text-center pe-4 ps-4" scope="col">Valor Unitário</th>
+                    <th class="text-center pe-4 ps-4" scope="col">Quantidade</th>
                     <th class="text-end pe-4 ps-4" scope="col">Subtotal</th>
                     <th class="text-center pe-4" scope="col">Ação</th>
 
@@ -256,10 +256,10 @@
                 </thead>
                 <tbody class="table-group-divider" style="font-size: small">
                   <tr>
-                    <td class="text-center pe-4 ps-4">10</td>
                     <td class="text-start pe-4 ps-4">Fio de Cobre</td>
                     <td class="text-center pe-4 ps-4">m</td>
-                    <td class="text-end pe-4 ps-4">15,90</td>
+                    <td class="text-center pe-4 ps-4">15,90</td>
+                    <td class="text-center pe-4 ps-4">10</td>
                     <td class="text-end pe-4 ps-4">159,00</td>
 
                     <td class="text-center pe-4" style="min-width: 110px;"> <button
@@ -267,54 +267,7 @@
                       <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
                     </td>
                   </tr>
-                  <tr>
-                    <td class="text-center pe-4 ps-4">10</td>
-                    <td class="text-start pe-4 ps-4">Fio de Cobre</td>
-                    <td class="text-center pe-4 ps-4">m</td>
-                    <td class="text-end pe-4 ps-4">15,90</td>
-                    <td class="text-end pe-4 ps-4">159,00</td>
 
-                    <td class="text-center pe-4" style="min-width: 110px;"> <button
-                        class="btn btn-outline-primary btn-sm me-1"><i class="bi bi-pencil"></i></button>
-                      <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-center pe-4 ps-4">10</td>
-                    <td class="text-start pe-4 ps-4">Fio de Cobre</td>
-                    <td class="text-center pe-4 ps-4">m</td>
-                    <td class="text-end pe-4 ps-4">15,90</td>
-                    <td class="text-end pe-4 ps-4">159,00</td>
-
-                    <td class="text-center pe-4" style="min-width: 110px;"> <button
-                        class="btn btn-outline-primary btn-sm me-1"><i class="bi bi-pencil"></i></button>
-                      <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-center pe-4 ps-4">10</td>
-                    <td class="text-start pe-4 ps-4">Fio de Cobre</td>
-                    <td class="text-center pe-4 ps-4">m</td>
-                    <td class="text-end pe-4 ps-4">15,90</td>
-                    <td class="text-end pe-4 ps-4">159,00</td>
-
-                    <td class="text-center pe-4" style="min-width: 110px;"> <button
-                        class="btn btn-outline-primary btn-sm me-1"><i class="bi bi-pencil"></i></button>
-                      <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-center pe-4 ps-4">10</td>
-                    <td class="text-start pe-4 ps-4">Fio de Cobre</td>
-                    <td class="text-center pe-4 ps-4">m</td>
-                    <td class="text-end pe-4 ps-4">15,90</td>
-                    <td class="text-end pe-4 ps-4">159,00</td>
-
-                    <td class="text-center pe-4" style="min-width: 110px;"> <button
-                        class="btn btn-outline-primary btn-sm me-1"><i class="bi bi-pencil"></i></button>
-                      <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
-                    </td>
-                  </tr>
 
               </table>
             </div>
@@ -430,7 +383,7 @@
                         <td>
                         </td>
                       </tr>
-                       <tr id="produto-1">
+                      <tr id="produto-1">
                         <th><a href="#">5</a></th>
                         <td>Unitário</td>
                         <td>Descrição dos serviços</td>
@@ -459,7 +412,7 @@
   <!-- End Modal Product-->
   <!-- Start Modal  Add Insum-->
   <div class="modal fade" id="AddInsumModal" tabindex="-1" aria-labelledby="AddInsumModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="AddInsumModalLabel">Adicionar Insumo</h5>
@@ -469,48 +422,50 @@
           <div class="modal-body">
             <form id="formContaPagar">
               <input type="hidden" id="contaPagarId" value="">
-              
-              <div class="mb-3">
-                <label for="modalStatusConta" class="form-label">Unidade</label>
-                <select class="form-select" id="modalStatusConta">
-                  <option value="Pendente">Pendente</option>
-                  <option value="Pago">Pago</option>
-                  <option value="Cancelado">Cancelado</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="modalTipoConta" class="form-label">Tipo</label>
-                <input type="text" class="form-control" id="modalTipoConta"
-                  placeholder="Ex: Fornecedor, Aluguel, Salário">
-              </div>
-              <div class="mb-3">
-                <label for="modalValorConta" class="form-label">Valor</label>
-                <input type="number" step="0.01" class="form-control" id="modalValorConta" placeholder="0.00">
-              </div>
-              <div class="mb-3">
-                <label for="modalDescricaoConta" class="form-label">Descrição (Produtos/Serviços)</label>
-                <textarea class="form-control" id="modalDescricaoConta" rows="3"
-                  placeholder="Descrição do que precisa ser pago"></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="modalVencimentoConta" class="form-label">Data de Vencimento</label>
-                <input type="date" class="form-control" id="modalVencimentoConta">
-              </div>
+              <div class="row g-2 align-items-center">
+                <div class="col-12 col-md-2 p-1 pe-3">
+                  <label for="modalDescricaoConta" class="form-label">Quantidade</label>
+                  <input id="search_produto_fat_produtos" class="form-control" type="number" placeholder="01">
+                </div>
+                <div class="col-12 col-md-2 p-1 pe-3">
+                  <label for="modalDescricaoConta" class="form-label">Unidade</label>
+                  <input id="search_produto_fat_produtos" class="form-control" type="text" placeholder="Metro">
+                </div>
+                <div class="col-12 col-md-6 pe-3">
+                  <label for="modalDescricaoConta" class="form-label">Descrição</label>
+                  <input id="search_produto_fat_produtos" class="form-control" type="text" placeholder="Descrição">
+                </div>
+                <div class="col-12 col-md-2 justify-content-end text-end" >
+                  <label for="modalDescricaoConta" class="form-label text-end">Valor Unitário</label>
+                  <input type="text" step="0.01" class="form-control  text-end" id="modalValorConta" placeholder="0.00">
+                </div>
+                <div class="mb-3">
+                  <textarea class="form-control" id="modalDescricaoConta" rows="3"
+                    placeholder="Observações"></textarea>
+                </div>
+
             </form>
+            <div class="col-12 d-flex justify-content-end text-end">
+              <div class="col-2 mb-3"> <label for="modalValorTotal" class="form-label">Valor Total:</label>
+                <input type="text" class="form-control  text-end" id="modalValorTotal" value="159,50">
+              </div>
+            </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" onclick="salvarContaPagar()">Salvar</button>
-        </div>
-
       </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" onclick="salvarContaPagar()">Salvar</button>
+      </div>
+
     </div>
-
   </div>
 
   </div>
- 
+
+  </div>
+
 
   <!-- End Modal Add Insum-->
   <!-- Start Modal Clientes-->
