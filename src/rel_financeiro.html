@@ -112,10 +112,212 @@
 
 
 <!-- Start Main -->
-    <main class="flex-grow-1 p-4">
-      <h1 class="h4 mb-3">Relatório Financeiro</h1>
-      <img src="img/rel_fin.png">
-    </main>
+<main class="flex-grow-1 p-4">
+ 
+  <div class="container-fluid px-0">
+    <div class="row g-3 align-items-end">
+     
+      <div class="col-12 col-lg-6">
+        <div class="d-flex align-items-center flex-wrap gap-2">
+          <label class="me-2 mb-0 fw-semibold">Período:</label>
+          <input type="text" class="form-control" style="max-width: 200px;" value="01/01/2025">
+          <span class="mx-1">a</span>
+          <input type="text" class="form-control" style="max-width: 200px;" value="31/12/2025">
+        </div>
+      </div>
+
+      
+      <div class="col-12 col-lg-6">
+        <div class="d-flex align-items-center justify-content-lg-end flex-wrap gap-2">
+          <label class="me-2 mb-0 fw-semibold">Status:</label>
+          <select class="form-select" style="max-width: 260px;">
+            <option selected>Em aberto/Pago</option>
+          </select>
+        </div>
+      </div>
+
+      
+      <div class="col-12 col-lg-6">
+        <div class="d-flex align-items-center flex-wrap gap-2">
+          <label class="me-2 mb-0 fw-semibold">Tipo:</label>
+          <div class="input-group" style="max-width: 260px;">
+            <input type="text" class="form-control" placeholder="A pagar/A receber">
+            <button class="btn btn-outline-secondary" type="button"><i class="bi bi-caret-down-fill"></i></button>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="col-12 col-lg-6">
+        <div class="d-flex align-items-center justify-content-lg-end flex-wrap gap-2">
+          <label class="me-2 mb-0 fw-semibold">Cliente/Fornecedor:</label>
+          <div class="input-group" style="max-width: 360px;">
+            <input type="text" class="form-control" placeholder="Selecione o cliente/fornecedor">
+            <button class="btn btn-outline-secondary" type="button"><i class="bi bi-caret-down-fill"></i></button>
+          </div>
+          <button class="btn btn-primary ms-lg-2">Filtrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="mt-4">
+    <div class="bg-white border rounded p-3">
+      <div class="w-100" style="overflow-x:auto;">
+        <svg viewBox="0 0 1100 380" width="100%" height="380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gráfico de Receitas e Despesas">
+          
+          <rect x="0" y="0" width="1100" height="380" fill="#ffffff"/>
+          
+          <g transform="translate(60,20)">
+            
+            <g font-family="Outfit, sans-serif" font-size="12" fill="#6c757d">
+              
+              <line x1="0" y1="0" x2="1000" y2="0" stroke="#e9ecef"/>
+              <text x="-40" y="4">1200</text>
+              <!-- 1100 -->
+              <line x1="0" y1="26" x2="1000" y2="26" stroke="#e9ecef"/>
+              <text x="-40" y="30">1100</text>
+              <!-- 1000 -->
+              <line x1="0" y1="52" x2="1000" y2="52" stroke="#e9ecef"/>
+              <text x="-40" y="56">1000</text>
+              <!-- 900 -->
+              <line x1="0" y1="78" x2="1000" y2="78" stroke="#e9ecef"/>
+              <text x="-33" y="82">900</text>
+              <!-- 800 -->
+              <line x1="0" y1="104" x2="1000" y2="104" stroke="#e9ecef"/>
+              <text x="-33" y="108">800</text>
+              <!-- 700 -->
+              <line x1="0" y1="130" x2="1000" y2="130" stroke="#e9ecef"/>
+              <text x="-33" y="134">700</text>
+              <!-- 600 -->
+              <line x1="0" y1="156" x2="1000" y2="156" stroke="#e9ecef"/>
+              <text x="-33" y="160">600</text>
+              <!-- 500 -->
+              <line x1="0" y1="182" x2="1000" y2="182" stroke="#e9ecef"/>
+              <text x="-33" y="186">500</text>
+              <!-- 400 -->
+              <line x1="0" y1="208" x2="1000" y2="208" stroke="#e9ecef"/>
+              <text x="-33" y="212">400</text>
+              <!-- 300 -->
+              <line x1="0" y1="234" x2="1000" y2="234" stroke="#e9ecef"/>
+              <text x="-33" y="238">300</text>
+              <!-- 200 -->
+              <line x1="0" y1="260" x2="1000" y2="260" stroke="#e9ecef"/>
+              <text x="-33" y="264">200</text>
+              <!-- 100 -->
+              <line x1="0" y1="286" x2="1000" y2="286" stroke="#e9ecef"/>
+              <text x="-33" y="290">100</text>
+            </g>
+
+            
+            <g font-family="Outfit, sans-serif" font-size="12" fill="#6c757d" transform="translate(0,310)">
+              
+              <text x="0"     y="24">Jan</text>
+              <text x="83"    y="24">Feb</text>
+              <text x="166"   y="24">Mar</text>
+              <text x="249"   y="24">Apr</text>
+              <text x="332"   y="24">May</text>
+              <text x="415"   y="24">Jun</text>
+              <text x="498"   y="24">Jul</text>
+              <text x="581"   y="24">Aug</text>
+              <text x="664"   y="24">Sep</text>
+              <text x="747"   y="24">Oct</text>
+              <text x="830"   y="24">Nov</text>
+              <text x="913"   y="24">Dec</text>
+            </g>
+
+            
+            <polyline fill="none" stroke="#2988CA" stroke-width="3"
+              points="0,250 83,210 166,200 249,196 332,198 415,204 498,190 581,174 664,160 747,166 830,150 913,100"/>
+            
+            <g fill="#2988CA" stroke="#fff" stroke-width="2">
+              <circle cx="0"   cy="250" r="4"/><circle cx="83"  cy="210" r="4"/><circle cx="166" cy="200" r="4"/>
+              <circle cx="249" cy="196" r="4"/><circle cx="332" cy="198" r="4"/><circle cx="415" cy="204" r="4"/>
+              <circle cx="498" cy="190" r="4"/><circle cx="581" cy="174" r="4"/><circle cx="664" cy="160" r="4"/>
+              <circle cx="747" cy="166" r="4"/><circle cx="830" cy="150" r="4"/><circle cx="913" cy="100" r="4"/>
+            </g>
+
+            
+            <polyline fill="none" stroke="#e74c3c" stroke-width="3"
+              points="0,260 83,240 166,250 249,248 332,260 415,268 498,238 581,230 664,220 747,224 830,236 913,170"/>
+            
+            <g fill="#e74c3c" stroke="#fff" stroke-width="2">
+              <circle cx="0"   cy="260" r="4"/><circle cx="83"  cy="240" r="4"/><circle cx="166" cy="250" r="4"/>
+              <circle cx="249" cy="248" r="4"/><circle cx="332" cy="260" r="4"/><circle cx="415" cy="268" r="4"/>
+              <circle cx="498" cy="238" r="4"/><circle cx="581" cy="230" r="4"/><circle cx="664" cy="220" r="4"/>
+              <circle cx="747" cy="224" r="4"/><circle cx="830" cy="236" r="4"/><circle cx="913" cy="170" r="4"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      
+      <div class="d-flex align-items-center mt-2" style="gap: 24px;">
+        <span class="d-inline-flex align-items-center">
+          <span class="me-2" style="display:inline-block;width:16px;height:16px;border:3px solid #e74c3c;border-radius:50%;"></span>
+          Despesas
+        </span>
+        <span class="d-inline-flex align-items-center">
+          <span class="me-2" style="display:inline-block;width:16px;height:16px;border:3px solid #2988CA;border-radius:50%;"></span>
+          Receitas
+        </span>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="card mt-4">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Emissão</th>
+              <th>Cliente/Fornecedor</th>
+              <th>Status</th>
+              <th>Forma de Pagamento</th>
+              <th>Valor</th>
+              <th class="text-center">Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>10/05/2025</td>
+              <td>Maria de Oliveira</td>
+              <td>Em aberto</td>
+              <td>Dinheiro</td>
+              <td>110,00</td>
+              <td class="text-center">
+                <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-trash3-fill"></i></button>
+              </td>
+            </tr>
+            <tr>
+              <td>25/06/2025</td>
+              <td>José da Silva</td>
+              <td>Em aberto</td>
+              <td>Crédito 1x</td>
+              <td>85,00</td>
+              <td class="text-center">
+                <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-trash3-fill"></i></button>
+              </td>
+            </tr>
+            <tr>
+              <td>01/07/2025</td>
+              <td>Marcos Aurélio</td>
+              <td>Pago</td>
+              <td>Credito 10x</td>
+              <td>240,00</td>
+              <td class="text-center">
+                <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-trash3-fill"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
   <!-- End Main -->
   </div>
 
