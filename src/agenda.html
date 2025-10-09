@@ -23,7 +23,7 @@
   <!-- End Header -->
 
   <!-- Start Sidebar -->
-  <div class="app d-flex">
+  <div class="app d-flex" >
     <aside class="sidebar p-3">
       <div class="d-flex align-items-center mb-3 ">
         <a href="dashboard.html">
@@ -45,8 +45,10 @@
           </a>
           <div class="collapse" id="CadastroCollapse" data-bs-parent=".sidebar">
             <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink" href="clientes_fornecedores.html">Clientes/Fornecedores</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="produtos_servicos.html">Produtos/Serviços</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink"
+                  href="clientes_fornecedores.html">Clientes/Fornecedores</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink" href="produtos_servicos.html">Produtos/Serviços</a>
+              </li>
             </ul>
           </div>
         </li>
@@ -94,7 +96,8 @@
           </a>
           <div class="collapse" id="RelatoriosCollapse" data-bs-parent=".sidebar">
             <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink" href="rel_produtos_servicos.html">Produtos/Serviços</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink"
+                  href="rel_produtos_servicos.html">Produtos/Serviços</a></li>
               <li class="nav-item"><a class="nav-link nav-sublink" href="rel_financeiro.html">Financeiro</a></li>
               <li class="nav-item"><a class="nav-link nav-sublink" href="rel_faturamento.html">Faturamento</a></li>
             </ul>
@@ -108,96 +111,126 @@
         </li>
       </ul>
     </aside>
-  <!-- End Sidebar -->
+    <!-- End Sidebar -->
 
 
-<!-- Start Main -->
+    <!-- Start Main -->
     <main class="flex-grow-1 p-4">
       <h1 class="h4 mb-3">Agenda</h1>
       <style>
-        .bnt-group me-2{
+        .bnt-group me-2 {
           box-sizing: inherit;
         }
       </style>
-      
-    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-      <div class="btn-group me-2" role="group" aria-label="First group">
-        <button type="button" class="btn btn-primary">Diário</button>
-      
-      </div>
-      <div class="btn-group me-2" role="group" aria-label="Second group">
-        <button type="button" class="btn btn-primary">Mensal</button>
 
-      </div>
-      <div class="btn-group me-2" role="group" aria-label="Third group">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#recorrenciaModal" onclick="abrirmodalrecorrencia">Gestão de Recorrências</button>
-      </div>
-      <div class="btn-group me-2" role="group" aria-label="Forth group">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novocompromissoModal" onclick="abrirmodalnovocompromisso(1)">Novo Compromisso</button>
-
-      </div>
-     
-    </div>
-
-    <style>
-      .now-day{
-        margin-top: 20px;
-      }
-    </style>
-
-    
-    <div class="now-day">
-      <h1> 11 de outubro</h1>
-    </div>
-
-    <style>
-      .main-footer{
-        margin-top: 20px;
-      }
-    </style>
-
-    <div class="main-content-flexible">
-        <div class="container">
-          <div class="d-grid ms-1 me-1 pt-1">
-            <div class="d-flex mt-2">
-
-              <div class="col-12 col-md-1 text-center">
-                <p>Domingo</p>
-                <div class="col-12 col-md-1 text-start">
-                  <p>01</p>
-                  <p>08</p>
-                </div>
-              </div>
-              <div class="col-12 col-md-2 text-center">
-                <p>Segunda-Feira</p>
-              </div>
-              <div class="col-12 col-md-2  text-center">
-                <p>Terça-Feira</p>
-              </div>
-              <div class="col-12 col-md-2 text-center">
-                <p>Quarta-Feira</p>
-              </div>
-              <div class="col-12 col-md-2  text-center">
-                <p>Quinta-Feira</p>
-              </div>
-              <div class="col-12 col-md-2  text-center">
-                <p>Sexta-Feira</p>
-              </div>
-              <div class="col-12 col-md-1  text-center">
-                <p>Sábado</p>
-              </div>
-              
-            </div>
-          </div>
+      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group me-2" role="group" aria-label="First group">
+          <button type="button" class="btn btn-primary">Diário</button>
 
         </div>
-        
+        <div class="btn-group me-2" role="group" aria-label="Second group">
+          <button type="button" class="btn btn-primary">Mensal</button>
 
-    </div>
-          
-    
-    </main>
-  <div class="modal fade" id="novocompromissoModal" tabindex="-1" aria-labelledby="novocompromissoModalLabel" aria-hidden="true">
+        </div>
+        <div class="btn-group me-2" role="group" aria-label="Third group">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#recorrenciaModal"
+            onclick="abrirmodalrecorrencia">Gestão de Recorrências</button>
+        </div>
+        <div class="btn-group me-2" role="group" aria-label="Forth group">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novocompromissoModal"
+            onclick="abrirmodalnovocompromisso(1)">Novo Compromisso</button>
+
+        </div>
+
+      </div>
+
+      <style>
+        .now-day {
+          margin-top: 20px;
+        }
+      </style>
+
+
+      <div class="now-day">
+        <h1> 11 de outubro</h1>
+      </div>
+
+      <style>
+        .main-footer {
+          margin-top: 20px;
+        }
+      </style>
+
+      
+        <table class="table table-bordered" style="table-layout: fixed" >
+          <thead>
+            <th class="text-center">Segunda-Feira</th>
+            <th class="text-center">Terça-Feira</th>
+            <th class="text-center">Quarta-Feira</th>
+            <th class="text-center">Quinta-Feira</th>
+            <th class="text-center">Sexta-Feira</th>
+            <th class="text-center">Sábado</th>
+            <th class="text-center">Domingo</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+              <td>4</td>
+              <td class="table-active">5</td>
+              <td>6</td>
+              <td>7</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>9</td>
+              <td>10</td>
+              <td><strong>11</strong></td>
+              <td>12</td>
+              <td>13
+                <!-- <div class="col text-center">
+                  <p>Domingo</p>
+                  <div class="col text-start">
+                    asdfasdf
+                  </div>
+                </div> -->
+              </td>
+              <td>14</td>
+            </tr>
+            <tr>
+              <td>16</td>
+              <td>17</td>
+              <td>18</td>
+              <td>19</td>
+              <td>20</td>
+              <td>21</td>
+              <td>22</td>
+            </tr>
+            </tr>
+            <tr>
+              <td>23</td>
+              <td>24</td>
+              <td>25</td>
+              <td>26</td>
+              <td>27</td>
+              <td>28</td>
+              <td>29</td>
+            </tr>
+            </tr>
+            <tr>
+              <td>30</td>
+              <td>31</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+  <img src="img/agenda.png">
+  </main>
+
+  <div class="modal fade" id="novocompromissoModal" tabindex="-1" aria-labelledby="novocompromissoModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -207,11 +240,12 @@
         <div class="modal-body">
           <form id="formContaPagar">
             <input type="hidden" id="contaPagarId" value="">
-            
-            
+
+
             <div class="mb-3">
               <label for="modalDescricaoConta" class="form-label">Descrição do Compromisso</label>
-              <textarea class="form-control" id="modalDescricaoConta" rows="3" placeholder="Ex: Ligar para clinete"></textarea>
+              <textarea class="form-control" id="modalDescricaoConta" rows="3"
+                placeholder="Ex: Ligar para clinete"></textarea>
             </div>
             <div class="mb-3">
               <label for="modalVencimentoConta" class="form-label">Data do Compromisso</label>
@@ -227,7 +261,7 @@
     </div>
   </div>
 
-   <div class="modal fade" id="recorrenciaModal" tabindex="-1" aria-labelledby="recorrenciaModalLabel"
+  <div class="modal fade" id="recorrenciaModal" tabindex="-1" aria-labelledby="recorrenciaModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
