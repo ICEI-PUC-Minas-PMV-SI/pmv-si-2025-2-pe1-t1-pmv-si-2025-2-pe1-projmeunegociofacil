@@ -113,53 +113,52 @@
 
 <!-- Start Main -->
 <main class="flex-grow-1 p-4">
- 
-  <div class="container-fluid px-0">
-    <div class="row g-3 align-items-end">
-     
-      <div class="col-12 col-lg-6">
-        <div class="d-flex align-items-center flex-wrap gap-2">
-          <label class="me-2 mb-0 fw-semibold">Período:</label>
-          <input type="text" class="form-control" style="max-width: 200px;" value="01/01/2025">
-          <span class="mx-1">a</span>
-          <input type="text" class="form-control" style="max-width: 200px;" value="31/12/2025">
-        </div>
-      </div>
 
-      
-      <div class="col-12 col-lg-6">
-        <div class="d-flex align-items-center justify-content-lg-end flex-wrap gap-2">
-          <label class="me-2 mb-0 fw-semibold">Status:</label>
-          <select class="form-select" style="max-width: 260px;">
-            <option selected>Em aberto/Pago</option>
-          </select>
-        </div>
-      </div>
+      <div class="container-fluid px-0">
+        <div class="row g-3 align-items-end">
+          <h1 class="h4 mb-3">Relatório Financeiro</h1>
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-center flex-wrap gap-2">
+              <label class="me-2 mb-0 fw-semibold">Período:</label>
+              <input type="text" class="form-control" style="max-width: 200px;" value="01/01/2025">
+              <span class="mx-1">a</span>
+              <input type="text" class="form-control" style="max-width: 200px;" value="31/12/2025">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-center justify-content-md-end flex-wrap gap-2">
+              <label class="me-2 mb-0 fw-semibold">Status:</label>
+              <select class="form-select" style="max-width: 260px;">
+                <option selected>Em aberto/Pago</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-center flex-wrap gap-2">
+              <label class="me-2 mb-0 fw-semibold">Tipo:</label>
+              <div class="input-group" style="max-width: 260px;">
+                <input type="text" class="form-control" placeholder="A pagar/A receber">
+                <button class="btn btn-outline-secondary" type="button"><i class="bi bi-caret-down-fill"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-center justify-content-md-end flex-wrap gap-2">
+              <label class="me-2 mb-0 fw-semibold">Cliente/Fornecedor:</label>
+              <div class="input-group" style="max-width: 360px;">
+                <input type="text" class="form-control" placeholder="Selecione o cliente/fornecedor">
+                <button class="btn btn-outline-secondary" type="button"><i class="bi bi-caret-down-fill"></i></button>
+              </div>
 
-      
-      <div class="col-12 col-lg-6">
-        <div class="d-flex align-items-center flex-wrap gap-2">
-          <label class="me-2 mb-0 fw-semibold">Tipo:</label>
-          <div class="input-group" style="max-width: 260px;">
-            <input type="text" class="form-control" placeholder="A pagar/A receber">
-            <button class="btn btn-outline-secondary" type="button"><i class="bi bi-caret-down-fill"></i></button>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="d-flex justify-content-md-end  gap-2">
+              <button class="btn btn-primary">Filtrar</button>
+            </div>
           </div>
         </div>
       </div>
-
-      
-      <div class="col-12 col-lg-6">
-        <div class="d-flex align-items-center justify-content-lg-end flex-wrap gap-2">
-          <label class="me-2 mb-0 fw-semibold">Cliente/Fornecedor:</label>
-          <div class="input-group" style="max-width: 360px;">
-            <input type="text" class="form-control" placeholder="Selecione o cliente/fornecedor">
-            <button class="btn btn-outline-secondary" type="button"><i class="bi bi-caret-down-fill"></i></button>
-          </div>
-          <button class="btn btn-primary ms-lg-2">Filtrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   
   <div class="mt-4">

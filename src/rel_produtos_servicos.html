@@ -45,8 +45,10 @@
           </a>
           <div class="collapse" id="CadastroCollapse" data-bs-parent=".sidebar">
             <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink" href="clientes_fornecedores.html">Clientes/Fornecedores</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="produtos_servicos.html">Produtos/Serviços</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink"
+                  href="clientes_fornecedores.html">Clientes/Fornecedores</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink" href="produtos_servicos.html">Produtos/Serviços</a>
+              </li>
             </ul>
           </div>
         </li>
@@ -94,7 +96,8 @@
           </a>
           <div class="collapse show" id="RelatoriosCollapse" data-bs-parent=".sidebar">
             <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink active" href="rel_produtos_servicos.html">Produtos/Serviços</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink active"
+                  href="rel_produtos_servicos.html">Produtos/Serviços</a></li>
               <li class="nav-item"><a class="nav-link nav-sublink" href="rel_financeiro.html">Financeiro</a></li>
               <li class="nav-item"><a class="nav-link nav-sublink" href="rel_faturamento.html">Faturamento</a></li>
             </ul>
@@ -108,187 +111,122 @@
         </li>
       </ul>
     </aside>
-  <!-- End Sidebar -->
+    <!-- End Sidebar -->
 
 
-<!-- Start Main -->
-    <main>
-       <div>
-      <h1> Produtos/Serviços </h1>
-     <h3> Tipo: </h3>
-      <select class="form-select" aria-label="Default select example">
-  <option selected> Produto/serviço</option>
-  <option value="1"> Produto </option>
-  <option value="2"> serviço </option>
-</select>
-<h3> Produotos/Serviços: </h3>
-<select class="form-select" aria-label="Default select example">
-  <option selected> Selecione os  Produotos/Serviços </option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
-</select>
-<h3> Fornecedor: </h3>
-<select class="form-select" aria-label="Default select example">
-  <option selected> Selecione o Fornecedor </option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
-  </select>
+    <!-- Start Main -->
+    <main class="flex-grow-1 p-4">
 
-<h3> Estoque: </h3>
-<select class="form-select" aria-label="Default select example">
-  <option selected> Em Estoque/sem Estoque </option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
-  </select>
-    </div>
-<button type="button" class="btn btn-primary">Filtrar</button>
-    <div 
+      <div class="container-fluid px-0">
+        <div class="row g-3 align-items-end">
+          <h1 class="h4 mb-3">Relatório de Produtos/Serviços</h1>
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-center flex-wrap gap-2">
+              <label class="me-2 mb-0 fw-semibold">Tipo:</label>
+              <div class="input-group" style="max-width: 260px;">
+                <input type="text" class="form-control" placeholder="Produto/Serviço">
+                <button class="btn btn-outline-secondary" type="button"><i class="bi bi-caret-down-fill"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-center justify-content-md-end flex-wrap gap-2">
+              <label class="me-2 mb-0 fw-semibold">Fornecedor:</label>
+              <select class="form-select" style="max-width: 260px;">
+                <option selected>Selecione o Fornecedor</option>
+              </select>
+            </div>
+          </div>
 
- class="conteiner">
-  <caption>
-    Produtos/serviços
-  </caption>
-  <table class="table table-hover table-bordered">
-    
-    <thead>
-      <tr>
-      <th>codigo</th>
-      <th>Tipo</th>
-      <th>Estoque</th>
-      <th>produtos/servicos</th>
-      <th>vendas realizadas</th>
-      <th>Preços(r$)</th>
-      <th>Ação</th>
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-center  flex-wrap gap-2">
+              <label class="me-2 mb-0 fw-semibold">Produtos/Serviços:</label>
+              <div class="input-group" style="max-width: 360px;">
+                <input type="text" class="form-control" placeholder="Selecione os itens">
+                <button class="btn btn-outline-secondary" type="button"><i class="bi bi-caret-down-fill"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-center justify-content-md-end flex-wrap gap-2">
+              <label class="me-2 mb-0 fw-semibold">Saldo:</label>
+              <select class="form-select" style="max-width: 260px;">
+                <option selected>Em Estoque/Sem Estoque</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="d-flex mt-4 mb-4 justify-content-md-end  gap-2">
+            <button class="btn btn-primary">Filtrar</button>
+          </div>
+        </div>
+      </div>
 
-    </tr></thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Produto</td>
-        <td>27</td>
-        <td>Biscoito recheado</td>
-        <td>3</td>
-        <td>5,30</td>
-        <td>        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-</svg>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
-</svg>
-      </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Produto</td>
-        <td>06 </td>
-        <td>Detergente</td>
-        <td>8</td>
-        <td>2,25</td>
-        <td> 
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-</svg>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
-</svg> </td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Produto</td>
-        <td> 18</td>
-        <td> Detergente</td>
-        <td>13</td>
-        <td>3.70</td>
-        <td> 
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-</svg>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
-</svg> </td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>Produto</td>
-        <td>12</td>
-        <td>Arroz</td>
-        <td>11</td>
-        <td>14,00</td>
-        <td>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-</svg>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
-</svg>
-        </td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>serviço</td>
-        <td>00</td>
-        <td> Pintura de porta</td>
-        <td>08</td>
-        <td>100,00</td>
-        <td>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-</svg>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
-</svg>
-        </td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>serviço</td>
-        <td>00</td>
-        <td>Instalação de tomada</td>
-        <td>10</td>
-        <td>25,00</td>
-        <td> 
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-</svg>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
-</svg>
-        </td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td>serviço</td>
-        <td>00</td>
-        <td>Instalação de luminaria</td>
-        <td>09</td>
-        <td>30,00</td>
-        <td> 
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-</svg>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
-</svg>
-        </td>
-      </tr>
 
-    </tbody>
-  </table>
- </div>
+      <div class="card mb-4">
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0" id="tabelaProdutosServicos">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">Código</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Descrição</th>
+                  <th scope="col">Unidade</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">Saldo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="item-1" data-codigo="1" data-tipo="Produto" data-descricao="Biscoito Recheado"
+                  data-unidade="UN">
+                  <td>1</td>
+                  <td>Produto</td>
+                  <td>Biscoito Recheado</td>
+                  <td>UN</td>
+                  <td>5.90</td>
+                  <td>5</td>
+                </tr>
+                <tr id="item-1" data-codigo="1" data-tipo="Produto" data-descricao="Biscoito Recheado"
+                  data-unidade="UN">
+                  <td>1</td>
+                  <td>Produto</td>
+                  <td>Biscoito Recheado</td>
+                  <td>UN</td>
+                  <td>5.90</td>
+                  <td>5</td>
+                </tr>
+                <tr id="item-1" data-codigo="1" data-tipo="Produto" data-descricao="Biscoito Recheado"
+                  data-unidade="UN">
+                  <td>1</td>
+                  <td>Produto</td>
+                  <td>Biscoito Recheado</td>
+                  <td>UN</td>
+                  <td>5.90</td>
+                  <td>5</td>
+                </tr>
+                <tr id="item-1" data-codigo="1" data-tipo="Produto" data-descricao="Biscoito Recheado"
+                  data-unidade="UN">
+                  <td>1</td>
+                  <td>Produto</td>
+                  <td>Biscoito Recheado</td>
+                  <td>UN</td>
+                  <td>5.90</td>
+                  <td>5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </main>
-  <!-- End Main -->
   </div>
 
+  </main>
+  <!-- End Main -->
+
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
