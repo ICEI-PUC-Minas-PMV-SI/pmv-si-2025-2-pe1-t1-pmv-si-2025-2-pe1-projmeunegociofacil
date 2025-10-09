@@ -4,10 +4,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Meu Negócio Fácil - Dashboard</title>
+  <title>Meu Negócio Fácil - Relatório de Produtos/Serviços</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="styles.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
@@ -15,21 +15,24 @@
 </head>
 
 <body>
+  <!-- Start Header -->
   <div class="topbar d-flex align-items-center justify-content-between px-3">
     <div class="brand">Nome do Usuário Logado</div>
-    <button class="btn btn-sm btn-light">Logout</button>
+    <a href="index.html"><button class="btn btn-sm btn-light">Logout</button></a>
   </div>
+  <!-- End Header -->
 
+  <!-- Start Sidebar -->
   <div class="app d-flex">
     <aside class="sidebar p-3">
       <div class="d-flex align-items-center mb-3 ">
-        <a href="index.html">
+        <a href="dashboard.html">
           <img src="img/logo_menu.png" width="50%">
         </a>
       </div>
       <ul class="nav flex-column">
         <li class="nav-item mb-2">
-          <a class="nav-link active" href="#">
+          <a class="nav-link" href="dashboard.html">
             <span><i class="bi bi-house me-2"></i>Página Inicial</span>
           </a>
         </li>
@@ -42,8 +45,8 @@
           </a>
           <div class="collapse" id="CadastroCollapse" data-bs-parent=".sidebar">
             <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink" href="#">Clientes/Fornecedores</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="#">Produtos/Serviços</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink" href="clientes_fornecedores.html">Clientes/Fornecedores</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink" href="produtos_servicos.html">Produtos/Serviços</a></li>
             </ul>
           </div>
         </li>
@@ -56,15 +59,15 @@
           </a>
           <div class="collapse" id="FaturamentoCollapse" data-bs-parent=".sidebar">
             <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink" href="#">Produtos</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="#">Serviços</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="#">Vendas em Aberto</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink" href="faturamento_produtos.html">Produtos</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink" href="faturamento_servicos.html">Serviços</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink" href="vendas_aberto.html">Vendas em Aberto</a></li>
             </ul>
           </div>
         </li>
 
         <li class="nav-item mb-2">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="agenda.html">
             <span><i class="bi bi-calendar-event me-2"></i>Agenda</span>
           </a>
         </li>
@@ -77,8 +80,8 @@
           </a>
           <div class="collapse" id="FinanceiroCollapse" data-bs-parent=".sidebar">
             <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink" href="#">Contas a receber</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="#">Contas a pagar</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink" href="receber.html">Contas a receber</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink" href="pagar.html">Contas a pagar</a></li>
             </ul>
           </div>
         </li>
@@ -89,28 +92,31 @@
             <span><i class="bi bi-graph-up me-2"></i>Relatórios</span>
             <i class="bi bi-chevron-down"></i>
           </a>
-          <div class="collapse" id="RelatoriosCollapse" data-bs-parent=".sidebar">
+          <div class="collapse show" id="RelatoriosCollapse" data-bs-parent=".sidebar">
             <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink" href="#">Produtos/Serviços</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="#">Financeiro</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="#">Faturamento</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink active" href="rel_produtos_servicos.html">Produtos/Serviços</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink" href="rel_financeiro.html">Financeiro</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink" href="rel_faturamento.html">Faturamento</a></li>
             </ul>
           </div>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="configuracoes.html">
             <span><i class="bi bi-gear me-2"></i>Configurações</span>
           </a>
         </li>
       </ul>
     </aside>
-<!-- Início main -->
+  <!-- End Sidebar -->
+
+
+<!-- Start Main -->
     <main class="flex-grow-1 p-4">
-      <!-- <h1 class="h4 mb-3">Dashboard</h1> -->
-      <img src="img/dashboard.png" width="100%">
+      <h1 class="h4 mb-3">Relatório de Produtos/Serviços</h1>
+      <img src="img/rel_pro.png">
     </main>
-  <!-- Final main -->
+  <!-- End Main -->
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>

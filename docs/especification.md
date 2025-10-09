@@ -52,3 +52,18 @@ Optou-se pela abordagem de Personas, ao invés de Perfis de Usuário, por ser a 
  | RNF-03 | O sistema deve ser totalmente gratuito, sem limitações de acesso às funcionalidades. | Alta | 
  | RNF-04 | Garantir que cada usuário tenha acesso apenas aos dados da organização da qual faz parte. | Alta | 
  | RNF-05 | Permitir acesso offline. | Média | 
+
+ ### Metodologia
+
+Para o gerenciamento do projeto adotou-se a metodologia ágil **SCRUM**, por sua flexibilidade e foco na entrega de valor contínuo.   
+
+O trabalho foi organizado em Sprints semanais. Para a gestão visual das tarefas e acompanhamento do progresso de cada Sprint, utilizou-se um quadro Kanban na ferramenta Trello, com colunas como **Product Backlog, Sprint Backlog, Em Andamento e Concluído**. Reuniões semanais serão realizadas para planejar as atividades da semana seguinte e revisar o que foi entregue.
+
+ #### Ferramentas de apoio
+* **Trello**: Utilizado para a gestão de tarefas e organização do quadro Kanban.  
+
+* **Figma**: Ferramenta de design utilizada para a prototipagem da interface e criação da identidade visual do sistema.
+
+* **VS Code**: Ambiente de desenvolvimento principal para a codificação do projeto.
+
+* **Git & GitHub**: Essencial para o controle de versionamento do projeto.

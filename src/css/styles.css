@@ -1,0 +1,184 @@
+:root {
+  --primary-color: #2988CA;
+}
+
+body {
+  background: #f8f9fa;
+  font-family: "Outfit", sans-serif;
+  font-weight: 400;
+}
+
+.topbar {
+  background: var(--primary-color);
+  color: #fff;
+  height: 56px;
+}
+
+.brand {
+  font-weight: 700;
+}
+
+.app {
+  min-height: calc(100vh - 56px);
+}
+
+.sidebar {
+  width: 260px;
+  background: #fff;
+  border-right: 1px solid #e9ecef;
+  font-family: 'Outfit', sans-serif;
+  flex-shrink: 0;
+}
+
+/* Links principais */
+.nav-link {
+  border-radius: .5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  /* ajuste opcional do tamanho */
+  color: #212529;
+  display: flex;
+  justify-content: space-between;
+  /* seta à direita, ícone+texto à esquerda */
+  align-items: center;
+}
+
+/* Ícone + texto juntos */
+.nav-link span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* espaço entre ícone e texto */
+}
+
+/* Sublinks */
+.nav-sublink {
+  border-radius: .5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  /* mantém tamanho menor que o link principal */
+  padding-left: 1.5rem;
+  color: #212529;
+  font-family: 'Outfit', sans-serif;
+  /* garante fonte uniforme */
+}
+
+.nav-link.active {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.nav-link:hover {
+  background: #eef6fc;
+  color: #0d6efd;
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+/* Ícoone da seta gira */
+.nav-link[aria-expanded="true"] .bi-chevron-down {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
+
+#select_cliente_fat_produtos {
+  background-color: #ffffff;
+  color: #194f74;
+  border-color: #194f74;
+  /* border-width: 0.1rem; */
+  text-align: center;
+}
+
+#select_produto_fat_produtos {
+  background-color: #ffffff;
+  color: #194f74;
+  border-color: #194f74;
+  /* border-width: 0.1rem; */
+  text-align: left;
+}
+
+#select_produto_fat_produtos::placeholder {
+  color: #194f74;
+}
+
+
+.totallizer {
+  background-color: #2988CA;
+  border-radius: 0 0 20px 20px;
+  color: #fff;
+}
+
+.btn-light {
+  color: #194f74;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: #2988CA;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #2c91d9;
+  color: #fff;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 56px);
+}
+
+.main-content-flexible {
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.products_list {
+  /* background-color: #F5F5F5; */
+  position: relative;
+  height: 100%;
+
+}
+
+.products_list thead th {
+  position: sticky;
+  top: 0;
+  /* background-color: #DDE1E6; */
+  z-index: 1;
+}
+
+.bi-trash3-fill {
+  color: #212529;
+}
+
+.input-quantidade {
+  max-width: 4rem;
+
+}
+
+.tabelaModal a {
+  color: #194f74;
+  text-decoration: none;
+}
+
+.sep-insumos-produtos {
+  color: #194f74;
+  opacity: 100;
+
+}
+
+.titulo-sep-insumos-produtos {
+  color: #194f74;
+
+}
+
+.agenda {
+  border: #d1d1d1;
+  border-style: solid;
+  display: grid; 
+  border-radius: 10px;
+  border-width: 1px;
+}

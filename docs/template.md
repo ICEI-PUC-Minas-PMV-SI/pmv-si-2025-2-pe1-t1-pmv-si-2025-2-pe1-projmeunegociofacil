@@ -4,7 +4,7 @@
 
 ## Design
 
-Toda a identidade visual do **Meu Negócio Fácil** foi pensada com o intuito de ser o mais minimalista e intuitiva possivel.
+A identidade visual do **Meu Negócio Fácil** foi pensada com para ser o mais minimalista e interativa possível. Escolheu-se uma interface clean, facilitando a navegação e otimizando a experiência de uso, em alinhamento com as especificações do projeto.
 
 ![Acesso](img/template_layout.png)
 
@@ -16,25 +16,57 @@ Foi construído também o layout em HTML/CSS, que pode ser acessado aqui:
 
 ![Paleta de Cores](img/template_colors.png)
 
+Seguindo a estratégia de ser o mais intuitivo possível, o sistema será todo construído com base nas cores da marca **Meu Negócio Fácil**.
+
+
+
+
 
 
 ## Tipografia
 
-Apresente as fontes que serão utilizadas e sua função no site. As principais funções são: Título de página, Título de Seção, Rótulos de componentes e Corpo de Texto.
+Para a tipografia, foi escolhida a fonte **Outfit**, disponível no Google Fonts sob licença aberta. A escolha se justifica por sua legibilidade e versatilidade, oferecendo pesos que vão do ExtraLight ao Bold, permitindo uma hierarquia visual clara e consistente, contribuindo para a usabilidade e a estética minimalista do projeto.
+
+![Fonte](img/template_font.png)
+
+| Tag Html | Uso | Fonte | Tamanho |
+|-----------|-----|---------|-----------|
+| h1 | Títulos de Página | Outfit Bold | 40 px |
+| h2 | Títulos de Seção | Outfit SemiBold | 32 px |
+| h3 | Subtítulos | Outfit Bold | 28 px |
+| p | Parágrafos | Outfit Regular | 16 px |
+| small | Legendas | Outfit Regular | 14 px |
+
+
 
 
 ## Iconografia
 
-Defina os ícones que serão utilizados e suas respectivas funções.
+A iconografia do sistema foi selecionada para ser facilmente reconhecível e consistente com a proposta visual minimalista. Os ícones facilitam a identificação rápida das funcionalidades, tornando a navegação mais ágil e intuitiva.
 
-Apresente os estilos CSS criados para cada um dos elementos apresentados.
-Outras seções podem ser adicionadas neste documento para apresentar padrões de componentes, de menus, etc.
+Ícone do site no navegador (favicon)  
+![Favicon](img/ico/favicon.png) 
 
+Icone alusivo à Página Inicial  
+![Home](img/ico/home.png) 
 
-> **Links Úteis**:
->
-> -  [Como criar um guia de estilo de design da Web](https://edrodrigues.com.br/blog/como-criar-um-guia-de-estilo-de-design-da-web/#)
-> - [CSS Website Layout (W3Schools)](https://www.w3schools.com/css/css_website_layout.asp)
-> - [Website Page Layouts](http://www.cellbiol.com/bioinformatics_web_development/chapter-3-your-first-web-page-learning-html-and-css/website-page-layouts/)
-> - [Perfect Liquid Layout](https://matthewjamestaylor.com/perfect-liquid-layouts)
-> - [How and Why Icons Improve Your Web Design](https://usabilla.com/blog/how-and-why-icons-improve-you-web-design/)
+Icone alusivo às telas de Cadastro  
+![Cadastros](img/ico/cadastros.png)  
+
+Icone alusivo às telas de Faturamento  
+![Faturamento](img/ico/faturamento.png)  
+
+Icone alusivo à tela Agenda e alternância entre agenda diária e agenda mensal  
+![Agenda](img/ico/agenda.png)  
+
+Icone alusivo às telas do Financeiro  
+![Financeiro](img/ico/financeiro.png)  
+
+Icone alusivo às telas de Relatórios e Filtros  
+![Relatórios](img/ico/relatorios.png)  
+
+Icone alusivo à tela Configurações  
+![Configurações](img/ico/configuracao.png) 
+
+Botões de Ação (Edição, Gravação e Deleção)  
+![Ações](img/ico/acoes.png)  
