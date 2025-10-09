@@ -112,9 +112,128 @@
 
 
 <!-- Start Main -->
-    <main class="flex-grow-1 p-4">
-      <h1 class="h4 mb-3">Relatório de Produtos/Serviços</h1>
-      <img src="img/rel_pro.png">
+    <main>
+       <div>
+      <h1> Produtos/Serviços </h1>
+     <h3> Tipo: </h3>
+      <select class="form-select" aria-label="Default select example">
+  <option selected> Produto/serviço</option>
+  <option value="1"> Produto </option>
+  <option value="2"> serviço </option>
+</select>
+<h3> Produotos/Serviços: </h3>
+<select class="form-select" aria-label="Default select example">
+  <option selected> Selecione os  Produotos/Serviços </option>
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+</select>
+<h3> Fornecedor: </h3>
+<select class="form-select" aria-label="Default select example">
+  <option selected> Selecione o Fornecedor </option>
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+  </select>
+
+<h3> Estoque: </h3>
+<select class="form-select" aria-label="Default select example">
+  <option selected> Em Estoque/sem Estoque </option>
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+  </select>
+    </div>
+<button type="button" class="btn btn-primary">Filtrar</button>
+    <div 
+
+ class="conteiner">
+  <caption>
+    Produtos/serviços
+  </caption>
+  <table class="table table-hover table-bordered">
+    
+    <thead>
+      <tr>
+      <th>codigo</th>
+      <th>Tipo</th>
+      <th>Estoque</th>
+      <th>produtos/servicos</th>
+      <th>vendas realizadas</th>
+      <th>Preços(r$)</th>
+      <th>Ação</th>
+
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Produto</td>
+        <td>27</td>
+        <td>Biscoito recheado</td>
+        <td>3</td>
+        <td>5,30</td>
+        <td><i class="fa-solid fa-trash"></i>
+        <i class="fa-solid fa-pen-to-square"></i>
+      </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Produto</td>
+        <td>06 </td>
+        <td>Detergente</td>
+        <td>8</td>
+        <td>2,25</td>
+        <td>  </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Produto</td>
+        <td> 18</td>
+        <td> Detergente</td>
+        <td>13</td>
+        <td>3.70</td>
+        <td>  </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Produto</td>
+        <td>12</td>
+        <td>Arroz</td>
+        <td>11</td>
+        <td>14,00</td>
+        <td> </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>serviço</td>
+        <td>00</td>
+        <td> Pintura de porta</td>
+        <td>08</td>
+        <td>100,00</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>serviço</td>
+        <td>00</td>
+        <td>Instalação de tomada</td>
+        <td>10</td>
+        <td>25,00</td>
+        <td> </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>serviço</td>
+        <td>00</td>
+        <td>Instalação de luminaria</td>
+        <td>09</td>
+        <td>30,00</td>
+        <td> </td>
+      </tr>
+
+    </tbody>
+  </table>
+ </div>
     </main>
   <!-- End Main -->
   </div>
