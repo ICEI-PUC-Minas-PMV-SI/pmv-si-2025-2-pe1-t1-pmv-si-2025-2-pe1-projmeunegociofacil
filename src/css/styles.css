@@ -182,3 +182,15 @@ main {
   border-radius: 10px;
   border-width: 1px;
 }
+
+.topbar-home {
+  max-width: 1200px;
+}
+.btn-link{
+  text-decoration: none;
+  color: #194f74;
+}
+.btn-link:hover{
+  text-decoration: none;
+  color: #212529;
+}
