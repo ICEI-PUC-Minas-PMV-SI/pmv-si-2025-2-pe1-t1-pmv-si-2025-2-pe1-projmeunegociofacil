@@ -23,45 +23,43 @@
     <div class="topbar-home row align-items-center px-5 w-100 pb-3">
 
       <div class="col">
-        <a href="dashboard.html">
-          <img src="img/logo_home.png" class="img-fluid" style="max-width: 400px;">
-        </a>
+        <img src="img/logo_home.png" class="img-fluid" style="max-width: 400px;">
       </div>
 
       <div class="col d-flex justify-content-end align-items-center ">
-        <a class="btn btn-link px-4" data-bs-toggle="modal" data-bs-target="#BuscarProdutosModal">Efetuar Cadastro</a>
-        <a class="btn btn-primary px-5" data-bs-toggle="modal" data-bs-target="#BuscarProdutosModal">Login</a>
+        <a class="btn btn-link px-4" data-bs-toggle="modal" data-bs-target="#CadastroModal">Efetuar Cadastro</a>
+        <a class="btn btn-primary px-5" data-bs-toggle="modal" data-bs-target="#LoginModal">Login</a>
       </div>
 
     </div>
 
-    <div id="carouselExampleIndicators" class="carousel  carousel-dark slide">
+    <div id="carousel-home" class="carousel  carousel-dark slide">
       <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-          aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-          aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-          aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carousel-home" data-bs-slide-to="0" class="active" aria-current="true"
+          aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carousel-home" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carousel-home" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="img/slideshow/init.png" class="d-block w-100">
+          <a data-bs-toggle="modal" data-bs-target="#CadastroModal"><img src="img/slideshow/init.png"
+              class="d-block w-100"></a>
+
         </div>
         <div class="carousel-item">
-          <img src="img/slideshow/init.png" class="d-block w-100">
+          <a data-bs-toggle="modal" data-bs-target="#CadastroModal"><img src="img/slideshow/init.png"
+              class="d-block w-100"></a>
         </div>
         <div class="carousel-item">
-          <img src="img/slideshow/init.png" class="d-block w-100">
+          <a data-bs-toggle="modal" data-bs-target="#CadastroModal"><img src="img/slideshow/init.png"
+              class="d-block w-100"></a>
         </div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev">
+      <button class="carousel-control-prev" type="button" data-bs-target="#carousel-home" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="next">
+      <button class="carousel-control-next" type="button" data-bs-target="#carousel-home" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
@@ -85,7 +83,90 @@
 
 
   </div>
+  <!-- Start Modal Cadastro-->
+  <div class="modal fade" id="CadastroModal" tabindex="-1" aria-labelledby="CadastroModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="CadastroModalLabel">Efetuar Cadastro</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="contaPagarId" value="">
+          <div class="container">
+            <div class="row g-2 align-items-center">
+              <div class="col-12 col-md-3 p-1 pe-3">
+                <select class="form-select" id="modalStatusConta" aria-placeholder="">
+                  <option value="Descricao">Descrição</option>
 
+                  <option value="Codigo">Código</option>
+                  <option value="Referencia">Referência</option>
+                </select>
+              </div>
+              <div class="col-12 col-md-6 pe-3">
+                <input id="search_produto_fat_produtos" class="form-control" type="text" placeholder="Buscar">
+              </div>
+
+
+
+              <div class="col-12 col-md-3 p-3">
+                <!-- <a class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#CadastroModal"
+                      onclick="abrirModalContaPagar(null)" -->
+                <a class="btn btn-primary w-100" href="#">Buscar</a>
+              </div>
+            </div>
+
+
+
+
+          </div>
+          <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="salvarContaPagar()">Salvar</button>
+              </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Modal Cadastro-->
+  <!-- Start LoginModal-->
+  <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="LoginModalLabel">Login</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="col">
+            <form action="dashboard.html">
+              <div class="form-group">
+                <label for="user_mail">E-mail</label>
+                <input type="email" class="form-control mb-3" id="user_mail" aria-describedby="emailHelp"
+                  placeholder="Insira seu e-mail">
+
+              </div>
+              <div class="form-group">
+                <label for="user_password">Senha</label>
+                <input type="password" class="form-control mb-2" id="user_password" placeholder="Insira sua senha">
+              </div>
+              <div class="col form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Lembrar dados</label>
+              </div>
+              <div class="col text-end">
+                <button type="submit" class="btn btn-primary mb-3 text-end">Efetuar Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <!-- End LoginModal-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

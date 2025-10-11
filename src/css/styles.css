@@ -183,7 +183,7 @@ main {
   border-width: 1px;
 }
 
-.topbar-home {
+.topbar-home .footer-home {
   max-width: 1200px;
 }
 .btn-link{
@@ -194,3 +194,6 @@ main {
   text-decoration: none;
   color: #212529;
 }
+/* #carousel-home {
+  max-width: 800px;
+} */
