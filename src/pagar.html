@@ -12,6 +12,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png" />
   <style>
+    /* Estilos para o offcanvas funcionar como sidebar no desktop */
+    @media (min-width: 992px) {
+        /* A classe 'offcanvas-lg' faz com que o offcanvas fique visível no desktop */
+        .offcanvas-lg {
+            position: relative; /* Volta para o fluxo normal do documento */
+            visibility: visible !important;
+            transform: none !important;
+            flex-shrink: 0;
+            width: 280px; /* Largura fixa da sidebar no desktop (ajuste conforme necessário) */
+            border-right: 1px solid #dee2e6;
+        }
+        /* Garantir que o main-content ocupe o espaço restante */
+        .main-content {
+            flex-grow: 1;
+        }
+    }
     .table-responsive {
         max-height: 500px; /* Altura máxima para a tabela */
         overflow-y: auto;
@@ -20,162 +36,177 @@
 </head>
 <body>
   <div class="topbar d-flex align-items-center justify-content-between px-3">
+    <button class="btn btn-sm btn-light d-lg-none me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+        <i class="bi bi-list"></i>
+    </button>
     <div class="brand">Nome do Usuário Logado</div>
     <a href="index.html"><button class="btn btn-sm btn-light">Logout</button></a>
   </div>
+
   <div class="app d-flex">
-    <aside class="sidebar p-3">
-      <div class="d-flex align-items-center mb-3 ">
-        <a href="dashboard.html">
-          <img src="img/logo_menu.png" width="50%">
-        </a>
-      </div>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2">
-          <a class="nav-link" href="dashboard.html">
-            <span><i class="bi bi-house me-2"></i>Página Inicial</span>
-          </a>
-        </li>
+    
+    <div class="offcanvas offcanvas-start offcanvas-lg" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+        
+        <div class="offcanvas-header d-lg-none"> <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Menu</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        
+        <div class="offcanvas-body p-3"> 
+            <div class="d-flex align-items-center mb-3 ">
+                <a href="dashboard.html">
+                    <img src="img/logo_menu.png" width="50%">
+                </a>
+            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2">
+                    <a class="nav-link" href="dashboard.html">
+                        <span><i class="bi bi-house me-2"></i>Página Inicial</span>
+                    </a>
+                </li>
 
-        <li class="nav-item mb-2">
-          <a class="nav-link d-flex justify-content-between" href="#CadastroCollapse" data-bs-toggle="collapse"
-            role="button" aria-expanded="false" aria-controls="CadastroCollapse">
-            <span><i class="bi bi-person-badge me-2"></i>Cadastros</span>
-            <i class="bi bi-chevron-down"></i>
-          </a>
-          <div class="collapse" id="CadastroCollapse" data-bs-parent=".sidebar">
-            <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink" href="clientes_fornecedores.html">Clientes/Fornecedores</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="produtos_servicos.html">Produtos/Serviços</a></li>
+                <li class="nav-item mb-2">
+                    <a class="nav-link d-flex justify-content-between" href="#CadastroCollapse" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="CadastroCollapse">
+                        <span><i class="bi bi-person-badge me-2"></i>Cadastros</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+                    <div class="collapse" id="CadastroCollapse" data-bs-parent="#offcanvasSidebar">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="clientes_fornecedores.html">Clientes/Fornecedores</a></li>
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="produtos_servicos.html">Produtos/Serviços</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item mb-2">
+                    <a class="nav-link d-flex justify-content-between" href="#FaturamentoCollapse" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="FaturamentoCollapse">
+                        <span><i class="bi bi-bag-check me-2"></i>Faturamento</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+                    <div class="collapse" id="FaturamentoCollapse" data-bs-parent="#offcanvasSidebar">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="faturamento_produtos.html">Produtos</a></li>
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="faturamento_servicos.html">Serviços</a></li>
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="vendas_aberto.html">Vendas em Aberto</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item mb-2">
+                    <a class="nav-link" href="agenda.html">
+                        <span><i class="bi bi-calendar-event me-2"></i>Agenda</span>
+                    </a>
+                </li>
+
+                <li class="nav-item mb-2">
+                    <a class="nav-link d-flex justify-content-between" href="#FinanceiroCollapse" data-bs-toggle="collapse"
+                        role="button" aria-expanded="true" aria-controls="FinanceiroCollapse">
+                        <span><i class="bi bi-wallet2 me-2"></i>Financeiro</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+                    <div class="collapse show" id="FinanceiroCollapse" data-bs-parent="#offcanvasSidebar">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="receber.html">Contas a receber</a></li>
+                            <li class="nav-item"><a class="nav-link nav-sublink active" href="pagar.html">Contas a pagar</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item mb-2">
+                    <a class="nav-link d-flex justify-content-between" href="#RelatoriosCollapse" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="RelatoriosCollapse">
+                        <span><i class="bi bi-graph-up me-2"></i>Relatórios</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+                    <div class="collapse" id="RelatoriosCollapse" data-bs-parent="#offcanvasSidebar">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="rel_produtos_servicos.html">Produtos/Serviços</a></li>
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="rel_financeiro.html">Financeiro</a></li>
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="rel_faturamento.html">Faturamento</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="configuracoes.html">
+                        <span><i class="bi bi-gear me-2"></i>Configurações</span>
+                    </a>
+                </li>
             </ul>
-          </div>
-        </li>
+        </div>
+    </div>
+    
+    <div class="main-content flex-grow-1"> 
+        <main class="p-4">
+            <h1 class="h4 mb-3">Contas a Pagar</h1>
 
-        <li class="nav-item mb-2">
-          <a class="nav-link d-flex justify-content-between" href="#FaturamentoCollapse" data-bs-toggle="collapse"
-            role="button" aria-expanded="false" aria-controls="FaturamentoCollapse">
-            <span><i class="bi bi-bag-check me-2"></i>Faturamento</span>
-            <i class="bi bi-chevron-down"></i>
-          </a>
-          <div class="collapse" id="FaturamentoCollapse" data-bs-parent=".sidebar">
-            <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink" href="faturamento_produtos.html">Produtos</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="faturamento_servicos.html">Serviços</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="vendas_aberto.html">Vendas em Aberto</a></li>
-            </ul>
-          </div>
-        </li>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contaPagarModal" onclick="abrirModalContaPagar(null)">
+                    <i class="bi bi-plus-lg me-2"></i>Nova Fatura
+                </button>
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar">
+                    <button class="btn btn-outline-secondary" type="button" id="button-search-pagar"><i class="bi bi-search"></i></button>
+                    <button class="btn btn-outline-secondary" type="button" id="button-filter-pagar"><i class="bi bi-filter"></i></button>
+                </div>
+            </div>
 
-        <li class="nav-item mb-2">
-          <a class="nav-link" href="agenda.html">
-            <span><i class="bi bi-calendar-event me-2"></i>Agenda</span>
-          </a>
-        </li>
-
-        <li class="nav-item mb-2">
-          <a class="nav-link d-flex justify-content-between" href="#FinanceiroCollapse" data-bs-toggle="collapse"
-            role="button" aria-expanded="true" aria-controls="FinanceiroCollapse">
-            <span><i class="bi bi-wallet2 me-2"></i>Financeiro</span>
-            <i class="bi bi-chevron-down"></i>
-          </a>
-          <div class="collapse show" id="FinanceiroCollapse" data-bs-parent=".sidebar">
-            <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink" href="receber.html">Contas a receber</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink active" href="pagar.html">Contas a pagar</a></li>
-            </ul>
-          </div>
-        </li>
-
-        <li class="nav-item mb-2">
-          <a class="nav-link d-flex justify-content-between" href="#RelatoriosCollapse" data-bs-toggle="collapse"
-            role="button" aria-expanded="false" aria-controls="RelatoriosCollapse">
-            <span><i class="bi bi-graph-up me-2"></i>Relatórios</span>
-            <i class="bi bi-chevron-down"></i>
-          </a>
-          <div class="collapse" id="RelatoriosCollapse" data-bs-parent=".sidebar">
-            <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink" href="rel_produtos_servicos.html">Produtos/Serviços</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="rel_financeiro.html">Financeiro</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="rel_faturamento.html">Faturamento</a></li>
-            </ul>
-          </div>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="configuracoes.html">
-            <span><i class="bi bi-gear me-2"></i>Configurações</span>
-          </a>
-        </li>
-      </ul>
-    </aside>
-  <main class="flex-grow-1 p-4">
-      <h1 class="h4 mb-3">Contas a Pagar</h1>
-
-      <div class="d-flex justify-content-between align-items-center mb-3">
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contaPagarModal" onclick="abrirModalContaPagar(null)">
-              <i class="bi bi-plus-lg me-2"></i>Nova Fatura
-          </button>
-          <div class="input-group" style="width: 300px;">
-              <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar">
-              <button class="btn btn-outline-secondary" type="button" id="button-search-pagar"><i class="bi bi-search"></i></button>
-              <button class="btn btn-outline-secondary" type="button" id="button-filter-pagar"><i class="bi bi-filter"></i></button>
-          </div>
-      </div>
-
-      <div class="card mb-4">
-          <div class="card-body p-0">
-              <div class="table-responsive">
-                  <table class="table table-hover mb-0" id="tabelaContasPagar">
-                      <thead class="table-light">
-                          <tr>
-                              <th scope="col">Status</th>
-                              <th scope="col">Tipo</th>
-                              <th scope="col">Valor</th>
-                              <th scope="col">Produtos / Serviços</th>
-                              <th scope="col">Vencimento</th>
-                              <th scope="col">Ação</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr id="conta-pagar-1" data-status="Pendente" data-tipo="Fornecedor" data-valor="450.00" data-descricao="Biscoito Recheado, arr..." data-vencimento="2025-09-30">
-                              <td>Pendente</td>
-                              <td>Fornecedor</td>
-                              <td>450,00</td>
-                              <td>Biscoito Recheado, arr...</td>
-                              <td>30/09/2025</td>
-                              <td>
-                                  <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaPagarModal" onclick="abrirModalContaPagar(1)"><i class="bi bi-pencil"></i></button>
-                                  <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a pagar', 1)"><i class="bi bi-trash"></i></button>
-                              </td>
-                          </tr>
-                          <tr id="conta-pagar-2" data-status="Pendente" data-tipo="Fornecedor" data-valor="670.00" data-descricao="Detergente" data-vencimento="2025-10-23">
-                              <td>Pendente</td>
-                              <td>Fornecedor</td>
-                              <td>670,00</td>
-                              <td>Detergente</td>
-                              <td>23/10/2025</td>
-                              <td>
-                                  <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaPagarModal" onclick="abrirModalContaPagar(2)"><i class="bi bi-pencil"></i></button>
-                                  <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a pagar', 2)"><i class="bi bi-trash"></i></button>
-                              </td>
-                          </tr>
-                          <tr id="conta-pagar-3" data-status="Pendente" data-tipo="Aluguel" data-valor="2500.00" data-descricao="Aluguel" data-vencimento="2025-10-15">
-                              <td>Pendente</td>
-                              <td>Aluguel</td>
-                              <td>2.500,00</td>
-                              <td>Aluguel</td>
-                              <td>15/10/2025</td>
-                              <td>
-                                  <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaPagarModal" onclick="abrirModalContaPagar(3)"><i class="bi bi-pencil"></i></button>
-                                  <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a pagar', 3)"><i class="bi bi-trash"></i></button>
-                              </td>
-                          </tr>
-                      </tbody>
-                  </table>
-              </div>
-          </div>
-      </div>
-    </main>
+            <div class="card mb-4">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0" id="tabelaContasPagar">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">Valor</th>
+                                    <th scope="col">Produtos / Serviços</th>
+                                    <th scope="col">Vencimento</th>
+                                    <th scope="col">Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="conta-pagar-1" data-status="Pendente" data-tipo="Fornecedor" data-valor="450.00" data-descricao="Biscoito Recheado, arr..." data-vencimento="2025-09-30">
+                                    <td>Pendente</td>
+                                    <td>Fornecedor</td>
+                                    <td>450,00</td>
+                                    <td>Biscoito Recheado, arr...</td>
+                                    <td>30/09/2025</td>
+                                    <td>
+                                        <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaPagarModal" onclick="abrirModalContaPagar(1)"><i class="bi bi-pencil"></i></button>
+                                        <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a pagar', 1)"><i class="bi bi-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr id="conta-pagar-2" data-status="Pendente" data-tipo="Fornecedor" data-valor="670.00" data-descricao="Detergente" data-vencimento="2025-10-23">
+                                    <td>Pendente</td>
+                                    <td>Fornecedor</td>
+                                    <td>670,00</td>
+                                    <td>Detergente</td>
+                                    <td>23/10/2025</td>
+                                    <td>
+                                        <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaPagarModal" onclick="abrirModalContaPagar(2)"><i class="bi bi-pencil"></i></button>
+                                        <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a pagar', 2)"><i class="bi bi-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr id="conta-pagar-3" data-status="Pendente" data-tipo="Aluguel" data-valor="2500.00" data-descricao="Aluguel" data-vencimento="2025-10-15">
+                                    <td>Pendente</td>
+                                    <td>Aluguel</td>
+                                    <td>2.500,00</td>
+                                    <td>Aluguel</td>
+                                    <td>15/10/2025</td>
+                                    <td>
+                                        <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaPagarModal" onclick="abrirModalContaPagar(3)"><i class="bi bi-pencil"></i></button>
+                                        <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a pagar', 3)"><i class="bi bi-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
   </div>
 
   <div class="modal fade" id="contaPagarModal" tabindex="-1" aria-labelledby="contaPagarModalLabel" aria-hidden="true">
