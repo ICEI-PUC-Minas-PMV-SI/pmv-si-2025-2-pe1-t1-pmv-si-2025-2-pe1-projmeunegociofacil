@@ -200,10 +200,27 @@ main {
 /* #carousel-home {
   max-width: 800px;
 } */
-.now-day {
-  margin-top: 20px;
-}
+
 
 .main-footer {
   margin-top: 20px;
+}
+
+.coluna-hora-agenda-diaria {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.table-responsive-contas {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.table-responsive-agenda-diaria {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.dia-agenda-mensal {
+  height: 100px;
 }

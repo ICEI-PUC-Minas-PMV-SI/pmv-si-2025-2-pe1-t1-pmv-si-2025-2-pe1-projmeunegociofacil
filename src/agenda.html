@@ -147,8 +147,16 @@
 
 
       <div class="collapse multi-collapse show" id="agendaMensal">
-        <div class="now-day">
-          <h1> 11 de outubro</h1>
+        <div class="row mt-4">
+          <div class="col-1">
+            <div class="col"><i class="bi bi-chevron-left"></i></div>
+          </div>
+          <div class="col-10">
+            <h4 class="text-center">Segunda-Feira, 13 de outubro de 2025</h4>
+          </div>
+          <div class="col-1">
+            <div class="col text-end"><i class="bi bi-chevron-right"></i></div>
+          </div>
         </div>
         <table class="table table-bordered" style="table-layout: fixed">
           <thead>
@@ -162,7 +170,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>1</td>
+              <td class="dia-agenda-mensal">1</td>
               <td>2</td>
               <td>3</td>
               <td>4</td>
@@ -215,75 +223,188 @@
       </div>
 
       <div class="collapse multi-collapse" id="agendaDiaria">
-        <div class="now-day">
-          <h1>Agenda do Dia 11 de outubro</h1>
-        </div>
-        <table class="table table-bordered" style="table-layout: fixed">
-          <thead>
-            <th class="text-center">AAAAAAAAA</th>
-            <th class="text-center">Terça-Feira</th>
-            <th class="text-center">Quarta-Feira</th>
-            <th class="text-center">Quinta-Feira</th>
-            <th class="text-center">Sexta-Feira</th>
-            <th class="text-center">Sábado</th>
-            <th class="text-center">Domingo</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td class="table-active">5</td>
-              <td>6</td>
-              <td>7</td>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td>9</td>
-              <td>10</td>
-              <td><strong>11</strong></td>
-              <td>12</td>
-              <td>13
-                <!-- <div class="col text-center">
+        <h1 class="mt-4">11 de outubro</h1>
+        <div class="row">
+          <div class="col-8">
+            <div class="table-responsive-agenda-diaria">
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="coluna-hora-agenda-diaria">00:00</td>
+                    <td></td>
+                  </tr>
+
+                  <tr>
+                    <td>01:00</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>02:00</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>03:00</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>04:00</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>05:00</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>06:00</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>07:00</td>
+                    <td></td>
+                  </tr>
+                  <tr id="initial-hour">
+                    <td>08:00</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>09:00</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>10:00</td>
+                    <td>Visitar cliente</td>
+                  </tr>
+                  <tr>
+                    <td>11:00</td>
+                    <td>Visitar cliente</td>
+                  </tr>
+                  <tr>
+                    <td>12:00</td>
+                    <td>Visitar cliente</td>
+                  </tr>
+                  <tr>
+                    <td>13:00</td>
+                    <td>Visitar cliente</td>
+                  </tr>
+                  <tr>
+                    <td>14:00</td>
+                    <td>Visitar cliente</td>
+                  </tr>
+                  <tr>
+                    <td>15:00</td>
+                    <td>Visitar cliente</td>
+                  </tr>
+                  <tr>
+                    <td>16:00</td>
+                    <td>Visitar cliente</td>
+                  </tr>
+                  <tr>
+                    <td>17:00</td>
+                    <td>Visitar cliente</td>
+                  </tr>
+                  <tr>
+                    <td>18:00</td>
+                    <td>Visitar cliente</td>
+                  </tr>
+                  <tr>
+                    <td>19:00</td>
+                    <td>Visitar cliente</td>
+                  </tr>
+                  <tr>
+                    <td>20:00</td>
+                    <td>Visitar cliente</td>
+                  </tr>
+                  <tr>
+                    <td>21:00</td>
+                    <td>Visitar cliente</td>
+                  </tr>
+                  <tr>
+                    <td>22:00</td>
+                    <td>Visitar cliente</td>
+                  </tr>
+                  <tr>
+                    <td>23:00</td>
+                    <td>Visitar cliente</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="row">
+              <div class="col"><i class="bi bi-chevron-left"></i></div>
+              <div class="col">
+                <h4>Outubro</h4>
+              </div>
+              <div class="col text-end"><i class="bi bi-chevron-right"></i></div>
+            </div>
+            <table class="table table-bordered">
+              <thead>
+                <th class="text-center ">S</th>
+                <th class="text-center">T</th>
+                <th class="text-center">Q</th>
+                <th class="text-center">Q</th>
+                <th class="text-center">S</th>
+                <th class="text-center">S</th>
+                <th class="text-center">D</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>4</td>
+                  <td class="table-active">5</td>
+                  <td>6</td>
+                  <td>7</td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td>9</td>
+                  <td>10</td>
+                  <td><strong>11</strong></td>
+                  <td>12</td>
+                  <td>13
+                    <!-- <div class="col text-center">
                   <p>Domingo</p>
                   <div class="col text-start">
                     asdfasdf
                   </div>
                 </div> -->
-              </td>
-              <td>14</td>
-            </tr>
-            <tr>
-              <td>16</td>
-              <td>17</td>
-              <td>18</td>
-              <td>19</td>
-              <td>20</td>
-              <td>21</td>
-              <td>22</td>
-            </tr>
-            </tr>
-            <tr>
-              <td>23</td>
-              <td>24</td>
-              <td>25</td>
-              <td>26</td>
-              <td>27</td>
-              <td>28</td>
-              <td>29</td>
-            </tr>
-            </tr>
-            <tr>
-              <td>30</td>
-              <td>31</td>
-            </tr>
-          </tbody>
-        </table>
+                  </td>
+                  <td>14</td>
+                </tr>
+                <tr>
+                  <td>16</td>
+                  <td>17</td>
+                  <td>18</td>
+                  <td>19</td>
+                  <td>20</td>
+                  <td>21</td>
+                  <td>22</td>
+                </tr>
+                </tr>
+                <tr>
+                  <td>23</td>
+                  <td>24</td>
+                  <td>25</td>
+                  <td>26</td>
+                  <td>27</td>
+                  <td>28</td>
+                  <td>29</td>
+                </tr>
+                </tr>
+                <tr>
+                  <td>30</td>
+                  <td>31</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
   </div>
-  </div>
-  <img src="img/agenda.png">
+  <!-- <img src="img/agenda.png"> -->
   </main>
 
   <div class="modal fade" id="novocompromissoModal" tabindex="-1" aria-labelledby="novocompromissoModalLabel"
@@ -364,7 +485,7 @@
   </div>
   <!-- End Main -->
   </div>
-
+  <script src="/scripts/agenda.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
