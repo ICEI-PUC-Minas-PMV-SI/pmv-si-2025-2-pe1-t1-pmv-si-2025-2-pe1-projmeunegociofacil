@@ -178,7 +178,7 @@ main {
 .agenda {
   border: #d1d1d1;
   border-style: solid;
-  display: grid; 
+  display: grid;
   border-radius: 10px;
   border-width: 1px;
 }
@@ -186,14 +186,24 @@ main {
 .topbar-home .footer-home {
   max-width: 1200px;
 }
-.btn-link{
+
+.btn-link {
   text-decoration: none;
   color: #194f74;
 }
-.btn-link:hover{
+
+.btn-link:hover {
   text-decoration: none;
   color: #212529;
 }
+
 /* #carousel-home {
   max-width: 800px;
 } */
+.now-day {
+  margin-top: 20px;
+}
+
+.main-footer {
+  margin-top: 20px;
+}

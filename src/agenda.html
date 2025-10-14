@@ -23,7 +23,7 @@
   <!-- End Header -->
 
   <!-- Start Sidebar -->
-  <div class="app d-flex" >
+  <div class="app d-flex">
     <aside class="sidebar p-3">
       <div class="d-flex align-items-center mb-3 ">
         <a href="dashboard.html">
@@ -125,13 +125,12 @@
 
       <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group me-2" role="group" aria-label="First group">
-          <button type="button" class="btn btn-primary">Diário</button>
+          <button type="button" class="btn btn-primary" type="button" data-bs-toggle="collapse"
+            data-bs-target=".multi-collapse" aria-expanded="false"
+            aria-controls="agendaMensal agendaDiaria">Diário/Mensal</button>
 
         </div>
-        <div class="btn-group me-2" role="group" aria-label="Second group">
-          <button type="button" class="btn btn-primary">Mensal</button>
 
-        </div>
         <div class="btn-group me-2" role="group" aria-label="Third group">
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#recorrenciaModal"
             onclick="abrirmodalrecorrencia">Gestão de Recorrências</button>
@@ -139,30 +138,19 @@
         <div class="btn-group me-2" role="group" aria-label="Forth group">
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novocompromissoModal"
             onclick="abrirmodalnovocompromisso(1)">Novo Compromisso</button>
-
         </div>
-
       </div>
 
-      <style>
-        .now-day {
-          margin-top: 20px;
-        }
-      </style>
 
 
-      <div class="now-day">
-        <h1> 11 de outubro</h1>
-      </div>
 
-      <style>
-        .main-footer {
-          margin-top: 20px;
-        }
-      </style>
 
-      
-        <table class="table table-bordered" style="table-layout: fixed" >
+
+      <div class="collapse multi-collapse show" id="agendaMensal">
+        <div class="now-day">
+          <h1> 11 de outubro</h1>
+        </div>
+        <table class="table table-bordered" style="table-layout: fixed">
           <thead>
             <th class="text-center">Segunda-Feira</th>
             <th class="text-center">Terça-Feira</th>
@@ -225,6 +213,75 @@
           </tbody>
         </table>
       </div>
+
+      <div class="collapse multi-collapse" id="agendaDiaria">
+        <div class="now-day">
+          <h1>Agenda do Dia 11 de outubro</h1>
+        </div>
+        <table class="table table-bordered" style="table-layout: fixed">
+          <thead>
+            <th class="text-center">AAAAAAAAA</th>
+            <th class="text-center">Terça-Feira</th>
+            <th class="text-center">Quarta-Feira</th>
+            <th class="text-center">Quinta-Feira</th>
+            <th class="text-center">Sexta-Feira</th>
+            <th class="text-center">Sábado</th>
+            <th class="text-center">Domingo</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+              <td>4</td>
+              <td class="table-active">5</td>
+              <td>6</td>
+              <td>7</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>9</td>
+              <td>10</td>
+              <td><strong>11</strong></td>
+              <td>12</td>
+              <td>13
+                <!-- <div class="col text-center">
+                  <p>Domingo</p>
+                  <div class="col text-start">
+                    asdfasdf
+                  </div>
+                </div> -->
+              </td>
+              <td>14</td>
+            </tr>
+            <tr>
+              <td>16</td>
+              <td>17</td>
+              <td>18</td>
+              <td>19</td>
+              <td>20</td>
+              <td>21</td>
+              <td>22</td>
+            </tr>
+            </tr>
+            <tr>
+              <td>23</td>
+              <td>24</td>
+              <td>25</td>
+              <td>26</td>
+              <td>27</td>
+              <td>28</td>
+              <td>29</td>
+            </tr>
+            </tr>
+            <tr>
+              <td>30</td>
+              <td>31</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
   </div>
   <img src="img/agenda.png">
   </main>
