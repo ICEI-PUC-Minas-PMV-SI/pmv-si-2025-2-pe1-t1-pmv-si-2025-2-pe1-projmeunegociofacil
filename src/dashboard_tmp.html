@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Meu Negócio Fácil - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png" />
+</head>
+
+
+<canvas id="grafico 1" style=" width:9px;
+            height: 4px;
+             ">
+</canvas>
+<script>const ctx = document.getElementById('grafico 1');
+
+    new Chart(ctx, {
+
+        type: 'bar',
+        data: {
+            labels: ['MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+            datasets: [{
+                label: 'R$',
+                data: [6, 4, 5, 5, 4, 4, 3, 3, 2, 5],
+
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(54, 162, 235, 0.5)'
+                ],
+                borderColor: [
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+                    'rgb(54, 162, 235)',
+
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 10
+                }
+            }
+        }
+    });
+</script>
+
+<head>
+    <title>Meta de vendas </title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+
+
+    
+
+    <script>
+        const ctx1 = document.getElementById('graficoProcesso');
+        const dadosRosca = {
+            labels: ['Metas', `Realizadas`],
+            datasets: [{
+                label: 'Proporção do Processo',
+                data: [33, 67,],
+                backgroundColor: [
+                    'rgb(200, 200, 200)',
+                    'rgb(54, 162, 235)',
+
+                ],
+                hoverOffset: 15
+            }]
+        };
+        new Chart(ctx1, {
+            type: 'doughnut',
+            data: dadosRosca,
+            options: {
+                responsive: true,
+
+                cutout: '70%',
+
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Meta de vendas'
+                    },
+
+                    datalabels: {
+                        formatter: (value, context) => {
+                            const data = context.chart.data.datasets[0].data;
+                            const total = data.reduce((sum, current) => sum + current, 0);
+                            const porcentagem = ((value / total) * 100).toFixed(1);
+
+                            return porcentagem + '%';
+                        },
+                        color: '#fff',
+                        font: {
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+    
