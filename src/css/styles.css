@@ -1,3 +1,27 @@
+/* Estilos para o offcanvas funcionar como sidebar no desktop */
+@media (min-width: 992px) {
+
+  /* A classe 'offcanvas-lg' faz com que o offcanvas fique visível no desktop */
+  .offcanvas-lg {
+    position: relative;
+    /* Volta para o fluxo normal do documento */
+    visibility: visible !important;
+    transform: none !important;
+    flex-shrink: 0;
+    width: 280px;
+    /* Largura fixa da sidebar no desktop (ajuste conforme necessário) */
+    border-right: 1px solid #dee2e6;
+    z-index: 0
+  }
+
+  /* Garantir que o main-content ocupe o espaço restante */
+  .main-content {
+    flex-grow: 1;
+  }
+}
+
+
+
 :root {
   --primary-color: #2988CA;
 }
@@ -221,28 +245,17 @@ main {
   overflow-y: auto;
 }
 
-.dia-agenda-mensal {
-  height: 100px;
+.compromisso-agenda-mensal {
+  height: 50px;
 }
 
+.dia-atual-agenda {
+  background-color: #194f74;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 10px;
+}
 
-/* Estilos para o offcanvas funcionar como sidebar no desktop */
-@media (min-width: 992px) {
-
-  /* A classe 'offcanvas-lg' faz com que o offcanvas fique visível no desktop */
-  .offcanvas-lg {
-    position: relative;
-    /* Volta para o fluxo normal do documento */
-    visibility: visible !important;
-    transform: none !important;
-    flex-shrink: 0;
-    width: 280px;
-    /* Largura fixa da sidebar no desktop (ajuste conforme necessário) */
-    border-right: 1px solid #dee2e6;
-  }
-
-  /* Garantir que o main-content ocupe o espaço restante */
-  .main-content {
-    flex-grow: 1;
-  }
+.bnt-group me-2 {
+  box-sizing: inherit;
 }
