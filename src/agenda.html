@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,104 +12,111 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png" />
 </head>
-
 <body>
   <!-- Start Header -->
   <div class="topbar d-flex align-items-center justify-content-between px-3">
+    <button class="btn btn-sm btn-light d-lg-none me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+        <i class="bi bi-list"></i>
+    </button>
     <div class="brand">Nome do Usuário Logado</div>
     <a href="index.html"><button class="btn btn-sm btn-light">Logout</button></a>
   </div>
   <!-- End Header -->
 
   <!-- Start Sidebar -->
-  <div class="app d-flex">
-    <aside class="sidebar p-3">
-      <div class="d-flex align-items-center mb-3 ">
-        <a href="dashboard.html">
-          <img src="img/logo_menu.png" width="50%">
-        </a>
-      </div>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2">
-          <a class="nav-link" href="dashboard.html">
-            <span><i class="bi bi-house me-2"></i>Página Inicial</span>
-          </a>
-        </li>
+ <div class="app d-flex">
+    
+    <div class="offcanvas offcanvas-start offcanvas-lg" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+        
+        <div class="offcanvas-header d-lg-none"> <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Menu</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        
+        <div class="offcanvas-body p-3"> 
+            <div class="d-flex align-items-center mb-3 ">
+                <a href="dashboard.html">
+                    <img src="img/logo_menu.png" width="50%">
+                </a>
+            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2">
+                    <a class="nav-link" href="dashboard.html">
+                        <span><i class="bi bi-house me-2"></i>Página Inicial</span>
+                    </a>
+                </li>
 
-        <li class="nav-item mb-2">
-          <a class="nav-link d-flex justify-content-between" href="#CadastroCollapse" data-bs-toggle="collapse"
-            role="button" aria-expanded="false" aria-controls="CadastroCollapse">
-            <span><i class="bi bi-person-badge me-2"></i>Cadastros</span>
-            <i class="bi bi-chevron-down"></i>
-          </a>
-          <div class="collapse" id="CadastroCollapse" data-bs-parent=".sidebar">
-            <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink"
-                  href="clientes_fornecedores.html">Clientes/Fornecedores</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="produtos_servicos.html">Produtos/Serviços</a>
-              </li>
+                <li class="nav-item mb-2">
+                    <a class="nav-link d-flex justify-content-between" href="#CadastroCollapse" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="CadastroCollapse">
+                        <span><i class="bi bi-person-badge me-2"></i>Cadastros</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+                    <div class="collapse" id="CadastroCollapse" data-bs-parent="#offcanvasSidebar">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="clientes_fornecedores.html">Clientes/Fornecedores</a></li>
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="produtos_servicos.html">Produtos/Serviços</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item mb-2">
+                    <a class="nav-link d-flex justify-content-between" href="#FaturamentoCollapse" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="FaturamentoCollapse">
+                        <span><i class="bi bi-bag-check me-2"></i>Faturamento</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+                    <div class="collapse" id="FaturamentoCollapse" data-bs-parent="#offcanvasSidebar">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="faturamento_produtos.html">Produtos</a></li>
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="faturamento_servicos.html">Serviços</a></li>
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="vendas_aberto.html">Vendas em Aberto</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item mb-2">
+                    <a class="nav-link active" href="agenda.html">
+                        <span><i class="bi bi-calendar-event me-2"></i>Agenda</span>
+                    </a>
+                </li>
+
+                <li class="nav-item mb-2">
+                    <a class="nav-link d-flex justify-content-between" href="#FinanceiroCollapse" data-bs-toggle="collapse"
+                        role="button" aria-expanded="true" aria-controls="FinanceiroCollapse">
+                        <span><i class="bi bi-wallet2 me-2"></i>Financeiro</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+                    <div class="collapse" id="FinanceiroCollapse" data-bs-parent="#offcanvasSidebar">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="receber.html">Contas a receber</a></li>
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="pagar.html">Contas a pagar</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item mb-2">
+                    <a class="nav-link d-flex justify-content-between" href="#RelatoriosCollapse" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="RelatoriosCollapse">
+                        <span><i class="bi bi-graph-up me-2"></i>Relatórios</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+                    <div class="collapse" id="RelatoriosCollapse" data-bs-parent="#offcanvasSidebar">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="rel_produtos_servicos.html">Produtos/Serviços</a></li>
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="rel_financeiro.html">Financeiro</a></li>
+                            <li class="nav-item"><a class="nav-link nav-sublink" href="rel_faturamento.html">Faturamento</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="configuracoes.html">
+                        <span><i class="bi bi-gear me-2"></i>Configurações</span>
+                    </a>
+                </li>
             </ul>
-          </div>
-        </li>
-
-        <li class="nav-item mb-2">
-          <a class="nav-link d-flex justify-content-between" href="#FaturamentoCollapse" data-bs-toggle="collapse"
-            role="button" aria-expanded="false" aria-controls="FaturamentoCollapse">
-            <span><i class="bi bi-bag-check me-2"></i>Faturamento</span>
-            <i class="bi bi-chevron-down"></i>
-          </a>
-          <div class="collapse" id="FaturamentoCollapse" data-bs-parent=".sidebar">
-            <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink" href="faturamento_produtos.html">Produtos</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="faturamento_servicos.html">Serviços</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="vendas_aberto.html">Vendas em Aberto</a></li>
-            </ul>
-          </div>
-        </li>
-
-        <li class="nav-item mb-2">
-          <a class="nav-link active" href="agenda.html">
-            <span><i class="bi bi-calendar-event me-2"></i>Agenda</span>
-          </a>
-        </li>
-
-        <li class="nav-item mb-2">
-          <a class="nav-link d-flex justify-content-between" href="#FinanceiroCollapse" data-bs-toggle="collapse"
-            role="button" aria-expanded="false" aria-controls="FinanceiroCollapse">
-            <span><i class="bi bi-wallet2 me-2"></i>Financeiro</span>
-            <i class="bi bi-chevron-down"></i>
-          </a>
-          <div class="collapse" id="FinanceiroCollapse" data-bs-parent=".sidebar">
-            <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink" href="receber.html">Contas a receber</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="pagar.html">Contas a pagar</a></li>
-            </ul>
-          </div>
-        </li>
-
-        <li class="nav-item mb-2">
-          <a class="nav-link d-flex justify-content-between" href="#RelatoriosCollapse" data-bs-toggle="collapse"
-            role="button" aria-expanded="false" aria-controls="RelatoriosCollapse">
-            <span><i class="bi bi-graph-up me-2"></i>Relatórios</span>
-            <i class="bi bi-chevron-down"></i>
-          </a>
-          <div class="collapse" id="RelatoriosCollapse" data-bs-parent=".sidebar">
-            <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink"
-                  href="rel_produtos_servicos.html">Produtos/Serviços</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="rel_financeiro.html">Financeiro</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="rel_faturamento.html">Faturamento</a></li>
-            </ul>
-          </div>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="configuracoes.html">
-            <span><i class="bi bi-gear me-2"></i>Configurações</span>
-          </a>
-        </li>
-      </ul>
-    </aside>
+        </div>
+    </div>
     <!-- End Sidebar -->
 
 
