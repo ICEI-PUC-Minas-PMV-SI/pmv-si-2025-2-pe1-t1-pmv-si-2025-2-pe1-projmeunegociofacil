@@ -13,7 +13,6 @@ Projeto de sistema de gestão gratuito para pequenos empreendedores.
 * Alex Daniel Muzzi Souza  
 * Augustus Dayrell de Moura Souza  
 * Lucas Mendes Fernandes  
-* Marlon Jeánasis de Almeida  
 * Matteo Leonardo Gysel  
 * Vitor Martins de Moraes
 
