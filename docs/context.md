@@ -5,12 +5,15 @@ Os pequenos negócios têm se consolidado como a força motriz da economia brasi
 
 ## Problema
 
-As soluções de gestão empresarial disponíveis no mercado são, em sua maioria, concebidas para empresas de maior porte, com estruturas complexas e recursos para investir em software. Essa desconexão cria uma barreira para os pequenos empreendedores, que encontram dificuldades na implementação desses sistemas devido às suas restrições financeiras, humanas e à falta de capacitação técnica (DIAS, 2022). As opções existentes são geralmente complexas e, mesmo quando oferecem versões gratuitas, impõem limites de funcionalidades. Como resultado, muitos se veem forçados a recorrer a métodos manuais ineficientes. Prova disso é que, segundo pesquisa do Centro de Apoio aos Pequenos Empreendimentos (CEAPE), 61% dos empreendedores brasileiros ainda utilizam caderno físico para controlar suas finanças (MONITOR MERCANTIL, 2023), uma prática suscetível a erros e que limita a visão estratégica do negócio.
+As soluções de gestão empresarial disponíveis no mercado são, em sua maioria, concebidas para empresas de maior porte, com estruturas complexas e recursos para investir em software. Essa desconexão cria uma barreira para os pequenos empreendedores, que encontram dificuldades na implementação desses sistemas devido às suas restrições financeiras, humanas e à falta de capacitação técnica [^1]. As opções existentes são geralmente complexas e, mesmo quando oferecem versões gratuitas, impõem limites de funcionalidades. Como resultado, muitos se veem forçados a recorrer a métodos manuais ineficientes. Prova disso é que, segundo pesquisa do Centro de Apoio aos Pequenos Empreendimentos (CEAPE), 61% dos empreendedores brasileiros ainda utilizam caderno físico para controlar suas finanças (MONITOR MERCANTIL, 2023), uma prática suscetível a erros e que limita a visão estratégica do negócio.
+
+---
+[^1]:DIAS, Lucas Leonardo da Cruz Medeiros. Vantagens e desafios do uso de sistemas integrados de gestão (ERP) por pequenas e médias empresas no Brasil: uma revisão de literatura. 2022. 35 f. Trabalho de Conclusão de Curso (Graduação em Tecnologias da Informação e Comunicação) – Centro de Ciências, Tecnologia e Saúde, Universidade Federal de Santa Catarina, Araranguá, 2022.
 
 
 ## Objetivos
 
-### Objetivos Gerais
+### Objetivo Geral
 Desenvolver um sistema de gestão gratuito para pequenos empreendedores, que se adeque à sua realidade operacional, financeira e tecnológica.
 
 ### Objetivos Específicos
