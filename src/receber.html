@@ -11,28 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png" />
-  <style>
-    /* Estilos para o offcanvas funcionar como sidebar no desktop */
-    @media (min-width: 992px) {
-        /* A classe 'offcanvas-lg' faz com que o offcanvas fique visível no desktop */
-        .offcanvas-lg {
-            position: relative; /* Volta para o fluxo normal do documento */
-            visibility: visible !important;
-            transform: none !important;
-            flex-shrink: 0;
-            width: 280px; /* Largura fixa da sidebar no desktop */
-            border-right: 1px solid #dee2e6;
-        }
-        /* Garantir que o main-content comece logo após a sidebar */
-        .main-content {
-            flex-grow: 1;
-        }
-    }
-    .table-responsive {
-        max-height: 500px; /* Altura máxima para a tabela */
-        overflow-y: auto;
-    }
-  </style>
+
 </head>
 <body>
   <div class="topbar d-flex align-items-center justify-content-between px-3">
@@ -142,7 +121,7 @@
 
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contaReceberModal" onclick="abrirModalContaReceber(null)">
-                    <i class="bi bi-plus-lg me-2"></i>Nova Fatura
+                    Nova Fatura
                 </button>
                 <div class="input-group" style="width: 300px;">
                     <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar">
