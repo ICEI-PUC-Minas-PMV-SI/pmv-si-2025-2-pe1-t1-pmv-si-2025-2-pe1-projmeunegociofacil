@@ -5,7 +5,7 @@ Os pequenos negócios têm se consolidado como a força motriz da economia brasi
 
 ## Problema
 
-As soluções de gestão empresarial disponíveis no mercado são, em sua maioria, concebidas para empresas de maior porte, com estruturas complexas e recursos para investir em software. Essa desconexão cria uma barreira para os pequenos empreendedores, que encontram dificuldades na implementação desses sistemas devido às suas restrições financeiras, humanas e à falta de capacitação técnica. [^3] As opções existentes são geralmente complexas e, mesmo quando oferecem versões gratuitas, impõem limites de funcionalidades. Como resultado, muitos se veem forçados a recorrer a métodos manuais ineficientes. Prova disso é que, segundo pesquisa do Centro de Apoio aos Pequenos Empreendimentos (CEAPE), 61% dos empreendedores brasileiros ainda utilizam caderno físico para controlar suas finanças  uma prática suscetível a erros e que limita a visão estratégica do negócio. [^4]
+As soluções de gestão empresarial disponíveis no mercado são, em sua maioria, concebidas para empresas de maior porte, com estruturas complexas e recursos para investir em software. Essa desconexão cria uma barreira para os pequenos empreendedores, que encontram dificuldades na implementação desses sistemas devido às suas restrições financeiras, humanas e à falta de capacitação técnica. [^3] As opções existentes são geralmente complexas e, mesmo quando oferecem versões gratuitas, impõem limites de funcionalidades. Como resultado, muitos se veem forçados a recorrer a métodos manuais ineficientes. Prova disso é que, segundo pesquisa do Centro de Apoio aos Pequenos Empreendimentos (CEAPE), 61% dos empreendedores brasileiros ainda utilizam caderno físico para controlar suas finanças  uma prática suscetível a erros e que limita a visão estratégica do negócio. [^4] Portanto, o problema não é a ausência de softwares, mas a carência de uma solução que seja, de fato, acessível e adequada à realidade do microempreendedor.
 
 ---
 
@@ -26,9 +26,14 @@ As soluções de gestão empresarial disponíveis no mercado são, em sua maiori
 Desenvolver um sistema de gestão gratuito para pequenos empreendedores, que se adeque à sua realidade operacional, financeira e tecnológica.
 
 ### Objetivos Específicos
-* **Identificar** as ferramentas de gestão essenciais para o pequeno empreendedor;  
-* **Planejar** uma interface intuitiva para reduzir a curva de aprendizagem;  
-* **Criar** um sistema de gestão objetivo e minimalista, com foco no que é realmente necessário para o pequeno empreendedor.  
+
+**Realizar um diagnóstico** das necessidades de gestão dos pequenos empreendedores brasileiros, a fim de definir os requisitos essenciais.
+
+**Desenvolver o projeto** da solução, priorizando a usabilidade para usuários com pouca familiaridade tecnológica.
+
+**Codificar e implementar** os requisitos essenciais utilizando tecnologias de código aberto.
+
+**Avaliar a eficácia e usabilidade** do projeto funcional por meio de testes de usabilidade.
 
 
 ## Justificativa
@@ -37,8 +42,4 @@ O projeto **Meu Negócio Fácil** justifica-se como uma resposta direta à carê
 
 ## Público-Alvo
 
-O projeto é direcionado a microempreendedores e trabalhadores autônomos, em sua maioria MEIs acima de 30 anos, que encontram dificuldades com sistemas complexos na gestão do dia a dia de seus negócios.
- 
-Este público diverso, que vai de prestadores de serviços a pequenos comerciantes, busca uma ferramenta simples e intuitiva para gerenciar suas operações de forma prática, sem exigir conhecimento técnico avançado ou alto investimento.
-  
-A plataforma atenderá a esse segmento, historicamente negligenciado por soluções tradicionais, auxiliando na organização e crescimento dos negócios. Além disso, o projeto serve como um passo inicial para a inclusão digital e a futura formalização desses trabalhadores.
+O projeto destina-se a microempreendedores (MEIs) e autônomos que buscam uma ferramenta intuitiva e prática para gerir seus negócios, sem a necessidade de conhecimento técnico ou alto investimento.
