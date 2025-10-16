@@ -2,131 +2,313 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Meu Negócio Fácil - Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="favicon.png" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meu Negócio Fácil - Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png" />
 </head>
 
+<body>
+  <div class="topbar d-flex align-items-center justify-content-between px-3">
+    <button class="btn btn-sm btn-light d-lg-none me-3" type="button" data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+      <i class="bi bi-list"></i>
+    </button>
+    <div class="brand">Nome do Usuário Logado</div>
+    <a href="index.html"><button class="btn btn-sm btn-light">Logout</button></a>
+  </div>
 
-<canvas id="grafico 1" style=" width:9px;
+  <div class="app d-flex">
+
+    <div class="offcanvas offcanvas-start offcanvas-lg" tabindex="-1" id="offcanvasSidebar"
+      aria-labelledby="offcanvasSidebarLabel">
+
+      <div class="offcanvas-header d-lg-none">
+        <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+
+      <div class="offcanvas-body p-3">
+        <div class="d-flex align-items-center mb-3 ">
+          <a href="dashboard.html">
+            <img src="img/logo_menu.png" width="50%">
+          </a>
+        </div>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2">
+            <a class="nav-link active" href="dashboard.html">
+              <span><i class="bi bi-house me-2"></i>Página Inicial</span>
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a class="nav-link d-flex justify-content-between" href="#CadastroCollapse" data-bs-toggle="collapse"
+              role="button" aria-expanded="false" aria-controls="CadastroCollapse">
+              <span><i class="bi bi-person-badge me-2"></i>Cadastros</span>
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <div class="collapse" id="CadastroCollapse" data-bs-parent="#offcanvasSidebar">
+              <ul class="nav flex-column ms-3">
+                <li class="nav-item"><a class="nav-link nav-sublink"
+                    href="clientes_fornecedores.html">Clientes/Fornecedores</a></li>
+                <li class="nav-item"><a class="nav-link nav-sublink" href="produtos_servicos.html">Produtos/Serviços</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item mb-2">
+            <a class="nav-link d-flex justify-content-between" href="#FaturamentoCollapse" data-bs-toggle="collapse"
+              role="button" aria-expanded="false" aria-controls="FaturamentoCollapse">
+              <span><i class="bi bi-bag-check me-2"></i>Faturamento</span>
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <div class="collapse" id="FaturamentoCollapse" data-bs-parent="#offcanvasSidebar">
+              <ul class="nav flex-column ms-3">
+                <li class="nav-item"><a class="nav-link nav-sublink" href="faturamento_produtos.html">Produtos</a></li>
+                <li class="nav-item"><a class="nav-link nav-sublink" href="faturamento_servicos.html">Serviços</a></li>
+                <li class="nav-item"><a class="nav-link nav-sublink" href="vendas_aberto.html">Vendas em Aberto</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item mb-2">
+            <a class="nav-link" href="agenda.html">
+              <span><i class="bi bi-calendar-event me-2"></i>Agenda</span>
+            </a>
+          </li>
+
+          <li class="nav-item mb-2">
+            <a class="nav-link d-flex justify-content-between" href="#FinanceiroCollapse" data-bs-toggle="collapse"
+              role="button" aria-expanded="true" aria-controls="FinanceiroCollapse">
+              <span><i class="bi bi-wallet2 me-2"></i>Financeiro</span>
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <div class="collapse" id="FinanceiroCollapse" data-bs-parent="#offcanvasSidebar">
+              <ul class="nav flex-column ms-3">
+                <li class="nav-item"><a class="nav-link nav-sublink" href="receber.html">Contas a receber</a></li>
+                <li class="nav-item"><a class="nav-link nav-sublink" href="pagar.html">Contas a pagar</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item mb-2">
+            <a class="nav-link d-flex justify-content-between" href="#RelatoriosCollapse" data-bs-toggle="collapse"
+              role="button" aria-expanded="false" aria-controls="RelatoriosCollapse">
+              <span><i class="bi bi-graph-up me-2"></i>Relatórios</span>
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <div class="collapse" id="RelatoriosCollapse" data-bs-parent="#offcanvasSidebar">
+              <ul class="nav flex-column ms-3">
+                <li class="nav-item"><a class="nav-link nav-sublink"
+                    href="rel_produtos_servicos.html">Produtos/Serviços</a></li>
+                <li class="nav-item"><a class="nav-link nav-sublink" href="rel_financeiro.html">Financeiro</a></li>
+                <li class="nav-item"><a class="nav-link nav-sublink" href="rel_faturamento.html">Faturamento</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="configuracoes.html">
+              <span><i class="bi bi-gear me-2"></i>Configurações</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- End Sidebar -->
+
+
+    <!-- Start Main -->
+    <main class="flex-grow-1 p-4">
+      <h1 class="h4 mb-3">Página Inicial</h1>
+      <div class="container align-items-center">
+        <div class="d-flex justify-content-center">
+          <main>
+
+            <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>test </title>
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            </head>
+
+            <body>
+              <canvas id="grafico 1" style=" width:9px;
             height: 4px;
              ">
-</canvas>
-<script>const ctx = document.getElementById('grafico 1');
+              </canvas>
+              <script>const ctx = document.getElementById('grafico 1');
 
-    new Chart(ctx, {
+                new Chart(ctx, {
 
-        type: 'bar',
-        data: {
-            labels: ['MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
-            datasets: [{
-                label: 'R$',
-                data: [6, 4, 5, 5, 4, 4, 3, 3, 2, 5],
+                  type: 'bar',
+                  data: {
+                    labels: ['MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+                    datasets: [{
+                      label: 'R$',
+                      data: [6, 4, 5, 5, 4, 4, 3, 3, 2, 5],
 
-                backgroundColor: [
-                    'rgba(54, 162, 235, 0.5)',
-                    'rgba(54, 162, 235, 0.5)',
-                    'rgba(54, 162, 235, 0.5)',
-                    'rgba(54, 162, 235, 0.5)',
-                    'rgba(54, 162, 235, 0.5)',
-                    'rgba(54, 162, 235, 0.5)',
-                    'rgba(54, 162, 235, 0.5)',
-                    'rgba(54, 162, 235, 0.5)',
-                    'rgba(54, 162, 235, 0.5)',
-                    'rgba(54, 162, 235, 0.5)'
-                ],
-                borderColor: [
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
-                    'rgb(54, 162, 235)',
+                      backgroundColor: [
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(54, 162, 235, 0.5)'
+                      ],
+                      borderColor: [
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
+                        'rgb(54, 162, 235)',
 
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    min: 0,
-                    max: 10
+                      ],
+                      borderWidth: 1
+                    }]
+                  },
+                  options: {
+                    indexAxis: 'y',
+                    scales: {
+                      x: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 10
+                      }
+                    }
+                  }
+                });
+              </script>
+            </body>
+
+            <head>
+              <title>Meta de vendas </title>
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+              <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+              <style>
+                .chart-container {
+                  width: 200px;
+                  height: 200px;
+                  margin: 20px auto;
                 }
-            }
-        }
-    });
-</script>
+              </style>
+            </head>
 
-<head>
-    <title>Meta de vendas </title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+            <body>
 
+              <div class="chart-container">
+                <canvas id="graficoProcesso"></canvas>
+              </div>
 
+              <script>
+                const ctx1 = document.getElementById('graficoProcesso');
+                const dadosRosca = {
+                  labels: ['Metas', `Realizadas`],
+                  datasets: [{
+                    label: 'Proporção do Processo',
+                    data: [33, 67,],
+                    backgroundColor: [
+                      'rgb(200, 200, 200)',
+                      'rgb(54, 162, 235)',
 
-    
+                    ],
+                    hoverOffset: 15
+                  }]
+                };
+                new Chart(ctx1, {
+                  type: 'doughnut',
+                  data: dadosRosca,
+                  options: {
+                    responsive: true,
 
-    <script>
-        const ctx1 = document.getElementById('graficoProcesso');
-        const dadosRosca = {
-            labels: ['Metas', `Realizadas`],
-            datasets: [{
-                label: 'Proporção do Processo',
-                data: [33, 67,],
-                backgroundColor: [
-                    'rgb(200, 200, 200)',
-                    'rgb(54, 162, 235)',
+                    cutout: '70%',
 
-                ],
-                hoverOffset: 15
-            }]
-        };
-        new Chart(ctx1, {
-            type: 'doughnut',
-            data: dadosRosca,
-            options: {
-                responsive: true,
-
-                cutout: '70%',
-
-                plugins: {
-                    legend: {
+                    plugins: {
+                      legend: {
                         position: 'top',
-                    },
-                    title: {
+                      },
+                      title: {
                         display: true,
                         text: 'Meta de vendas'
-                    },
+                      },
 
-                    datalabels: {
+                      datalabels: {
                         formatter: (value, context) => {
-                            const data = context.chart.data.datasets[0].data;
-                            const total = data.reduce((sum, current) => sum + current, 0);
-                            const porcentagem = ((value / total) * 100).toFixed(1);
+                          const data = context.chart.data.datasets[0].data;
+                          const total = data.reduce((sum, current) => sum + current, 0);
+                          const porcentagem = ((value / total) * 100).toFixed(1);
 
-                            return porcentagem + '%';
+                          return porcentagem + '%';
                         },
                         color: '#fff',
                         font: {
-                            weight: 'bold'
+                          weight: 'bold'
                         }
+                      }
                     }
-                }
-            }
-        });
-    </script>
+                  }
+                });
+              </script>
+              </head>
+              <div class="conteiner">
+                <caption>
+                  Produtos em falta
+                </caption>
+                <table class="table table-hover table-bordered">
 
-    
+                  <thead>
+                    <tr>
+                      <th>codigo</th>
+                      <th>Tipo</th>
+                      <th>Nome/Razão social</th>
+                      <th>Unidade</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Produto</td>
+                      <td>Biscoito recheado</td>
+                      <td>UN</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Produto</td>
+                      <td>Detergente </td>
+                      <td>UN</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+
+
+          </main>
+          <!-- End Main -->
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
