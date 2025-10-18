@@ -15,122 +15,127 @@
 </head>
 
 <body>
+  <!-- Topar -->
   <div class="topbar d-flex align-items-center justify-content-between px-3">
-    <button class="btn btn-sm btn-light d-lg-none me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
-        <i class="bi bi-list"></i>
+    <button class="btn btn-sm btn-light d-lg-none me-3" type="button" data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+      <i class="bi bi-list"></i>
     </button>
     <div class="brand">Nome do Usuário Logado</div>
     <a href="index.html"><button class="btn btn-sm btn-light">Logout</button></a>
   </div>
 
+  <!-- Sidebar -->
   <div class="app d-flex">
-    
-    <div class="offcanvas offcanvas-start offcanvas-lg" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
-        
-        <div class="offcanvas-header d-lg-none"> <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Menu</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div class="offcanvas offcanvas-start offcanvas-lg" tabindex="-1" id="offcanvasSidebar"
+      aria-labelledby="offcanvasSidebarLabel">
+
+      <div class="offcanvas-header d-lg-none">
+        <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+
+      <div class="offcanvas-body p-3">
+        <div class="d-flex align-items-center mb-3 ">
+          <a href="dashboard.html">
+            <img src="img/logo_menu.png" width="50%">
+          </a>
         </div>
-        
-        <div class="offcanvas-body p-3"> 
-            <div class="d-flex align-items-center mb-3 ">
-                <a href="dashboard.html">
-                    <img src="img/logo_menu.png" width="50%">
-                </a>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2">
+            <a class="nav-link" href="dashboard.html">
+              <span><i class="bi bi-house me-2"></i>Página Inicial</span>
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a class="nav-link d-flex justify-content-between" href="#CadastroCollapse" data-bs-toggle="collapse"
+              role="button" aria-expanded="false" aria-controls="CadastroCollapse">
+              <span><i class="bi bi-person-badge me-2"></i>Cadastros</span>
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <div class="collapse" id="CadastroCollapse" data-bs-parent="#offcanvasSidebar">
+              <ul class="nav flex-column ms-3">
+                <li class="nav-item"><a class="nav-link nav-sublink"
+                    href="clientes_fornecedores.html">Clientes/Fornecedores</a></li>
+                <li class="nav-item"><a class="nav-link nav-sublink" href="produtos_servicos.html">Produtos/Serviços</a>
+                </li>
+              </ul>
             </div>
-            <ul class="nav flex-column">
-                <li class="nav-item mb-2">
-                    <a class="nav-link" href="dashboard.html">
-                        <span><i class="bi bi-house me-2"></i>Página Inicial</span>
-                    </a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a class="nav-link d-flex justify-content-between" href="#CadastroCollapse" data-bs-toggle="collapse"
-                        role="button" aria-expanded="false" aria-controls="CadastroCollapse">
-                        <span><i class="bi bi-person-badge me-2"></i>Cadastros</span>
-                        <i class="bi bi-chevron-down"></i>
-                    </a>
-                    <div class="collapse" id="CadastroCollapse" data-bs-parent="#offcanvasSidebar">
-                        <ul class="nav flex-column ms-3">
-                            <li class="nav-item"><a class="nav-link nav-sublink" href="clientes_fornecedores.html">Clientes/Fornecedores</a></li>
-                            <li class="nav-item"><a class="nav-link nav-sublink" href="produtos_servicos.html">Produtos/Serviços</a></li>
-                        </ul>
-                    </div>
-                </li>
+          </li>
 
-                <li class="nav-item mb-2">
-                    <a class="nav-link d-flex justify-content-between" href="#FaturamentoCollapse" data-bs-toggle="collapse"
-                        role="button" aria-expanded="false" aria-controls="FaturamentoCollapse">
-                        <span><i class="bi bi-bag-check me-2"></i>Faturamento</span>
-                        <i class="bi bi-chevron-down"></i>
-                    </a>
-                    <div class="collapse show" id="FaturamentoCollapse" data-bs-parent="#offcanvasSidebar">
-                        <ul class="nav flex-column ms-3">
-                            <li class="nav-item"><a class="nav-link nav-sublink active" href="faturamento_produtos.html">Produtos</a></li>
-                            <li class="nav-item"><a class="nav-link nav-sublink" href="faturamento_servicos.html">Serviços</a></li>
-                            <li class="nav-item"><a class="nav-link nav-sublink" href="vendas_aberto.html">Vendas em Aberto</a></li>
-                        </ul>
-                    </div>
-                </li>
+          <li class="nav-item mb-2">
+            <a class="nav-link d-flex justify-content-between" href="#FaturamentoCollapse" data-bs-toggle="collapse"
+              role="button" aria-expanded="false" aria-controls="FaturamentoCollapse">
+              <span><i class="bi bi-bag-check me-2"></i>Faturamento</span>
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <div class="collapse show" id="FaturamentoCollapse" data-bs-parent="#offcanvasSidebar">
+              <ul class="nav flex-column ms-3">
+                <li class="nav-item"><a class="nav-link nav-sublink active"
+                    href="faturamento_produtos.html">Produtos</a></li>
+                <li class="nav-item"><a class="nav-link nav-sublink" href="faturamento_servicos.html">Serviços</a></li>
+                <li class="nav-item"><a class="nav-link nav-sublink" href="vendas_aberto.html">Vendas em Aberto</a></li>
+              </ul>
+            </div>
+          </li>
 
-                <li class="nav-item mb-2">
-                    <a class="nav-link" href="agenda.html">
-                        <span><i class="bi bi-calendar-event me-2"></i>Agenda</span>
-                    </a>
-                </li>
+          <li class="nav-item mb-2">
+            <a class="nav-link" href="agenda.html">
+              <span><i class="bi bi-calendar-event me-2"></i>Agenda</span>
+            </a>
+          </li>
 
-                <li class="nav-item mb-2">
-                    <a class="nav-link d-flex justify-content-between" href="#FinanceiroCollapse" data-bs-toggle="collapse"
-                        role="button" aria-expanded="true" aria-controls="FinanceiroCollapse">
-                        <span><i class="bi bi-wallet2 me-2"></i>Financeiro</span>
-                        <i class="bi bi-chevron-down"></i>
-                    </a>
-                    <div class="collapse" id="FinanceiroCollapse" data-bs-parent="#offcanvasSidebar">
-                        <ul class="nav flex-column ms-3">
-                            <li class="nav-item"><a class="nav-link nav-sublink" href="receber.html">Contas a receber</a></li>
-                            <li class="nav-item"><a class="nav-link nav-sublink" href="pagar.html">Contas a pagar</a></li>
-                        </ul>
-                    </div>
-                </li>
+          <li class="nav-item mb-2">
+            <a class="nav-link d-flex justify-content-between" href="#FinanceiroCollapse" data-bs-toggle="collapse"
+              role="button" aria-expanded="true" aria-controls="FinanceiroCollapse">
+              <span><i class="bi bi-wallet2 me-2"></i>Financeiro</span>
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <div class="collapse" id="FinanceiroCollapse" data-bs-parent="#offcanvasSidebar">
+              <ul class="nav flex-column ms-3">
+                <li class="nav-item"><a class="nav-link nav-sublink" href="receber.html">Contas a receber</a></li>
+                <li class="nav-item"><a class="nav-link nav-sublink" href="pagar.html">Contas a pagar</a></li>
+              </ul>
+            </div>
+          </li>
 
-                <li class="nav-item mb-2">
-                    <a class="nav-link d-flex justify-content-between" href="#RelatoriosCollapse" data-bs-toggle="collapse"
-                        role="button" aria-expanded="false" aria-controls="RelatoriosCollapse">
-                        <span><i class="bi bi-graph-up me-2"></i>Relatórios</span>
-                        <i class="bi bi-chevron-down"></i>
-                    </a>
-                    <div class="collapse" id="RelatoriosCollapse" data-bs-parent="#offcanvasSidebar">
-                        <ul class="nav flex-column ms-3">
-                            <li class="nav-item"><a class="nav-link nav-sublink" href="rel_produtos_servicos.html">Produtos/Serviços</a></li>
-                            <li class="nav-item"><a class="nav-link nav-sublink" href="rel_financeiro.html">Financeiro</a></li>
-                            <li class="nav-item"><a class="nav-link nav-sublink" href="rel_faturamento.html">Faturamento</a></li>
-                        </ul>
-                    </div>
-                </li>
+          <li class="nav-item mb-2">
+            <a class="nav-link d-flex justify-content-between" href="#RelatoriosCollapse" data-bs-toggle="collapse"
+              role="button" aria-expanded="false" aria-controls="RelatoriosCollapse">
+              <span><i class="bi bi-graph-up me-2"></i>Relatórios</span>
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <div class="collapse" id="RelatoriosCollapse" data-bs-parent="#offcanvasSidebar">
+              <ul class="nav flex-column ms-3">
+                <li class="nav-item"><a class="nav-link nav-sublink"
+                    href="rel_produtos_servicos.html">Produtos/Serviços</a></li>
+                <li class="nav-item"><a class="nav-link nav-sublink" href="rel_financeiro.html">Financeiro</a></li>
+                <li class="nav-item"><a class="nav-link nav-sublink" href="rel_faturamento.html">Faturamento</a></li>
+              </ul>
+            </div>
+          </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="configuracoes.html">
-                        <span><i class="bi bi-gear me-2"></i>Configurações</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+          <li class="nav-item">
+            <a class="nav-link" href="configuracoes.html">
+              <span><i class="bi bi-gear me-2"></i>Configurações</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <!-- End Sidebar -->
 
-
-
-    <!-- Start Main -->
+    <!-- Main -->
     <main class="d-flex flex-column flex-grow-1 p-4">
       <div class="main-header">
         <h1 class="h4">Faturamento de Produtos</h1>
-        <!-- Start Filters -->
+        <!-- Filters -->
         <div class="container">
           <div class="row g-2 align-items-center ms-1 me-1">
 
             <div class="col-12 col-md-5 p-3">
               <input id="select_cliente_fat_produtos" data-bs-toggle="modal" data-bs-target="#SelectClientesModal"
-                type="text" class="select_cliente_fat_produtos form-control input-modal-trigger" id="categoriaInput"
-                Value="Consumidor Final" readonly style="cursor: pointer;">
+                type="text" class="select_cliente_fat_produtos form-control input-modal-trigger"
+                value="Consumidor Final" readonly style="cursor: pointer;">
             </div>
 
             <div class="col-12 col-md-5 p-3">
@@ -146,9 +151,7 @@
         </div>
       </div>
 
-      <!-- End Filters -->
-
-      <!-- Start Products -->
+      <!-- Products -->
       <div class="main-content-flexible ms-4 me-4 mb-1">
         <div class="flex-grow-1">
           <div class="container">
@@ -256,17 +259,17 @@
                       <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
                     </td>
                   </tr>
-
+                </tbody>
               </table>
             </div>
 
           </div>
         </div>
       </div>
-      <!-- End Products -->
 
-      <!-- Start Totallizer -->
+
       <div class="main-footer">
+        <!-- Totallizer -->
         <div class="container">
           <div class=" totallizer ms-3 me-3 pt-1">
             <div class="d-flex mt-2">
@@ -282,28 +285,27 @@
           </div>
 
         </div>
-        <!-- End Totallizer -->
-        <!-- Start Buttons -->
+        <!-- Buttons -->
         <div class="container">
           <div class="d-grid d-md-block mt-2 me-3 text-end">
 
             <a class="btn btn-secondary ps-4 pe-4 m-2" href="#" role="button">Cancelar</a>
 
-            <a class="btn btn-secondary ps-4 pe-4 m-2" href="#" role="button">Salvar</a>
+            <a class="btn btn-secondary ps-4 pe-4 m-2" href="#" role="button" data-bs-toggle="modal"
+              data-bs-target="#SaveModal">Gravar</a>
 
-            <a class="btn btn-primary ps-4 pe-4 m-2" href="#" role="button">Concluir</a>
+            <a class="btn btn-primary ps-4 pe-4 m-2" href="#" role="button" data-bs-toggle="modal"
+              data-bs-target="#CheckoutModal">Efetuar Pagamento</a>
           </div>
 
         </div>
-        <!-- End Buttons -->
 
       </div>
 
     </main>
-    <!-- End Main -->
   </div>
 
-  <!-- Start Modal Product-->
+  <!-- Modal Product -->
   <div class="modal fade" id="BuscarProdutosModal" tabindex="-1" aria-labelledby="BuscarProdutosModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -313,11 +315,10 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <input type="hidden" id="contaPagarId" value="">
           <div class="container">
             <div class="row g-2 align-items-center">
               <div class="col-12 col-md-3 p-1 pe-3">
-                <select class="form-select" id="modalStatusConta" aria-placeholder="">
+                <select class="form-select" aria-placeholder="">
                   <option value="Descricao">Descrição</option>
 
                   <option value="Codigo">Código</option>
@@ -350,7 +351,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr id="produto-1">
+                      <tr id="ProdutoModalSearch1">
                         <th><a class="link-item" href="#">1234567891011</a></th>
                         <td>552345</td>
                         <td>Descrição do produto</td>
@@ -358,7 +359,7 @@
                         <td>
                         </td>
                       </tr>
-                      <tr id="produto-1">
+                      <tr id="ProdutoModalSearch2">
                         <th><a href="#">1234567891011</a></th>
                         <td>552345</td>
                         <td>Descrição do produto</td>
@@ -366,7 +367,7 @@
                         <td>
                         </td>
                       </tr>
-                      <tr id="produto-1">
+                      <tr id="ProdutoModalSearch3">
                         <th><a href="#">1234567891011</a></th>
                         <td>552345</td>
                         <td>Descrição do produto</td>
@@ -374,7 +375,7 @@
                         <td>
                         </td>
                       </tr>
-                      <tr id="produto-1">
+                      <tr id="ProdutoModalSearch4">
                         <th><a href="#">1234567891011</a></th>
                         <td>552345</td>
                         <td>Descrição do produto</td>
@@ -382,7 +383,7 @@
                         <td>
                         </td>
                       </tr>
-                      <tr id="produto-1">
+                      <tr id="ProdutoModalSearch5">
                         <th><a href="#">1234567891011</a></th>
                         <td>552345</td>
                         <td>Descrição do produto</td>
@@ -390,7 +391,7 @@
                         <td>
                         </td>
                       </tr>
-                      <tr id="produto-1">
+                      <tr id="ProdutoModalSearch6">
                         <th><a href="#">1234567891011</a></th>
                         <td>552345</td>
                         <td>Descrição do produto</td>
@@ -398,7 +399,6 @@
                         <td>
                         </td>
                       </tr>
-
                     </tbody>
                   </table>
                 </div>
@@ -407,17 +407,13 @@
 
 
           </div>
-          <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="salvarContaPagar()">Salvar</button>
-              </div> -->
+
         </div>
       </div>
     </div>
   </div>
 
-  <!-- End Modal Product-->
-  <!-- Start Modal Clientes-->
+  <!-- Modal Clientes -->
   <div class="modal fade" id="SelectClientesModal" tabindex="-1" aria-labelledby="SelectClientesModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
@@ -427,10 +423,9 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <input type="hidden" id="contaPagarId" value="">
 
 
-          <input id="search_produto_fat_produtos" class="form-control mb-3" type="text" placeholder="Buscar">
+          <input id="SearchClientModalSelectClient" class="form-control mb-3" type="text" placeholder="Buscar">
 
           <div class="card mb-4">
             <div class="card-body p-0">
@@ -443,13 +438,13 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr id="produto-1">
+                    <tr id="ClientSelectClientModal1">
                       <th><a href="#">André Dos Santos</a></th>
                     </tr>
-                    <tr id="produto-1">
+                    <tr id="ClientSelectClientModal2">
                       <th><a href="#">Beatriz da Silva</a></th>
                     </tr>
-                    <tr id="produto-1">
+                    <tr id="ClientSelectClientModal3">
                       <th><a href="#">Carlos Eduardo</a></th>
                     </tr>
                   </tbody>
@@ -467,8 +462,118 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Ckeckout -->
+  <div class="modal fade" id="CheckoutModal" tabindex="-1" aria-labelledby="CheckoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="CheckoutModalLabel">Efetuar Pagamento</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row align-items-center text-end">
+            <div class="col-4 ">
+              <div class="row">
+                <div class="col"></div>
+                <h6 id="ViewSubtotalCheckout" class="mb-0"><small>Subtotal: <strong> 159,90</strong></small></h6>
+              </div>
+              <span id="ViewDiscountCheckout" class="text-danger"><small>Desconto: <strong>
+                    10,00</strong></small></span>
+              <h5 id="ViewTotalCheckout" class="mb-0">Total:<strong> 149,90</strong></h5>
+              <h6 id="ViewParcCheckout" class="mb-0"><small><strong>6x</strong> 24,98</small></h6>
+            </div>
+            <div class="col-8">
+              <div class="row">
+                <div class="col">
+                  <h6 class="text-center">Desconto/Acréscimo</h6>
+                </div>
+                <div class="row align-items-center">
+                  <div class="col-12 mb-2">
+                    <select id="IncreaseCheckout" class="form-select" aria-placeholder="">
+                      <option value="increase">Acréscimo</option>
+                      <option value="discount">Desconto</option>
+                    </select>
+                  </div>
+                  <div class="col-4">
+                    <select id="TypeDiscountCheckout" class="form-select" aria-placeholder="">
+                      <option value="%">%</option>
+                      <option value="R$">R$</option>
+                    </select>
+                  </div>
+                  <div class="col-4"><input class="form-control" id="DiscountCheckout" type="text" placeholder="10,00">
+                  </div>
+                  <div class="col-4"><button type="button" class="btn btn-primary">Inserir</button></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <div class="row">
+            <h6>Forma de Pagamento</h6>
+            <div class="col">
+              <select class="form-select" aria-placeholder="">
+                <option value="Credito">Dinheiro</option>
+                <option value="Credito">Débito</option>
+                <option value="Debito">Crédito</option>
+              </select>
+            </div>
+            <div class="col">
+              <select class="form-select" aria-placeholder="">
+                <option value="avista">Á Vista</option>
+                <option value="1x">Crédito 1x</option>
+                <option value="2x">Crédito 2x</option>
+                <option value="3x">Crédito 3x</option>
+                <option value="4x">Crédito 4x</option>
+                <option value="5x">Crédito 5x</option>
+                <option value="6x">Crédito 6x</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="FinalizarVenda()">FinalizarVenda</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <!-- End Modal Clientes-->
+
+  <!-- Modal Save -->
+  <div class="modal fade" id="SaveModal" tabindex="-1" aria-labelledby="SaveModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="SaveModalLabel">Gravar Venda</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="d-flex align-items-center text-start flex-wrap gap-2">
+              <label class="fw-semibold">Cliente:</label>
+              <input class="form-control" style="max-width: 260px;" placeholder="Digite o nome do cliente" required>
+            </div>
+            <div class="d-flex align-items-center text-start flex-wrap gap-2">
+              <label class="fw-semibold mt-3">Telefone:</label>
+              <input class="form-control" style="max-width: 260px;" placeholder="Digite o telefone">
+            </div>
+            <div class="d-flex align-items-center text-start flex-wrap gap-2">
+              <label class="fw-semibold mt-3">CPF:</label>
+              <input class="form-control mb-3" style="max-width: 260px;" placeholder="Digite o CPF">
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="SalvarVenda()">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
