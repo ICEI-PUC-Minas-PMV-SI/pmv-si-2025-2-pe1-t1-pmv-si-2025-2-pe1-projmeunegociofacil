@@ -56,7 +56,7 @@ Armazena os dados do usuário principal do sistema (a empresa que utiliza o ERP)
 | endereco | Texto | Endereço completo (pode ser nulo) | "Rua das Flores, 123, São Paulo, SP" |
 | telefone | Texto | Número de telefone para contato | "(11) 99999-8888" |
 | email_login | Texto | Email utilizado para login no sistema | "admin@meuerp.com" |
-| senha_hash | Texto | Senha criptografada (hash) | "hash_da_senha" |
+| senha | Texto | Senha  | "abcd123*" |
 
 
 
