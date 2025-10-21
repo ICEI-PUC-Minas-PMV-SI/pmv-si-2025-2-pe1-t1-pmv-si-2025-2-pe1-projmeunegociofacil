@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,17 +12,45 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png" />
+  <script src="scripts/login.js"></script>
+
   <style>
     .table-responsive {
-        max-height: 500px; /* Altura máxima para a tabela */
-        overflow-y: auto;
+      max-height: 500px;
+      /* Altura máxima para a tabela */
+      overflow-y: auto;
     }
   </style>
+  <script>
+    // Verifica se o usuário já esta logado e se negativo, redireciona para tela de login        
+    if (!usuarioCorrente.email_login) {
+      window.location.href = LOGIN_URL;
+    }
+
+    function initPage() {
+
+      // Associa a função de logout ao botão
+      document.getElementById('btn_logout').addEventListener('click', logoutUser);
+
+      // Informa o nome do usuário logado
+      document.getElementById('nomeUsuario').innerHTML = usuarioCorrente.nome;
+
+
+    }
+
+    // Associa ao evento de carga da página a função para verificar se o usuário está logado
+    window.addEventListener('load', initPage);
+  </script>
 </head>
+
 <body>
   <div class="topbar d-flex align-items-center justify-content-between px-3">
-    <div class="brand">Nome do Usuário Logado</div>
-    <a href="index.html"><button class="btn btn-sm btn-light">Logout</button></a>
+    <button class="btn btn-sm btn-light d-lg-none me-3" type="button" data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+      <i class="bi bi-list"></i>
+    </button>
+    <div class="brand">Olá, <span id="nomeUsuario"></span></div>
+    <a href="" id="btn_logout"><button class="btn btn-sm btn-light">Logout</button></a>
   </div>
   <div class="app d-flex">
     <aside class="sidebar p-3">
@@ -45,8 +74,10 @@
           </a>
           <div class="collapse" id="CadastroCollapse" data-bs-parent=".sidebar">
             <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink" href="clientes_fornecedores.html">Clientes/Fornecedores</a></li>
-              <li class="nav-item"><a class="nav-link nav-sublink" href="produtos_servicos.html">Produtos/Serviços</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink"
+                  href="clientes_fornecedores.html">Clientes/Fornecedores</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink" href="produtos_servicos.html">Produtos/Serviços</a>
+              </li>
             </ul>
           </div>
         </li>
@@ -94,7 +125,8 @@
           </a>
           <div class="collapse" id="RelatoriosCollapse" data-bs-parent=".sidebar">
             <ul class="nav flex-column ms-3">
-              <li class="nav-item"><a class="nav-link nav-sublink" href="rel_produtos_servicos.html">Produtos/Serviços</a></li>
+              <li class="nav-item"><a class="nav-link nav-sublink"
+                  href="rel_produtos_servicos.html">Produtos/Serviços</a></li>
               <li class="nav-item"><a class="nav-link nav-sublink" href="rel_financeiro.html">Financeiro</a></li>
               <li class="nav-item"><a class="nav-link nav-sublink" href="rel_faturamento.html">Faturamento</a></li>
             </ul>
@@ -108,82 +140,99 @@
         </li>
       </ul>
     </aside>
-  <main class="flex-grow-1 p-4">
+    <main class="flex-grow-1 p-4">
       <h1 class="h4 mb-3">Contas a Receber</h1>
 
       <div class="d-flex justify-content-between align-items-center mb-3">
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contaReceberModal" onclick="abrirModalContaReceber(null)">
-              <i class="bi bi-plus-lg me-2"></i>Nova Fatura
-          </button>
-          <div class="input-group" style="width: 300px;">
-              <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar">
-              <button class="btn btn-outline-secondary" type="button" id="button-search-receber"><i class="bi bi-search"></i></button>
-              <button class="btn btn-outline-secondary" type="button" id="button-filter-receber"><i class="bi bi-filter"></i></button>
-          </div>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contaReceberModal"
+          onclick="abrirModalContaReceber(null)">
+          <i class="bi bi-plus-lg me-2"></i>Nova Fatura
+        </button>
+        <div class="input-group" style="width: 300px;">
+          <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar">
+          <button class="btn btn-outline-secondary" type="button" id="button-search-receber"><i
+              class="bi bi-search"></i></button>
+          <button class="btn btn-outline-secondary" type="button" id="button-filter-receber"><i
+              class="bi bi-filter"></i></button>
+        </div>
       </div>
 
       <div class="card mb-4">
-          <div class="card-body p-0">
-              <div class="table-responsive">
-                  <table class="table table-hover mb-0" id="tabelaContasReceber">
-                      <thead class="table-light">
-                          <tr>
-                              <th scope="col">Status</th>
-                              <th scope="col">Tipo</th>
-                              <th scope="col">Cliente</th>
-                              <th scope="col">Produtos / Serviços</th>
-                              <th scope="col">Vencimento</th>
-                              <th scope="col">Valor (R$)</th>
-                              <th scope="col">Ação</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr id="conta-receber-1" data-status="Pendente" data-tipo="Produto" data-cliente="Maria de Oliveira" data-descricao="Biscoito Recheado, arr..." data-vencimento="2025-10-15" data-valor="110.00">
-                              <td>Pendente</td>
-                              <td>Produto</td>
-                              <td>Maria de Oliveira</td>
-                              <td>Biscoito Recheado, arr...</td>
-                              <td>15/10/2025</td>
-                              <td>110,00</td>
-                              <td>
-                                  <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaReceberModal" onclick="abrirModalContaReceber(1)"><i class="bi bi-pencil"></i></button>
-                                  <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a receber', 1)"><i class="bi bi-trash"></i></button>
-                              </td>
-                          </tr>
-                          <tr id="conta-receber-2" data-status="Pendente" data-tipo="Produto" data-cliente="José da Silva" data-descricao="Detergente" data-vencimento="2025-11-13" data-valor="85.00">
-                              <td>Pendente</td>
-                              <td>Produto</td>
-                              <td>José da Silva</td>
-                              <td>Detergente</td>
-                              <td>13/11/2025</td>
-                              <td>85,00</td>
-                              <td>
-                                  <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaReceberModal" onclick="abrirModalContaReceber(2)"><i class="bi bi-pencil"></i></button>
-                                  <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a receber', 2)"><i class="bi bi-trash"></i></button>
-                              </td>
-                          </tr>
-                          <tr id="conta-receber-3" data-status="Recebido" data-tipo="Serviço" data-cliente="Marcos Aurélio" data-descricao="Pintura de Porta" data-vencimento="2025-09-26" data-valor="240.00">
-                              <td>Recebido</td>
-                              <td>Serviço</td>
-                              <td>Marcos Aurélio</td>
-                              <td>Pintura de Porta</td>
-                              <td>26/09/2025</td>
-                              <td>240,00</td>
-                              <td>
-                                  <button class="btn btn-outline-success btn-sm me-1" data-bs-toggle="modal" data-bs-target="#reciboModal" onclick="gerarRecibo(3)"><i class="bi bi-receipt"></i></button> 
-                                  <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaReceberModal" onclick="abrirModalContaReceber(3)"><i class="bi bi-pencil"></i></button>
-                                  <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a receber', 3)"><i class="bi bi-trash"></i></button>
-                              </td>
-                          </tr>
-                      </tbody>
-                  </table>
-              </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0" id="tabelaContasReceber">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">Status</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Cliente</th>
+                  <th scope="col">Produtos / Serviços</th>
+                  <th scope="col">Vencimento</th>
+                  <th scope="col">Valor (R$)</th>
+                  <th scope="col">Ação</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="conta-receber-1" data-status="Pendente" data-tipo="Produto" data-cliente="Maria de Oliveira"
+                  data-descricao="Biscoito Recheado, arr..." data-vencimento="2025-10-15" data-valor="110.00">
+                  <td>Pendente</td>
+                  <td>Produto</td>
+                  <td>Maria de Oliveira</td>
+                  <td>Biscoito Recheado, arr...</td>
+                  <td>15/10/2025</td>
+                  <td>110,00</td>
+                  <td>
+                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
+                      data-bs-target="#contaReceberModal" onclick="abrirModalContaReceber(1)"><i
+                        class="bi bi-pencil"></i></button>
+                    <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a receber', 1)"><i
+                        class="bi bi-trash"></i></button>
+                  </td>
+                </tr>
+                <tr id="conta-receber-2" data-status="Pendente" data-tipo="Produto" data-cliente="José da Silva"
+                  data-descricao="Detergente" data-vencimento="2025-11-13" data-valor="85.00">
+                  <td>Pendente</td>
+                  <td>Produto</td>
+                  <td>José da Silva</td>
+                  <td>Detergente</td>
+                  <td>13/11/2025</td>
+                  <td>85,00</td>
+                  <td>
+                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
+                      data-bs-target="#contaReceberModal" onclick="abrirModalContaReceber(2)"><i
+                        class="bi bi-pencil"></i></button>
+                    <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a receber', 2)"><i
+                        class="bi bi-trash"></i></button>
+                  </td>
+                </tr>
+                <tr id="conta-receber-3" data-status="Recebido" data-tipo="Serviço" data-cliente="Marcos Aurélio"
+                  data-descricao="Pintura de Porta" data-vencimento="2025-09-26" data-valor="240.00">
+                  <td>Recebido</td>
+                  <td>Serviço</td>
+                  <td>Marcos Aurélio</td>
+                  <td>Pintura de Porta</td>
+                  <td>26/09/2025</td>
+                  <td>240,00</td>
+                  <td>
+                    <button class="btn btn-outline-success btn-sm me-1" data-bs-toggle="modal"
+                      data-bs-target="#reciboModal" onclick="gerarRecibo(3)"><i class="bi bi-receipt"></i></button>
+                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
+                      data-bs-target="#contaReceberModal" onclick="abrirModalContaReceber(3)"><i
+                        class="bi bi-pencil"></i></button>
+                    <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a receber', 3)"><i
+                        class="bi bi-trash"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+        </div>
       </div>
     </main>
   </div>
 
-  <div class="modal fade" id="contaReceberModal" tabindex="-1" aria-labelledby="contaReceberModalLabel" aria-hidden="true">
+  <div class="modal fade" id="contaReceberModal" tabindex="-1" aria-labelledby="contaReceberModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -206,21 +255,22 @@
               <input type="text" class="form-control" id="modalTipoReceber" placeholder="Ex: Produto, Serviço, Aluguel">
             </div>
             <div class="mb-3">
-                <label for="modalClienteReceber" class="form-label">Cliente</label>
-                <input type="text" class="form-control" id="modalClienteReceber" placeholder="Nome do Cliente">
-              </div>
+              <label for="modalClienteReceber" class="form-label">Cliente</label>
+              <input type="text" class="form-control" id="modalClienteReceber" placeholder="Nome do Cliente">
+            </div>
             <div class="mb-3">
               <label for="modalDescricaoReceber" class="form-label">Descrição (Produtos/Serviços)</label>
-              <textarea class="form-control" id="modalDescricaoReceber" rows="3" placeholder="Descrição do que precisa ser recebido"></textarea>
+              <textarea class="form-control" id="modalDescricaoReceber" rows="3"
+                placeholder="Descrição do que precisa ser recebido"></textarea>
             </div>
             <div class="mb-3">
               <label for="modalVencimentoReceber" class="form-label">Data de Vencimento</label>
               <input type="date" class="form-control" id="modalVencimentoReceber">
             </div>
             <div class="mb-3">
-                <label for="modalValorReceber" class="form-label">Valor</label>
-                <input type="number" step="0.01" class="form-control" id="modalValorReceber" placeholder="0.00">
-              </div>
+              <label for="modalValorReceber" class="form-label">Valor</label>
+              <input type="number" step="0.01" class="form-control" id="modalValorReceber" placeholder="0.00">
+            </div>
           </form>
         </div>
         <div class="modal-footer">
@@ -240,12 +290,12 @@
         </div>
         <div class="modal-body">
           <div id="recibo-conteudo" class="p-4 border">
-            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
           <button type="button" class="btn btn-success" onclick="imprimirRecibo()">
-              <i class="bi bi-printer me-2"></i>Imprimir Recibo
+            <i class="bi bi-printer me-2"></i>Imprimir Recibo
           </button>
         </div>
       </div>
@@ -264,22 +314,22 @@
 
     // Função auxiliar para formatar valor monetário (R$)
     function formatarValorMonetario(valor) {
-        return parseFloat(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      return parseFloat(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     }
 
     // FUNÇÃO PRINCIPAL: GERAR RECIBO
     function gerarRecibo(id) {
-        const row = document.getElementById(`conta-receber-${id}`);
-        if (!row || row.dataset.status !== 'Recebido') {
-            alert('Recibo só pode ser gerado para contas com status "Recebido".');
-            return;
-        }
+      const row = document.getElementById(`conta-receber-${id}`);
+      if (!row || row.dataset.status !== 'Recebido') {
+        alert('Recibo só pode ser gerado para contas com status "Recebido".');
+        return;
+      }
 
-        const dataRecebimento = new Date().toLocaleDateString('pt-BR');
-        const valorExtenso = formatarNumeroPorExtenso(row.dataset.valor);
-        const valorMonetario = formatarValorMonetario(row.dataset.valor);
+      const dataRecebimento = new Date().toLocaleDateString('pt-BR');
+      const valorExtenso = formatarNumeroPorExtenso(row.dataset.valor);
+      const valorMonetario = formatarValorMonetario(row.dataset.valor);
 
-        const reciboHTML = `
+      const reciboHTML = `
             <div class="text-center mb-4">
                 <h4 class="fw-bold">RECIBO DE PAGAMENTO N° ${id}</h4>
             </div>
@@ -300,120 +350,120 @@
                 </div>
             </div>
         `;
-        document.getElementById('recibo-conteudo').innerHTML = reciboHTML;
-        // O modal é aberto pelo data-bs-target no botão, ou via JS após esta função.
+      document.getElementById('recibo-conteudo').innerHTML = reciboHTML;
+      // O modal é aberto pelo data-bs-target no botão, ou via JS após esta função.
     }
 
     // FUNÇÃO AUXILIAR: CONVERTE NÚMERO PARA EXTENSO (Simulação)
     function formatarNumeroPorExtenso(n) {
-        // Implementação simulada para fins de demonstração no portfólio
-        if (n === '240.00') return 'duzentos e quarenta reais';
-        return `[Valor por extenso simulado - R$ ${n.replace('.', ',')}]`;
+      // Implementação simulada para fins de demonstração no portfólio
+      if (n === '240.00') return 'duzentos e quarenta reais';
+      return `[Valor por extenso simulado - R$ ${n.replace('.', ',')}]`;
     }
 
     // FUNÇÃO AUXILIAR: IMPRIMIR RECIBO
     function imprimirRecibo() {
-        const conteudo = document.getElementById('recibo-conteudo').innerHTML;
-        const janelaImprimir = window.open('', '', 'width=800,height=600');
-        
-        janelaImprimir.document.write('<html><head><title>Recibo</title>');
-        // Inclui o Bootstrap e um estilo para impressão
-        janelaImprimir.document.write('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">');
-        janelaImprimir.document.write('<style>@media print { .modal-body, .border { border: none !important; } }</style>');
-        janelaImprimir.document.write('</head><body>');
-        janelaImprimir.document.write('<div class="container p-5">' + conteudo + '</div>'); // Adiciona padding
-        janelaImprimir.document.write('</body></html>');
-        
-        janelaImprimir.document.close();
-        janelaImprimir.focus();
-        janelaImprimir.print();
+      const conteudo = document.getElementById('recibo-conteudo').innerHTML;
+      const janelaImprimir = window.open('', '', 'width=800,height=600');
+
+      janelaImprimir.document.write('<html><head><title>Recibo</title>');
+      // Inclui o Bootstrap e um estilo para impressão
+      janelaImprimir.document.write('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">');
+      janelaImprimir.document.write('<style>@media print { .modal-body, .border { border: none !important; } }</style>');
+      janelaImprimir.document.write('</head><body>');
+      janelaImprimir.document.write('<div class="container p-5">' + conteudo + '</div>'); // Adiciona padding
+      janelaImprimir.document.write('</body></html>');
+
+      janelaImprimir.document.close();
+      janelaImprimir.focus();
+      janelaImprimir.print();
     }
 
 
     // Funções de CRUD (abrirModalContaReceber, salvarContaReceber, excluirItem)
     function abrirModalContaReceber(id) {
-        const modalTitle = document.getElementById('contaReceberModalLabel');
-        const form = document.getElementById('formContaReceber');
+      const modalTitle = document.getElementById('contaReceberModalLabel');
+      const form = document.getElementById('formContaReceber');
 
-        form.reset();
-        document.getElementById('contaReceberId').value = '';
+      form.reset();
+      document.getElementById('contaReceberId').value = '';
 
-        if (id) {
-            modalTitle.textContent = 'Editar Conta a Receber';
-            document.getElementById('contaReceberId').value = id;
+      if (id) {
+        modalTitle.textContent = 'Editar Conta a Receber';
+        document.getElementById('contaReceberId').value = id;
 
-            const row = document.getElementById(`conta-receber-${id}`);
-            if (row) {
-                document.getElementById('modalStatusReceber').value = row.dataset.status;
-                document.getElementById('modalTipoReceber').value = row.dataset.tipo;
-                document.getElementById('modalClienteReceber').value = row.dataset.cliente;
-                document.getElementById('modalDescricaoReceber').value = row.dataset.descricao;
-                document.getElementById('modalVencimentoReceber').value = row.dataset.vencimento;
-                document.getElementById('modalValorReceber').value = parseFloat(row.dataset.valor).toFixed(2);
-            }
-        } else {
-            modalTitle.textContent = 'Adicionar Nova Conta a Receber';
+        const row = document.getElementById(`conta-receber-${id}`);
+        if (row) {
+          document.getElementById('modalStatusReceber').value = row.dataset.status;
+          document.getElementById('modalTipoReceber').value = row.dataset.tipo;
+          document.getElementById('modalClienteReceber').value = row.dataset.cliente;
+          document.getElementById('modalDescricaoReceber').value = row.dataset.descricao;
+          document.getElementById('modalVencimentoReceber').value = row.dataset.vencimento;
+          document.getElementById('modalValorReceber').value = parseFloat(row.dataset.valor).toFixed(2);
         }
+      } else {
+        modalTitle.textContent = 'Adicionar Nova Conta a Receber';
+      }
     }
 
     function salvarContaReceber() {
-        const id = document.getElementById('contaReceberId').value;
-        const status = document.getElementById('modalStatusReceber').value;
-        const tipo = document.getElementById('modalTipoReceber').value;
-        const cliente = document.getElementById('modalClienteReceber').value;
-        const descricao = document.getElementById('modalDescricaoReceber').value;
-        const vencimento = document.getElementById('modalVencimentoReceber').value;
-        const valor = parseFloat(document.getElementById('modalValorReceber').value).toFixed(2);
+      const id = document.getElementById('contaReceberId').value;
+      const status = document.getElementById('modalStatusReceber').value;
+      const tipo = document.getElementById('modalTipoReceber').value;
+      const cliente = document.getElementById('modalClienteReceber').value;
+      const descricao = document.getElementById('modalDescricaoReceber').value;
+      const vencimento = document.getElementById('modalVencimentoReceber').value;
+      const valor = parseFloat(document.getElementById('modalValorReceber').value).toFixed(2);
 
-        if (!status || !tipo || !cliente || !descricao || !vencimento || isNaN(valor)) {
-            alert('Por favor, preencha todos os campos corretamente.');
-            return;
+      if (!status || !tipo || !cliente || !descricao || !vencimento || isNaN(valor)) {
+        alert('Por favor, preencha todos os campos corretamente.');
+        return;
+      }
+
+      const tabela = document.querySelector('#tabelaContasReceber tbody');
+      const vencimentoFormatado = formatarDataParaExibicao(vencimento);
+      const valorMonetarioExibicao = valor.replace('.', ',');
+
+      let acaoHTML;
+      // Lógica para mostrar o botão de Recibo APENAS se o status for 'Recebido'
+      const reciboButton = `<button class="btn btn-outline-success btn-sm me-1" data-bs-toggle="modal" data-bs-target="#reciboModal" onclick="gerarRecibo(${id || nextContaReceberId})"><i class="bi bi-receipt"></i></button>`;
+      const editButton = `<button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaReceberModal" onclick="abrirModalContaReceber(${id || nextContaReceberId})"><i class="bi bi-pencil"></i></button>`;
+      const deleteButton = `<button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a receber', ${id || nextContaReceberId})"><i class="bi bi-trash"></i></button>`;
+
+
+      if (status === 'Recebido') {
+        acaoHTML = reciboButton + editButton + deleteButton;
+      } else {
+        acaoHTML = editButton + deleteButton;
+      }
+
+
+      if (id) {
+        // Editar conta existente
+        const row = document.getElementById(`conta-receber-${id}`);
+        if (row) {
+          row.children[0].textContent = status;
+          row.children[1].textContent = tipo;
+          row.children[2].textContent = cliente;
+          row.children[3].textContent = descricao;
+          row.children[4].textContent = vencimentoFormatado;
+          row.children[5].textContent = valorMonetarioExibicao;
+          row.children[6].innerHTML = acaoHTML; // Atualiza a coluna Ação
+
+          // Atualiza os data-atributos
+          row.dataset.status = status;
+          row.dataset.tipo = tipo;
+          row.dataset.cliente = cliente;
+          row.dataset.descricao = descricao;
+          row.dataset.vencimento = vencimento;
+          row.dataset.valor = valor;
+
+          alert(`Conta a Receber (ID: ${id}) atualizada com sucesso (simulado)!`);
         }
-
-        const tabela = document.querySelector('#tabelaContasReceber tbody');
-        const vencimentoFormatado = formatarDataParaExibicao(vencimento);
-        const valorMonetarioExibicao = valor.replace('.', ',');
-
-        let acaoHTML;
-        // Lógica para mostrar o botão de Recibo APENAS se o status for 'Recebido'
-        const reciboButton = `<button class="btn btn-outline-success btn-sm me-1" data-bs-toggle="modal" data-bs-target="#reciboModal" onclick="gerarRecibo(${id || nextContaReceberId})"><i class="bi bi-receipt"></i></button>`;
-        const editButton = `<button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaReceberModal" onclick="abrirModalContaReceber(${id || nextContaReceberId})"><i class="bi bi-pencil"></i></button>`;
-        const deleteButton = `<button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a receber', ${id || nextContaReceberId})"><i class="bi bi-trash"></i></button>`;
-
-
-        if (status === 'Recebido') {
-            acaoHTML = reciboButton + editButton + deleteButton;
-        } else {
-            acaoHTML = editButton + deleteButton;
-        }
-
-
-        if (id) {
-            // Editar conta existente
-            const row = document.getElementById(`conta-receber-${id}`);
-            if (row) {
-                row.children[0].textContent = status;
-                row.children[1].textContent = tipo;
-                row.children[2].textContent = cliente;
-                row.children[3].textContent = descricao;
-                row.children[4].textContent = vencimentoFormatado;
-                row.children[5].textContent = valorMonetarioExibicao;
-                row.children[6].innerHTML = acaoHTML; // Atualiza a coluna Ação
-                
-                // Atualiza os data-atributos
-                row.dataset.status = status;
-                row.dataset.tipo = tipo;
-                row.dataset.cliente = cliente;
-                row.dataset.descricao = descricao;
-                row.dataset.vencimento = vencimento;
-                row.dataset.valor = valor;
-
-                alert(`Conta a Receber (ID: ${id}) atualizada com sucesso (simulado)!`);
-            }
-        } else {
-            // Adicionar nova conta
-            const newId = nextContaReceberId++;
-            const newRow = `
+      } else {
+        // Adicionar nova conta
+        const newId = nextContaReceberId++;
+        const newRow = `
                 <tr id="conta-receber-${newId}" data-status="${status}" data-tipo="${tipo}" data-cliente="${cliente}" data-descricao="${descricao}" data-vencimento="${vencimento}" data-valor="${valor}">
                     <td>${status}</td>
                     <td>${tipo}</td>
@@ -428,27 +478,28 @@
                     </td>
                 </tr>
             `;
-            tabela.insertAdjacentHTML('beforeend', newRow);
-            alert(`Conta a Receber "${descricao}" adicionada com sucesso (simulado)!`);
-        }
+        tabela.insertAdjacentHTML('beforeend', newRow);
+        alert(`Conta a Receber "${descricao}" adicionada com sucesso (simulado)!`);
+      }
 
-        // Fecha o modal
-        const modal = bootstrap.Modal.getInstance(document.getElementById('contaReceberModal'));
-        modal.hide();
+      // Fecha o modal
+      const modal = bootstrap.Modal.getInstance(document.getElementById('contaReceberModal'));
+      modal.hide();
     }
 
     function excluirItem(tipo, id) {
-        if (confirm(`Tem certeza que deseja excluir esta ${tipo} (ID: ${id})?`)) {
-            const rowId = `conta-receber-${id}`;
-            const row = document.getElementById(rowId);
-            if (row) {
-                row.remove();
-                alert(`${tipo.charAt(0).toUpperCase() + tipo.slice(1)} (ID: ${id}) excluída com sucesso (simulado)!`);
-            } else {
-                alert(`Erro: Linha com ID "${rowId}" não encontrada.`);
-            }
+      if (confirm(`Tem certeza que deseja excluir esta ${tipo} (ID: ${id})?`)) {
+        const rowId = `conta-receber-${id}`;
+        const row = document.getElementById(rowId);
+        if (row) {
+          row.remove();
+          alert(`${tipo.charAt(0).toUpperCase() + tipo.slice(1)} (ID: ${id}) excluída com sucesso (simulado)!`);
+        } else {
+          alert(`Erro: Linha com ID "${rowId}" não encontrada.`);
         }
+      }
     }
   </script>
 </body>
+
 </html>

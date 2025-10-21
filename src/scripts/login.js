@@ -8,20 +8,38 @@ var db_usuarios = {};
 // Objeto para o usuário corrente
 var usuarioCorrente = {};
 
-function efetuarTeste() {
+async function makeTest() {
 
 
     if (window.confirm('Deseja realmente realizar um teste? \nTodos os dados locais salvos anteriormente serão substituídos, sem possibilidade de recuperação.')) {
-        // apaga o o local storage
-        localStorage.clear();
 
-        // Copia os dados iniciais para o banco de dados 
-        db_usuarios = dadosIniciais;
+        try {
+            // busca o json e converte para js
+            const response = await fetch('data/maketest.json');
+            const dadosCarregados = await response.json(); // Isto é o { usuarios: [...] } do arquivo
 
-        // Salva os dados iniciais no local Storage convertendo-os para string antes
-        localStorage.setItem('db_usuarios', JSON.stringify(dadosIniciais));
-        // Informa sobre localStorage vazio e e que serão carregados os dados iniciais
-        alert('Arquivos de teste carregados com sucesso. \nEfetue login utilizando os dados:\nLogin: admin@admin.com\nSenha: admin');
+            // adiciona UUID
+            const dadosComIDs = {
+                usuarios: dadosCarregados.usuarios.map(usuario => {
+                    return {
+                        ...usuario, // Copia login, senha, nome, email
+                        "id": generateUUID() // Adiciona o ID dinâmico
+                    };
+                })
+            };
+
+            // apaga o o local storage, copia os dados para o bd e salva no local storage
+            localStorage.clear();
+            db_usuarios = dadosComIDs;
+            localStorage.setItem('db_usuarios', JSON.stringify(dadosComIDs));
+
+            // informa que deu certo
+            alert('Arquivos de teste carregados com sucesso. \nEfetue login utilizando os dados:\nLogin: admin@admin.com\nSenha: admin');
+
+
+        } catch {
+            alert('Ocorreu um erro ao carregar os dados de teste.');
+        }
     }
 }
 
@@ -43,13 +61,6 @@ function generateUUID() { // Public Domain/MIT
 }
 
 
-// Dados de usuários para serem utilizados como carga inicial
-const dadosIniciais = {
-    usuarios: [
-        { "id": generateUUID(), "login": "admin", "senha": "123", "nome": "Administrador do Sistema", "email": "admin@abc.com" },
-        { "id": generateUUID(), "login": "user", "senha": "123", "nome": "Usuario Comum", "email": "user@abc.com" },
-    ]
-};
 
 // init userLogged
 // Inicializa o usuarioCorrente e banco de dados de usuários da aplicação de Login
@@ -70,7 +81,7 @@ function initLoginApp() {
 
 
 // Verifica se o login do usuário está ok e, se positivo, direciona para a página inicial
-function loginUser(login, senha) {
+function loginUser(email_login, senha) {
 
     // Verifica todos os itens do banco de dados de usuarios 
     // para localizar o usuário informado no formulario de login
@@ -78,10 +89,9 @@ function loginUser(login, senha) {
         var usuario = db_usuarios.usuarios[i];
 
         // Se encontrou login, carrega usuário corrente e salva no Session Storage
-        if (login == usuario.login && senha == usuario.senha) {
+        if (email_login == usuario.email_login && senha == usuario.senha) {
             usuarioCorrente.id = usuario.id;
-            usuarioCorrente.login = usuario.login;
-            usuarioCorrente.email = usuario.email;
+            usuarioCorrente.email_login = usuario.email_login;
             usuarioCorrente.nome = usuario.nome;
 
             // Salva os dados do usuário corrente no Session Storage, mas antes converte para string

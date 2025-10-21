@@ -15,7 +15,7 @@
   <script src="scripts/login.js"></script>
   <script>
     // Verifica se o usuário já esta logado e se negativo, redireciona para tela de login        
-    if (!usuarioCorrente.login) {
+    if (!usuarioCorrente.email_login) {
       window.location.href = LOGIN_URL;
     }
 
@@ -27,8 +27,7 @@
       // Informa o nome do usuário logado
       document.getElementById('nomeUsuario').innerHTML = usuarioCorrente.nome;
 
-      // Lista os usuários 
-      exibeUsuarios();
+  
     }
 
     // Associa ao evento de carga da página a função para verificar se o usuário está logado
@@ -42,8 +41,8 @@
       data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
       <i class="bi bi-list"></i>
     </button>
-    <div class="brand"><span id="nomeUsuario"></span>Nome do Usuário Logado</div>
-    <a href="index.html"><button class="btn btn-sm btn-light">Logout</button></a>
+    <div class="brand">Olá, <span id="nomeUsuario"></span></div>
+    <a href="" id="btn_logout"><button class="btn btn-sm btn-light">Logout</button></a>
   </div>
 
   <div class="app d-flex">

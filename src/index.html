@@ -186,11 +186,10 @@
               </div>
             </div>
           </form>
-          <div class="row">
-            <div class="col"><a class="btn-link" href="javascript:void(0)" onclick="efetuarTeste()">Efetuar um
-                Teste</a>
+          <div class="row mb-2">
+            <div class="col"><a id="efetuar-teste" class="btn-link" href="#">Efetuar Teste</a>
             </div>
-            <div class="col  text-end  mb-2">
+            <div class="col  text-end">
               <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Efetuar Cadastro</button> -->
               <input type="submit" name="submit" class="btn btn-primary" value="Efetuar Login" form="login-form">
             </div>
@@ -242,13 +241,16 @@
       }
 
       // Adiciona o usuário no banco de dados
-      addUser(nome, login, senha, email);
+      addUser(nome, senha, email);
       alert('Usuário salvo com sucesso. Proceda com o login para ');
 
       // Oculta a div modal do login
       //document.getElementById ('loginModal').style.display = 'none';
       $('#loginModal').modal('hide');
     }
+    
+    // associa função makeTest ao botão
+    document.getElementById('efetuar-teste').addEventListener('click', makeTest);
 
     // Associa a funçao processaFormLogin  formulário adicionado um manipulador do evento submit
     document.getElementById('login-form').addEventListener('submit', processaFormLogin);

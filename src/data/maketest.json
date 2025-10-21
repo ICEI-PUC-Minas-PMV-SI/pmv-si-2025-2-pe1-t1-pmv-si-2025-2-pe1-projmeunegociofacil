@@ -6,10 +6,21 @@
       "razao_social": "Minha Empresa LTDA",
       "nome": "Meu ERP",
       "cpf_cnpj": "00.000.000/0001-00",
-      "login": "admin@admin.com",
+      "telefone": "(11) 99999-8888",
+      "endereco": "Rua das Flores, 123, São Paulo, SP",
       "email_login": "admin@admin.com",
-      "senha": "admin",
-      "senha_hash": "admin"
+      "senha": "admin"
+    },
+    {
+      "id": 2,
+      "tem_cnpj": false,
+      "razao_social": null,
+      "nome": "Lucas",
+      "cpf_cnpj": "123.456.789-00",
+      "telefone": "(11) 99999-8888",
+      "endereco": "Rua das Flores, 123, São Paulo, SP",
+      "email_login": "lucas@meunegocio.com",
+      "senha": "admin"
     }
   ],
   "clientes_fornecedores": [
