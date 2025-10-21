@@ -43,7 +43,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não-funcionais q
 
 ## Descrição das estruturas:
 
-## Usuário
+## Usuarios
 Armazena os dados do usuário principal do sistema (a empresa que utiliza o ERP).
 
 | **Nome** | **Tipo** | **Descrição** | **Exemplo** |
@@ -65,6 +65,7 @@ Cadastro unificado de clientes e fornecedores.
 
 | **Nome** | **Tipo** | **Descrição** | **Exemplo** |
 |:--------------:|-------------------|-------------------------------------------|------------------------------------------------|
+| usuarioId | Número (Inteiro) | ID do usuário proprietário  (FK de `usuarios`) | 1 |
 | id | Número (Inteiro) | Identificador único | 101 |
 | tipo | Texto | Define se é "cliente" ou "fornecedor" | "cliente" |
 | nome_razao_social | Texto | Nome Completo (PF) ou Razão Social (PJ) | "Cliente Exemplo SA" |
@@ -78,6 +79,7 @@ Cadastro de produtos (para estoque) e serviços prestados.
 
 | **Nome** | **Tipo** | **Descrição** | **Exemplo** |
 |:--------------:|-------------------|-------------------------------------------|------------------------------------------------|
+| usuarioId | Número (Inteiro) | ID do usuário proprietário  (FK de `usuarios`) | 1 |
 | id | Número (Inteiro) | Identificador único | 301 |
 | tipo | Texto | Define se é "produto" ou "servico" | "produto" |
 | descricao | Texto | Descrição detalhada do item | "Mouse Sem Fio Ultra Slim" |
@@ -92,6 +94,7 @@ Registra as transações de venda de produtos ou serviços.
 
 | **Nome** | **Tipo** | **Descrição** | **Exemplo** |
 |:--------------:|-------------------|-------------------------------------------|------------------------------------------------|
+| usuarioId | Número (Inteiro) | ID do usuário proprietário  (FK de `usuarios`) | 1 |
 | id | Número (Inteiro) | Identificador único da venda | 501 |
 | clientes_fornecedoresId | Número (Inteiro) | ID do cliente (FK de `clientes_fornecedores`) | 101 |
 | tipo_venda | Texto | Define se a venda é de "produto" ou "servico" | "produto" |
@@ -107,6 +110,7 @@ Itens individuais dentro de uma venda.
 
 | **Nome** | **Tipo** | **Descrição** | **Exemplo** |
 |:--------------:|-------------------|-------------------------------------------|------------------------------------------------|
+| usuarioId | Número (Inteiro) | ID do usuário proprietário  (FK de `usuarios`) | 1 |
 | produtos_servicosId | Número (Inteiro) | ID do produto/serviço (FK de `produtos_servicos`) | 301 |
 | descricao | Texto | Descrição do item (cache da venda) | "Mouse Sem Fio Ultra Slim" |
 | quantidade | Número (Inteiro/Decimal) | Quantidade vendida | 1 |
@@ -127,6 +131,7 @@ Controle financeiro (Contas a Pagar e Contas a Receber).
 
 | **Nome** | **Tipo** | **Descrição** | **Exemplo** |
 |:--------------:|-------------------|-------------------------------------------|------------------------------------------------|
+| usuarioId | Número (Inteiro) | ID do usuário proprietário  (FK de `usuarios`) | 1 |
 | id | Número (Inteiro) | Identificador único da fatura | 601 |
 | tipo | Texto | Define se é "receber" ou "pagar" | "receber" |
 | vendaId | Número (Inteiro) | ID da venda associada (pode ser nulo) | 501 |
@@ -142,6 +147,7 @@ Armazena eventos, reuniões e lembretes.
 
 | **Nome** | **Tipo** | **Descrição** | **Exemplo** |
 |:--------------:|-------------------|-------------------------------------------|------------------------------------------------|
+| usuarioId | Número (Inteiro) | ID do usuário proprietário  (FK de `usuarios`) | 1 |
 | id | Número (Inteiro) | Identificador único do compromisso | 801 |
 | titulo | Texto | Título ou breve descrição do evento | "Reunião com Cliente Exemplo SA" |
 | data_hora | Data/Hora (Texto ISO) | Data e hora de início do compromisso | "2025-10-05T14:00:00Z" |
