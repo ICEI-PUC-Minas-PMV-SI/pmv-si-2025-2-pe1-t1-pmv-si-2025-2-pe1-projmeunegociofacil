@@ -10,16 +10,19 @@ var usuarioCorrente = {};
 
 function efetuarTeste() {
 
-    alert('Deseja efetuar um teste? \n -----> Fazendo carga inicial.');
 
-    // Informa sobre localStorage vazio e e que serão carregados os dados iniciais
-    alert('Dados de usuários não encontrados no localStorage. \n -----> Fazendo carga inicial.');
+    if (window.confirm('Deseja realmente realizar um teste? \nTodos os dados locais salvos anteriormente serão substituídos, sem possibilidade de recuperação.')) {
+        // apaga o o local storage
+        localStorage.clear();
 
-    // Copia os dados iniciais para o banco de dados 
-    db_usuarios = dadosIniciais;
+        // Copia os dados iniciais para o banco de dados 
+        db_usuarios = dadosIniciais;
 
-    // Salva os dados iniciais no local Storage convertendo-os para string antes
-    localStorage.setItem('db_usuarios', JSON.stringify(dadosIniciais));
+        // Salva os dados iniciais no local Storage convertendo-os para string antes
+        localStorage.setItem('db_usuarios', JSON.stringify(dadosIniciais));
+        // Informa sobre localStorage vazio e e que serão carregados os dados iniciais
+        alert('Arquivos de teste carregados com sucesso. \nEfetue login utilizando os dados:\nLogin: admin@admin.com\nSenha: admin');
+    }
 }
 
 // função para gerar códigos uuid
@@ -61,23 +64,8 @@ function initLoginApp() {
     // Obtem a string JSON com os dados de usuários a partir do localStorage
     var usuariosJSON = localStorage.getItem('db_usuarios');
 
-    // Verifica se existem dados já armazenados no localStorage
-    if (!usuariosJSON) {  // Se NÃO há dados no localStorage
+    db_usuarios = JSON.parse(usuariosJSON);
 
-        // // Informa sobre localStorage vazio e e que serão carregados os dados iniciais
-        // alert('Dados de usuários não encontrados no localStorage. \n -----> Fazendo carga inicial.');
-
-        // // Copia os dados iniciais para o banco de dados 
-        // db_usuarios = dadosIniciais;
-
-        // // Salva os dados iniciais no local Storage convertendo-os para string antes
-        // localStorage.setItem('db_usuarios', JSON.stringify (dadosIniciais));
-    }
-    else {  // Se há dados no localStorage
-
-        // Converte a string JSON em objeto colocando no banco de dados baseado em JSON
-        db_usuarios = JSON.parse(usuariosJSON);
-    }
 };
 
 
