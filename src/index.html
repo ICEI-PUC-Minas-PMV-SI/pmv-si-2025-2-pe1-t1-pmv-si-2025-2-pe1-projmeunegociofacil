@@ -76,14 +76,13 @@
       <div class="col">
         <img src="img/home-itens/gratuito.png">
       </div>
-
+    </div>
   </main>
 
 
 
 
 
-  </div>
   <!-- Start Modal Cadastro-->
   <div class="modal fade" id="CadastroModal" tabindex="-1" aria-labelledby="CadastroModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -174,63 +173,37 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="col">
-            <!-- <form id="login-form1" class="form" method="post" onsubmit="loginUser (this)">
-              <div class="form-group">
-                <label for="login" class="text-info">E-mail</label>
-                <input type="email" class="form-control mb-3" id="user_mail1" aria-describedby="emailHelp"
-                  placeholder="Insira seu e-mail">
 
+          <form id="login-form" class="form" method="post" onsubmit="loginUser (this)">
+            <div class="row mb-3">
+              <div class="form-group mb-3">
+                <label for="username">E-mail</label><br>
+                <input type="text" name="username" id="username" class="form-control" placeholder="Insira seu e-mail">
               </div>
-              <div class="form-group">
-                <label for="user_password">Senha</label>
-                <input type="password" class="form-control mb-2" id="user_password1" placeholder="Insira sua senha">
+              <div class="form-group mb-1">
+                <label for="password">Senha</label><br>
+                <input type="text" name="password" id="password" class="form-control" placeholder="Insira sua senha">
               </div>
-              <div class="col form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Lembrar dados</label>
-              </div>
-              <div class="col text-end">
-                <button type="submit" class="btn btn-primary mb-3 text-end">Efetuar Login</button>
-              </div>
-            </form> -->
-
-
-
-
-            <div id="login">
-              <h3 class="text-center text-white pt-5">Novo Usuário</h3>
-              <div class="container">
-                <div id="login-row" class="row justify-content-center align-items-center">
-                  <div id="login-column" class="col-md-6">
-                    <div id="login-box" class="col-md-12">
-                      <form id="login-form" class="form" method="post" onsubmit="loginUser (this)">
-                        <div class="form-group">
-                          <label for="username">Usuário</label><br>
-                          <input type="text" name="username" id="username" class="form-control">
-                        </div>
-                        <div class="form-group">
-                          <label for="password">Senha</label><br>
-                          <input type="text" name="password" id="password" class="form-control">
-                        </div>
-                        <div class="form-group text-right">
-                          <input type="submit" name="submit" class="btn btn-primary btn-md" value="submit">
-                        </div>
-                      </form>
-                    </div>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Novo
-                      usuario</button>
-                  </div>
-                </div>
-              </div>
+            </div>
+          </form>
+          <div class="row">
+            <div class="col"><a class="btn-link" href="javascript:void(0);" onclick="efetuarTeste()">Efetuar um Teste</a>
+            </div>
+            <div class="col  text-end  mb-2">
+              <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Efetuar Cadastro</button> -->
+              <input type="submit" name="submit" class="btn btn-primary" value="Efetuar Login" form="login-form">
             </div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
+
+
   <!-- End LoginModal-->
   <script src="scripts/login.js"></script>
+
   <script>
 
     // Declara uma função para processar o formulário de login
