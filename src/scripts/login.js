@@ -113,11 +113,23 @@ function logoutUser() {
     window.location = LOGIN_URL;
 }
 
-function addUser(nome, login, senha, email) {
+function addUser(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senha) {
 
     // Cria um objeto de usuario para o novo usuario 
     let newId = generateUUID();
-    let usuario = { "id": newId, "login": login, "senha": senha, "nome": nome, "email": email };
+    let usuario = {
+        "id": newId,
+        "tem_cnpj": isPj,
+        "razao_social": nomeRazao,
+        "nome": nome,
+        "cpf_cnpj": cpfCNPJ,
+        "telefone": telefone,
+        "endereco": endereco,
+        "email_login": email,
+        "senha": senha,
+
+
+    };
 
     // Inclui o novo usuario no banco de dados baseado em JSON
     db_usuarios.usuarios.push(usuario);
@@ -128,6 +140,40 @@ function addUser(nome, login, senha, email) {
 
 function setUserPass() {
 
+}
+
+function checkFields(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senha) {
+
+    if (nome.length < 5) {
+        alert('Preencha corretamente o Nome');
+        return true;
+    }
+    else if (endereco.length < 5) {
+        alert('Preencha corretamente o Endereço');
+        return true;
+    }
+    else if (telefone.length < 5) {
+        alert('Preencha corretamente o Telefone');
+        return true;
+    }
+    else if (email.length < 10) {
+        alert('Preencha corretamente o E-mail');
+        return true;
+    }
+    else if (cpfCNPJ.length < 11) {
+        alert('Preencha corretamente o E-mail');
+        return true;
+    }
+    else if (senha.length < 8) {
+        alert('A senha precisa ter mais de 8 caracteres');
+        return true;
+    }
+    else if (isPj == true && nomeRazao.length < 5) {
+        alert('Cadastro Pessoa Jurídica\nInforme a Razão Social');
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // init 

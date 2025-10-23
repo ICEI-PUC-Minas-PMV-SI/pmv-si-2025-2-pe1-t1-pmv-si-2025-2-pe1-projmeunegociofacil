@@ -28,7 +28,7 @@
       </div>
 
       <div class="col d-flex justify-content-end align-items-center ">
-        <a class="btn btn-link px-4" data-bs-toggle="modal" data-bs-target="#CadastroModal">Efetuar Cadastro</a>
+        <a class="btn btn-link px-4" data-bs-toggle="modal" data-bs-target="#SignUpModal">Efetuar Cadastro</a>
         <a class="btn btn-primary px-5" data-bs-toggle="modal" data-bs-target="#LoginModal">Login</a>
       </div>
 
@@ -43,16 +43,16 @@
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <a data-bs-toggle="modal" data-bs-target="#CadastroModal"><img src="img/slideshow/init.png"
+          <a data-bs-toggle="modal" data-bs-target="#SignUpModal"><img src="img/slideshow/init.png"
               class="d-block w-100"></a>
 
         </div>
         <div class="carousel-item">
-          <a data-bs-toggle="modal" data-bs-target="#CadastroModal"><img src="img/slideshow/init.png"
+          <a data-bs-toggle="modal" data-bs-target="#SignUpModal"><img src="img/slideshow/init.png"
               class="d-block w-100"></a>
         </div>
         <div class="carousel-item">
-          <a data-bs-toggle="modal" data-bs-target="#CadastroModal"><img src="img/slideshow/init.png"
+          <a data-bs-toggle="modal" data-bs-target="#SignUpModal"><img src="img/slideshow/init.png"
               class="d-block w-100"></a>
         </div>
       </div>
@@ -83,12 +83,12 @@
 
 
 
-  <!-- Start Modal Cadastro-->
-  <div class="modal fade" id="CadastroModal" tabindex="-1" aria-labelledby="CadastroModalLabel" aria-hidden="true">
+  <!-- Modal Sign Up -->
+  <div class="modal fade" id="SignUpModal" tabindex="-1" aria-labelledby="SignUpModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="CadastroModalLabel">Efetuar Cadastro</h5>
+          <h5 class="modal-title" id="SignUpModalLabel">Efetuar Cadastro</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -99,19 +99,19 @@
               <form action="dashboard.html">
                 <div class="form-group">
                   <label for="user_name">Nome Completo</label>
-                  <input type="text" class="form-control mb-2" id="user_name" placeholder="Insira seu Nome Completo">
+                  <input type="text" class="form-control mb-2" id="sign-up-nome" placeholder="Insira seu Nome Completo">
                 </div>
                 <div class="row ">
                   <div class="col-3 align-self-center">
                     <div class="form-group">
                       <div class="form-check ">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                        <label class="form-check-label" for="flexRadioDefault1">
+                        <input class="form-check-input" type="radio" name="sign-up-is-pj" id="sign-up-is-pj">
+                        <label class="form-check-label" for="sign-up-is-pj">
                           Pessoa Jurídica
                         </label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                        <input class="form-check-input" type="radio" name="sign-up-is-pj" id="flexRadioDefault2"
                           checked>
                         <label class="form-check-label" for="flexRadioDefault2">
                           Pessoa Física
@@ -121,33 +121,39 @@
                   </div>
                   <div class="col align-self-center">
                     <div class="form-group">
-                      <label for="user_name">CPF</label>
-                      <input type="text" class="form-control" id="user_name" placeholder="Insira o CPF">
+                      <label for="user_name">CPF/CNPJ</label>
+                      <input type="text" class="form-control" id="sign-up-cpf-cnpj" placeholder="Insira o CPF/CNPJ">
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="user_name">Nome da Empresa</label>
-                  <input type="text" class="form-control mb-2" id="user_name" placeholder="Insira o Nome da Empresa">
+                  <input type="text" class="form-control mb-2" id="sign-up-razao-social"
+                    placeholder="Insira o Nome da Empresa">
                 </div>
                 <div class="form-group">
                   <label for="user_name">Endereço</label>
-                  <input type="text" class="form-control mb-2" id="user_name" placeholder="Insira o Endereço">
+                  <input type="text" class="form-control mb-2" id="sign-up-endereco" placeholder="Insira o Endereço">
                 </div>
                 <div class="form-group">
                   <label for="user_name">Telefone</label>
-                  <input type="text" class="form-control mb-2" id="user_name" placeholder="Insira o número de Telefone">
+                  <input type="text" class="form-control mb-2" id="sign-up-telefone"
+                    placeholder="Insira o número de Telefone">
                 </div>
                 <div class="form-group">
                   <label for="user_mail">Endereço de E-mail</label>
-                  <input type="email" class="form-control mb-2" id="user_mail" aria-describedby="emailHelp"
+                  <input type="email" class="form-control mb-2" id="sign-up-email" aria-describedby="emailHelp"
                     placeholder="Insira seu e-mail">
                 </div>
                 <div class="form-group">
                   <label for="user_password">Senha</label>
-                  <input type="password" class="form-control mb-3" id="user_password" placeholder="Insira sua senha">
+                  <input type="password" class="form-control mb-3" id="sign-up-password" placeholder="Insira sua senha">
                 </div>
-
+                <div class="form-group">
+                  <label for="user_password">Repita a Senha</label>
+                  <input type="password" class="form-control mb-3" id="sign-up-password2"
+                    placeholder="Insira sua senha">
+                </div>
 
               </form>
             </div>
@@ -156,7 +162,7 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Efetuar Cadastro</button>
+            <button type="button" id="btn_salvar" class="btn btn-primary">Efetuar Cadastro</button>
           </div>
         </div>
       </div>
@@ -182,7 +188,8 @@
               </div>
               <div class="form-group mb-1">
                 <label for="password">Senha</label><br>
-                <input type="password" name="password" id="password" class="form-control" placeholder="Insira sua senha">
+                <input type="password" name="password" id="password" class="form-control"
+                  placeholder="Insira sua senha">
               </div>
             </div>
           </form>
@@ -230,27 +237,36 @@
       event.preventDefault();
 
       // Obtem os dados do formulário
-      let login = document.getElementById('txt_login').value;
-      let nome = document.getElementById('txt_nome').value;
-      let email = document.getElementById('txt_email').value;
-      let senha = document.getElementById('txt_senha').value;
-      let senha2 = document.getElementById('txt_senha2').value;
+
+
+      let nome = document.getElementById('sign-up-nome').value || "";
+      let nomeRazao = document.getElementById('sign-up-razao-social').value || "";
+      let isPj = document.getElementById('sign-up-is-pj').checked;
+      let cpfCNPJ = document.getElementById('sign-up-cpf-cnpj').value || "";
+      let endereco = document.getElementById('sign-up-endereco').value || "";
+      let telefone = document.getElementById('sign-up-telefone').value || "";
+      let email = document.getElementById('sign-up-email').value || "";
+      let senha = document.getElementById('sign-up-password').value || "";
+      let senha2 = document.getElementById('sign-up-password2').value;
+      console.log(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senha, senha2)
       if (senha != senha2) {
         alert('As senhas informadas não conferem.');
         return
       }
 
       // Adiciona o usuário no banco de dados
-      addUser(nome, senha, email);
-      alert('Usuário salvo com sucesso. Proceda com o login para ');
+      if (checkFields(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senha)) {
+        return
+      }
 
-      // Oculta a div modal do login
-      //document.getElementById ('loginModal').style.display = 'none';
-      $('#loginModal').modal('hide');
+      addUser(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senha);
+      alert('Usuário salvo com sucesso. Proceda com o login para ');
+      bootstrap.Modal.getInstance(document.getElementById('SignUpModal')).hide()
     }
-    
+
     // associa função makeTest ao botão
     document.getElementById('efetuar-teste').addEventListener('click', makeTest);
+
 
     // Associa a funçao processaFormLogin  formulário adicionado um manipulador do evento submit
     document.getElementById('login-form').addEventListener('submit', processaFormLogin);
