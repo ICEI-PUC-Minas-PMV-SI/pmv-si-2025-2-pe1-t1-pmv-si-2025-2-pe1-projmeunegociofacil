@@ -113,6 +113,8 @@ function logoutUser() {
     window.location = LOGIN_URL;
 }
 
+
+
 function addUser(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senha) {
 
     // Cria um objeto de usuario para o novo usuario 

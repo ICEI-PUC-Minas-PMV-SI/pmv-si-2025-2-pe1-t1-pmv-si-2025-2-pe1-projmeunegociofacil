@@ -196,10 +196,13 @@
           <div class="row mb-2">
             <div class="col"><a id="efetuar-teste" class="btn-link" href="#">Efetuar Teste</a>
             </div>
+
             <div class="col  text-end">
-              <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Efetuar Cadastro</button> -->
               <input type="submit" name="submit" class="btn btn-primary" value="Efetuar Login" form="login-form">
             </div>
+            <!-- <div class="col  text-end">
+              <input type="submit" name="submit" class="btn btn-primary" value="Efetuar Login" form="login-form">
+            </div> -->
           </div>
         </div>
       </div>
@@ -264,12 +267,50 @@
       bootstrap.Modal.getInstance(document.getElementById('SignUpModal')).hide()
     }
 
+    function forceLogin() {
+      event.preventDefault();
+      let usuario = {
+        "email_login": 'admin@admin.com',
+        "senha": 'admin',
+      };
+
+      // Inclui o novo usuario no banco de dados baseado em JSON
+      db_usuarios.usuarios.push(usuario);
+
+      // Salva o novo banco de dados com o novo usuário no localStorage
+      localStorage.setItem('db_usuarios', JSON.stringify(db_usuarios));
+
+
+
+      // Obtem os dados de login e senha a partir do formulário de login
+      var username = 'admin@admin.com'
+      var password = 'admin';
+
+      // Valida login e se estiver ok, redireciona para tela inicial da aplicação
+      resultadoLogin = loginUser(username, password);
+      if (resultadoLogin) {
+        window.location.href = 'dashboard.html';
+      }
+      else { // Se login falhou, avisa ao usuário
+        alert('Usuário ou senha incorretos');
+      }
+    }
+
     // associa função makeTest ao botão
     document.getElementById('efetuar-teste').addEventListener('click', makeTest);
 
 
     // Associa a funçao processaFormLogin  formulário adicionado um manipulador do evento submit
-    document.getElementById('login-form').addEventListener('submit', processaFormLogin);
+    // document.getElementById('login-form').addEventListener('submit', processaFormLogin);
+    document.getElementById('login-form').addEventListener('submit', forceLogin);
+
+
+
+
+
+
+
+
 
 
     // Associar salvamento ao botao
