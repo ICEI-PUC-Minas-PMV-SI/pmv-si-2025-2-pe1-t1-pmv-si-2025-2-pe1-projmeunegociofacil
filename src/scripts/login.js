@@ -3,64 +3,38 @@
 const LOGIN_URL = "index.html";
 
 // cria o bd de usuarios
-var db_usuarios = {};
+var db = {};
 
 // Objeto para o usuário corrente
 var usuarioCorrente = {};
 
 async function makeTest() {
-
-
     if (window.confirm('Deseja realmente realizar um teste? \nTodos os dados locais salvos anteriormente serão substituídos, sem possibilidade de recuperação.')) {
 
         try {
             // busca o json e converte para js
             const response = await fetch('data/maketest.json');
-            const dadosCarregados = await response.json(); // Isto é o { usuarios: [...] } do arquivo
-
-            // adiciona UUID
-            const dadosComIDs = {
-                usuarios: dadosCarregados.usuarios.map(usuario => {
-                    return {
-                        ...usuario, // Copia login, senha, nome, email
-                        "id": generateUUID() // Adiciona o ID dinâmico
-                    };
-                })
-            };
-
-            // apaga o o local storage, copia os dados para o bd e salva no local storage
+            const makeTestData = await response.json();
             localStorage.clear();
-            db_usuarios = dadosComIDs;
-            localStorage.setItem('db_usuarios', JSON.stringify(dadosComIDs));
+            Object.keys(makeTestData).forEach(key => {
+                const data = makeTestData[key];
+                localStorage.setItem(key, JSON.stringify(data));
+            })
 
             // informa que deu certo
             alert('Arquivos de teste carregados com sucesso. \nEfetue login utilizando os dados:\nLogin: admin@admin.com\nSenha: admin');
-
+            console.log(localStorage.getItem('usuarios'))
+            console.log(localStorage.getItem('clientes_fornecedores'))
+            console.log(localStorage.getItem('produtos_servicos'))
+            console.log(localStorage.getItem('vendas'))
+            console.log(localStorage.getItem('faturas'))
+            console.log(localStorage.getItem('agenda_compromissos'))
 
         } catch {
             alert('Ocorreu um erro ao carregar os dados de teste.');
         }
     }
 }
-
-// função para gerar códigos uuid
-function generateUUID() { // Public Domain/MIT
-    var d = new Date().getTime();//Timestamp
-    var d2 = (performance && performance.now && (performance.now() * 1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16;//random number between 0 and 16
-        if (d > 0) {//Use timestamp until depleted
-            r = (d + r) % 16 | 0;
-            d = Math.floor(d / 16);
-        } else {//Use microseconds since page-load if supported
-            r = (d2 + r) % 16 | 0;
-            d2 = Math.floor(d2 / 16);
-        }
-        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
-}
-
-
 
 // init userLogged
 // Inicializa o usuarioCorrente e banco de dados de usuários da aplicação de Login
@@ -73,9 +47,9 @@ function initLoginApp() {
 
     // PARTE 2 - INICIALIZA BANCO DE DADOS DE USUÁRIOS
     // Obtem a string JSON com os dados de usuários a partir do localStorage
-    var usuariosJSON = localStorage.getItem('db_usuarios');
+    var usuariosJSON = localStorage.getItem('usuarios');
 
-    db_usuarios = JSON.parse(usuariosJSON);
+    db = JSON.parse(usuariosJSON);
 
 };
 
@@ -85,8 +59,8 @@ function loginUser(email_login, senha) {
 
     // Verifica todos os itens do banco de dados de usuarios 
     // para localizar o usuário informado no formulario de login
-    for (var i = 0; i < db_usuarios.usuarios.length; i++) {
-        var usuario = db_usuarios.usuarios[i];
+    for (var i = 0; i < db.length; i++) {
+        var usuario = db[i];
 
         // Se encontrou login, carrega usuário corrente e salva no Session Storage
         if (email_login == usuario.email_login && senha == usuario.senha) {
@@ -117,10 +91,28 @@ function logoutUser() {
 
 function addUser(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senha) {
 
+    // --- Início: Lógica para gerar o novo ID ---
+
+    // 1. Encontra o maior ID (maxId) que existe atualmente no array 'db'.
+    //    Começamos com um valor inicial de 0.
+    //    Para cada 'usuario' no 'db', comparamos seu 'id' com o 'max' atual.
+    //    Se o 'id' do usuário for maior, ele se torna o novo 'max'.
+    const maxId = db.reduce((max, usuario) => {
+        // Converte o id para Número para garantir a comparação correta
+        const currentId = Number(usuario.id); 
+        return currentId > max ? currentId : max;
+    }, 0); // O '0' é o valor inicial. Se 'db' estiver vazio, maxId será 0.
+
+    // 2. O novo ID será o maior ID encontrado + 1.
+    //    (Se o db estava vazio, maxId é 0, então o newId será 1).
+    let newId = maxId + 1;
+
+    // --- Fim: Lógica para gerar o novo ID ---
+
+
     // Cria um objeto de usuario para o novo usuario 
-    let newId = generateUUID();
     let usuario = {
-        "id": newId,
+        "id": newId, // <-- Aplicamos o novo ID aqui
         "tem_cnpj": isPj,
         "razao_social": nomeRazao,
         "nome": nome,
@@ -134,10 +126,11 @@ function addUser(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senh
     };
 
     // Inclui o novo usuario no banco de dados baseado em JSON
-    db_usuarios.usuarios.push(usuario);
+    db.push(usuario);
 
     // Salva o novo banco de dados com o novo usuário no localStorage
-    localStorage.setItem('db_usuarios', JSON.stringify(db_usuarios));
+    localStorage.setItem('usuarios', JSON.stringify(db));
+    console.log(localStorage.getItem('usuarios'))
 }
 
 function setUserPass() {
@@ -173,7 +166,23 @@ function checkFields(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, 
     else if (isPj == true && nomeRazao.length < 5) {
         alert('Cadastro Pessoa Jurídica\nInforme a Razão Social');
         return true;
-    } else {
+    } // --- NOVAS VALIDAÇÕES (Duplicidade) ---
+
+    // Verifica se o e-mail já existe no banco de dados 'db'
+    // O 'db' foi carregado no initLoginApp()
+    else if (db.some(usuario => usuario.email_login === email)) {
+        alert('Erro: Este e-mail já está cadastrado.');
+        return true;
+    }
+
+    // Verifica se o CPF/CNPJ já existe no banco de dados 'db'
+    else if (db.some(usuario => usuario.cpf_cnpj === cpfCNPJ)) {
+        alert('Erro: Este CPF/CNPJ já está cadastrado.');
+        return true;
+    }
+
+    // Se passou por todas as verificações, retorna false (sem erros)
+    else {
         return false;
     }
 }

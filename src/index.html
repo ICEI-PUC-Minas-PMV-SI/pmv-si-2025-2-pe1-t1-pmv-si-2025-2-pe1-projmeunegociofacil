@@ -267,52 +267,15 @@
       bootstrap.Modal.getInstance(document.getElementById('SignUpModal')).hide()
     }
 
-    function forceLogin() {
-      event.preventDefault();
-      alert('Versão de Testes\nLogin efetuado automaticamente.')
-      let usuario = {
-        "email_login": 'admin@admin.com',
-        "senha": 'admin',
-      };
-
-      // Inclui o novo usuario no banco de dados baseado em JSON
-      db_usuarios.usuarios.push(usuario);
-
-      // Salva o novo banco de dados com o novo usuário no localStorage
-      localStorage.setItem('db_usuarios', JSON.stringify(db_usuarios));
-
-
-
-      // Obtem os dados de login e senha a partir do formulário de login
-      var username = 'admin@admin.com'
-      var password = 'admin';
-
-      // Valida login e se estiver ok, redireciona para tela inicial da aplicação
-      resultadoLogin = loginUser(username, password);
-      if (resultadoLogin) {
-        window.location.href = 'dashboard.html';
-      }
-      else { // Se login falhou, avisa ao usuário
-        alert('Usuário ou senha incorretos');
-      }
-    }
+  
 
     // associa função makeTest ao botão
     document.getElementById('efetuar-teste').addEventListener('click', makeTest);
 
 
     // Associa a funçao processaFormLogin  formulário adicionado um manipulador do evento submit
-    // document.getElementById('login-form').addEventListener('submit', processaFormLogin);
-    document.getElementById('login-form').addEventListener('submit', forceLogin);
-
-
-
-
-
-
-
-
-
+    document.getElementById('login-form').addEventListener('submit', processaFormLogin);
+    // document.getElementById('login-form').addEventListener('submit', forceLogin);
 
     // Associar salvamento ao botao
     document.getElementById('btn_salvar').addEventListener('click', salvaLogin);        
