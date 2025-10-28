@@ -1,60 +1,91 @@
-var client
-
-function searchClient() {
-    // if (client == null) {
-    //     console.log('consumidor final');
-    // }
-
-}
+let selectedClientForSale = null;
+let allUserClients = []; 
+let tbodyListOfClients;
 
 function loadClients() {
-    // const allClients = ;
-    const userClients = JSON.parse(localStorage.getItem('clientes_fornecedores')).filter(item => {
+    // Busca TODOS os clientes
+    allUserClients = JSON.parse(localStorage.getItem('clientes_fornecedores')).filter(item => {
         return item.tipo === "cliente" && item.usuarioId === usuarioCorrente.id;
     });
 
-    tbodyListOfClients = document.getElementById('list-of-clients')
+    tbodyListOfClients = document.getElementById('list-of-clients');
 
-    // const rowsHtml = userClients.slice(0, 10).map(cliente => {
-
-    const rowsHtml = userClients.map(cliente => {
+    // Renderiza os 10 primeiros
+    const initialClients = allUserClients.slice(0, 10);
+    const rowsHtml = initialClients.map(cliente => {
         return `
     <tr data-id="${cliente.id}">
       <th><a href="#">${cliente.nome_razao_social}</a></th>
     </tr>
   `;
+    }).join('');
+    tbodyListOfClients.innerHTML = rowsHtml;
+
+    // FILTRO DE BUSCA 
+    const searchInput = document.getElementById('search-client');
+    searchInput.addEventListener('input', (event) => {
+        const searchTerm = event.target.value.toLowerCase().trim();
+        let clientsToShow = []; 
+
+        if (searchTerm === '') {
+            clientsToShow = allUserClients.slice(0, 10);
+        } else {
+            clientsToShow = allUserClients.filter(cliente => {
+                const clientName = cliente.nome_razao_social.toLowerCase();
+                return clientName.startsWith(searchTerm);
+            });
+        }
+
+        const filteredHtml = clientsToShow.map(cliente => {
+            return `
+        <tr data-id="${cliente.id}">
+          <th><a href="#">${cliente.nome_razao_social}</a></th>
+        </tr>
+      `;
+        }).join('');
+        tbodyListOfClients.innerHTML = filteredHtml;
     });
 
-    // 3. Junta todas as strings do array em uma única string (sem vírgulas)
-    const finalHtmlString = rowsHtml.join('');
+    tbodyListOfClients.addEventListener('click', (event) => {
+        // Impede que o link <a href="#"> mude a URL
+        event.preventDefault();
 
-    // 4. Insere o HTML gerado dentro do <tbody>
-    tbodyListOfClients.innerHTML = finalHtmlString;
+        // Encontra a linha <tr> mais próxima de onde o usuário clicou
+        const clickedRow = event.target.closest('tr');
 
-    console.log(userClients)
-    // array.forEach(allClients => { 
+        // Se o usuário clicou em um espaço vazio (e não numa linha), não faz nada
+        if (!clickedRow) return;
 
-    // });
+        // Pega o ID do cliente no 'data-id' da <tr>
+        const clientId = clickedRow.dataset.id;
 
+        // Encontra o objeto completo do cliente na lista 'allUserClients'
+        const selectedClient = allUserClients.find(client => client.id == clientId); // Usar '==' é seguro aqui pois data-id é string
 
+        if (selectedClient) {
+            // Salva o cliente na variável global (para usar na "venda")
+            selectedClientForSale = selectedClient;
+            console.log("Cliente selecionado:", selectedClientForSale);
 
+            // Atualiza o valor do input fora do modal
+            const clientInput = document.getElementById('select_cliente_fat_produtos');
+            clientInput.value = selectedClient.nome_razao_social;
 
+            // Fecha o modal (usando a API do Bootstrap)
+            const modalElement = document.getElementById('SelectClientesModal');
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+        }
+    });
 
-
-
-
-    // var prods = '';
-    // for (i=0; i < db.dados.length; i++) {
-    //     prods += `<p class="produto-item">Produto: ${ db.dados[i].titulo } <br> <img src="${ db.dados[i].imagem }"></p>`;
-    // }
-    // document.getElementById('lista-produtos').innerHTML = prods;
+    console.log("Todos os clientes carregados:", allUserClients);
 }
-
 
 function searchItem() { }
 function addItem() { }
 function save() { }
 function finish() { }
 
-searchClient();
 loadClients();
