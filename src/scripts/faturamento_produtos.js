@@ -1,6 +1,11 @@
-let selectedClientForSale = null;
-let allUserClients = []; 
-let tbodyListOfClients;
+let selectedClient = null;
+let allUserClients = [];
+let clientsToShow = [];
+let allUserItens = [];
+
+const tbodyListOfClients = document.getElementById('list-of-clients');
+const modalClient = document.getElementById('select-client-modal');
+
 
 function loadClients() {
     // Busca TODOS os clientes
@@ -8,11 +13,24 @@ function loadClients() {
         return item.tipo === "cliente" && item.usuarioId === usuarioCorrente.id;
     });
 
-    tbodyListOfClients = document.getElementById('list-of-clients');
+}
 
-    // Renderiza os 10 primeiros
+function loadItens() {
+    // Busca TODOS os clientes
+    allUserItens = JSON.parse(localStorage.getItem('produtos_servicos')).filter(item => {
+        return item.tipo === "produto" && item.usuarioId === usuarioCorrente.id;
+    });
+    console.log(allUserItens)
+
+}
+
+function firstClients() {
     const initialClients = allUserClients.slice(0, 10);
-    const rowsHtml = initialClients.map(cliente => {
+    return initialClients;
+}
+
+function renderClients(clientsToShow) {
+    const rowsHtml = clientsToShow.map(cliente => {
         return `
     <tr data-id="${cliente.id}">
       <th><a href="#">${cliente.nome_razao_social}</a></th>
@@ -20,12 +38,12 @@ function loadClients() {
   `;
     }).join('');
     tbodyListOfClients.innerHTML = rowsHtml;
+}
 
-    // FILTRO DE BUSCA 
+function searchClients() {
     const searchInput = document.getElementById('search-client');
     searchInput.addEventListener('input', (event) => {
         const searchTerm = event.target.value.toLowerCase().trim();
-        let clientsToShow = []; 
 
         if (searchTerm === '') {
             clientsToShow = allUserClients.slice(0, 10);
@@ -36,14 +54,7 @@ function loadClients() {
             });
         }
 
-        const filteredHtml = clientsToShow.map(cliente => {
-            return `
-        <tr data-id="${cliente.id}">
-          <th><a href="#">${cliente.nome_razao_social}</a></th>
-        </tr>
-      `;
-        }).join('');
-        tbodyListOfClients.innerHTML = filteredHtml;
+        return renderClients(clientsToShow);
     });
 
     tbodyListOfClients.addEventListener('click', (event) => {
@@ -60,32 +71,29 @@ function loadClients() {
         const clientId = clickedRow.dataset.id;
 
         // Encontra o objeto completo do cliente na lista 'allUserClients'
-        const selectedClient = allUserClients.find(client => client.id == clientId); // Usar '==' é seguro aqui pois data-id é string
+        const selectedClient = allUserClients.find(client => client.id == clientId);
 
         if (selectedClient) {
-            // Salva o cliente na variável global (para usar na "venda")
-            selectedClientForSale = selectedClient;
-            console.log("Cliente selecionado:", selectedClientForSale);
-
             // Atualiza o valor do input fora do modal
-            const clientInput = document.getElementById('select_cliente_fat_produtos');
+            const clientInput = document.getElementById('selected-client');
             clientInput.value = selectedClient.nome_razao_social;
 
-            // Fecha o modal (usando a API do Bootstrap)
-            const modalElement = document.getElementById('SelectClientesModal');
-            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            const modalInstance = bootstrap.Modal.getInstance(modalClient);
             if (modalInstance) {
                 modalInstance.hide();
             }
         }
     });
 
-    console.log("Todos os clientes carregados:", allUserClients);
 }
 
-function searchItem() { }
-function addItem() { }
-function save() { }
-function finish() { }
+// function searchItem() { }
+// function addItem() { }
+// function save() { }
+// function finish() { }
 
 loadClients();
+loadItens();
+renderClients(firstClients());
+searchClients();
+// noname();

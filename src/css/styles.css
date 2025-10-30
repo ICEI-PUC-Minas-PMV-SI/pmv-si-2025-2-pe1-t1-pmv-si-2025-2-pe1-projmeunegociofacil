@@ -107,7 +107,7 @@ body {
   transition: transform 0.3s ease;
 }
 
-#select_cliente_fat_produtos {
+#selected-client {
   background-color: #ffffff;
   color: #194f74;
   border-color: #194f74;
