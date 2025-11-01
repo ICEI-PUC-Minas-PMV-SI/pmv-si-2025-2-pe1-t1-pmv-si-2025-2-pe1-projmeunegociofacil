@@ -152,10 +152,16 @@
           <div class="row g-2 align-items-center ms-1 me-1">
 
             <div class="col-12 col-md-5 p-3">
-              <input id="selected-client" data-bs-toggle="modal" data-bs-target="#select-client-modal"
-                type="text" class="selected-client form-control input-modal-trigger"
-                value="Consumidor Final" readonly style="cursor: pointer;">
+              <div class="input-group">
+                <input id="selected-client" data-bs-toggle="modal" data-bs-target="#select-client-modal" type="text"
+                  class="form-control input-modal-trigger" value="Consumidor Final" readonly style="cursor: pointer;">
+                <div id="button-unselect-client">
+                </div>
+
+              </div>
+
             </div>
+
 
             <div class="col-12 col-md-5 p-3">
               <input id="select_produto_fat_produtos" class="form-control" type="text" placeholder="Digite o código">
@@ -457,7 +463,7 @@
                     </tr>
                   </thead>
                   <tbody id="list-of-clients">
-<!-- 
+                    <!-- 
                     <tr id="ClientSelectClientModal1">
                       <th><a href="#">André Dos Santos</a></th>
                     </tr>
@@ -598,3 +604,4 @@
 </body>
 
 </html>
+

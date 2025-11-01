@@ -107,7 +107,7 @@ body {
   transition: transform 0.3s ease;
 }
 
-#selected-client {
+#selected-client, .btn-outline-secondary {
   background-color: #ffffff;
   color: #194f74;
   border-color: #194f74;

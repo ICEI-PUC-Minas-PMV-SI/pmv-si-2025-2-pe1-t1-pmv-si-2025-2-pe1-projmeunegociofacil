@@ -3,9 +3,19 @@ let allUserClients = [];
 let clientsToShow = [];
 let allUserItens = [];
 
+const clientInput = document.getElementById('selected-client');
 const tbodyListOfClients = document.getElementById('list-of-clients');
 const modalClient = document.getElementById('select-client-modal');
+const buttonUnselectClient = document.getElementById('button-unselect-client');
 
+
+
+function removeClient() {
+    selectedClient = null;
+    clientInput.value = "Consumidor Final";
+      buttonUnselectClient.innerHTML = '';
+
+}
 
 function loadClients() {
     // Busca TODOS os clientes
@@ -75,13 +85,16 @@ function searchClients() {
 
         if (selectedClient) {
             // Atualiza o valor do input fora do modal
-            const clientInput = document.getElementById('selected-client');
             clientInput.value = selectedClient.nome_razao_social;
+
 
             const modalInstance = bootstrap.Modal.getInstance(modalClient);
             if (modalInstance) {
                 modalInstance.hide();
             }
+            buttonUnselectClient.innerHTML = `  <div class="input-group-append">
+    <button id="unselect-client" class="btn btn-outline-secondary selected-client" type="button">x</button>
+  </div>`;
         }
     });
 
@@ -92,8 +105,16 @@ function searchClients() {
 // function save() { }
 // function finish() { }
 
+buttonUnselectClient.addEventListener('click', (event) => {
+    // Verifica se o clique foi especificamente no botão com id 'unselect-client'
+    if (event.target.id === 'unselect-client') {
+        removeClient();
+    }
+});
+
 loadClients();
 loadItens();
 renderClients(firstClients());
 searchClients();
 // noname();
+
