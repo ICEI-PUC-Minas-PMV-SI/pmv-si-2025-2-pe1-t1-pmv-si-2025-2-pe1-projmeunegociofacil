@@ -7,14 +7,12 @@ const clientInput = document.getElementById('selected-client');
 const tbodyListOfClients = document.getElementById('list-of-clients');
 const modalClient = document.getElementById('select-client-modal');
 const buttonUnselectClient = document.getElementById('button-unselect-client');
-
-
+const itensInput = document.getElementById('select-itens-input');
 
 function removeClient() {
     selectedClient = null;
     clientInput.value = "Consumidor Final";
-      buttonUnselectClient.innerHTML = '';
-
+    buttonUnselectClient.innerHTML = '';
 }
 
 function loadClients() {
@@ -22,7 +20,6 @@ function loadClients() {
     allUserClients = JSON.parse(localStorage.getItem('clientes_fornecedores')).filter(item => {
         return item.tipo === "cliente" && item.usuarioId === usuarioCorrente.id;
     });
-
 }
 
 function loadItens() {
@@ -31,7 +28,6 @@ function loadItens() {
         return item.tipo === "produto" && item.usuarioId === usuarioCorrente.id;
     });
     console.log(allUserItens)
-
 }
 
 function firstClients() {
@@ -99,11 +95,6 @@ function searchClients() {
     });
 
 }
-
-// function searchItem() { }
-// function addItem() { }
-// function save() { }
-// function finish() { }
 
 buttonUnselectClient.addEventListener('click', (event) => {
     // Verifica se o clique foi especificamente no botão com id 'unselect-client'
