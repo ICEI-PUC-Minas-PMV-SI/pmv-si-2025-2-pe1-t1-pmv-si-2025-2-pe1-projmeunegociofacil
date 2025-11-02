@@ -315,202 +315,111 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    let nextContaReceberId = 4;
+  let nextContaReceberId = 4;
 
-    function formatarDataParaExibicao(dataString) {
-      if (!dataString) return '';
-      const [ano, mes, dia] = dataString.split('-');
-      return `${dia}/${mes}/${ano}`;
+  // LocalStorage 
+  let contasReceber = JSON.parse(localStorage.getItem('contasReceber')) || [];
+
+  function salvarNoLocalStorage() {
+    localStorage.setItem('contasReceber', JSON.stringify(contasReceber));
+  }
+
+  function formatarDataParaExibicao(dataString) {
+    if (!dataString) return '';
+    const [ano, mes, dia] = dataString.split('-');
+    return `${dia}/${mes}/${ano}`;
+  }
+
+  function formatarValorMonetario(valor) {
+    return parseFloat(valor).toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    });
+  }
+
+  function renderizarTabela() {
+    const tabela = document.querySelector('#tabelaContasReceber tbody');
+    tabela.innerHTML = '';
+
+    contasReceber.forEach(conta => {
+      const vencimentoFormatado = formatarDataParaExibicao(conta.vencimento);
+      const valorFormatado = conta.valor.replace('.', ',');
+
+      const reciboButton = `<button class="btn btn-outline-success btn-sm me-1" data-bs-toggle="modal" data-bs-target="#reciboModal" onclick="gerarRecibo(${conta.id})"><i class="bi bi-receipt"></i></button>`;
+      const editButton = `<button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaReceberModal" onclick="abrirModalContaReceber(${conta.id})"><i class="bi bi-pencil"></i></button>`;
+      const deleteButton = `<button class="btn btn-outline-danger btn-sm" onclick="excluirItem(${conta.id})"><i class="bi bi-trash"></i></button>`;
+
+      const acaoHTML =
+        conta.status === 'Recebido'
+          ? reciboButton + editButton + deleteButton
+          : editButton + deleteButton;
+
+      tabela.insertAdjacentHTML(
+        'beforeend',
+        `
+        <tr id="conta-receber-${conta.id}" data-status="${conta.status}" data-tipo="${conta.tipo}"
+          data-cliente="${conta.cliente}" data-descricao="${conta.descricao}" data-vencimento="${conta.vencimento}"
+          data-valor="${conta.valor}">
+          <td>${conta.status}</td>
+          <td>${conta.tipo}</td>
+          <td>${conta.cliente}</td>
+          <td>${conta.descricao}</td>
+          <td>${vencimentoFormatado}</td>
+          <td>${valorFormatado}</td>
+          <td>${acaoHTML}</td>
+        </tr>
+      `
+      );
+    });
+  }
+
+  function salvarContaReceber() {
+    const id = document.getElementById('contaReceberId').value;
+    const status = document.getElementById('modalStatusReceber').value;
+    const tipo = document.getElementById('modalTipoReceber').value;
+    const cliente = document.getElementById('modalClienteReceber').value;
+    const descricao = document.getElementById('modalDescricaoReceber').value;
+    const vencimento = document.getElementById('modalVencimentoReceber').value;
+    const valor = parseFloat(document.getElementById('modalValorReceber').value).toFixed(2);
+
+    if (!status || !tipo || !cliente || !descricao || !vencimento || isNaN(valor)) {
+      alert('Por favor, preencha todos os campos corretamente.');
+      return;
     }
 
-    // Função auxiliar para formatar valor monetário (R$)
-    function formatarValorMonetario(valor) {
-      return parseFloat(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    }
-
-    // FUNÇÃO PRINCIPAL: GERAR RECIBO
-    function gerarRecibo(id) {
-      const row = document.getElementById(`conta-receber-${id}`);
-      if (!row || row.dataset.status !== 'Recebido') {
-        alert('Recibo só pode ser gerado para contas com status "Recebido".');
-        return;
+    if (id) {
+      // Edição
+      const index = contasReceber.findIndex(c => c.id == id);
+      if (index !== -1) {
+        contasReceber[index] = { id: Number(id), status, tipo, cliente, descricao, vencimento, valor };
       }
-
-      const dataRecebimento = new Date().toLocaleDateString('pt-BR');
-      const valorExtenso = formatarNumeroPorExtenso(row.dataset.valor);
-      const valorMonetario = formatarValorMonetario(row.dataset.valor);
-
-      const reciboHTML = `
-            <div class="text-center mb-4">
-                <h4 class="fw-bold">RECIBO DE PAGAMENTO N° ${id}</h4>
-            </div>
-            <p>Recebi(emos) de **${row.dataset.cliente}**, a importância de</p>
-            <h5 class="text-center p-2 border border-secondary bg-light fw-bold">${valorMonetario} (${valorExtenso})</h5>
-            <p>referente ao pagamento de:</p>
-            <p class="border-bottom pb-2">**${row.dataset.descricao}**</p>
-            
-            <p class="mt-4">
-                Para clareza, firmo(amos) o presente recibo.
-            </p>
-            <div class="d-flex justify-content-between mt-5">
-                <div class="text-center pt-3 border-top w-40">
-                    Assinatura do Recebedor
-                </div>
-                <div class="text-center pt-3 w-40">
-                    ${'Jundiaí, ' + dataRecebimento}
-                </div>
-            </div>
-        `;
-      document.getElementById('recibo-conteudo').innerHTML = reciboHTML;
-      // O modal é aberto pelo data-bs-target no botão, ou via JS após esta função.
+    } else {
+      // Novo registro
+      const newId = contasReceber.length > 0 ? contasReceber[contasReceber.length - 1].id + 1 : 1;
+      contasReceber.push({ id: newId, status, tipo, cliente, descricao, vencimento, valor });
     }
 
-    // FUNÇÃO AUXILIAR: CONVERTE NÚMERO PARA EXTENSO (Simulação)
-    function formatarNumeroPorExtenso(n) {
-      // Implementação simulada para fins de demonstração no portfólio
-      if (n === '240.00') return 'duzentos e quarenta reais';
-      return `[Valor por extenso simulado - R$ ${n.replace('.', ',')}]`;
+    salvarNoLocalStorage();
+    renderizarTabela();
+
+    const modal = bootstrap.Modal.getInstance(document.getElementById('contaReceberModal'));
+    modal.hide();
+  }
+
+  function excluirItem(id) {
+    if (confirm('Deseja realmente excluir esta conta?')) {
+      contasReceber = contasReceber.filter(c => c.id !== id);
+      salvarNoLocalStorage();
+      renderizarTabela();
     }
+  }
 
-    // FUNÇÃO AUXILIAR: IMPRIMIR RECIBO
-    function imprimirRecibo() {
-      const conteudo = document.getElementById('recibo-conteudo').innerHTML;
-      const janelaImprimir = window.open('', '', 'width=800,height=600');
+  // Inicializa a tabela com os dados do localStorage
+  window.addEventListener('load', () => {
+    renderizarTabela();
+  });
+</script>
 
-      janelaImprimir.document.write('<html><head><title>Recibo</title>');
-      // Inclui o Bootstrap e um estilo para impressão
-      janelaImprimir.document.write('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">');
-      janelaImprimir.document.write('<style>@media print { .modal-body, .border { border: none !important; } }</style>');
-      janelaImprimir.document.write('</head><body>');
-      janelaImprimir.document.write('<div class="container p-5">' + conteudo + '</div>'); // Adiciona padding
-      janelaImprimir.document.write('</body></html>');
-
-      janelaImprimir.document.close();
-      janelaImprimir.focus();
-      janelaImprimir.print();
-    }
-
-
-    // Funções de CRUD (abrirModalContaReceber, salvarContaReceber, excluirItem)
-    function abrirModalContaReceber(id) {
-      const modalTitle = document.getElementById('contaReceberModalLabel');
-      const form = document.getElementById('formContaReceber');
-
-      form.reset();
-      document.getElementById('contaReceberId').value = '';
-
-      if (id) {
-        modalTitle.textContent = 'Editar Conta a Receber';
-        document.getElementById('contaReceberId').value = id;
-
-        const row = document.getElementById(`conta-receber-${id}`);
-        if (row) {
-          document.getElementById('modalStatusReceber').value = row.dataset.status;
-          document.getElementById('modalTipoReceber').value = row.dataset.tipo;
-          document.getElementById('modalClienteReceber').value = row.dataset.cliente;
-          document.getElementById('modalDescricaoReceber').value = row.dataset.descricao;
-          document.getElementById('modalVencimentoReceber').value = row.dataset.vencimento;
-          document.getElementById('modalValorReceber').value = parseFloat(row.dataset.valor).toFixed(2);
-        }
-      } else {
-        modalTitle.textContent = 'Adicionar Nova Conta a Receber';
-      }
-    }
-
-    function salvarContaReceber() {
-      const id = document.getElementById('contaReceberId').value;
-      const status = document.getElementById('modalStatusReceber').value;
-      const tipo = document.getElementById('modalTipoReceber').value;
-      const cliente = document.getElementById('modalClienteReceber').value;
-      const descricao = document.getElementById('modalDescricaoReceber').value;
-      const vencimento = document.getElementById('modalVencimentoReceber').value;
-      const valor = parseFloat(document.getElementById('modalValorReceber').value).toFixed(2);
-
-      if (!status || !tipo || !cliente || !descricao || !vencimento || isNaN(valor)) {
-        alert('Por favor, preencha todos os campos corretamente.');
-        return;
-      }
-
-      const tabela = document.querySelector('#tabelaContasReceber tbody');
-      const vencimentoFormatado = formatarDataParaExibicao(vencimento);
-      const valorMonetarioExibicao = valor.replace('.', ',');
-
-      let acaoHTML;
-      // Lógica para mostrar o botão de Recibo APENAS se o status for 'Recebido'
-      const reciboButton = `<button class="btn btn-outline-success btn-sm me-1" data-bs-toggle="modal" data-bs-target="#reciboModal" onclick="gerarRecibo(${id || nextContaReceberId})"><i class="bi bi-receipt"></i></button>`;
-      const editButton = `<button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaReceberModal" onclick="abrirModalContaReceber(${id || nextContaReceberId})"><i class="bi bi-pencil"></i></button>`;
-      const deleteButton = `<button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a receber', ${id || nextContaReceberId})"><i class="bi bi-trash"></i></button>`;
-
-
-      if (status === 'Recebido') {
-        acaoHTML = reciboButton + editButton + deleteButton;
-      } else {
-        acaoHTML = editButton + deleteButton;
-      }
-
-
-      if (id) {
-        // Editar conta existente
-        const row = document.getElementById(`conta-receber-${id}`);
-        if (row) {
-          row.children[0].textContent = status;
-          row.children[1].textContent = tipo;
-          row.children[2].textContent = cliente;
-          row.children[3].textContent = descricao;
-          row.children[4].textContent = vencimentoFormatado;
-          row.children[5].textContent = valorMonetarioExibicao;
-          row.children[6].innerHTML = acaoHTML; // Atualiza a coluna Ação
-
-          // Atualiza os data-atributos
-          row.dataset.status = status;
-          row.dataset.tipo = tipo;
-          row.dataset.cliente = cliente;
-          row.dataset.descricao = descricao;
-          row.dataset.vencimento = vencimento;
-          row.dataset.valor = valor;
-
-          alert(`Conta a Receber (ID: ${id}) atualizada com sucesso (simulado)!`);
-        }
-      } else {
-        // Adicionar nova conta
-        const newId = nextContaReceberId++;
-        const newRow = `
-                <tr id="conta-receber-${newId}" data-status="${status}" data-tipo="${tipo}" data-cliente="${cliente}" data-descricao="${descricao}" data-vencimento="${vencimento}" data-valor="${valor}">
-                    <td>${status}</td>
-                    <td>${tipo}</td>
-                    <td>${cliente}</td>
-                    <td>${descricao}</td>
-                    <td>${vencimentoFormatado}</td>
-                    <td>${valorMonetarioExibicao}</td>
-                    <td>
-                        ${status === 'Recebido' ? reciboButton : ''}
-                        ${editButton}
-                        ${deleteButton}
-                    </td>
-                </tr>
-            `;
-        tabela.insertAdjacentHTML('beforeend', newRow);
-        alert(`Conta a Receber "${descricao}" adicionada com sucesso (simulado)!`);
-      }
-
-      // Fecha o modal
-      const modal = bootstrap.Modal.getInstance(document.getElementById('contaReceberModal'));
-      modal.hide();
-    }
-
-    function excluirItem(tipo, id) {
-      if (confirm(`Tem certeza que deseja excluir esta ${tipo} (ID: ${id})?`)) {
-        const rowId = `conta-receber-${id}`;
-        const row = document.getElementById(rowId);
-        if (row) {
-          row.remove();
-          alert(`${tipo.charAt(0).toUpperCase() + tipo.slice(1)} (ID: ${id}) excluída com sucesso (simulado)!`);
-        } else {
-          alert(`Erro: Linha com ID "${rowId}" não encontrada.`);
-        }
-      }
-    }
-  </script>
 </body>
 
 </html>
