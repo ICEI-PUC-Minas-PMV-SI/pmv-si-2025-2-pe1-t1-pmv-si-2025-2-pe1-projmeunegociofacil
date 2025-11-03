@@ -2,18 +2,49 @@ let selectedClient = null;
 let allUserClients = [];
 let clientsToShow = [];
 let allUserItens = [];
+let itensToSale = [];
+
 
 const clientInput = document.getElementById('selected-client');
 const tbodyListOfClients = document.getElementById('list-of-clients');
 const modalClient = document.getElementById('select-client-modal');
 const buttonUnselectClient = document.getElementById('button-unselect-client');
-const itensInput = document.getElementById('select-itens-input');
-itensInput.addEventListener()
+const itensForm = document.getElementById('itens-form');
+const itensInput = document.getElementById('itens-input');
 
-function removeClient() {
-    selectedClient = null;
-    clientInput.value = "Consumidor Final";
-    buttonUnselectClient.innerHTML = '';
+buttonUnselectClient.addEventListener('click', removeClient);
+itensForm.addEventListener('submit', insertItem);
+
+function insertItem(event) {
+    event.preventDefault();
+    const itemToSearch = itensInput.value
+    const itemToInsert = allUserItens.find(item => item.meuId == itemToSearch)
+    if (itemToInsert === undefined) {
+        alert('Produto não encontrado')
+        return
+    }
+    const itemOnList = itensToSale.find(item => item.meuId == itemToSearch);
+    if (itemOnList) {
+        itemOnList.quantidade++;
+        alert('quantidade ajustada')
+        console.log(itensToSale)
+        itensInput.value = ''
+        return
+
+    }
+    const itemToInsertWhitQuantity = { ...itemToInsert, quantidade: 1 };
+    itensToSale.push(itemToInsertWhitQuantity);
+    console.log(itensToSale)
+    itensInput.value = ''
+}
+
+function removeClient(event) {
+    if (event.target.id === 'unselect-client') {
+        selectedClient = null;
+        clientInput.value = "Consumidor Final";
+        buttonUnselectClient.innerHTML = '';
+    }
+
 }
 
 function loadClients() {
@@ -28,7 +59,6 @@ function loadItens() {
     allUserItens = JSON.parse(localStorage.getItem('produtos_servicos')).filter(item => {
         return item.tipo === "produto" && item.usuarioId === usuarioCorrente.id;
     });
-    console.log(allUserItens)
 }
 
 function firstClients() {
@@ -57,7 +87,7 @@ function searchClients() {
         } else {
             clientsToShow = allUserClients.filter(cliente => {
                 const clientName = cliente.nome_razao_social.toLowerCase();
-                return clientName.startsWith(searchTerm);
+                return clientName.includes(searchTerm);
             });
         }
 
@@ -97,16 +127,9 @@ function searchClients() {
 
 }
 
-buttonUnselectClient.addEventListener('click', (event) => {
-    // Verifica se o clique foi especificamente no botão com id 'unselect-client'
-    if (event.target.id === 'unselect-client') {
-        removeClient();
-    }
-});
+
 
 loadClients();
 loadItens();
 renderClients(firstClients());
 searchClients();
-// noname();
-
