@@ -8,6 +8,7 @@ const tbodyListOfClients = document.getElementById('list-of-clients');
 const modalClient = document.getElementById('select-client-modal');
 const buttonUnselectClient = document.getElementById('button-unselect-client');
 const itensInput = document.getElementById('select-itens-input');
+itensInput.addEventListener()
 
 function removeClient() {
     selectedClient = null;
