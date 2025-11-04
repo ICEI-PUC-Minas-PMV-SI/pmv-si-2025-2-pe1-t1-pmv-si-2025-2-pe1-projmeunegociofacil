@@ -12,6 +12,8 @@ const modalClient = document.getElementById('select-client-modal');
 const buttonUnselectClient = document.getElementById('button-unselect-client');
 const itensForm = document.getElementById('itens-form');
 const itensInput = document.getElementById('itens-input');
+const quantitySpan = document.getElementById('quantity');
+
 
 buttonUnselectClient.addEventListener('click', removeClient);
 itensForm.addEventListener('submit', insertProduct);
@@ -32,6 +34,7 @@ function insertProduct(event) {
         productsToSale.push(productToInsertWhitQuantity);
     }
     renderProducts(productsToSale)
+    totalQuantity(productsToSale);
     console.log(productsToSale)
     itensInput.value = ''
 }
@@ -64,12 +67,12 @@ function renderProducts(productsToSale) {
     tbodyListOfProducts.innerHTML = rowsHtml;
 }
 
-function listOfProducts() {
+function listenerListOfProducts() {
     tbodyListOfProducts.addEventListener('click', (event) => {
         event.preventDefault();
         const deleteButton = event.target.closest('.btn-outline-danger');
         if (deleteButton) {
-            event.preventDefault(); 
+            event.preventDefault();
             const row = deleteButton.closest('tr');
             const productId = row.dataset.id;
             if (window.confirm("Tem certeza que deseja excluir este produto?")) {
@@ -78,64 +81,22 @@ function listOfProducts() {
                     productsToSale.splice(indexToRemove, 1);
                 }
                 renderProducts(productsToSale);
+                totalQuantity(productsToSale);
+
             }
         }
-    
+
     });
 }
 
 
-// function setupProductListListeners() {
-//         const deleteButton = event.target.closest('.btn-outline-danger');
 
-//         if (deleteButton) {
-//             // Impede qualquer comportamento padrão do botão (como enviar um formulário)
-//             event.preventDefault(); 
-            
-//             // Encontra a linha <tr> mais próxima do botão para pegar o ID
-//             const row = deleteButton.closest('tr');
-//             const productId = row.dataset.id;
-            
-//             // 1. Abre a caixa de confirmação
-//             const userConfirmed = window.confirm("Tem certeza que deseja excluir este produto?");
-            
-//             // 2. Se o usuário clicou "OK"
-//             if (userConfirmed) {
-                
-//                 // ----- MÉTODO RECOMENDADO: Atualizar os dados e renderizar -----
-                
-//                 // A. Encontre o índice do produto na sua array de dados.
-//                 //    (Estou assumindo que a array se chama 'productsToSale'
-//                 //    e está acessível neste escopo, com base no seu código)
-//                 const indexToRemove = productsToSale.findIndex(product => product.id == productId);
-                
-//                 // B. Se o produto foi encontrado, remova-o da array
-//                 if (indexToRemove > -1) {
-//                     productsToSale.splice(indexToRemove, 1);
-//                 }
-                
-//                 // C. Renderize a tabela novamente com a array atualizada
-//                 //    Isso remove a linha da tela automaticamente.
-//                 renderProducts(productsToSale);
-
-//                 // Nota: Se você só quiser remover o item da tela sem
-//                 // atualizar a array de dados, você poderia usar 'row.remove()'.
-//                 // Mas isso é arriscado, pois seus dados ficariam dessincronizados.
-//                 // O método acima (A, B, C) é o mais correto.
-//             }
-//         }
-
-//         // Bônus: Você pode adicionar a lógica do botão de editar aqui também
-//         const editButton = event.target.closest('.btn-outline-primary');
-//         if (editButton) {
-//             event.preventDefault();
-//             const productId = editButton.closest('tr').dataset.id;
-//             console.log(`Editar produto ID: ${productId}`);
-//             // ... sua lógica para abrir o modal de edição ...
-//         }
-//     });
-// }
-
+function totalQuantity(productsToSale) {
+    const quantify = productsToSale.reduce((acumulador, produto) => {
+        return acumulador + produto.quantidade;
+    }, 0);
+    quantitySpan.innerHTML = quantify;
+}
 
 function removeClient(event) {
     if (event.target.id === 'unselect-client') {
@@ -211,10 +172,10 @@ function listOfClientes() {
         }
     });
 }
-
+totalQuantity([]);
 loadClients();
 loadProducts();
 renderClients(firstClients());
 searchClients();
 listOfClientes();
-listOfProducts();
+listenerListOfProducts();
