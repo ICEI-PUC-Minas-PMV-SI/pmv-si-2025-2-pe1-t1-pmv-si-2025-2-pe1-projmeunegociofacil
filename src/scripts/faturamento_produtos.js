@@ -13,6 +13,8 @@ const buttonUnselectClient = document.getElementById('button-unselect-client');
 const itensForm = document.getElementById('itens-form');
 const itensInput = document.getElementById('itens-input');
 const quantitySpan = document.getElementById('quantity');
+const totalSpan = document.getElementById('totalizer-total');
+
 
 
 buttonUnselectClient.addEventListener('click', removeClient);
@@ -34,7 +36,8 @@ function insertProduct(event) {
         productsToSale.push(productToInsertWhitQuantity);
     }
     renderProducts(productsToSale)
-    totalQuantity(productsToSale);
+    totalizerQuantity(productsToSale);
+    totalizerTotal(productsToSale);
     console.log(productsToSale)
     itensInput.value = ''
 }
@@ -81,7 +84,8 @@ function listenerListOfProducts() {
                     productsToSale.splice(indexToRemove, 1);
                 }
                 renderProducts(productsToSale);
-                totalQuantity(productsToSale);
+                totalizerQuantity(productsToSale);
+                totalizerTotal(productsToSale);
 
             }
         }
@@ -89,14 +93,21 @@ function listenerListOfProducts() {
     });
 }
 
-
-
-function totalQuantity(productsToSale) {
+function totalizerQuantity(productsToSale) {
     const quantify = productsToSale.reduce((acumulador, produto) => {
         return acumulador + produto.quantidade;
     }, 0);
     quantitySpan.innerHTML = quantify;
 }
+
+function totalizerTotal(productsToSale) {
+    const valorTotal = productsToSale.reduce((acumulador, produto) => {
+        const subtotalProduto = produto.quantidade * produto.preco_venda;
+        return acumulador + subtotalProduto;
+    }, 0);
+    totalSpan.innerHTML = makeDecimal(valorTotal);
+}
+
 
 function removeClient(event) {
     if (event.target.id === 'unselect-client') {
@@ -172,7 +183,7 @@ function listOfClientes() {
         }
     });
 }
-totalQuantity([]);
+totalizerQuantity([]);
 loadClients();
 loadProducts();
 renderClients(firstClients());
