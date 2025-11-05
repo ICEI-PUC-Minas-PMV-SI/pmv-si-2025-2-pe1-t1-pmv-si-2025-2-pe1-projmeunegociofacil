@@ -8,6 +8,8 @@
 
 Projeto de sistema de gestão gratuito para pequenos empreendedores.
 
+[Acesso ao Projeto](https://icei-puc-minas-pmv-si.github.io/pmv-si-2025-2-pe1-t1-pmv-si-2025-2-pe1-projmeunegociofacil/)
+
 ## Integrantes
 
 * Alex Daniel Muzzi Souza  
