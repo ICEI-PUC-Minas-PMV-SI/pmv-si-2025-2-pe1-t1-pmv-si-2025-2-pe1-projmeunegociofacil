@@ -1,29 +1,33 @@
+import { makeDecimal, totalizerQuantity, totalizerTotal } from "./utils.js";
+
 let selectedClient = null;
-let allUserClients = [];
-let clientsToShow = [];
-let allUserItens = [];
 let productsToSale = [];
 
 const clientInput = document.getElementById('selected-client');
-const searchInput = document.getElementById('search-client');
+const searchClientInput = document.getElementById('search-client');
+const searchItensInput = document.getElementById('search-itens');
+const btnSearchItens = document.getElementById('btn-search-itens');
 const tbodyListOfClients = document.getElementById('list-of-clients');
 const tbodyListOfProducts = document.getElementById('list-of-products');
 const modalClient = document.getElementById('select-client-modal');
 const buttonUnselectClient = document.getElementById('button-unselect-client');
 const itensForm = document.getElementById('itens-form');
 const itensInput = document.getElementById('itens-input');
-const quantitySpan = document.getElementById('quantity');
-const totalSpan = document.getElementById('totalizer-total');
-
-
 
 buttonUnselectClient.addEventListener('click', removeClient);
 itensForm.addEventListener('submit', insertProduct);
 
+// ITENS - MUDAR TUDO PARA ITENS OU PRODUCS
+function allUserItens() {
+    return JSON.parse(localStorage.getItem('produtos_servicos')).filter(item => {
+        return item.tipo === "produto" && item.usuarioId === usuarioCorrente.id;
+    });
+}
+
 function insertProduct(event) {
     event.preventDefault();
     const productToSearch = itensInput.value
-    const productToInsert = allUserItens.find(item => item.meuId == productToSearch || item.codigo_barras == productToSearch)
+    const productToInsert = allUserItens().find(item => item.meuId == productToSearch || item.codigo_barras == productToSearch)
     if (productToInsert === undefined) {
         alert('Produto não encontrado')
         return
@@ -42,13 +46,47 @@ function insertProduct(event) {
     itensInput.value = ''
 }
 
-function makeDecimal(number) {
-    return number.toLocaleString('pt-BR', {
-        style: 'decimal',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    })
 
+function searchItens() {
+    let itensToShow = [];
+    renderItensSearch(itensToShow);
+
+    function makeSearch() {
+        const searchTerm = searchItensInput.value.toLowerCase().trim();
+        if (searchTerm === '') {
+            renderItensSearch([]);
+        } else {
+            itensToShow = allUserItens().filter(item => {
+                const meuId = String(item.meuId || '').toLowerCase();
+                const codBarras = String(item.codigo_barras || '').toLowerCase();
+                const desc = String(item.descricao || '').toLowerCase();
+                const ref = String(item.referencia || '').toLowerCase();
+
+                // Agora sim, comparando minúsculo com minúsculo
+                return meuId.includes(searchTerm) ||
+                    codBarras.includes(searchTerm) ||
+                    desc.includes(searchTerm) ||
+                    ref.includes(searchTerm);
+            });
+            renderItensSearch(itensToShow);
+            searchItensInput.value = '';
+        }
+    }
+
+    btnSearchItens.addEventListener('click', () => {
+        makeSearch();
+    });
+
+    searchItensInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            makeSearch();
+        }
+    });
+}
+
+function renderItensSearch(itensToShow) {
+    console.log(itensToShow)
 }
 
 function renderProducts(productsToSale) {
@@ -93,68 +131,28 @@ function listenerListOfProducts() {
     });
 }
 
-function totalizerQuantity(productsToSale) {
-    const quantify = productsToSale.reduce((acumulador, produto) => {
-        return acumulador + produto.quantidade;
-    }, 0);
-    quantitySpan.innerHTML = quantify;
-}
+// CLIENTS
 
-function totalizerTotal(productsToSale) {
-    const valorTotal = productsToSale.reduce((acumulador, produto) => {
-        const subtotalProduto = produto.quantidade * produto.preco_venda;
-        return acumulador + subtotalProduto;
-    }, 0);
-    totalSpan.innerHTML = makeDecimal(valorTotal);
-}
-
-
-function removeClient(event) {
-    if (event.target.id === 'unselect-client') {
-        selectedClient = null;
-        clientInput.value = "Consumidor Final";
-        buttonUnselectClient.innerHTML = '';
-    }
-
-}
-
-function loadClients() {
-    // Busca TODOS os clientes
-    allUserClients = JSON.parse(localStorage.getItem('clientes_fornecedores')).filter(item => {
+function allUserClients() {
+    return JSON.parse(localStorage.getItem('clientes_fornecedores')).filter(item => {
         return item.tipo === "cliente" && item.usuarioId === usuarioCorrente.id;
     });
 }
 
-function loadProducts() {
-    // Busca TODOS os clientes
-    allUserItens = JSON.parse(localStorage.getItem('produtos_servicos')).filter(item => {
-        return item.tipo === "produto" && item.usuarioId === usuarioCorrente.id;
-    });
-}
-
 function firstClients() {
-    const initialClients = allUserClients.slice(0, 10);
+    const initialClients = allUserClients().slice(0, 10);
     return initialClients;
 }
 
-function renderClients(clientsToShow) {
-    const rowsHtml = clientsToShow.map(cliente => {
-        return `
-    <tr data-id="${cliente.id}">
-      <th><a href="#">${cliente.nome_razao_social}</a></th>
-    </tr>
-  `;
-    }).join('');
-    tbodyListOfClients.innerHTML = rowsHtml;
-}
-
 function searchClients() {
-    searchInput.addEventListener('input', (event) => {
+    let clientsToShow = firstClients();
+    renderClients(clientsToShow);
+    searchClientInput.addEventListener('input', (event) => {
         const searchTerm = event.target.value.toLowerCase().trim();
         if (searchTerm === '') {
-            clientsToShow = allUserClients.slice(0, 10);
+            clientsToShow = allUserClients().slice(0, 10);
         } else {
-            clientsToShow = allUserClients.filter(cliente => {
+            clientsToShow = allUserClients().filter(cliente => {
                 const clientName = cliente.nome_razao_social.toLowerCase();
                 return clientName.includes(searchTerm);
             });
@@ -169,9 +167,11 @@ function listOfClientes() {
         const clickedRow = event.target.closest('tr');
         if (!clickedRow) return;
         const clientId = clickedRow.dataset.id;
-        const selectedClient = allUserClients.find(client => client.id == clientId);
-        if (selectedClient) {
+        const selectedClientSearch = allUserClients().find(client => client.id == clientId);
+        if (selectedClientSearch) {
+            selectedClient = selectedClientSearch;
             clientInput.value = selectedClient.nome_razao_social;
+
             const modalInstance = bootstrap.Modal.getInstance(modalClient);
             if (modalInstance) {
                 modalInstance.hide();
@@ -182,11 +182,31 @@ function listOfClientes() {
                 </div>`;
         }
     });
+
 }
+
+function renderClients(clientsToShow) {
+    const rowsHtml = clientsToShow.map(cliente => {
+        return `
+    <tr data-id="${cliente.id}">
+      <th><a href="#">${cliente.nome_razao_social}</a></th>
+    </tr>
+  `;
+    }).join('');
+    tbodyListOfClients.innerHTML = rowsHtml;
+}
+
+function removeClient(event) {
+    if (event.target.id === 'unselect-client') {
+        selectedClient = null;
+        clientInput.value = "Consumidor Final";
+        buttonUnselectClient.innerHTML = '';
+    }
+
+}
+
 totalizerQuantity([]);
-loadClients();
-loadProducts();
-renderClients(firstClients());
 searchClients();
+searchItens();
 listOfClientes();
 listenerListOfProducts();

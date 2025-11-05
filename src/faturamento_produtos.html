@@ -170,8 +170,7 @@
             </div>
 
             <div class="col-12 col-md-2 p-3">
-              <a class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#BuscarProdutosModal"
-                onclick="abrirModalContaPagar(null)">Buscar Produto</a>
+              <a class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#BuscarProdutosModal">Buscar Produto</a>
             </div>
           </div>
 
@@ -196,7 +195,7 @@
                   </tr>
                 </thead>
                 <tbody id="list-of-products" class="table-group-divider">
-              
+
                 </tbody>
               </table>
             </div>
@@ -255,24 +254,11 @@
         <div class="modal-body">
           <div class="container">
             <div class="row g-2 align-items-center">
-              <div class="col-12 col-md-3 p-1 pe-3">
-                <select class="form-select" aria-placeholder="">
-                  <option value="Descricao">Descrição</option>
-
-                  <option value="Codigo">Código</option>
-                  <option value="Referencia">Referência</option>
-                </select>
+              <div class="col-12 col-md-9 pe-3">
+                <input id="search-itens" class="form-control" type="text" placeholder="Buscar">
               </div>
-              <div class="col-12 col-md-6 pe-3">
-                <input id="search_produto_fat_produtos" class="form-control" type="text" placeholder="Buscar">
-              </div>
-
-
-
               <div class="col-12 col-md-3 p-3">
-                <!-- <a class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#BuscarProdutosModal"
-                      onclick="abrirModalContaPagar(null)" -->
-                <a class="btn btn-primary w-100" href="#">Buscar</a>
+                <a id="btn-search-itens" class="btn btn-primary w-100" href="#">Buscar</a>
               </div>
             </div>
 
@@ -361,10 +347,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-
-
           <input id="search-client" class="form-control mb-3" type="text" placeholder="Buscar">
-
           <div class="card mb-4">
             <div class="card-body p-0">
               <div class="table-responsive tabelaModal">
@@ -372,32 +355,15 @@
                   <thead class="table-light">
                     <tr>
                       <th scope="col">Selecione o cliente</th>
-
                     </tr>
                   </thead>
                   <tbody id="list-of-clients">
-                    <!-- 
-                    <tr id="ClientSelectClientModal1">
-                      <th><a href="#">André Dos Santos</a></th>
-                    </tr>
-                    <tr id="ClientSelectClientModal2">
-                      <th><a href="#">Beatriz da Silva</a></th>
-                    </tr>
-                    <tr id="ClientSelectClientModal3">
-                      <th><a href="#">Carlos Eduardo</a></th>
-                    </tr> -->
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-
-
         </div>
-        <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="salvarContaPagar()">Salvar</button>
-              </div> -->
       </div>
     </div>
   </div>
@@ -512,7 +478,7 @@
       </div>
     </div>
   </div>
-  <script src="assets/js/faturamento_produtos.js"></script>
+  <script type="module" src="assets/js/faturamento-produtos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
