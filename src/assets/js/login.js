@@ -13,7 +13,7 @@ async function makeTest() {
 
         try {
             // busca o json e converte para js
-            const response = await fetch('data/maketest.json');
+            const response = await fetch('assets/data/maketest.json');
             const makeTestData = await response.json();
             localStorage.clear();
             Object.keys(makeTestData).forEach(key => {
