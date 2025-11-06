@@ -5,29 +5,47 @@ let productsToSale = [];
 
 const clientInput = document.getElementById('selected-client');
 const searchClientInput = document.getElementById('search-client');
-const searchItensInput = document.getElementById('search-itens');
-const btnSearchItens = document.getElementById('btn-search-itens');
+const searchProductsInput = document.getElementById('search-products-input');
+const btnSearchProducts = document.getElementById('btn-search-products');
 const tbodyListOfClients = document.getElementById('list-of-clients');
+const tbodyListOfProductsSearch = document.getElementById('list-of-products-search');
+const tableProductsSearch = document.getElementById('table-products-search');
 const tbodyListOfProducts = document.getElementById('list-of-products');
 const modalClient = document.getElementById('select-client-modal');
+const modalSearchProducts = document.getElementById('search-products-modal');
 const buttonUnselectClient = document.getElementById('button-unselect-client');
-const itensForm = document.getElementById('itens-form');
-const itensInput = document.getElementById('itens-input');
+const productsForm = document.getElementById('products-form');
+const productsInput = document.getElementById('products-input');
 
+
+modalClient.addEventListener('hidden.bs.modal', cleanSearchClients);
 buttonUnselectClient.addEventListener('click', removeClient);
-itensForm.addEventListener('submit', insertProduct);
+productsForm.addEventListener('submit', insertProduct);
 
-// ITENS - MUDAR TUDO PARA ITENS OU PRODUCS
-function allUserItens() {
+// INIT
+function allUserProducts() {
     return JSON.parse(localStorage.getItem('produtos_servicos')).filter(item => {
         return item.tipo === "produto" && item.usuarioId === usuarioCorrente.id;
     });
 }
 
+function allUserClients() {
+    return JSON.parse(localStorage.getItem('clientes_fornecedores')).filter(item => {
+        return item.tipo === "cliente" && item.usuarioId === usuarioCorrente.id;
+    });
+}
+
+// PRODUCTS
 function insertProduct(event) {
     event.preventDefault();
-    const productToSearch = itensInput.value
-    const productToInsert = allUserItens().find(item => item.meuId == productToSearch || item.codigo_barras == productToSearch)
+    const productToSearch = productsInput.value
+    makeInsertProduct(productToSearch)
+    productsInput.value = ''
+
+}
+
+function makeInsertProduct(productToSearch) {
+    const productToInsert = allUserProducts().find(item => item.meuId == productToSearch || item.codigo_barras == productToSearch)
     if (productToInsert === undefined) {
         alert('Produto não encontrado')
         return
@@ -43,51 +61,9 @@ function insertProduct(event) {
     totalizerQuantity(productsToSale);
     totalizerTotal(productsToSale);
     console.log(productsToSale)
-    itensInput.value = ''
+
 }
 
-
-function searchItens() {
-    let itensToShow = [];
-    renderItensSearch(itensToShow);
-
-    function makeSearch() {
-        const searchTerm = searchItensInput.value.toLowerCase().trim();
-        if (searchTerm === '') {
-            renderItensSearch([]);
-        } else {
-            itensToShow = allUserItens().filter(item => {
-                const meuId = String(item.meuId || '').toLowerCase();
-                const codBarras = String(item.codigo_barras || '').toLowerCase();
-                const desc = String(item.descricao || '').toLowerCase();
-                const ref = String(item.referencia || '').toLowerCase();
-
-                // Agora sim, comparando minúsculo com minúsculo
-                return meuId.includes(searchTerm) ||
-                    codBarras.includes(searchTerm) ||
-                    desc.includes(searchTerm) ||
-                    ref.includes(searchTerm);
-            });
-            renderItensSearch(itensToShow);
-            searchItensInput.value = '';
-        }
-    }
-
-    btnSearchItens.addEventListener('click', () => {
-        makeSearch();
-    });
-
-    searchItensInput.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            makeSearch();
-        }
-    });
-}
-
-function renderItensSearch(itensToShow) {
-    console.log(itensToShow)
-}
 
 function renderProducts(productsToSale) {
     const rowsHtml = productsToSale.map(product => {
@@ -131,14 +107,94 @@ function listenerListOfProducts() {
     });
 }
 
-// CLIENTS
+function searchProducts() {
+    let productsToShow = [];
+    renderProductsSearch(productsToShow);
 
-function allUserClients() {
-    return JSON.parse(localStorage.getItem('clientes_fornecedores')).filter(item => {
-        return item.tipo === "cliente" && item.usuarioId === usuarioCorrente.id;
+    function makeSearch() {
+        const searchTerm = searchProductsInput.value.toLowerCase().trim();
+        if (searchTerm === '') {
+            renderProductsSearch([]);
+        } else {
+            productsToShow = allUserProducts().filter(item => {
+                const meuId = String(item.meuId || '').toLowerCase();
+                const codBarras = String(item.codigo_barras || '').toLowerCase();
+                const desc = String(item.descricao || '').toLowerCase();
+                const ref = String(item.referencia || '').toLowerCase();
+
+                return meuId.includes(searchTerm) ||
+                    codBarras.includes(searchTerm) ||
+                    desc.includes(searchTerm) ||
+                    ref.includes(searchTerm);
+            });
+            renderProductsSearch(productsToShow);
+            searchProductsInput.value = '';
+        }
+    }
+
+    btnSearchProducts.addEventListener('click', () => {
+        makeSearch();
+    });
+
+    searchProductsInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            makeSearch();
+        }
     });
 }
 
+
+
+function renderProductsSearch(productsToShow) {
+    const initrows = `
+    <div class="table-responsive">
+    <table class="table table-hover mb-0 tabelaModal">
+    <thead class="table-light">
+    <tr>
+    <th scope="col">Código</th>
+    <th scope="col">Referência</th>
+    <th scope="col">Descrição</th>
+    <th scope="col">Valor</th>
+    </tr>
+    </thead>
+    <tbody id="list-of-products-search"> `
+    const rowsHtml = productsToShow.map(product => {
+        return `
+    <tr data-id="${product.meuId}">
+    <th>${product.meuId}</th>
+      <th>${product.referencia ?? ""}</th>
+    <th>${product.descricao}</th>
+      <th>${makeDecimal(product.preco_venda)}</th>
+    </tr>
+  `;
+    }).join('');
+    const endrows = `
+    </tbody>
+    </table>
+    </div>`
+    tableProductsSearch.innerHTML = initrows + rowsHtml + endrows;
+}
+
+function listOfProductsSearch() {
+    tableProductsSearch.addEventListener('click', (event) => {
+        event.preventDefault();
+        const clickedRow = event.target.closest('#list-of-products-search tr');
+        if (!clickedRow) return;
+        const productMyId = clickedRow.dataset.id;
+        const selectedProductSearch = allUserProducts().find(product => product.meuId == productMyId);
+        if (selectedProductSearch) {
+            makeInsertProduct(productMyId);
+            const modalInstance = bootstrap.Modal.getInstance(modalSearchProducts);
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+        }
+    });
+
+}
+
+// CLIENTS
 function firstClients() {
     const initialClients = allUserClients().slice(0, 10);
     return initialClients;
@@ -205,8 +261,15 @@ function removeClient(event) {
 
 }
 
+function cleanSearchClients() {
+    searchClientInput.value = '';
+    renderClients(firstClients());
+}
+
 totalizerQuantity([]);
+totalizerTotal([]);
 searchClients();
-searchItens();
 listOfClientes();
+listOfProductsSearch();
 listenerListOfProducts();
+searchProducts();
