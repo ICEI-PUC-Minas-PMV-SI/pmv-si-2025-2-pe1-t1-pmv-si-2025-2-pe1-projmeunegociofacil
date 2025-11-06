@@ -9,3 +9,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+export function initEventFormDialog() {
+  const dialog = initDialog("event-form")
+  const eventForm = initEventForm();
+
+  document.addEventListener("event-creat-request", () => {
+    dialog.open();
+  })
+}
+
+export function initEventForm() {
+  const formElement = document.querySelector("[data-event-form]");
+
+  formElement.addEventListener("submit", (event) => {
+    event.preventDefault();
+    console.log("Form submitted");
+  });
+
+  return {};
+}
