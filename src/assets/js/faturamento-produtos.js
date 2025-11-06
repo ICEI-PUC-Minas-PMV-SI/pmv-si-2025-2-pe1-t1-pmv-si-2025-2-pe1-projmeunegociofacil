@@ -8,7 +8,6 @@ const searchClientInput = document.getElementById('search-client');
 const searchProductsInput = document.getElementById('search-products-input');
 const btnSearchProducts = document.getElementById('btn-search-products');
 const tbodyListOfClients = document.getElementById('list-of-clients');
-const tbodyListOfProductsSearch = document.getElementById('list-of-products-search');
 const tableProductsSearch = document.getElementById('table-products-search');
 const tbodyListOfProducts = document.getElementById('list-of-products');
 const modalClient = document.getElementById('select-client-modal');
@@ -18,7 +17,8 @@ const productsForm = document.getElementById('products-form');
 const productsInput = document.getElementById('products-input');
 
 
-modalClient.addEventListener('hidden.bs.modal', cleanSearchClients);
+modalClient.addEventListener('hidden.bs.modal', cleanSearch);
+modalSearchProducts.addEventListener('hidden.bs.modal', cleanSearch);
 buttonUnselectClient.addEventListener('click', removeClient);
 productsForm.addEventListener('submit', insertProduct);
 
@@ -162,10 +162,10 @@ function renderProductsSearch(productsToShow) {
     const rowsHtml = productsToShow.map(product => {
         return `
     <tr data-id="${product.meuId}">
-    <th>${product.meuId}</th>
-      <th>${product.referencia ?? ""}</th>
-    <th>${product.descricao}</th>
-      <th>${makeDecimal(product.preco_venda)}</th>
+    <th scope="row">${product.meuId}</th>
+      <td>${product.referencia ?? ""}</td>
+    <td>${product.descricao}</td>
+      <td>${makeDecimal(product.preco_venda)}</td>
     </tr>
   `;
     }).join('');
@@ -261,9 +261,11 @@ function removeClient(event) {
 
 }
 
-function cleanSearchClients() {
+function cleanSearch() {
     searchClientInput.value = '';
     renderClients(firstClients());
+    renderProductsSearch([]);
+    searchProductsInput.value = '';
 }
 
 totalizerQuantity([]);
