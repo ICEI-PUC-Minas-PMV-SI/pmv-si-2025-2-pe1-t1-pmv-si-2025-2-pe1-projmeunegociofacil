@@ -227,10 +227,10 @@
         <div class="container">
           <div class="d-grid d-md-block mt-2 me-3 text-end">
 
-            <a class="btn btn-secondary ps-4 pe-4 m-2" href="#" role="button">Cancelar</a>
+            <a id="btn-cancel" class="btn btn-secondary ps-4 pe-4 m-2" href="#" role="button">Cancelar</a>
 
             <a class="btn btn-secondary ps-4 pe-4 m-2" href="#" role="button" data-bs-toggle="modal"
-              data-bs-target="#SaveModal">Gravar</a>
+              data-bs-target="#save-modal">Gravar</a>
 
             <a class="btn btn-primary ps-4 pe-4 m-2" href="#" role="button" data-bs-toggle="modal"
               data-bs-target="#CheckoutModal">Efetuar Pagamento</a>
@@ -388,33 +388,36 @@
   </div>
 
   <!-- Modal Save -->
-  <div class="modal fade" id="SaveModal" tabindex="-1" aria-labelledby="SaveModalLabel" aria-hidden="true">
+  <div class="modal fade" id="save-modal" tabindex="-1" aria-labelledby="save-modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="SaveModalLabel">Gravar Venda</h5>
+          <h5 class="modal-title" id="save-modalLabel">Gravar Venda</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="container">
             <div class="d-flex align-items-center text-start flex-wrap gap-2">
-              <label class="fw-semibold">Cliente:</label>
-              <input class="form-control" style="max-width: 260px;" placeholder="Digite o nome do cliente" required>
+              <label class="fw-semibold">Cliente:*</label>
+              <input id="save-client" class="form-control" style="max-width: 260px;" placeholder="Digite o nome do cliente" required>
+            <div class="invalid-feedback">
+        Digite o nome do cliente corretamente.
+      </div>
             </div>
             <div class="d-flex align-items-center text-start flex-wrap gap-2">
               <label class="fw-semibold mt-3">Telefone:</label>
-              <input class="form-control" style="max-width: 260px;" placeholder="Digite o telefone">
+              <input id="save-telefone" class="form-control" style="max-width: 260px;" placeholder="Digite o telefone">
             </div>
             <div class="d-flex align-items-center text-start flex-wrap gap-2">
-              <label class="fw-semibold mt-3">CPF:</label>
-              <input class="form-control mb-3" style="max-width: 260px;" placeholder="Digite o CPF">
+              <label class="fw-semibold mt-3">CPF/CNPJ</label>
+              <input id="save-cpf-cnpj" class="form-control mb-3" style="max-width: 260px;" placeholder="Digite o CPF/CNPJ">
             </div>
 
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" onclick="SalvarVenda()">Salvar</button>
+          <button id="save-btn" type="button" class="btn btn-primary">Salvar</button>
         </div>
       </div>
     </div>

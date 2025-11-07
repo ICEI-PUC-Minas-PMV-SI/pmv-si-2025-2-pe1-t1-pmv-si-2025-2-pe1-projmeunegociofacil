@@ -14,14 +14,25 @@ export function totalizerQuantity(itensToSale) {
     const quantify = itensToSale.reduce((acumulador, produto) => {
         return acumulador + produto.quantidade;
     }, 0);
+    renderTotalizerQuantity(quantify)
+    return quantify;
+}
+
+function renderTotalizerQuantity(quantify) {
     quantitySpan.innerHTML = quantify;
 }
+
 
 export function totalizerTotal(itensToSale) {
     const valorTotal = itensToSale.reduce((acumulador, produto) => {
         const subtotalProduto = produto.quantidade * produto.preco_venda;
         return acumulador + subtotalProduto;
     }, 0);
-    totalSpan.innerHTML = makeDecimal(valorTotal);
+    renderTotalizerTotal(valorTotal)
+    return valorTotal;
 }
 
+function renderTotalizerTotal (valorTotal) {
+    totalSpan.innerHTML = makeDecimal(valorTotal);
+
+}

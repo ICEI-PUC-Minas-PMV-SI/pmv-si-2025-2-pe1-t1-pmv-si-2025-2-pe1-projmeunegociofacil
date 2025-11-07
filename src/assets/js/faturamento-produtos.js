@@ -12,15 +12,24 @@ const tableProductsSearch = document.getElementById('table-products-search');
 const tbodyListOfProducts = document.getElementById('list-of-products');
 const modalClient = document.getElementById('select-client-modal');
 const modalSearchProducts = document.getElementById('search-products-modal');
+const saveModal = document.getElementById('save-modal')
 const buttonUnselectClient = document.getElementById('button-unselect-client');
 const productsForm = document.getElementById('products-form');
 const productsInput = document.getElementById('products-input');
+const saveClient = document.getElementById('save-client');
+const saveTelefone = document.getElementById('save-telefone');
+const saveCpfCnpj = document.getElementById('save-cpf-cnpj');
+const btnCancel = document.getElementById('btn-cancel');
+const btnSave = document.getElementById('save-btn');
 
 
+
+btnCancel.addEventListener('click', cancelSale)
+btnSave.addEventListener('click', save)
 modalClient.addEventListener('hidden.bs.modal', cleanSearch);
 modalSearchProducts.addEventListener('hidden.bs.modal', cleanSearch);
 buttonUnselectClient.addEventListener('click', removeClient);
-productsForm.addEventListener('submit', insertProduct);
+productsForm.addEventListener('submit', insertProductFromInput);
 
 // INIT
 function allUserProducts() {
@@ -35,8 +44,39 @@ function allUserClients() {
     });
 }
 
+// UTILS
+function cleanSearch() {
+    searchClientInput.value = '';
+    renderClients(firstClients());
+    renderProductsSearch([]);
+    searchProductsInput.value = '';
+}
+
+function cancelSale() {
+    if (confirm('Deseja realmente cancelar a venda?')) {
+        cleanSale();
+    }
+}
+
+function cleanSale() {
+    cleanSearch();
+    productsToSale = [];
+    renderProducts(productsToSale);
+    totalizerQuantity(productsToSale);
+    totalizerTotal(productsToSale);
+    selectedClient = null;
+    saveClient.value = "";
+    saveTelefone.value = "";
+    saveCpfCnpj.value = "";
+    clientInput.value = "Consumidor Final";
+    buttonUnselectClient.innerHTML = '';
+}
+
+
+
+
 // PRODUCTS
-function insertProduct(event) {
+function insertProductFromInput(event) {
     event.preventDefault();
     const productToSearch = productsInput.value
     makeInsertProduct(productToSearch)
@@ -60,10 +100,8 @@ function makeInsertProduct(productToSearch) {
     renderProducts(productsToSale)
     totalizerQuantity(productsToSale);
     totalizerTotal(productsToSale);
-    console.log(productsToSale)
 
 }
-
 
 function renderProducts(productsToSale) {
     const rowsHtml = productsToSale.map(product => {
@@ -84,15 +122,39 @@ function renderProducts(productsToSale) {
     tbodyListOfProducts.innerHTML = rowsHtml;
 }
 
+
 function listenerListOfProducts() {
+    function saveProductQuantity(row, input) {
+        const productId = row.dataset.id;
+        const inputfield = Number(input.value);
+        const newQuantity = Number.isInteger(inputfield) ? inputfield : NaN;
+        if (isNaN(newQuantity) || newQuantity <= 0) {
+            alert("Insira um valor inteiro maior que 0.");
+            input.focus();
+            return;
+        }
+        const productToUpdate = productsToSale.find(product => product.id == productId);
+        if (productToUpdate) {
+            productToUpdate.quantidade = newQuantity;
+        }
+        input.readOnly = true;
+        input.classList.remove('form-control');
+        const editButton = row.querySelector('.btn-outline-success');
+        const icon = editButton.querySelector('i');
+        icon.classList.remove('bi-check');
+        icon.classList.add('bi-pencil');
+        editButton.classList.remove('btn-outline-success');
+        editButton.classList.add('btn-outline-primary');
+        totalizerQuantity(productsToSale);
+        totalizerTotal(productsToSale);
+    }
     tbodyListOfProducts.addEventListener('click', (event) => {
         event.preventDefault();
         const deleteButton = event.target.closest('.btn-outline-danger');
         if (deleteButton) {
-            event.preventDefault();
             const row = deleteButton.closest('tr');
             const productId = row.dataset.id;
-            if (window.confirm("Tem certeza que deseja excluir este produto?")) {
+            if (window.confirm("Deseja realmente excluir o produto?")) {
                 const indexToRemove = productsToSale.findIndex(product => product.id == productId);
                 if (indexToRemove > -1) {
                     productsToSale.splice(indexToRemove, 1);
@@ -100,13 +162,45 @@ function listenerListOfProducts() {
                 renderProducts(productsToSale);
                 totalizerQuantity(productsToSale);
                 totalizerTotal(productsToSale);
-
             }
         }
+        const editButton = event.target.closest('.btn-outline-primary, .btn-outline-success');
+        if (editButton) {
+            const row = editButton.closest('tr');
+            const input = row.querySelector('.input-quantidade');
+            const icon = editButton.querySelector('i');
 
+            if (icon.classList.contains('bi-pencil')) {
+                input.readOnly = false;
+                input.classList.add('form-control');
+                input.focus();
+                input.select();
+
+                icon.classList.remove('bi-pencil');
+                icon.classList.add('bi-check');
+                editButton.classList.remove('btn-outline-primary');
+                editButton.classList.add('btn-outline-success');
+
+            }
+            else if (icon.classList.contains('bi-check')) {
+                saveProductQuantity(row, input);
+            }
+        }
+    });
+    tbodyListOfProducts.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' &&
+            event.target.classList.contains('input-quantidade') &&
+            !event.target.readOnly) {
+            event.preventDefault();
+            const input = event.target;
+            const row = input.closest('tr');
+
+            saveProductQuantity(row, input);
+        }
     });
 }
 
+// SEARCH PRODUCTS
 function searchProducts() {
     let productsToShow = [];
     renderProductsSearch(productsToShow);
@@ -143,8 +237,6 @@ function searchProducts() {
         }
     });
 }
-
-
 
 function renderProductsSearch(productsToShow) {
     const initrows = `
@@ -227,6 +319,10 @@ function listOfClientes() {
         if (selectedClientSearch) {
             selectedClient = selectedClientSearch;
             clientInput.value = selectedClient.nome_razao_social;
+            saveClient.value = selectedClient.nome_razao_social;
+            saveTelefone.value = selectedClient.telefone;
+            saveCpfCnpj.value = selectedClient.cpf_cnpj;
+
 
             const modalInstance = bootstrap.Modal.getInstance(modalClient);
             if (modalInstance) {
@@ -255,17 +351,39 @@ function renderClients(clientsToShow) {
 function removeClient(event) {
     if (event.target.id === 'unselect-client') {
         selectedClient = null;
+        saveClient.value = "";
+        saveTelefone.value = "";
+        saveCpfCnpj.value = "";
         clientInput.value = "Consumidor Final";
         buttonUnselectClient.innerHTML = '';
     }
 
 }
 
-function cleanSearch() {
-    searchClientInput.value = '';
-    renderClients(firstClients());
-    renderProductsSearch([]);
-    searchProductsInput.value = '';
+// SAVE
+
+function save() {
+    if (productsToSale.length == 0) {
+        alert('Não é possível gravar uma venda sem itens.')
+    }
+    else if (selectedClient = null || saveClient.value.length < 5) {
+        saveClient.classList.add('is-invalid');
+    }
+    else {
+        saveClient.classList.remove('is-invalid');
+        console.log(selectedClient = null || saveClient.value.length)
+        console.log(productsToSale)
+        console.log(totalizerQuantity(productsToSale))
+        console.log(totalizerTotal(productsToSale))
+        cleanSale();
+        const modalInstance = bootstrap.Modal.getInstance(saveModal);
+        if (modalInstance) {
+            modalInstance.hide();
+        }
+        alert('Venda gravada com sucesso!')
+    }
+
+
 }
 
 totalizerQuantity([]);
