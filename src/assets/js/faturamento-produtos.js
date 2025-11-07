@@ -33,13 +33,13 @@ productsForm.addEventListener('submit', insertProductFromInput);
 
 // INIT
 function allUserProducts() {
-    return JSON.parse(localStorage.getItem('produtos_servicos')).filter(item => {
+    return JSON.parse(localStorage.getItem('produtosServicos')).filter(item => {
         return item.tipo === "produto" && item.usuarioId === usuarioCorrente.id;
     });
 }
 
 function allUserClients() {
-    return JSON.parse(localStorage.getItem('clientes_fornecedores')).filter(item => {
+    return JSON.parse(localStorage.getItem('clientesFornecedores')).filter(item => {
         return item.tipo === "cliente" && item.usuarioId === usuarioCorrente.id;
     });
 }
@@ -85,12 +85,12 @@ function insertProductFromInput(event) {
 }
 
 function makeInsertProduct(productToSearch) {
-    const productToInsert = allUserProducts().find(item => item.meuId == productToSearch || item.codigo_barras == productToSearch)
+    const productToInsert = allUserProducts().find(item => item.meuId == productToSearch || item.codigoBarras == productToSearch)
     if (productToInsert === undefined) {
         alert('Produto não encontrado')
         return
     }
-    const productOnList = productsToSale.find(item => item.meuId == productToSearch || item.codigo_barras == productToSearch);
+    const productOnList = productsToSale.find(item => item.meuId == productToSearch || item.codigoBarras == productToSearch);
     if (productOnList) {
         productOnList.quantidade++;
     } else {
@@ -106,12 +106,12 @@ function makeInsertProduct(productToSearch) {
 function renderProducts(productsToSale) {
     const rowsHtml = productsToSale.map(product => {
         return `
-        <tr data-id="${product.id}">
+        <tr data-id="${product.meuId}">
         <th class="text-center pe-4 ps-4" scope="row">${product.meuId}</th>
         <td class="text-start pe-4 ps-4">${product.descricao}</td>
         <td class="text-center pe-4 ps-4"><input class="input-quantidade text-center" value="${product.quantidade}" readonly>
         </td>
-        <td class="text-end pe-4 ps-4">${makeDecimal(product.preco_venda)}</td>
+        <td class="text-end pe-4 ps-4">${makeDecimal(product.precoVenda)}</td>
         <td class="text-center pe-4" style="min-width: 110px;"> 
         <button class="btn btn-outline-primary btn-sm me-1"><i class="bi bi-pencil"></i></button>
         <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
@@ -133,7 +133,7 @@ function listenerListOfProducts() {
             input.focus();
             return;
         }
-        const productToUpdate = productsToSale.find(product => product.id == productId);
+        const productToUpdate = productsToSale.find(product => product.meuId == productId);
         if (productToUpdate) {
             productToUpdate.quantidade = newQuantity;
         }
@@ -155,7 +155,7 @@ function listenerListOfProducts() {
             const row = deleteButton.closest('tr');
             const productId = row.dataset.id;
             if (window.confirm("Deseja realmente excluir o produto?")) {
-                const indexToRemove = productsToSale.findIndex(product => product.id == productId);
+                const indexToRemove = productsToSale.findIndex(product => product.meuId == productId);
                 if (indexToRemove > -1) {
                     productsToSale.splice(indexToRemove, 1);
                 }
@@ -212,7 +212,7 @@ function searchProducts() {
         } else {
             productsToShow = allUserProducts().filter(item => {
                 const meuId = String(item.meuId || '').toLowerCase();
-                const codBarras = String(item.codigo_barras || '').toLowerCase();
+                const codBarras = String(item.codigoBarras || '').toLowerCase();
                 const desc = String(item.descricao || '').toLowerCase();
                 const ref = String(item.referencia || '').toLowerCase();
 
@@ -257,7 +257,7 @@ function renderProductsSearch(productsToShow) {
     <th scope="row">${product.meuId}</th>
       <td>${product.referencia ?? ""}</td>
     <td>${product.descricao}</td>
-      <td>${makeDecimal(product.preco_venda)}</td>
+      <td>${makeDecimal(product.precoVenda)}</td>
     </tr>
   `;
     }).join('');
@@ -301,7 +301,7 @@ function searchClients() {
             clientsToShow = allUserClients().slice(0, 10);
         } else {
             clientsToShow = allUserClients().filter(cliente => {
-                const clientName = cliente.nome_razao_social.toLowerCase();
+                const clientName = cliente.nomeRazaoSocial.toLowerCase();
                 return clientName.includes(searchTerm);
             });
         }
@@ -315,13 +315,13 @@ function listOfClientes() {
         const clickedRow = event.target.closest('tr');
         if (!clickedRow) return;
         const clientId = clickedRow.dataset.id;
-        const selectedClientSearch = allUserClients().find(client => client.id == clientId);
+        const selectedClientSearch = allUserClients().find(client => client.meuId == clientId);
         if (selectedClientSearch) {
             selectedClient = selectedClientSearch;
-            clientInput.value = selectedClient.nome_razao_social;
-            saveClient.value = selectedClient.nome_razao_social;
+            clientInput.value = selectedClient.nomeRazaoSocial;
+            saveClient.value = selectedClient.nomeRazaoSocial;
             saveTelefone.value = selectedClient.telefone;
-            saveCpfCnpj.value = selectedClient.cpf_cnpj;
+            saveCpfCnpj.value = selectedClient.cpfCnpj;
 
 
             const modalInstance = bootstrap.Modal.getInstance(modalClient);
@@ -340,8 +340,8 @@ function listOfClientes() {
 function renderClients(clientsToShow) {
     const rowsHtml = clientsToShow.map(cliente => {
         return `
-    <tr data-id="${cliente.id}">
-      <th><a href="#">${cliente.nome_razao_social}</a></th>
+    <tr data-id="${cliente.meuId}">
+      <th><a href="#">${cliente.nomeRazaoSocial}</a></th>
     </tr>
   `;
     }).join('');
