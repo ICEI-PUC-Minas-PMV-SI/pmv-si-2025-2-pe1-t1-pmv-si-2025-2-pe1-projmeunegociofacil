@@ -25,7 +25,7 @@
   ],
   "clientes_fornecedores": [
     {
-      "id": 1,
+      "meuId": 1,
       "tipo": "cliente",
       "nome_razao_social": "Soluções Digitais Alfa Ltda",
       "cpf_cnpj": "01.000.001/0001-01",
@@ -36,7 +36,7 @@
       "usuarioId": 1
     },
     {
-      "id": 2,
+      "meuId": 2,
       "tipo": "cliente",
       "nome_razao_social": "Comércio Beta SA",
       "cpf_cnpj": "02.000.002/0001-02",
@@ -47,7 +47,7 @@
       "usuarioId": 2
     },
     {
-      "id": 3,
+      "meuId": 3,
       "tipo": "cliente",
       "nome_razao_social": "Serviços Gama ME",
       "cpf_cnpj": "03.000.003/0001-03",
@@ -58,7 +58,7 @@
       "usuarioId": 1
     },
     {
-      "id": 4,
+      "meuId": 4,
       "tipo": "cliente",
       "nome_razao_social": "Delta Indústria e Comércio",
       "cpf_cnpj": "04.000.004/0001-04",
@@ -69,7 +69,7 @@
       "usuarioId": 2
     },
     {
-      "id": 5,
+      "meuId": 5,
       "tipo": "cliente",
       "nome_razao_social": "Épsilon Transportes",
       "cpf_cnpj": "05.000.005/0001-05",
@@ -80,7 +80,7 @@
       "usuarioId": 1
     },
     {
-      "id": 6,
+      "meuId": 6,
       "tipo": "cliente",
       "nome_razao_social": "Zeta Consultoria",
       "cpf_cnpj": "06.000.006/0001-06",
@@ -91,7 +91,7 @@
       "usuarioId": 2
     },
     {
-      "id": 7,
+      "meuId": 7,
       "tipo": "cliente",
       "nome_razao_social": "Eta Alimentos Ltda",
       "cpf_cnpj": "07.000.007/0001-07",
@@ -102,7 +102,7 @@
       "usuarioId": 1
     },
     {
-      "id": 8,
+      "meuId": 8,
       "tipo": "cliente",
       "nome_razao_social": "Theta Engenharia",
       "cpf_cnpj": "08.000.008/0001-08",
@@ -113,7 +113,7 @@
       "usuarioId": 2
     },
     {
-      "id": 9,
+      "meuId": 9,
       "tipo": "cliente",
       "nome_razao_social": "Iota Farmacêutica",
       "cpf_cnpj": "09.000.009/0001-09",
@@ -124,7 +124,7 @@
       "usuarioId": 1
     },
     {
-      "id": 10,
+      "meuId": 10,
       "tipo": "cliente",
       "nome_razao_social": "Capa Construções",
       "cpf_cnpj": "10.000.010/0001-10",
@@ -135,7 +135,7 @@
       "usuarioId": 2
     },
     {
-      "id": 11,
+      "meuId": 11,
       "tipo": "cliente",
       "nome_razao_social": "Lambda Varejo",
       "cpf_cnpj": "11.000.011/0001-11",
@@ -146,7 +146,7 @@
       "usuarioId": 1
     },
     {
-      "id": 12,
+      "meuId": 12,
       "tipo": "cliente",
       "nome_razao_social": "Mu Têxtil Ltda",
       "cpf_cnpj": "12.000.012/0001-12",
@@ -157,7 +157,7 @@
       "usuarioId": 2
     },
     {
-      "id": 13,
+      "meuId": 13,
       "tipo": "cliente",
       "nome_razao_social": "Nu Advocacia",
       "cpf_cnpj": "13.000.013/0001-13",
@@ -168,7 +168,7 @@
       "usuarioId": 1
     },
     {
-      "id": 14,
+      "meuId": 14,
       "tipo": "cliente",
       "nome_razao_social": "Xi Gráfica e Editora",
       "cpf_cnpj": "14.000.014/0001-14",
@@ -179,7 +179,7 @@
       "usuarioId": 2
     },
     {
-      "id": 15,
+      "meuId": 15,
       "tipo": "cliente",
       "nome_razao_social": "Omicron Informática",
       "cpf_cnpj": "15.000.015/0001-15",
@@ -190,7 +190,7 @@
       "usuarioId": 1
     },
     {
-      "id": 16,
+      "meuId": 16,
       "tipo": "cliente",
       "nome_razao_social": "Pi Logística Express",
       "cpf_cnpj": "16.000.016/0001-16",
@@ -201,7 +201,7 @@
       "usuarioId": 2
     },
     {
-      "id": 17,
+      "meuId": 17,
       "tipo": "cliente",
       "nome_razao_social": "Rô Marketing Digital",
       "cpf_cnpj": "17.000.017/0001-17",
@@ -212,7 +212,7 @@
       "usuarioId": 1
     },
     {
-      "id": 18,
+      "meuId": 18,
       "tipo": "cliente",
       "nome_razao_social": "Sigma Contabilidade",
       "cpf_cnpj": "18.000.018/0001-18",
@@ -223,7 +223,7 @@
       "usuarioId": 2
     },
     {
-      "id": 19,
+      "meuId": 19,
       "tipo": "cliente",
       "nome_razao_social": "Tau Segurança",
       "cpf_cnpj": "19.000.019/0001-19",
@@ -234,7 +234,7 @@
       "usuarioId": 1
     },
     {
-      "id": 20,
+      "meuId": 20,
       "tipo": "cliente",
       "nome_razao_social": "Ypsilon Restaurante",
       "cpf_cnpj": "20.000.020/0001-20",
@@ -245,7 +245,7 @@
       "usuarioId": 2
     },
     {
-      "id": 21,
+      "meuId": 21,
       "tipo": "cliente",
       "nome_razao_social": "Phi Design Gráfico",
       "cpf_cnpj": "21.000.021/0001-21",
@@ -256,7 +256,7 @@
       "usuarioId": 1
     },
     {
-      "id": 22,
+      "meuId": 22,
       "tipo": "cliente",
       "nome_razao_social": "Chi Autopeças",
       "cpf_cnpj": "22.000.022/0001-22",
@@ -267,7 +267,7 @@
       "usuarioId": 2
     },
     {
-      "id": 23,
+      "meuId": 23,
       "tipo": "cliente",
       "nome_razao_social": "Psi Psicologia",
       "cpf_cnpj": "23.000.023/0001-23",
@@ -278,7 +278,7 @@
       "usuarioId": 1
     },
     {
-      "id": 24,
+      "meuId": 24,
       "tipo": "cliente",
       "nome_razao_social": "Omega Importações SA",
       "cpf_cnpj": "24.000.024/0001-24",
@@ -289,7 +289,7 @@
       "usuarioId": 2
     },
     {
-      "id": 25,
+      "meuId": 25,
       "tipo": "cliente",
       "nome_razao_social": "Cliente Teste 25",
       "cpf_cnpj": "25.000.025/0001-25",
@@ -300,7 +300,7 @@
       "usuarioId": 1
     },
     {
-      "id": 26,
+      "meuId": 26,
       "tipo": "cliente",
       "nome_razao_social": "Cliente Teste 26",
       "cpf_cnpj": "26.000.026/0001-26",
@@ -311,7 +311,7 @@
       "usuarioId": 2
     },
     {
-      "id": 27,
+      "meuId": 27,
       "tipo": "cliente",
       "nome_razao_social": "Cliente Teste 27",
       "cpf_cnpj": "27.000.027/0001-27",
@@ -322,7 +322,7 @@
       "usuarioId": 1
     },
     {
-      "id": 28,
+      "meuId": 28,
       "tipo": "cliente",
       "nome_razao_social": "Cliente Teste 28",
       "cpf_cnpj": "28.000.028/0001-28",
@@ -333,7 +333,7 @@
       "usuarioId": 2
     },
     {
-      "id": 29,
+      "meuId": 29,
       "tipo": "cliente",
       "nome_razao_social": "Cliente Teste 29",
       "cpf_cnpj": "29.000.029/0001-29",
@@ -344,7 +344,7 @@
       "usuarioId": 1
     },
     {
-      "id": 30,
+      "meuId": 30,
       "tipo": "cliente",
       "nome_razao_social": "Cliente Teste 30",
       "cpf_cnpj": "30.000.030/0001-30",
@@ -357,7 +357,6 @@
   ],
   "produtos_servicos": [
     {
-      "id": 1,
       "meuId": 1,
       "tipo": "produto",
       "descricao": "Mouse Sem Fio Ultra Slim",
@@ -370,7 +369,6 @@
       "usuarioId": 1
     },
     {
-      "id": 2,
       "meuId": 1,
       "tipo": "servico",
       "descricao": "Formatação de Computador com Backup",
@@ -383,7 +381,6 @@
       "usuarioId": 2
     },
     {
-      "id": 3,
       "meuId": 2,
       "tipo": "produto",
       "descricao": "Arroz Agulhinha Tipo 1 (Pacote 5kg)",
@@ -396,7 +393,6 @@
       "usuarioId": 1
     },
     {
-      "id": 4,
       "meuId": 2,
       "tipo": "servico",
       "descricao": "Instalação de Ar Condicionado Split (até 12.000 BTUs)",
@@ -409,7 +405,6 @@
       "usuarioId": 2
     },
     {
-      "id": 5,
       "meuId": 3,
       "tipo": "produto",
       "descricao": "Feijão Carioca Tipo 1 (Pacote 1kg)",
@@ -422,7 +417,6 @@
       "usuarioId": 1
     },
     {
-      "id": 6,
       "meuId": 3,
       "tipo": "servico",
       "descricao": "Reparo Veicular - Troca de Óleo e Filtro (Óleo Sintético)",
@@ -435,7 +429,6 @@
       "usuarioId": 2
     },
     {
-      "id": 7,
       "meuId": 4,
       "tipo": "produto",
       "descricao": "Óleo de Soja (Garrafa 900ml)",
@@ -448,7 +441,6 @@
       "usuarioId": 1
     },
     {
-      "id": 8,
       "meuId": 4,
       "tipo": "servico",
       "descricao": "Manutenção Preventiva de Notebook (Limpeza e Troca Pasta Térmica)",
@@ -461,7 +453,6 @@
       "usuarioId": 2
     },
     {
-      "id": 9,
       "meuId": 5,
       "tipo": "produto",
       "descricao": "Bolacha Recheada Sabor Chocolate (Pacote 130g)",
@@ -474,7 +465,6 @@
       "usuarioId": 1
     },
     {
-      "id": 10,
       "meuId": 5,
       "tipo": "servico",
       "descricao": "Limpeza de Estofados (Sofá 3 lugares)",
@@ -487,7 +477,6 @@
       "usuarioId": 2
     },
     {
-      "id": 11,
       "meuId": 6,
       "tipo": "produto",
       "descricao": "Café Torrado e Moído Tradicional (Pacote 500g)",
@@ -500,7 +489,6 @@
       "usuarioId": 1
     },
     {
-      "id": 12,
       "meuId": 6,
       "tipo": "servico",
       "descricao": "Serviço de Eletricista (Visita Técnica + 1h de Mão de Obra)",
@@ -513,7 +501,6 @@
       "usuarioId": 2
     },
     {
-      "id": 13,
       "meuId": 7,
       "tipo": "produto",
       "descricao": "Leite Integral UHT (Caixa 1L)",
@@ -526,7 +513,6 @@
       "usuarioId": 1
     },
     {
-      "id": 14,
       "meuId": 7,
       "tipo": "servico",
       "descricao": "Conserto de Smartphone (Troca de Tela - Modelo Padrão)",
@@ -539,7 +525,6 @@
       "usuarioId": 2
     },
     {
-      "id": 15,
       "meuId": 8,
       "tipo": "produto",
       "descricao": "Sabão em Pó (Caixa 1.6kg)",
@@ -552,7 +537,6 @@
       "usuarioId": 1
     },
     {
-      "id": 16,
       "meuId": 8,
       "tipo": "servico",
       "descricao": "Aula Particular de Inglês (Pacote 4 horas/mês)",
@@ -565,7 +549,6 @@
       "usuarioId": 2
     },
     {
-      "id": 17,
       "meuId": 9,
       "tipo": "produto",
       "descricao": "Refrigerante Guaraná (Garrafa 2L)",
@@ -578,7 +561,6 @@
       "usuarioId": 1
     },
     {
-      "id": 18,
       "meuId": 9,
       "tipo": "servico",
       "descricao": "Pintura Residencial (Mão de obra por m²)",
@@ -591,7 +573,6 @@
       "usuarioId": 2
     },
     {
-      "id": 19,
       "meuId": 10,
       "tipo": "produto",
       "descricao": "Lâmpada LED Bulbo 9W Branca Bivolt",
@@ -604,7 +585,6 @@
       "usuarioId": 1
     },
     {
-      "id": 20,
       "meuId": 10,
       "tipo": "servico",
       "descricao": "Montagem de Móveis (Guarda-Roupa 6 portas)",
@@ -617,7 +597,6 @@
       "usuarioId": 2
     },
     {
-      "id": 21,
       "meuId": 11,
       "tipo": "produto",
       "descricao": "Teclado USB ABNT2 Preto",
@@ -630,7 +609,6 @@
       "usuarioId": 1
     },
     {
-      "id": 22,
       "meuId": 11,
       "tipo": "servico",
       "descricao": "Serviço de Encanador (Desentupimento de Pia)",
@@ -643,7 +621,6 @@
       "usuarioId": 2
     },
     {
-      "id": 23,
       "meuId": 12,
       "tipo": "produto",
       "descricao": "Detergente Líquido Neutro (Garrafa 500ml)",
@@ -656,7 +633,6 @@
       "usuarioId": 1
     },
     {
-      "id": 24,
       "meuId": 12,
       "tipo": "servico",
       "descricao": "Corte de Cabelo Masculino (Máquina e Tesoura)",
@@ -669,7 +645,6 @@
       "usuarioId": 2
     },
     {
-      "id": 25,
       "meuId": 13,
       "tipo": "produto",
       "descricao": "Creme Dental Tripla Ação (Tubo 90g)",
@@ -682,7 +657,6 @@
       "usuarioId": 1
     },
     {
-      "id": 26,
       "meuId": 13,
       "tipo": "servico",
       "descricao": "Design de Logotipo (Pacote Básico)",
@@ -695,7 +669,6 @@
       "usuarioId": 2
     },
     {
-      "id": 27,
       "meuId": 14,
       "tipo": "produto",
       "descricao": "Caderno Universitário 10 Matérias Capa Dura",
@@ -708,7 +681,6 @@
       "usuarioId": 1
     },
     {
-      "id": 28,
       "meuId": 14,
       "tipo": "servico",
       "descricao": "Alinhamento e Balanceamento de Veículo (4 rodas)",
@@ -721,7 +693,6 @@
       "usuarioId": 2
     },
     {
-      "id": 29,
       "meuId": 15,
       "tipo": "produto",
       "descricao": "Fone de Ouvido Bluetooth TWS (Branco)",
@@ -734,7 +705,6 @@
       "usuarioId": 1
     },
     {
-      "id": 30,
       "meuId": 15,
       "tipo": "servico",
       "descricao": "Diária de Faxina Residencial (Até 100m²)",
@@ -747,7 +717,6 @@
       "usuarioId": 2
     },
     {
-      "id": 31,
       "meuId": 16,
       "tipo": "produto",
       "descricao": "Carregador de Celular USB-C 20W (Sem Cabo)",
@@ -760,7 +729,6 @@
       "usuarioId": 1
     },
     {
-      "id": 32,
       "meuId": 16,
       "tipo": "servico",
       "descricao": "Consulta Jurídica (Hora Técnica - Direito Civil)",
@@ -773,7 +741,6 @@
       "usuarioId": 2
     },
     {
-      "id": 33,
       "meuId": 17,
       "tipo": "produto",
       "descricao": "Ração para Cães Adultos Raças Pequenas (Pacote 1kg)",
@@ -786,7 +753,6 @@
       "usuarioId": 1
     },
     {
-      "id": 34,
       "meuId": 17,
       "tipo": "servico",
       "descricao": "Manicure e Pedicure (Serviço Completo - Mão e Pé)",
@@ -799,7 +765,6 @@
       "usuarioId": 2
     },
     {
-      "id": 35,
       "meuId": 18,
       "tipo": "produto",
       "descricao": "Queijo Mussarela Fatiado (Peça 200g)",
@@ -812,7 +777,6 @@
       "usuarioId": 1
     },
     {
-      "id": 36,
       "meuId": 18,
       "tipo": "servico",
       "descricao": "Instalação de Software (Pacote Office + Antivírus)",
@@ -825,7 +789,6 @@
       "usuarioId": 2
     },
     {
-      "id": 37,
       "meuId": 19,
       "tipo": "produto",
       "descricao": "Pão de Forma Tradicional (Pacote 500g)",
@@ -838,7 +801,6 @@
       "usuarioId": 1
     },
     {
-      "id": 38,
       "meuId": 19,
       "tipo": "servico",
       "descricao": "Consultoria Financeira Pessoal (Sessão Inicial)",
@@ -851,7 +813,6 @@
       "usuarioId": 2
     },
     {
-      "id": 39,
       "meuId": 20,
       "tipo": "produto",
       "descricao": "Cerveja Pilsen (Lata 350ml)",
@@ -864,7 +825,6 @@
       "usuarioId": 1
     },
     {
-      "id": 40,
       "meuId": 20,
       "tipo": "servico",
       "descricao": "Higienização Interna de Veículo (Completa)",
@@ -877,7 +837,6 @@
       "usuarioId": 2
     },
     {
-      "id": 41,
       "meuId": 21,
       "tipo": "produto",
       "descricao": "Caneta Esferográfica Azul (Unidade)",
@@ -890,7 +849,6 @@
       "usuarioId": 1
     },
     {
-      "id": 42,
       "meuId": 21,
       "tipo": "servico",
       "descricao": "Revisão de Textos Acadêmicos (ABNT, por página)",
@@ -903,7 +861,6 @@
       "usuarioId": 2
     },
     {
-      "id": 43,
       "meuId": 22,
       "tipo": "produto",
       "descricao": "Pilha Alcalina AA (Pacote com 4 unidades)",
@@ -916,7 +873,6 @@
       "usuarioId": 1
     },
     {
-      "id": 44,
       "meuId": 22,
       "tipo": "servico",
       "descricao": "Instalação de Câmera de Segurança (Por ponto)",
@@ -929,7 +885,6 @@
       "usuarioId": 2
     },
     {
-      "id": 45,
       "meuId": 23,
       "tipo": "produto",
       "descricao": "Cabo HDMI 2.0 4K (1.8 metros)",
@@ -942,7 +897,6 @@
       "usuarioId": 1
     },
     {
-      "id": 46,
       "meuId": 23,
       "tipo": "servico",
       "descricao": "Personal Trainer (Hora/Aula Avulsa)",
@@ -955,7 +909,6 @@
       "usuarioId": 2
     },
     {
-      "id": 47,
       "meuId": 24,
       "tipo": "produto",
       "descricao": "Açúcar Refinado (Pacote 1kg)",
@@ -968,7 +921,6 @@
       "usuarioId": 1
     },
     {
-      "id": 48,
       "meuId": 24,
       "tipo": "servico",
       "descricao": "Transporte Executivo (Aeroporto - Centro, Tarifa Fixa)",
@@ -981,7 +933,6 @@
       "usuarioId": 2
     },
     {
-      "id": 49,
       "meuId": 25,
       "tipo": "produto",
       "descricao": "Shampoo Anticaspa (Frasco 200ml)",
@@ -994,7 +945,6 @@
       "usuarioId": 1
     },
     {
-      "id": 50,
       "meuId": 25,
       "tipo": "servico",
       "descricao": "Formatação de PC (Sem Backup)",
@@ -1007,7 +957,6 @@
       "usuarioId": 2
     },
     {
-      "id": 51,
       "meuId": 26,
       "tipo": "produto",
       "descricao": "Manteiga com Sal (Pote 200g)",
@@ -1020,7 +969,6 @@
       "usuarioId": 1
     },
     {
-      "id": 52,
       "meuId": 26,
       "tipo": "servico",
       "descricao": "Higienização de Ar Condicionado (Split)",
@@ -1035,7 +983,8 @@
   ],
   "vendas": [
     {
-      "id": 501,
+      "meuId": 501,
+      "usuarioId": 1,
       "clientes_fornecedoresId": 101,
       "tipo_venda": "produto",
       "data_venda": "2025-09-26T15:00:00Z",
@@ -2270,18 +2219,20 @@
   ],
   "agenda_compromissos": [
     {
-      "id": 801,
+      "meuId": 801,
+      "usuarioId": 1,
       "titulo": "Reunião com Cliente Exemplo SA",
       "data_hora": "2025-10-05T14:00:00Z",
-      "vendaId": null,
+      "vendaMeuId": null,
       "clientes_fornecedoresId": 101,
       "recorrencia": []
     },
     {
-      "id": 801,
+      "meuId": 801,
+      "usuarioId": 2,
       "titulo": "Reunião com Cliente Exemplo SA",
       "data_hora": "2025-10-05T14:00:00Z",
-      "vendaId": null,
+      "vendaMeuId": null,
       "clientes_fornecedoresId": 101,
       "recorrencia": [
         "2025-11-05T14:00:00Z",
