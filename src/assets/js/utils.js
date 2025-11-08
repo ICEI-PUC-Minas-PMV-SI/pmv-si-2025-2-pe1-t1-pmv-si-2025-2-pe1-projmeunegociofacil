@@ -1,38 +1,9 @@
-const quantitySpan = document.getElementById('quantity');
-const totalSpan = document.getElementById('totalizer-total');
-
-export function makeDecimal(number) {
-    return number.toLocaleString('pt-BR', {
-        style: 'decimal',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    })
-
-}
-
-export function totalizerQuantity(itensToSale) {
-    const quantify = itensToSale.reduce((acumulador, produto) => {
-        return acumulador + produto.quantidade;
-    }, 0);
-    renderTotalizerQuantity(quantify)
-    return quantify;
-}
-
-function renderTotalizerQuantity(quantify) {
-    quantitySpan.innerHTML = quantify;
-}
-
-
-export function totalizerTotal(itensToSale) {
-    const valorTotal = itensToSale.reduce((acumulador, produto) => {
-        const subtotalProduto = produto.quantidade * produto.preco_venda;
-        return acumulador + subtotalProduto;
-    }, 0);
-    renderTotalizerTotal(valorTotal)
-    return valorTotal;
-}
-
-function renderTotalizerTotal (valorTotal) {
-    totalSpan.innerHTML = makeDecimal(valorTotal);
-
+export function newMyId(a) {
+    const arrayToMakeMyId = a
+    const maxId = arrayToMakeMyId.reduce((max, usuario) => {
+        const currentId = Number(usuario.meuId);
+        return currentId > max ? currentId : max;
+    }, -1);
+    const newId = maxId + 1;
+    return newId
 }

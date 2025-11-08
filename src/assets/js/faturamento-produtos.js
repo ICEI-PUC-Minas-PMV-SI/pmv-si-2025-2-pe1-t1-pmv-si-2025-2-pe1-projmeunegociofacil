@@ -1,47 +1,124 @@
-import { makeDecimal, totalizerQuantity, totalizerTotal } from "./utils.js";
+import { newMyId } from "./utils.js";
 
 let selectedClient = null;
 let productsToSale = [];
+let totalWithDiscountGlobal = 0;
 
+
+
+
+
+
+// CLIENT
 const clientInput = document.getElementById('selected-client');
+
+// SEARCH CLIENT
 const searchClientInput = document.getElementById('search-client');
+const tbodyListOfClients = document.getElementById('list-of-clients');
+const buttonUnselectClient = document.getElementById('button-unselect-client');
+
+// SEARCH PRODUCTS
 const searchProductsInput = document.getElementById('search-products-input');
 const btnSearchProducts = document.getElementById('btn-search-products');
-const tbodyListOfClients = document.getElementById('list-of-clients');
 const tableProductsSearch = document.getElementById('table-products-search');
+
+// PRODUCTS
 const tbodyListOfProducts = document.getElementById('list-of-products');
+const productsForm = document.getElementById('products-form');
+const productsInput = document.getElementById('products-input');
+const quantitySpan = document.getElementById('quantity');
+const totalizerTotalSpan = document.getElementById('totalizer-total');
+const subtotalSpan = document.getElementById('totalizer-subtotal');
+const totalSpan = document.getElementById('total-span');
+
+
+
+// MODAL
 const modalClient = document.getElementById('select-client-modal');
 const modalSearchProducts = document.getElementById('search-products-modal');
 const saveModal = document.getElementById('save-modal')
-const buttonUnselectClient = document.getElementById('button-unselect-client');
-const productsForm = document.getElementById('products-form');
-const productsInput = document.getElementById('products-input');
+
+// SAVE
 const saveClient = document.getElementById('save-client');
 const saveTelefone = document.getElementById('save-telefone');
 const saveCpfCnpj = document.getElementById('save-cpf-cnpj');
 const btnCancel = document.getElementById('btn-cancel');
 const btnSave = document.getElementById('save-btn');
+const saveObservacoes = document.getElementById('save-observacoes');
+
+// CHECKOUT
+const btnInsertDiscountIncriase = document.getElementById('btn-insert-discount-incriase')
+const discountIncriase = document.getElementById('discount-incriase')
+const typeDiscountIncriase = document.getElementById('type-discount-incriase')
+const valorDiscountIncriase = document.getElementById('valor-discount-incriase')
+const discountView = document.getElementById('discount-view');
+const checkoutModal = document.getElementById('checkout-modal');
+const paymentMethod = document.getElementById('payment-method')
+const colPaymentInstallment = document.getElementById('col-payment-installment')
+const selectedPaymentInstallment = document.getElementById('selected-payment-installment')
+const viewParcSpan = document.getElementById('view-parc-span')
+const btnFinishSale = document.getElementById('btn-finish-sale')
 
 
 
+btnFinishSale.addEventListener('click', finishSale)
+paymentMethod.addEventListener('change', blockInstallments)
+btnInsertDiscountIncriase.addEventListener('click', updateDiscountIncriase)
 btnCancel.addEventListener('click', cancelSale)
 btnSave.addEventListener('click', save)
 modalClient.addEventListener('hidden.bs.modal', cleanSearch);
 modalSearchProducts.addEventListener('hidden.bs.modal', cleanSearch);
 buttonUnselectClient.addEventListener('click', removeClient);
 productsForm.addEventListener('submit', insertProductFromInput);
+checkoutModal.addEventListener('show.bs.modal', verifyProductsIsValid)
+saveModal.addEventListener('show.bs.modal', verifyProductsIsValid)
+selectedPaymentInstallment.addEventListener('change', updatePayment)
 
 // INIT
+function allUserUnclosedSales() {
+    try {
+        return JSON.parse(localStorage.getItem('vendasEmAberto')).filter(item => {
+            return item.usuarioId === usuarioCorrente.id;
+        });
+    }
+    catch {
+        return []
+    }
+}
+
+function allUserSales() {
+    try {
+        return JSON.parse(localStorage.getItem('vendas')).filter(item => {
+            return item.usuarioId === usuarioCorrente.id;
+        });
+    }
+    catch {
+        return []
+    }
+}
+
 function allUserProducts() {
-    return JSON.parse(localStorage.getItem('produtosServicos')).filter(item => {
-        return item.tipo === "produto" && item.usuarioId === usuarioCorrente.id;
-    });
+
+
+    try {
+        return JSON.parse(localStorage.getItem('produtosServicos')).filter(item => {
+            return item.tipo === "produto" && item.usuarioId === usuarioCorrente.id;
+        });
+    }
+    catch {
+        return []
+    }
 }
 
 function allUserClients() {
-    return JSON.parse(localStorage.getItem('clientesFornecedores')).filter(item => {
-        return item.tipo === "cliente" && item.usuarioId === usuarioCorrente.id;
-    });
+    try {
+        return JSON.parse(localStorage.getItem('clientesFornecedores')).filter(item => {
+            return item.tipo === "cliente" && item.usuarioId === usuarioCorrente.id;
+        });
+    }
+    catch {
+        return []
+    }
 }
 
 // UTILS
@@ -54,26 +131,55 @@ function cleanSearch() {
 
 function cancelSale() {
     if (confirm('Deseja realmente cancelar a venda?')) {
-        cleanSale();
+        location.reload();
     }
 }
 
-function cleanSale() {
-    cleanSearch();
-    productsToSale = [];
-    renderProducts(productsToSale);
-    totalizerQuantity(productsToSale);
-    totalizerTotal(productsToSale);
-    selectedClient = null;
-    saveClient.value = "";
-    saveTelefone.value = "";
-    saveCpfCnpj.value = "";
-    clientInput.value = "Consumidor Final";
-    buttonUnselectClient.innerHTML = '';
+
+function makeDecimal(number) {
+    return number.toLocaleString('pt-BR', {
+        style: 'decimal',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })
+
 }
 
+function totalizerQuantity(productsToSale) {
+    const quantify = productsToSale.reduce((acumulador, produto) => {
+        return acumulador + produto.quantidade;
+    }, 0);
+    renderTotalizerQuantity(quantify)
+    return quantify;
+}
+
+function renderTotalizerQuantity(quantify) {
+    quantitySpan.innerHTML = quantify;
+}
+
+function totalizerTotal(productsToSale) {
+    const valorTotal = productsToSale.reduce((acumulador, produto) => {
+        const subtotalProduto = produto.quantidade * produto.precoVenda;
+        return acumulador + subtotalProduto;
+    }, 0);
+    renderTotalizerTotal(valorTotal)
+    return valorTotal
+}
+
+function renderTotalizerTotal(valorTotal) {
+    totalizerTotalSpan.innerHTML = makeDecimal(valorTotal);
+    subtotalSpan.innerHTML = makeDecimal(valorTotal);
+    totalSpan.innerHTML = makeDecimal(valorTotal);
+}
+
+function verifyProductsIsValid(event) {
+    if (productsToSale.length === 0) {
+        event.preventDefault();
+        alert("Adicione produtos para prosseguir.");
+    }
 
 
+}
 
 // PRODUCTS
 function insertProductFromInput(event) {
@@ -363,28 +469,155 @@ function removeClient(event) {
 // SAVE
 
 function save() {
-    if (productsToSale.length == 0) {
-        alert('Não é possível gravar uma venda sem itens.')
-    }
-    else if (selectedClient = null || saveClient.value.length < 5) {
+    if (!selectedClient && saveClient.value.length < 5) {
         saveClient.classList.add('is-invalid');
     }
     else {
         saveClient.classList.remove('is-invalid');
-        console.log(selectedClient = null || saveClient.value.length)
-        console.log(productsToSale)
-        console.log(totalizerQuantity(productsToSale))
-        console.log(totalizerTotal(productsToSale))
-        cleanSale();
+        const currentCliente = selectedClient ? selectedClient : saveClient.value;
+        const unclosedSale = {
+            "meuId": newMyId(allUserUnclosedSales()),
+            "usuarioId": usuarioCorrente.id,
+            "clientesFornecedoresMeuId": currentCliente,
+            "tipoVenda": "produto",
+            "dataVenda": new Date(),
+            "quantidadeItens": totalizerQuantity(productsToSale),
+            "valorTotal": totalizerTotal(productsToSale),
+            "observacoes": saveObservacoes,
+            "itens": productsToSale,
+            "insumosServico": null
+        };
+        const currentUnslosedSales = allUserUnclosedSales()
+        currentUnslosedSales.push(unclosedSale);
+        localStorage.setItem('vendasEmAberto', JSON.stringify(currentUnslosedSales));
         const modalInstance = bootstrap.Modal.getInstance(saveModal);
         if (modalInstance) {
             modalInstance.hide();
         }
         alert('Venda gravada com sucesso!')
+        location.reload();
+
     }
 
 
 }
+
+// CHECKOUT
+
+function blockInstallments() {
+    if (paymentMethod.value == 'credito') {
+        colPaymentInstallment.style.display = 'block';
+    } else {
+        colPaymentInstallment.style.display = 'none';
+    }
+}
+
+function makeDiscountIncriase(valor) {
+    if (valor) {
+        if (discountIncriase.value == "discount") {
+            if (typeDiscountIncriase.value == "%") {
+                return (valorDiscountIncriase.value / 100 * totalizerTotal(productsToSale)) * -1
+            } else if (typeDiscountIncriase.value == "R$") {
+                return valorDiscountIncriase.value / -1
+
+            }
+        } else if (discountIncriase.value == "increase") {
+            if (typeDiscountIncriase.value == "%") {
+                return valorDiscountIncriase.value / 100 * totalizerTotal(productsToSale)
+            } else if (typeDiscountIncriase.value == "R$") {
+                return valorDiscountIncriase.value
+            }
+        }
+    } else {
+
+    }
+
+}
+function renderDiscountView(discount) {
+    const discountDecimal = makeDecimal(discount)
+    discountView.innerHTML = `
+            <span class="text-danger"><small>Desconto: <strong>
+            <span></span>${discountDecimal}</strong></small></span>
+            `
+    return discount
+}
+
+function updateDiscountIncriase() {
+    if (valorDiscountIncriase.value) {
+        const totalWhithoutDiscount = totalizerTotal(productsToSale)
+        const discountValue = renderDiscountView(makeDiscountIncriase(valorDiscountIncriase.value))
+        const totalWhithDiscount = totalWhithoutDiscount + discountValue
+        totalWithDiscountGlobal = totalWhithDiscount
+        valorDiscountIncriase.value = ""
+        totalSpan.innerHTML = totalWhithDiscount.toLocaleString('pt-BR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    } else if (totalWithDiscountGlobal) {
+        const totalWhithDiscount = totalWithDiscountGlobal
+        totalSpan.innerHTML = totalWhithDiscount.toLocaleString('pt-BR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    } else {
+        totalWithDiscountGlobal = totalizerTotal(productsToSale)
+    }
+}
+function updatePayment() {
+    updateDiscountIncriase()
+    const actualSelectedPaymentInstallment = selectedPaymentInstallment.value
+    const actualInsallment = (totalWithDiscountGlobal / actualSelectedPaymentInstallment).toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+
+    if (selectedPaymentInstallment.value > 1) {
+        viewParcSpan.innerHTML = `<small><strong>${actualSelectedPaymentInstallment}x</strong>
+                    ${actualInsallment} </small>
+    `
+    } else { viewParcSpan.innerHTML = "" }
+}
+
+function finishSale() {
+    let paymentMethodSelected = ""
+    const currentCliente = selectedClient ? selectedClient : "Consumidor Final";
+    if (selectedPaymentInstallment.value == 1) {
+        paymentMethodSelected = paymentMethodSelected = paymentMethod.value
+    } else {
+        paymentMethodSelected = paymentMethod.value + " " + selectedPaymentInstallment.value + "x"
+    }
+//  FALTA OS PAGAMENTOS*****************************************************************************************
+
+    const finishedSale = {
+        "meuId": newMyId(allUserSales()),
+        "usuarioId": usuarioCorrente.id,
+        "clientesFornecedoresMeuId": currentCliente,
+        "tipoVenda": "produto",
+        "dataVenda": new Date(),
+        "quantidadeItens": totalizerQuantity(productsToSale),
+        "valorTotal": totalizerTotal(productsToSale),
+        "valorDescontoAcrescimo": (totalizerTotal(productsToSale) - totalWithDiscountGlobal),
+        "valorComDesconto": totalWithDiscountGlobal,
+        "itens": productsToSale,
+        "formaDePagamento": paymentMethodSelected,
+        "observacoes": saveObservacoes,
+        "insumosServico": null
+    };
+    const currentSales = allUserSales()
+    currentSales.push(finishedSale);
+    localStorage.setItem('vendas', JSON.stringify(currentSales));
+    const modalInstance = bootstrap.Modal.getInstance(checkoutModal);
+    if (modalInstance) {
+        modalInstance.hide();
+    }
+    alert('Venda gravada com sucesso!')
+    location.reload();
+
+
+
+}
+
+
 
 totalizerQuantity([]);
 totalizerTotal([]);
@@ -393,3 +626,4 @@ listOfClientes();
 listOfProductsSearch();
 listenerListOfProducts();
 searchProducts();
+

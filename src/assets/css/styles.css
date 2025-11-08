@@ -261,3 +261,9 @@ main {
 .bnt-group me-2 {
   box-sizing: inherit;
 }
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
