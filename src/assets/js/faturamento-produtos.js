@@ -121,6 +121,15 @@ function allUserClients() {
     }
 }
 
+function allUserContasReceber() {
+    try {
+        return JSON.parse(localStorage.getItem('contasReceber')) || [];
+    }
+    catch {
+        return []
+    }
+}
+
 // UTILS
 function cleanSearch() {
     searchClientInput.value = '';
@@ -578,43 +587,149 @@ function updatePayment() {
     } else { viewParcSpan.innerHTML = "" }
 }
 
+// function finishSale() {
+//     let paymentMethodSelected = ""
+//     const currentCliente = selectedClient ? selectedClient : "Consumidor Final";
+//     if (selectedPaymentInstallment.value == 1) {
+//         paymentMethodSelected = paymentMethodSelected = paymentMethod.value
+//     } else {
+//         paymentMethodSelected = paymentMethod.value + " " + selectedPaymentInstallment.value + "x"
+//     }
+//     //  FALTA OS PAGAMENTOS*****************************************************************************************
+
+//     const finishedSale = {
+//         "meuId": newMyId(allUserSales()),
+//         "usuarioId": usuarioCorrente.id,
+//         "clientesFornecedoresMeuId": currentCliente,
+//         "tipoVenda": "produto",
+//         "dataVenda": new Date(),
+//         "quantidadeItens": totalizerQuantity(productsToSale),
+//         "valorTotal": totalizerTotal(productsToSale),
+//         "valorDescontoAcrescimo": (totalizerTotal(productsToSale) - totalWithDiscountGlobal),
+//         "valorComDesconto": totalWithDiscountGlobal,
+//         "itens": productsToSale,
+//         "formaDePagamento": paymentMethodSelected,
+//         "observacoes": saveObservacoes,
+//         "insumosServico": null
+//     };
+//     const currentSales = allUserSales()
+//     currentSales.push(finishedSale);
+//     localStorage.setItem('vendas', JSON.stringify(currentSales));
+//     const payments = []
+
+
+
+
+
+
+
+//     const modalInstance = bootstrap.Modal.getInstance(checkoutModal);
+//     if (modalInstance) {
+//         modalInstance.hide();
+//     }
+//     alert('Venda gravada com sucesso!')
+//     location.reload();
+
+// }
+
+
 function finishSale() {
     let paymentMethodSelected = ""
-    const currentCliente = selectedClient ? selectedClient : "Consumidor Final";
     if (selectedPaymentInstallment.value == 1) {
-        paymentMethodSelected = paymentMethodSelected = paymentMethod.value
+        paymentMethodSelected = paymentMethod.options[paymentMethod.selectedIndex].text;
     } else {
-        paymentMethodSelected = paymentMethod.value + " " + selectedPaymentInstallment.value + "x"
+        paymentMethodSelected = paymentMethod.options[paymentMethod.selectedIndex].text + " " + selectedPaymentInstallment.value + "x"
     }
-//  FALTA OS PAGAMENTOS*****************************************************************************************
-
+    const newSaleId = newMyId(allUserSales());
+    const currentClienteObject = selectedClient ? selectedClient : null;
+    const clienteId = currentClienteObject ? currentClienteObject.meuId : null; // Pega o ID do cliente ou null
+    const totalAmount = totalWithDiscountGlobal;
+    const paymentMethodType = paymentMethod.value; // 'credito', 'dinheiro', etc.
     const finishedSale = {
-        "meuId": newMyId(allUserSales()),
+        "meuId": newSaleId,
         "usuarioId": usuarioCorrente.id,
-        "clientesFornecedoresMeuId": currentCliente,
+        "clientesFornecedoresMeuId": clienteId, // Corrigido: Usar o ID do cliente
         "tipoVenda": "produto",
-        "dataVenda": new Date(),
+        "dataVenda": new Date().toISOString(), // Usar formato ISO para consistência
         "quantidadeItens": totalizerQuantity(productsToSale),
         "valorTotal": totalizerTotal(productsToSale),
-        "valorDescontoAcrescimo": (totalizerTotal(productsToSale) - totalWithDiscountGlobal),
-        "valorComDesconto": totalWithDiscountGlobal,
+        "valorDescontoAcrescimo": (totalizerTotal(productsToSale) - totalAmount),
+        "valorComDesconto": totalAmount,
         "itens": productsToSale,
         "formaDePagamento": paymentMethodSelected,
-        "observacoes": saveObservacoes,
+        "observacoes": saveObservacoes.value, // Certifique-se de pegar o .value
         "insumosServico": null
     };
     const currentSales = allUserSales()
     currentSales.push(finishedSale);
     localStorage.setItem('vendas', JSON.stringify(currentSales));
+
+    const allContas = allUserContasReceber();
+    let nextContaMeuId = newMyId(allContas); // Pega o próximo ID para contas
+    const newPayments = [];
+    const hoje = new Date();
+    const hojeFormatado = hoje.toISOString().split('T')[0]; // 'YYYY-MM-DD'
+
+    let numberOfInstallments = 1;
+    if (paymentMethodType === 'credito') {
+        numberOfInstallments = parseInt(selectedPaymentInstallment.value, 10);
+    }
+
+    const totalInCents = Math.round(totalAmount * 100);
+    const baseInstallmentCents = Math.floor(totalInCents / numberOfInstallments);
+    let remainderCents = totalInCents % numberOfInstallments;
+
+    for (let i = 1; i <= numberOfInstallments; i++) {
+        let currentInstallmentCents = baseInstallmentCents;
+        if (remainderCents > 0) {
+            currentInstallmentCents++;
+            remainderCents--;
+        }
+        const installmentValue = currentInstallmentCents / 100;
+
+        let status = "pendente";
+        let dataPagamento = null;
+        let dataVencimento;
+        let descricao;
+
+        if (paymentMethodType === 'credito' && numberOfInstallments > 1) {
+            const dueDate = new Date(hoje);
+            dueDate.setDate(dueDate.getDate() + (i * 30));
+            dataVencimento = dueDate.toISOString().split('T')[0];
+            descricao = `Recebimento Venda #${newSaleId} (Parc. ${i}/${numberOfInstallments})`;
+        } else {
+            status = "pago";
+            dataPagamento = hojeFormatado;
+            dataVencimento = hojeFormatado;
+            descricao = `Recebimento Venda #${newSaleId} (${paymentMethodSelected})`;
+        }
+
+        const newConta = {
+            "meuId": nextContaMeuId,
+            "tipo": "receber",
+            "vendaId": newSaleId,
+            "clientes_fornecedoresId": clienteId,
+            "descricao": descricao,
+            "valor": installmentValue,
+            "data_vencimento": dataVencimento,
+            "data_pagamento": dataPagamento,
+            "status": status,
+            "usuarioId": usuarioCorrente.id
+        };
+
+        newPayments.push(newConta);
+        nextContaMeuId++;
+    }
+
+    const allContasAtualizado = [...allContas, ...newPayments];
+    localStorage.setItem('contasReceber', JSON.stringify(allContasAtualizado));
+
     const modalInstance = bootstrap.Modal.getInstance(checkoutModal);
     if (modalInstance) {
         modalInstance.hide();
     }
     alert('Venda gravada com sucesso!')
     location.reload();
-
-
-
 }
 
 
