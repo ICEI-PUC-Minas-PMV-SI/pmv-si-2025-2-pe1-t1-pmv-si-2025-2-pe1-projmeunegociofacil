@@ -269,7 +269,7 @@
                 const tipo = (item.tipo || '').toLowerCase() === 'fornecedor' ? 'Fornecedor' : 'Cliente';
                 const nome = item.nomeRazaoSocial || '-';
                 const documento = item.cpfCnpj || '-';
-                const idSeguro = JSON.stringify(String(item.meuId));
+                const idSeguro = String(item.meuId || '').replace(/"/g, '&quot;');
 
                 tabela.insertAdjacentHTML('beforeend', `
                     <tr id="item-${codigo}">
@@ -279,10 +279,12 @@
                         <td>${documento}</td>
                         <td>
                             <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
-                                data-bs-target="#clienteFornecedorModal" onclick="abrirModalClienteFornecedor(${idSeguro})">
+                                data-id="${idSeguro}" data-bs-target="#clienteFornecedorModal"
+                                onclick="abrirModalClienteFornecedor(this.dataset.id)">
                                 <i class="bi bi-pencil"></i>
                             </button>
-                            <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('cliente', ${idSeguro})">
+                            <button class="btn btn-outline-danger btn-sm" data-id="${idSeguro}"
+                                onclick="excluirItem('cliente', this.dataset.id)">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </td>
@@ -606,53 +608,7 @@
                                     <th scope="col" class="text-center">Ação</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr id="item-1" data-codigo="1" data-tipo="Cliente" data-nome="Maria de Oliveira"
-                                    data-id="123.456.789-01">
-                                    <td>1</td>
-                                    <td>Cliente</td>
-                                    <td>Maria de Oliveira</td>
-                                    <td>123.456.789-01</td>
-                                    <td>
-                                        <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
-                                            data-bs-target="#clienteFornecedorModal"
-                                            onclick="abrirModalClienteFornecedor(1)"><i
-                                                class="bi bi-pencil"></i></button>
-                                        <button class="btn btn-outline-danger btn-sm"
-                                            onclick="excluirItem('item', 1)"><i class="bi bi-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr id="item-2" data-codigo="2" data-tipo="Cliente" data-nome="José da Silva"
-                                    data-id="109.876.543-21">
-                                    <td>2</td>
-                                    <td>Cliente</td>
-                                    <td>José da Silva</td>
-                                    <td>109.876.543-21</td>
-                                    <td>
-                                        <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
-                                            data-bs-target="#clienteFornecedorModal"
-                                            onclick="abrirModalClienteFornecedor(1)"><i
-                                                class="bi bi-pencil"></i></button>
-                                        <button class="btn btn-outline-danger btn-sm"
-                                            onclick="excluirItem('item', 1)"><i class="bi bi-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr id="item-3" data-codigo="3" data-tipo="Serviço" data-nome="Tintas Mineiras ME"
-                                    data-id="12.345.678/0001-99">
-                                    <td>3</td>
-                                    <td>Fornecedor</td>
-                                    <td>Tintas Mineiras ME</td>
-                                    <td>12.345.678/0001-99</td>
-                                    <td>
-                                        <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
-                                            data-bs-target="#clienteFornecedorModal"
-                                            onclick="abrirModalClienteFornecedor(1)"><i
-                                                class="bi bi-pencil"></i></button>
-                                        <button class="btn btn-outline-danger btn-sm"
-                                            onclick="excluirItem('item', 1)"><i class="bi bi-trash"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
