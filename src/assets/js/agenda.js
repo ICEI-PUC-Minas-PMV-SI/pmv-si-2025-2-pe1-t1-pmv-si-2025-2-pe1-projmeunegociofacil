@@ -10,6 +10,41 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+export function initDialog(name) {
+  const dialogElement = document.querySelector('[data-dialog=${name}]');
+  const closeButtonElements = document.querySelectorAll("data-dialog-close-button");
+
+  for (const closeButtonElement of closeButtonElements) {
+    closeButtonElement.addEventListener("click", () => {
+      dialogElement.close();
+    });
+  }
+
+  dialogElement.addEventListener("click", (event) => {
+    if (event.target === dialogElement) {
+      dialogElement.close();
+    }
+  })
+
+  return {
+    open() {
+      dialogElement.showModal();
+    },
+    close() {
+      dialogElement.close();
+    }
+  }
+}
+
+export function intiEventDialog() {
+  const dialog = initDialog("event-form")
+
+  document.addEventListener
+  ("event-creat-request", () => {
+    console.log("Dialog open requested");
+  })
+}
+
 export function initEventFormDialog() {
   const dialog = initDialog("event-form")
   const eventForm = initEventForm();
@@ -28,4 +63,9 @@ export function initEventForm() {
   });
 
   return {};
+}
+
+function salvarContaPagar() {
+  const modal = document.getElementById('novocompromissoModal')
+  modal.classList.replace('salvar')
 }
