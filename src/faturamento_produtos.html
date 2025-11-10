@@ -164,14 +164,14 @@
 
 
             <div class="col-12 col-md-5 p-3">
-              <form id="itens-form">
-                <input id="itens-input" class="form-control" type="text" placeholder="Digite o código">
+              <form id="products-form">
+                <input id="products-input" class="form-control" type="text" placeholder="Digite o código">
               </form>
             </div>
 
             <div class="col-12 col-md-2 p-3">
-              <a class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#BuscarProdutosModal"
-                onclick="abrirModalContaPagar(null)">Buscar Produto</a>
+              <a class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#search-products-modal">Buscar
+                Produto</a>
             </div>
           </div>
 
@@ -196,7 +196,7 @@
                   </tr>
                 </thead>
                 <tbody id="list-of-products" class="table-group-divider">
-              
+
                 </tbody>
               </table>
             </div>
@@ -227,13 +227,13 @@
         <div class="container">
           <div class="d-grid d-md-block mt-2 me-3 text-end">
 
-            <a class="btn btn-secondary ps-4 pe-4 m-2" href="#" role="button">Cancelar</a>
+            <a id="btn-cancel" class="btn btn-secondary ps-4 pe-4 m-2" href="#" role="button">Cancelar</a>
 
             <a class="btn btn-secondary ps-4 pe-4 m-2" href="#" role="button" data-bs-toggle="modal"
-              data-bs-target="#SaveModal">Gravar</a>
+              data-bs-target="#save-modal">Gravar</a>
 
-            <a class="btn btn-primary ps-4 pe-4 m-2" href="#" role="button" data-bs-toggle="modal"
-              data-bs-target="#CheckoutModal">Efetuar Pagamento</a>
+            <a id="checkout-modal-btn" class="btn btn-primary ps-4 pe-4 m-2" href="#" role="button" data-bs-toggle="modal"
+              data-bs-target="#checkout-modal">Efetuar Pagamento</a>
           </div>
 
         </div>
@@ -244,101 +244,28 @@
   </div>
 
   <!-- Modal Product -->
-  <div class="modal fade" id="BuscarProdutosModal" tabindex="-1" aria-labelledby="BuscarProdutosModalLabel"
+  <div class="modal fade" id="search-products-modal" tabindex="-1" aria-labelledby="search-products-modalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="BuscarProdutosModalLabel">Buscar Produto</h5>
+          <h5 class="modal-title" id="search-products-modalLabel">Buscar Produto</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="container">
             <div class="row g-2 align-items-center">
-              <div class="col-12 col-md-3 p-1 pe-3">
-                <select class="form-select" aria-placeholder="">
-                  <option value="Descricao">Descrição</option>
-
-                  <option value="Codigo">Código</option>
-                  <option value="Referencia">Referência</option>
-                </select>
+              <div class="col-12 col-md-9 pe-3">
+                <input id="search-products-input" class="form-control" type="text" placeholder="Buscar">
               </div>
-              <div class="col-12 col-md-6 pe-3">
-                <input id="search_produto_fat_produtos" class="form-control" type="text" placeholder="Buscar">
-              </div>
-
-
-
               <div class="col-12 col-md-3 p-3">
-                <!-- <a class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#BuscarProdutosModal"
-                      onclick="abrirModalContaPagar(null)" -->
-                <a class="btn btn-primary w-100" href="#">Buscar</a>
+                <a id="btn-search-products" class="btn btn-primary w-100" href="#">Buscar</a>
               </div>
             </div>
 
             <div class="card mb-4">
               <div class="card-body p-0">
-                <div class="table-responsive">
-                  <table class="table table-hover mb-0 tabelaModal">
-                    <thead class="table-light">
-                      <tr>
-                        <th scope="col">Código</th>
-                        <th scope="col">Referência</th>
-                        <th scope="col">Descrição</th>
-                        <th scope="col">Valor</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr id="ProdutoModalSearch1">
-                        <th><a class="link-item" href="#">1234567891011</a></th>
-                        <td>552345</td>
-                        <td>Descrição do produto</td>
-                        <td>450,00</td>
-                        <td>
-                        </td>
-                      </tr>
-                      <tr id="ProdutoModalSearch2">
-                        <th><a href="#">1234567891011</a></th>
-                        <td>552345</td>
-                        <td>Descrição do produto</td>
-                        <td>450,00</td>
-                        <td>
-                        </td>
-                      </tr>
-                      <tr id="ProdutoModalSearch3">
-                        <th><a href="#">1234567891011</a></th>
-                        <td>552345</td>
-                        <td>Descrição do produto</td>
-                        <td>450,00</td>
-                        <td>
-                        </td>
-                      </tr>
-                      <tr id="ProdutoModalSearch4">
-                        <th><a href="#">1234567891011</a></th>
-                        <td>552345</td>
-                        <td>Descrição do produto</td>
-                        <td>450,00</td>
-                        <td>
-                        </td>
-                      </tr>
-                      <tr id="ProdutoModalSearch5">
-                        <th><a href="#">1234567891011</a></th>
-                        <td>552345</td>
-                        <td>Descrição do produto</td>
-                        <td>450,00</td>
-                        <td>
-                        </td>
-                      </tr>
-                      <tr id="ProdutoModalSearch6">
-                        <th><a href="#">1234567891011</a></th>
-                        <td>552345</td>
-                        <td>Descrição do produto</td>
-                        <td>450,00</td>
-                        <td>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div id="table-products-search">
                 </div>
               </div>
             </div>
@@ -358,13 +285,11 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="select-client-modalLabel">Selecionar Cliente</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button id="modal-clients-close" type="button" class="btn-close" data-bs-dismiss="modal"
+            aria-label="Close"></button>
         </div>
         <div class="modal-body">
-
-
           <input id="search-client" class="form-control mb-3" type="text" placeholder="Buscar">
-
           <div class="card mb-4">
             <div class="card-body p-0">
               <div class="table-responsive tabelaModal">
@@ -372,42 +297,25 @@
                   <thead class="table-light">
                     <tr>
                       <th scope="col">Selecione o cliente</th>
-
                     </tr>
                   </thead>
                   <tbody id="list-of-clients">
-                    <!-- 
-                    <tr id="ClientSelectClientModal1">
-                      <th><a href="#">André Dos Santos</a></th>
-                    </tr>
-                    <tr id="ClientSelectClientModal2">
-                      <th><a href="#">Beatriz da Silva</a></th>
-                    </tr>
-                    <tr id="ClientSelectClientModal3">
-                      <th><a href="#">Carlos Eduardo</a></th>
-                    </tr> -->
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-
-
         </div>
-        <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="salvarContaPagar()">Salvar</button>
-              </div> -->
       </div>
     </div>
   </div>
 
   <!-- Modal Ckeckout -->
-  <div class="modal fade" id="CheckoutModal" tabindex="-1" aria-labelledby="CheckoutModalLabel" aria-hidden="true">
+  <div class="modal fade" id="checkout-modal" tabindex="-1" aria-labelledby="checkout-modalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="CheckoutModalLabel">Efetuar Pagamento</h5>
+          <h5 class="modal-title" id="checkout-modalLabel">Efetuar Pagamento</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -415,12 +323,11 @@
             <div class="col-4 ">
               <div class="row">
                 <div class="col"></div>
-                <h6 id="ViewSubtotalCheckout" class="mb-0"><small>Subtotal: <strong> 159,90</strong></small></h6>
+                <h6 class="mb-0"><small>Subtotal: <strong> <span id="totalizer-subtotal"></span></strong></small></h6>
               </div>
-              <span id="ViewDiscountCheckout" class="text-danger"><small>Desconto: <strong>
-                    10,00</strong></small></span>
-              <h5 id="ViewTotalCheckout" class="mb-0">Total:<strong> 149,90</strong></h5>
-              <h6 id="ViewParcCheckout" class="mb-0 text-end"><small><strong>6x</strong> 24,98</small></h6>
+              <div id="discount-view"></div>
+              <h5 class="mb-0">Total:<strong> <span id="total-span"></span> </strong></h5>
+              <h6 class="mb-0 text-end"> <span id="view-parc-span"></span> </h6>
             </div>
             <div class="col-8">
               <div class="row">
@@ -429,20 +336,20 @@
                 </div>
                 <div class="row align-items-center">
                   <div class="col-12 mb-2">
-                    <select id="IncreaseCheckout" class="form-select" aria-placeholder="">
-                      <option value="increase">Acréscimo</option>
+                    <select id="discount-incriase" class="form-select" aria-placeholder="">
                       <option value="discount">Desconto</option>
+                      <option value="increase">Acréscimo</option>
                     </select>
                   </div>
                   <div class="col-4">
-                    <select id="TypeDiscountCheckout" class="form-select" aria-placeholder="">
+                    <select id="type-discount-incriase" class="form-select" aria-placeholder="">
                       <option value="%">%</option>
                       <option value="R$">R$</option>
                     </select>
                   </div>
-                  <div class="col-4"><input class="form-control" id="DiscountCheckout" type="text" placeholder="10,00">
+                  <div class="col-4"><input class="form-control" id="valor-discount-incriase" type="number" placeholder="10">
                   </div>
-                  <div class="col-4"><button type="button" class="btn btn-primary">Inserir</button></div>
+                  <div class="col-4"><button id="btn-insert-discount-incriase" type="button" class="btn btn-primary">Inserir</button></div>
                 </div>
               </div>
             </div>
@@ -452,21 +359,21 @@
           <div class="row">
             <h6>Forma de Pagamento</h6>
             <div class="col">
-              <select class="form-select" aria-placeholder="">
-                <option value="Credito">Dinheiro</option>
-                <option value="Credito">Débito</option>
-                <option value="Debito">Crédito</option>
+              <select id="payment-method" class="form-select" aria-placeholder="">
+                <option value="" selected disabled>Selecione...</option>
+                <option value="dinheiro">Dinheiro</option>
+                <option value="debito">Débito</option>
+                <option value="credito">Crédito</option>
               </select>
             </div>
-            <div class="col">
-              <select class="form-select" aria-placeholder="">
-                <option value="avista">Á Vista</option>
-                <option value="1x">Crédito 1x</option>
-                <option value="2x">Crédito 2x</option>
-                <option value="3x">Crédito 3x</option>
-                <option value="4x">Crédito 4x</option>
-                <option value="5x">Crédito 5x</option>
-                <option value="6x">Crédito 6x</option>
+            <div id="col-payment-installment" class="col" style="display: none;">
+              <select id="selected-payment-installment" class="form-select" aria-placeholder="">
+                <option value="1">Á Vista</option>
+                <option value="2">Crédito 2x</option>
+                <option value="3">Crédito 3x</option>
+                <option value="4">Crédito 4x</option>
+                <option value="5">Crédito 5x</option>
+                <option value="6">Crédito 6x</option>
               </select>
             </div>
           </div>
@@ -474,45 +381,55 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" onclick="FinalizarVenda()">FinalizarVenda</button>
+          <button id="btn-finish-sale" type="button" class="btn btn-primary">FinalizarVenda</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Modal Save -->
-  <div class="modal fade" id="SaveModal" tabindex="-1" aria-labelledby="SaveModalLabel" aria-hidden="true">
+  <div class="modal fade" id="save-modal" tabindex="-1" aria-labelledby="save-modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="SaveModalLabel">Gravar Venda</h5>
+          <h5 class="modal-title" id="save-modalLabel">Gravar Venda</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="container">
             <div class="d-flex align-items-center text-start flex-wrap gap-2">
-              <label class="fw-semibold">Cliente:</label>
-              <input class="form-control" style="max-width: 260px;" placeholder="Digite o nome do cliente" required>
+              <div class="form-group">
+                <label class="">Cliente:*</label>
+                <input id="save-client" class="form-control" style="max-width: 260px;"
+                  placeholder="Digite o nome do cliente" required>
+                <div class="invalid-feedback">
+                  Digite o nome do cliente corretamente.
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Telefone:</label>
+                <input id="save-telefone" class="form-control" placeholder="Digite o telefone">
+              </div>
+              <div class="form-group">
+                <label class="">CPF/CNPJ</label>
+                <input id="save-cpf-cnpj" class="form-control" placeholder="Digite o CPF/CNPJ">
+              </div>
+              <div class="form-group">
+                <label class="">Observações</label>
+                <textarea id="save-observacoes" class="form-control mb-3" style="width: 240px;"
+                  placeholder="Digite o CPF/CNPJ"> </textarea>
+              </div>
             </div>
-            <div class="d-flex align-items-center text-start flex-wrap gap-2">
-              <label class="fw-semibold mt-3">Telefone:</label>
-              <input class="form-control" style="max-width: 260px;" placeholder="Digite o telefone">
-            </div>
-            <div class="d-flex align-items-center text-start flex-wrap gap-2">
-              <label class="fw-semibold mt-3">CPF:</label>
-              <input class="form-control mb-3" style="max-width: 260px;" placeholder="Digite o CPF">
-            </div>
-
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" onclick="SalvarVenda()">Salvar</button>
+          <button id="save-btn" type="button" class="btn btn-primary">Salvar</button>
         </div>
       </div>
     </div>
   </div>
-  <script src="assets/js/faturamento_produtos.js"></script>
+  <script type="module" src="assets/js/faturamento-produtos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
