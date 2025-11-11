@@ -4,11 +4,6 @@ let selectedClient = null;
 let productsToSale = [];
 let totalWithDiscountGlobal = 0;
 
-
-
-
-
-
 // CLIENT
 const clientInput = document.getElementById('selected-client');
 
@@ -58,6 +53,12 @@ const colPaymentInstallment = document.getElementById('col-payment-installment')
 const selectedPaymentInstallment = document.getElementById('selected-payment-installment')
 const viewParcSpan = document.getElementById('view-parc-span')
 const btnFinishSale = document.getElementById('btn-finish-sale')
+const finishModal = document.getElementById('finish-modal')
+const htmlFinishModal = document.getElementById('html-finish-modal')
+
+
+
+// INIT
 
 
 
@@ -73,6 +74,7 @@ productsForm.addEventListener('submit', insertProductFromInput);
 checkoutModal.addEventListener('show.bs.modal', verifyProductsIsValid)
 saveModal.addEventListener('show.bs.modal', verifyProductsIsValid)
 selectedPaymentInstallment.addEventListener('change', updatePayment)
+finishModal.addEventListener('hidden.bs.modal', () => { location.reload() })
 
 // INIT
 function allUserUnclosedSales() {
@@ -171,6 +173,7 @@ function totalizerTotal(productsToSale) {
         const subtotalProduto = produto.quantidade * produto.precoVenda;
         return acumulador + subtotalProduto;
     }, 0);
+    totalWithDiscountGlobal = makeDecimal(valorTotal);
     renderTotalizerTotal(valorTotal)
     return valorTotal
 }
@@ -724,15 +727,48 @@ function finishSale() {
     const allContasAtualizado = [...allContas, ...newPayments];
     localStorage.setItem('contasReceber', JSON.stringify(allContasAtualizado));
 
+    htmlFinishModal.innerHTML = ` 
+        <div class="alert alert-success text-center" role="alert">
+        A venda foi concluída com sucesso!
+        </div>
+        <div class="row text-center">
+        <h5>Nota Fiscal nº <span>${finishedSale.meuId}</span></h5>
+        <span><strong> Cliente:</strong> <span>${selectedClient ? selectedClient.nomeRazaoSocial : "Consumidor Final"}</span></span> <br>
+        <span><strong> Total:</strong> R$ <span>${finishedSale.valorComDesconto}</span></span>
+        </div>
+        <div class="row m-4">
+        <div class="col text-center">
+        <a type="button" class="btn btn-success" href="/assets/static/receipt-products.html?id=${finishedSale.meuId}"
+        target="_blank">Imprimir</a>
+        </div>
+        </div> `;
     const modalInstance = bootstrap.Modal.getInstance(checkoutModal);
     if (modalInstance) {
         modalInstance.hide();
     }
-    alert('Venda gravada com sucesso!')
-    location.reload();
+    if (finishModal) {
+        const finishModalInstance = bootstrap.Modal.getOrCreateInstance(finishModal);
+        finishModalInstance.show();
+    } else {
+        alert('Venda gravada com sucesso!');
+        location.reload();
+    }
 }
 
 
+// // Aguarda o DOM (a página) carregar completamente
+// document.addEventListener("DOMContentLoaded", function () {
+
+//     // 1. Seleciona o elemento do seu modal pelo ID
+//     var meuModalEl = document.getElementById('finish-modal');
+
+//     // 2. Cria uma instância do Modal do Bootstrap
+//     var meuModal = new bootstrap.Modal(meuModalEl);
+
+//     // 3. Mostra o modal
+//     meuModal.show();
+
+// });
 
 totalizerQuantity([]);
 totalizerTotal([]);
