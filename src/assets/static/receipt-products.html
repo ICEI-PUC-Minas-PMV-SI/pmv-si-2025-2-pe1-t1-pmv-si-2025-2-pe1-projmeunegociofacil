@@ -12,6 +12,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="favicon.png" />
     <script src="../js/login.js"></script>
+    <script>
+        // Verifica se o usuário já esta logado e se negativo, redireciona para tela de login        
+        if (!usuarioCorrente.email_login) {
+            window.location.assign("../../index.html");
+        }
+
+          function initPage() {
+
+      
+
+
+    }
+
+    // Associa ao evento de carga da página a função para verificar se o usuário está logado
+    window.addEventListener('load', initPage);
+
+    </script>
 </head>
 
 <body class="p-3">
@@ -22,44 +39,17 @@
                     <div class="col-2"><img src="../img/logo_home.png" alt="" width="100%" style="min-width: 200px;">
                     </div>
                     <div class="col"></div>
-                    <div class="col-9  text-end align-items-baseline">Número: <strong id="sale-number">00001</strong>
+                    <div class="col-9  text-end align-items-baseline">Documento: <strong id="sale-number"></strong>
                     </div>
                 </div>
             </div>
             <hr>
 
-            <div class="sale-data row ms-2 me-2 mb-4">
-                <div class="row">
-                    <div class="col-6">
-                        <strong><span>Emissor</span></strong>
-                    </div>
-                    <div class="col-6">
-                        <strong><span>Destinatário</span></strong>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <strong><span id="name-type-seller">Razão Social: </span></strong> <span
-                            class="name-seller">Minha Empresa LTDA</span> <br>
-                        <strong><span id="doc-type-seller">CNPJ:</span></strong> <span
-                            id="doc-number-seller">00.000.000/0001-00</span> <br>
-                        <strong><span>Endereço:</span></strong> <span id="adress-seller">Rua das Flores, 123, São Paulo,
-                            SP</span>
-                        <br>
-                        <strong><span>Telefone: </span></strong> <span id="phone-seller">(11) 99999-8888</span>
-                    </div>
-                    <div class="col-6">
-                        <strong><span id="name-type-buyer">Razão Social: </span></strong> <span class="name-buyer">Minha
-                            Empresa LTDA</span> <br>
-                        <strong><span id="doc-type-buyer">CNPJ:</span></strong> <span
-                            id="doc-number-buyer">00.000.000/0001-00</span> <br>
-                        <strong><span>Endereço:</span></strong> <span id="adress-buyer">Rua das Flores, 123, São Paulo,
-                            SP</span> <br>
-                        <strong><span>Telefone: </span></strong> <span id="phone-buyer">(11) 99999-8888</span>
-                    </div>
-                </div>
-            </div>
+            <div id="sales-data">
 
+                
+
+            </div>
             <div class="sale-itens card mb-4">
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -117,7 +107,8 @@
 
                         <div id="calc-discount" class="div">
                             <strong><span> Subtotal: </span></strong><span id="amount-without-discount">50,00</span><br>
-                            <strong><span>Desconto: </span></strong> <span id="amount-discount">10,00</span></div>
+                            <strong><span>Desconto: </span></strong> <span id="amount-discount">10,00</span>
+                        </div>
                         <strong><span> Valor Total: </span></strong> <span id="amount">49,90</span>
                     </div>
                 </div>
@@ -132,6 +123,7 @@
             <div id="sale-date" class="col text-center mb-4">10 de novembro de 2025</div>
         </div>
     </div>
+    <script src="../js/receipt-products.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
