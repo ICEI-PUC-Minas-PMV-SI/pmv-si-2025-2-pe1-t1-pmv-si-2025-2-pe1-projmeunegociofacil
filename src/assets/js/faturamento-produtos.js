@@ -1,4 +1,4 @@
-import { newMyId } from "./utils.js";
+import { newMyId, makeDecimal } from "./utils.js";
 
 let selectedClient = null;
 let productsToSale = [];
@@ -147,15 +147,6 @@ function cancelSale() {
 }
 
 
-function makeDecimal(number) {
-    return number.toLocaleString('pt-BR', {
-        style: 'decimal',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    })
-
-}
-
 function totalizerQuantity(productsToSale) {
     const quantify = productsToSale.reduce((acumulador, produto) => {
         return acumulador + produto.quantidade;
@@ -173,7 +164,7 @@ function totalizerTotal(productsToSale) {
         const subtotalProduto = produto.quantidade * produto.precoVenda;
         return acumulador + subtotalProduto;
     }, 0);
-    totalWithDiscountGlobal = makeDecimal(valorTotal);
+    totalWithDiscountGlobal = valorTotal;
     renderTotalizerTotal(valorTotal)
     return valorTotal
 }
@@ -497,7 +488,9 @@ function save() {
             "valorTotal": totalizerTotal(productsToSale),
             "observacoes": saveObservacoes,
             "itens": productsToSale,
-            "insumosServico": null
+            "insumosServico": null,
+            "formaDePagamento": selectedPaymentInstallment.value
+        
         };
         const currentUnslosedSales = allUserUnclosedSales()
         currentUnslosedSales.push(unclosedSale);
@@ -517,7 +510,7 @@ function save() {
 // CHECKOUT
 
 function blockInstallments() {
-    if (paymentMethod.value == 'credito') {
+    if (paymentMethod.value == 'credito' || paymentMethod.value == 'boleto') {
         colPaymentInstallment.style.display = 'block';
     } else {
         colPaymentInstallment.style.display = 'none';
@@ -590,52 +583,6 @@ function updatePayment() {
     } else { viewParcSpan.innerHTML = "" }
 }
 
-// function finishSale() {
-//     let paymentMethodSelected = ""
-//     const currentCliente = selectedClient ? selectedClient : "Consumidor Final";
-//     if (selectedPaymentInstallment.value == 1) {
-//         paymentMethodSelected = paymentMethodSelected = paymentMethod.value
-//     } else {
-//         paymentMethodSelected = paymentMethod.value + " " + selectedPaymentInstallment.value + "x"
-//     }
-//     //  FALTA OS PAGAMENTOS*****************************************************************************************
-
-//     const finishedSale = {
-//         "meuId": newMyId(allUserSales()),
-//         "usuarioId": usuarioCorrente.id,
-//         "clientesFornecedoresMeuId": currentCliente,
-//         "tipoVenda": "produto",
-//         "dataVenda": new Date(),
-//         "quantidadeItens": totalizerQuantity(productsToSale),
-//         "valorTotal": totalizerTotal(productsToSale),
-//         "valorDescontoAcrescimo": (totalizerTotal(productsToSale) - totalWithDiscountGlobal),
-//         "valorComDesconto": totalWithDiscountGlobal,
-//         "itens": productsToSale,
-//         "formaDePagamento": paymentMethodSelected,
-//         "observacoes": saveObservacoes,
-//         "insumosServico": null
-//     };
-//     const currentSales = allUserSales()
-//     currentSales.push(finishedSale);
-//     localStorage.setItem('vendas', JSON.stringify(currentSales));
-//     const payments = []
-
-
-
-
-
-
-
-//     const modalInstance = bootstrap.Modal.getInstance(checkoutModal);
-//     if (modalInstance) {
-//         modalInstance.hide();
-//     }
-//     alert('Venda gravada com sucesso!')
-//     location.reload();
-
-// }
-
-
 function finishSale() {
     let paymentMethodSelected = ""
     if (selectedPaymentInstallment.value == 1) {
@@ -645,22 +592,21 @@ function finishSale() {
     }
     const newSaleId = newMyId(allUserSales());
     const currentClienteObject = selectedClient ? selectedClient : null;
-    const clienteId = currentClienteObject ? currentClienteObject.meuId : null; // Pega o ID do cliente ou null
+    const clienteId = currentClienteObject ? currentClienteObject.meuId : null; 
     const totalAmount = totalWithDiscountGlobal;
-    const paymentMethodType = paymentMethod.value; // 'credito', 'dinheiro', etc.
+    const paymentMethodType = paymentMethod.value; 
     const finishedSale = {
         "meuId": newSaleId,
         "usuarioId": usuarioCorrente.id,
-        "clientesFornecedoresMeuId": clienteId, // Corrigido: Usar o ID do cliente
+        "clientesFornecedoresMeuId": clienteId,
         "tipoVenda": "produto",
-        "dataVenda": new Date().toISOString(), // Usar formato ISO para consistência
+        "dataVenda": new Date().toISOString(),
         "quantidadeItens": totalizerQuantity(productsToSale),
         "valorTotal": totalizerTotal(productsToSale),
         "valorDescontoAcrescimo": (totalizerTotal(productsToSale) - totalAmount),
         "valorComDesconto": totalAmount,
         "itens": productsToSale,
         "formaDePagamento": paymentMethodSelected,
-        "observacoes": saveObservacoes.value, // Certifique-se de pegar o .value
         "insumosServico": null
     };
     const currentSales = allUserSales()
@@ -668,13 +614,12 @@ function finishSale() {
     localStorage.setItem('vendas', JSON.stringify(currentSales));
 
     const allContas = allUserContasReceber();
-    let nextContaMeuId = newMyId(allContas); // Pega o próximo ID para contas
+    let nextContaMeuId = newMyId(allContas); 
     const newPayments = [];
     const hoje = new Date();
-    const hojeFormatado = hoje.toISOString().split('T')[0]; // 'YYYY-MM-DD'
 
     let numberOfInstallments = 1;
-    if (paymentMethodType === 'credito') {
+    if (paymentMethodType === 'credito' || paymentMethodType === 'boleto') {
         numberOfInstallments = parseInt(selectedPaymentInstallment.value, 10);
     }
 
@@ -694,16 +639,25 @@ function finishSale() {
         let dataPagamento = null;
         let dataVencimento;
         let descricao;
+        let parcela;
 
-        if (paymentMethodType === 'credito' && numberOfInstallments > 1) {
+        if (paymentMethodType === 'boleto') {
             const dueDate = new Date(hoje);
             dueDate.setDate(dueDate.getDate() + (i * 30));
-            dataVencimento = dueDate.toISOString().split('T')[0];
+            dataVencimento = dueDate;
             descricao = `Recebimento Venda #${newSaleId} (Parc. ${i}/${numberOfInstallments})`;
+            parcela = `${i}/${numberOfInstallments}`
+        } else if (paymentMethodType === 'credito') {
+            const dueDate = new Date(hoje);
+            dueDate.setDate(dueDate.getDate() + (i * 30));
+            dataVencimento = dueDate;
+            descricao = `Recebimento Venda #${newSaleId} (Parc. ${i}/${numberOfInstallments})`;
+            parcela = `${i}/${numberOfInstallments}`
         } else {
             status = "pago";
-            dataPagamento = hojeFormatado;
-            dataVencimento = hojeFormatado;
+            dataPagamento = hoje;
+            dataVencimento = hoje;
+            parcela = "1/1"
             descricao = `Recebimento Venda #${newSaleId} (${paymentMethodSelected})`;
         }
 
@@ -717,7 +671,8 @@ function finishSale() {
             "data_vencimento": dataVencimento,
             "data_pagamento": dataPagamento,
             "status": status,
-            "usuarioId": usuarioCorrente.id
+            "usuarioId": usuarioCorrente.id,
+            "parcela": parcela
         };
 
         newPayments.push(newConta);
@@ -734,7 +689,7 @@ function finishSale() {
         <div class="row text-center">
         <h5>Nota Fiscal nº <span>${finishedSale.meuId}</span></h5>
         <span><strong> Cliente:</strong> <span>${selectedClient ? selectedClient.nomeRazaoSocial : "Consumidor Final"}</span></span> <br>
-        <span><strong> Total:</strong> R$ <span>${finishedSale.valorComDesconto}</span></span>
+        <span><strong> Total:</strong> R$ <span>${makeDecimal(finishedSale.valorComDesconto)}</span></span>
         </div>
         <div class="row m-4">
         <div class="col text-center">
@@ -755,21 +710,6 @@ function finishSale() {
     }
 }
 
-
-// // Aguarda o DOM (a página) carregar completamente
-// document.addEventListener("DOMContentLoaded", function () {
-
-//     // 1. Seleciona o elemento do seu modal pelo ID
-//     var meuModalEl = document.getElementById('finish-modal');
-
-//     // 2. Cria uma instância do Modal do Bootstrap
-//     var meuModal = new bootstrap.Modal(meuModalEl);
-
-//     // 3. Mostra o modal
-//     meuModal.show();
-
-// });
-
 totalizerQuantity([]);
 totalizerTotal([]);
 searchClients();
@@ -777,4 +717,3 @@ listOfClientes();
 listOfProductsSearch();
 listenerListOfProducts();
 searchProducts();
-

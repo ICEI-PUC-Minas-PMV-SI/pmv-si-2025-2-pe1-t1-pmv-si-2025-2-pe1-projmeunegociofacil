@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Meu Negócio Fácil</title>
+    <title id="title">Meu Negócio Fácil</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,10 +15,15 @@
     <script>
         //Verifica se o usuário já esta logado e se negativo, redireciona para tela de login        
         if (!usuarioCorrente.email_login) {
-    window.location.assign("../../dashboard.html")
+            window.location.assign("../../dashboard.html")
         }
     </script>
 </head>
+<style>
+    table {
+        table-layout: fixed;
+    }
+</style>
 
 <body class="p-3">
     <div class="card mx-auto" style="max-width: 900px;">
@@ -81,7 +86,7 @@
                                         <th class="text-end" scope="col">Valor</th>
                                     </tr>
                                 </thead>
-                                <tbody class="table-group-divider">
+                                <tbody id="tbody-installments" class="table-group-divider">
                                     <tr>
                                         <td>10/11/2025</td>
                                         <td class="text-center"><strong>01/06</strong></td>
@@ -95,10 +100,8 @@
                     <div class="col-6 text-end p-0">
 
                         <div id="calc-discount" class="div">
-                            <strong><span> Subtotal: </span></strong><span id="amount-without-discount">50,00</span><br>
-                            <strong><span>Desconto: </span></strong> <span id="amount-discount">10,00</span>
+
                         </div>
-                        <strong><span> Valor Total: </span></strong> <span id="amount">49,90</span>
                     </div>
                 </div>
             </div>
@@ -107,12 +110,12 @@
             <div class="row "></div>
             <div class="col text-center"><strong>_______________________________________</strong></div>
             <div class="row "></div>
-            <div class="col text-center"><strong class="name-buyer">Meu Cliente dos Santos</strong></div>
+            <div class="col text-center"><strong id="name-buyer">Meu Cliente dos Santos</strong></div>
             <div class="row "></div>
             <div id="sale-date" class="col text-center mb-4">10 de novembro de 2025</div>
         </div>
     </div>
-    <script src="../js/receipt-products.js"></script>
+    <script type="module" src="../js/receipt-products.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
