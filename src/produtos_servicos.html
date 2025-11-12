@@ -13,26 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="favicon.png" />
       <script src="assets/js/login.js"></script>
-    <script>
-        // Verifica se o usuário já esta logado e se negativo, redireciona para tela de login        
-        if (!usuarioCorrente.email_login) {
-            window.location.href = LOGIN_URL;
-        }
-
-        function initPage() {
-
-            // Associa a função de logout ao botão
-            document.getElementById('btn_logout').addEventListener('click', logoutUser);
-
-            // Informa o nome do usuário logado
-            document.getElementById('nomeUsuario').innerHTML = usuarioCorrente.nome;
-
-
-        }
-
-        // Associa ao evento de carga da página a função para verificar se o usuário está logado
-        window.addEventListener('load', initPage);
-    </script>
+      <script src="assets/js/produtos_servicos.js"></script>
 </head>
 
 <body>

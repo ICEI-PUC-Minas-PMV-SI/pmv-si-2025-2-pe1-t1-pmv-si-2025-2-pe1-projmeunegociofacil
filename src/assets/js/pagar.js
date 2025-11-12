@@ -1,0 +1,149 @@
+
+    // Verifica login
+    if (!usuarioCorrente || !usuarioCorrente.email_login) {
+      window.location.href = LOGIN_URL;
+    }
+
+    // Variável global para o ID do usuário logado
+    const ID_LOGIN_GLOBAL = usuarioCorrente.id_login_global;
+
+    function initPage() {
+      // garante que o conteúdo inicial seja carregado.
+      document.getElementById('btn_logout').addEventListener('click', logoutUser);
+      document.getElementById('nomeUsuario').innerHTML = usuarioCorrente.nome;
+      renderizarTabela();
+    }
+
+    // =================== CONTAS A PAGAR ===================
+    // Inicializa carregando todas as contas (ou array vazio)
+    let contasPagar = JSON.parse(localStorage.getItem('contasPagar')) || [];
+
+    function salvarNoLocalStorage() {
+      // Salva a lista COMPLETA de volta ao localStorage
+      localStorage.setItem('contasPagar', JSON.stringify(contasPagar));
+    }
+
+    function formatarDataParaExibicao(dataString) {
+      if (!dataString) return '';
+      const [ano, mes, dia] = dataString.split('-');
+      return `${dia}/${mes}/${ano}`;
+    }
+
+    function renderizarTabela() {
+      const tabela = document.querySelector('#tabelaContasPagar tbody');
+      tabela.innerHTML = '';
+      
+      // Filtra as contas para exibir SOMENTE as do usuário logado (Problema 2)
+      const contasDoUsuario = contasPagar.filter(conta => conta.id_login_global == ID_LOGIN_GLOBAL);
+
+      contasDoUsuario.forEach(conta => { // Itera sobre as contas FILTRADAS
+        const vencimentoFormatado = formatarDataParaExibicao(conta.vencimento);
+        // Garante que o valor é formatado corretamente
+        const valorFormatado = (typeof conta.valor === 'string' ? conta.valor : String(conta.valor)).replace('.', ',');
+
+        const editButton = `<button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaPagarModal" onclick="abrirModalContaPagar(${conta.id})"><i class="bi bi-pencil"></i></button>`;
+        const deleteButton = `<button class="btn btn-outline-danger btn-sm" onclick="excluirItem(${conta.id})"><i class="bi bi-trash"></i></button>`;
+
+        tabela.insertAdjacentHTML('beforeend', `
+          <tr id="conta-pagar-${conta.id}">
+            <td>${conta.status}</td>
+            <td>${conta.tipo}</td>
+            <td>${valorFormatado}</td>
+            <td>${conta.descricao}</td>
+            <td>${vencimentoFormatado}</td>
+            <td>${editButton + deleteButton}</td>
+          </tr>
+        `);
+      });
+    }
+
+    function abrirModalContaPagar(id) {
+      const modalTitle = document.getElementById('contaPagarModalLabel');
+      const form = document.getElementById('formContaPagar');
+      form.reset();
+      document.getElementById('contaPagarId').value = '';
+
+      if (id) {
+        modalTitle.textContent = 'Editar Conta a Pagar';
+        document.getElementById('contaPagarId').value = id;
+        // Busca a conta na lista COMPLETA
+        const conta = contasPagar.find(c => c.id == id); 
+        if (conta && conta.id_login_global == ID_LOGIN_GLOBAL) { // Garante que só edita a própria conta
+          document.getElementById('modalStatusConta').value = conta.status;
+          document.getElementById('modalTipoConta').value = conta.tipo;
+          document.getElementById('modalValorConta').value = parseFloat(conta.valor).toFixed(2);
+          document.getElementById('modalDescricaoConta').value = conta.descricao;
+          document.getElementById('modalVencimentoConta').value = conta.vencimento;
+        } else if (conta && conta.id_login_global !== ID_LOGIN_GLOBAL) {
+            // Se tentar editar uma conta de outro usuário, fecha e alerta.
+            alert('Você não tem permissão para editar esta conta.');
+            const modal = bootstrap.Modal.getInstance(document.getElementById('contaPagarModal'));
+            modal.hide();
+            return;
+        }
+      } else {
+        modalTitle.textContent = 'Adicionar Nova Conta a Pagar';
+      }
+    }
+
+    function salvarContaPagar() {
+      const id = document.getElementById('contaPagarId').value;
+      const status = document.getElementById('modalStatusConta').value;
+      const tipo = document.getElementById('modalTipoConta').value;
+      const valorInput = document.getElementById('modalValorConta').value;
+      const valor = parseFloat(valorInput).toFixed(2);
+      const descricao = document.getElementById('modalDescricaoConta').value;
+      const vencimento = document.getElementById('modalVencimentoConta').value;
+
+      if (!status || !tipo || !valorInput || !descricao || !vencimento) {
+        alert('Por favor, preencha todos os campos corretamente.');
+        return;
+      }
+
+      if (id) {
+        const index = contasPagar.findIndex(c => c.id == id && c.id_login_global == ID_LOGIN_GLOBAL); // Filtra por ID e ID_LOGIN
+        if (index !== -1) {
+          // Mantém o id_login_global original
+          contasPagar[index] = { 
+            id: Number(id), 
+            status, 
+            tipo, 
+            valor, 
+            descricao, 
+            vencimento, 
+            id_login_global: ID_LOGIN_GLOBAL // Garante a manutenção
+          };
+        } else {
+            alert('Conta não encontrada ou sem permissão de edição.');
+            return;
+        }
+      } else {
+        // Nova Conta: Adiciona o id_login_global (Problema 2)
+        const newId = contasPagar.length > 0 ? contasPagar[contasPagar.length - 1].id + 1 : 1;
+        contasPagar.push({ 
+            id: newId, 
+            status, 
+            tipo, 
+            valor, 
+            descricao, 
+            vencimento,
+            id_login_global: ID_LOGIN_GLOBAL // Adiciona o ID global aqui
+        });
+      }
+
+      salvarNoLocalStorage(); // Salva a lista completa (agora com o novo ID)
+      renderizarTabela();
+      const modal = bootstrap.Modal.getInstance(document.getElementById('contaPagarModal'));
+      modal.hide();
+    }
+
+    function excluirItem(id) {
+      if (confirm('Deseja realmente excluir esta conta a pagar?')) {
+        // Filtra para remover a conta, garantindo que é a conta do usuário logado
+        contasPagar = contasPagar.filter(c => !(c.id === id && c.id_login_global === ID_LOGIN_GLOBAL));
+        salvarNoLocalStorage();
+        renderizarTabela();
+      }
+    }
+
+    window.addEventListener('load', initPage);

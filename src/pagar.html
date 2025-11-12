@@ -13,156 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png" />
   <script src="assets/js/login.js"></script>
-  <script>
-    // Verifica login
-    if (!usuarioCorrente || !usuarioCorrente.email_login) {
-      window.location.href = LOGIN_URL;
-    }
-
-    // Variável global para o ID do usuário logado
-    const ID_LOGIN_GLOBAL = usuarioCorrente.id_login_global;
-
-    function initPage() {
-      // garante que o conteúdo inicial seja carregado.
-      document.getElementById('btn_logout').addEventListener('click', logoutUser);
-      document.getElementById('nomeUsuario').innerHTML = usuarioCorrente.nome;
-      renderizarTabela();
-    }
-
-    // =================== CONTAS A PAGAR ===================
-    // Inicializa carregando todas as contas (ou array vazio)
-    let contasPagar = JSON.parse(localStorage.getItem('contasPagar')) || [];
-
-    function salvarNoLocalStorage() {
-      // Salva a lista COMPLETA de volta ao localStorage
-      localStorage.setItem('contasPagar', JSON.stringify(contasPagar));
-    }
-
-    function formatarDataParaExibicao(dataString) {
-      if (!dataString) return '';
-      const [ano, mes, dia] = dataString.split('-');
-      return `${dia}/${mes}/${ano}`;
-    }
-
-    function renderizarTabela() {
-      const tabela = document.querySelector('#tabelaContasPagar tbody');
-      tabela.innerHTML = '';
-      
-      // Filtra as contas para exibir SOMENTE as do usuário logado (Problema 2)
-      const contasDoUsuario = contasPagar.filter(conta => conta.id_login_global == ID_LOGIN_GLOBAL);
-
-      contasDoUsuario.forEach(conta => { // Itera sobre as contas FILTRADAS
-        const vencimentoFormatado = formatarDataParaExibicao(conta.vencimento);
-        // Garante que o valor é formatado corretamente
-        const valorFormatado = (typeof conta.valor === 'string' ? conta.valor : String(conta.valor)).replace('.', ',');
-
-        const editButton = `<button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#contaPagarModal" onclick="abrirModalContaPagar(${conta.id})"><i class="bi bi-pencil"></i></button>`;
-        const deleteButton = `<button class="btn btn-outline-danger btn-sm" onclick="excluirItem(${conta.id})"><i class="bi bi-trash"></i></button>`;
-
-        tabela.insertAdjacentHTML('beforeend', `
-          <tr id="conta-pagar-${conta.id}">
-            <td>${conta.status}</td>
-            <td>${conta.tipo}</td>
-            <td>${valorFormatado}</td>
-            <td>${conta.descricao}</td>
-            <td>${vencimentoFormatado}</td>
-            <td>${editButton + deleteButton}</td>
-          </tr>
-        `);
-      });
-    }
-
-    function abrirModalContaPagar(id) {
-      const modalTitle = document.getElementById('contaPagarModalLabel');
-      const form = document.getElementById('formContaPagar');
-      form.reset();
-      document.getElementById('contaPagarId').value = '';
-
-      if (id) {
-        modalTitle.textContent = 'Editar Conta a Pagar';
-        document.getElementById('contaPagarId').value = id;
-        // Busca a conta na lista COMPLETA
-        const conta = contasPagar.find(c => c.id == id); 
-        if (conta && conta.id_login_global == ID_LOGIN_GLOBAL) { // Garante que só edita a própria conta
-          document.getElementById('modalStatusConta').value = conta.status;
-          document.getElementById('modalTipoConta').value = conta.tipo;
-          document.getElementById('modalValorConta').value = parseFloat(conta.valor).toFixed(2);
-          document.getElementById('modalDescricaoConta').value = conta.descricao;
-          document.getElementById('modalVencimentoConta').value = conta.vencimento;
-        } else if (conta && conta.id_login_global !== ID_LOGIN_GLOBAL) {
-            // Se tentar editar uma conta de outro usuário, fecha e alerta.
-            alert('Você não tem permissão para editar esta conta.');
-            const modal = bootstrap.Modal.getInstance(document.getElementById('contaPagarModal'));
-            modal.hide();
-            return;
-        }
-      } else {
-        modalTitle.textContent = 'Adicionar Nova Conta a Pagar';
-      }
-    }
-
-    function salvarContaPagar() {
-      const id = document.getElementById('contaPagarId').value;
-      const status = document.getElementById('modalStatusConta').value;
-      const tipo = document.getElementById('modalTipoConta').value;
-      const valorInput = document.getElementById('modalValorConta').value;
-      const valor = parseFloat(valorInput).toFixed(2);
-      const descricao = document.getElementById('modalDescricaoConta').value;
-      const vencimento = document.getElementById('modalVencimentoConta').value;
-
-      if (!status || !tipo || !valorInput || !descricao || !vencimento) {
-        alert('Por favor, preencha todos os campos corretamente.');
-        return;
-      }
-
-      if (id) {
-        const index = contasPagar.findIndex(c => c.id == id && c.id_login_global == ID_LOGIN_GLOBAL); // Filtra por ID e ID_LOGIN
-        if (index !== -1) {
-          // Mantém o id_login_global original
-          contasPagar[index] = { 
-            id: Number(id), 
-            status, 
-            tipo, 
-            valor, 
-            descricao, 
-            vencimento, 
-            id_login_global: ID_LOGIN_GLOBAL // Garante a manutenção
-          };
-        } else {
-            alert('Conta não encontrada ou sem permissão de edição.');
-            return;
-        }
-      } else {
-        // Nova Conta: Adiciona o id_login_global (Problema 2)
-        const newId = contasPagar.length > 0 ? contasPagar[contasPagar.length - 1].id + 1 : 1;
-        contasPagar.push({ 
-            id: newId, 
-            status, 
-            tipo, 
-            valor, 
-            descricao, 
-            vencimento,
-            id_login_global: ID_LOGIN_GLOBAL // Adiciona o ID global aqui
-        });
-      }
-
-      salvarNoLocalStorage(); // Salva a lista completa (agora com o novo ID)
-      renderizarTabela();
-      const modal = bootstrap.Modal.getInstance(document.getElementById('contaPagarModal'));
-      modal.hide();
-    }
-
-    function excluirItem(id) {
-      if (confirm('Deseja realmente excluir esta conta a pagar?')) {
-        // Filtra para remover a conta, garantindo que é a conta do usuário logado
-        contasPagar = contasPagar.filter(c => !(c.id === id && c.id_login_global === ID_LOGIN_GLOBAL));
-        salvarNoLocalStorage();
-        renderizarTabela();
-      }
-    }
-
-    window.addEventListener('load', initPage);
-  </script>
+  <script src="assets/js/pagar.js"></script>
 </head>
 
 <body>
@@ -176,21 +27,24 @@
   </div>
 
   <div class="app d-flex">
-    <!-- SIDEBAR COPIADA DO DASHBOARD -->
     <div class="offcanvas offcanvas-start offcanvas-lg" tabindex="-1" id="offcanvasSidebar">
       <div class="offcanvas-body p-3">
         <div class="d-flex align-items-center mb-3 ">
           <a href="dashboard.html"><img src="assets/img/logo_menu.png" width="50%"></a>
         </div>
         <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a class="nav-link" href="dashboard.html"><i class="bi bi-house me-2"></i>Página
-              Inicial</a></li>
+          <li class="nav-item mb-2">
+            <a class="nav-link" href="dashboard.html">
+              <span><i class="bi bi-house me-2"></i>Página Inicial</span>
+            </a>
+          </li>
 
           <li class="nav-item mb-2">
-            <a class="nav-link d-flex justify-content-between" href="#CadastroCollapse" data-bs-toggle="collapse">
+            <a class="nav-link d-flex justify-content-between" href="#CadastroCollapse" data-bs-toggle="collapse"
+              aria-expanded="false" aria-controls="CadastroCollapse">
               <span><i class="bi bi-person-badge me-2"></i>Cadastros</span><i class="bi bi-chevron-down"></i>
             </a>
-            <div class="collapse" id="CadastroCollapse">
+            <div class="collapse" id="CadastroCollapse" data-bs-parent="#offcanvasSidebar">
               <ul class="nav flex-column ms-3">
                 <li><a class="nav-link nav-sublink" href="clientes_fornecedores.html">Clientes/Fornecedores</a></li>
                 <li><a class="nav-link nav-sublink" href="produtos_servicos.html">Produtos/Serviços</a></li>
@@ -199,10 +53,11 @@
           </li>
 
           <li class="nav-item mb-2">
-            <a class="nav-link d-flex justify-content-between" href="#FaturamentoCollapse" data-bs-toggle="collapse">
+            <a class="nav-link d-flex justify-content-between" href="#FaturamentoCollapse" data-bs-toggle="collapse"
+              aria-expanded="false" aria-controls="FaturamentoCollapse">
               <span><i class="bi bi-bag-check me-2"></i>Faturamento</span><i class="bi bi-chevron-down"></i>
             </a>
-            <div class="collapse" id="FaturamentoCollapse">
+            <div class="collapse" id="FaturamentoCollapse" data-bs-parent="#offcanvasSidebar">
               <ul class="nav flex-column ms-3">
                 <li><a class="nav-link nav-sublink" href="faturamento_produtos.html">Produtos</a></li>
                 <li><a class="nav-link nav-sublink" href="faturamento_servicos.html">Serviços</a></li>
@@ -211,15 +66,18 @@
             </div>
           </li>
 
-          <li class="nav-item mb-2"><a class="nav-link" href="agenda.html"><i
-                class="bi bi-calendar-event me-2"></i>Agenda</a></li>
+          <li class="nav-item mb-2">
+            <a class="nav-link" href="agenda.html">
+              <span><i class="bi bi-calendar-event me-2"></i>Agenda</span>
+            </a>
+          </li>
 
           <li class="nav-item mb-2">
             <a class="nav-link d-flex justify-content-between active" href="#FinanceiroCollapse" data-bs-toggle="collapse"
-              aria-expanded="true">
+              aria-expanded="true" aria-controls="FinanceiroCollapse">
               <span><i class="bi bi-wallet2 me-2"></i>Financeiro</span><i class="bi bi-chevron-down"></i>
             </a>
-            <div class="collapse show" id="FinanceiroCollapse">
+            <div class="collapse show" id="FinanceiroCollapse" data-bs-parent="#offcanvasSidebar">
               <ul class="nav flex-column ms-3">
                 <li><a class="nav-link nav-sublink" href="receber.html">Contas a receber</a></li>
                 <li><a class="nav-link nav-sublink active" href="pagar.html">Contas a pagar</a></li>
@@ -228,10 +86,11 @@
           </li>
 
           <li class="nav-item mb-2">
-            <a class="nav-link d-flex justify-content-between" href="#RelatoriosCollapse" data-bs-toggle="collapse">
+            <a class="nav-link d-flex justify-content-between" href="#RelatoriosCollapse" data-bs-toggle="collapse"
+              aria-expanded="false" aria-controls="RelatoriosCollapse">
               <span><i class="bi bi-graph-up me-2"></i>Relatórios</span><i class="bi bi-chevron-down"></i>
             </a>
-            <div class="collapse" id="RelatoriosCollapse">
+            <div class="collapse" id="RelatoriosCollapse" data-bs-parent="#offcanvasSidebar">
               <ul class="nav flex-column ms-3">
                 <li><a class="nav-link nav-sublink" href="rel_produtos_servicos.html">Produtos/Serviços</a></li>
                 <li><a class="nav-link nav-sublink" href="rel_financeiro.html">Financeiro</a></li>
@@ -240,14 +99,16 @@
             </div>
           </li>
 
-          <li class="nav-item"><a class="nav-link" href="configuracoes.html"><i
-                class="bi bi-gear me-2"></i>Configurações</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="configuracoes.html">
+              <span><i class="bi bi-gear me-2"></i>Configurações</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
 
-    <!-- MAIN CONTENT -->
-    <main class="flex-grow-1 p-4">>
+    <main class="flex-grow-1 p-4">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="h4">Contas a Pagar</h1>
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contaPagarModal">+ Nova Conta</button>
@@ -269,7 +130,6 @@
     </main>
   </div>
 
-  <!-- MODAL -->
   <div class="modal fade" id="contaPagarModal" tabindex="-1" aria-labelledby="contaPagarModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -315,6 +175,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  
 </body>
 
 </html>
