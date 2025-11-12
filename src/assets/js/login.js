@@ -69,7 +69,7 @@ function loginUser(email_login, senha) {
             usuarioCorrente.nome = usuario.nome;
             usuarioCorrente.tem_cnpj = usuario.tem_cnpj;
             usuarioCorrente.razao_social = usuario.razao_social;
-            usuarioCorrente.cpf_cnpj = usuario.cpf_cnpj;
+            usuarioCorrente.cpf_cnpj = usuario.cpfCnpj;
             usuarioCorrente.telefone = usuario.telefone;
             usuarioCorrente.endereco = usuario.endereco;
 

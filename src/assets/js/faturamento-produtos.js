@@ -739,7 +739,7 @@ function finishSale() {
         <div class="row m-4">
         <div class="col text-center">
         <a type="button" class="btn btn-success" href="/assets/static/receipt-products.html?id=${finishedSale.meuId}"
-        target="_blank">Imprimir</a>
+      >Imprimir</a>
         </div>
         </div> `;
     const modalInstance = bootstrap.Modal.getInstance(checkoutModal);
