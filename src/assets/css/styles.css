@@ -28,7 +28,7 @@
  * de 16px no seu projeto, use '16px' explicitamente.
 */
 
-.form-control, /* Classe padrão do Bootstrap para inputs */
+.form-control, 
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -38,8 +38,7 @@ input[type="url"],
 input[type="number"],
 textarea,
 select {
-    font-size: 16px; 
-    /* ou 'font-size: 1rem;' se o seu 1rem = 16px */
+    font-size: 1rem; 
 }
 
 
