@@ -88,11 +88,9 @@ function allUserUnclosedSales() {
     }
 }
 
-function allUserSales() {
+function allSales() {
     try {
-        return JSON.parse(localStorage.getItem('vendas')).filter(item => {
-            return item.usuarioId === usuarioCorrente.id;
-        });
+        return JSON.parse(localStorage.getItem('vendas'));
     }
     catch {
         return []
@@ -112,6 +110,17 @@ function allUserProducts() {
     }
 }
 
+function allItens() {
+
+
+    try {
+        return JSON.parse(localStorage.getItem('produtosServicos'))
+    }
+    catch {
+        return []
+    }
+}
+
 function allUserClients() {
     try {
         return JSON.parse(localStorage.getItem('clientesFornecedores')).filter(item => {
@@ -123,7 +132,7 @@ function allUserClients() {
     }
 }
 
-function allUserContasReceber() {
+function allContasReceber() {
     try {
         return JSON.parse(localStorage.getItem('contasReceber')) || [];
     }
@@ -221,7 +230,7 @@ function renderProducts(productsToSale) {
         <td class="text-center pe-4 ps-4"><input class="input-quantidade text-center" value="${product.quantidade}" readonly>
         </td>
         <td class="text-end pe-4 ps-4">${makeDecimal(product.precoVenda)}</td>
-        <td class="text-center pe-4" style="min-width: 110px;"> 
+        <td class="text-center pe-4"> 
         <button class="btn btn-outline-primary btn-sm me-1"><i class="bi bi-pencil"></i></button>
         <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
         </td>
@@ -490,7 +499,7 @@ function save() {
             "itens": productsToSale,
             "insumosServico": null,
             "formaDePagamento": selectedPaymentInstallment.value
-        
+
         };
         const currentUnslosedSales = allUserUnclosedSales()
         currentUnslosedSales.push(unclosedSale);
@@ -508,6 +517,28 @@ function save() {
 }
 
 // CHECKOUT
+
+
+function updateStock(soldItems) {
+
+    const allProductsServices = JSON.parse(localStorage.getItem('produtosServicos')) || [];
+
+    const updatedProductsServices = allProductsServices.map(productInStock => {
+        const soldProduct = soldItems.find(item => item.meuId === productInStock.meuId);
+
+        if (soldProduct) {
+            const currentStock = Number(productInStock.estoqueAtual) || 0;
+            const soldQuantity = Number(soldProduct.quantidade) || 0;
+
+            return {
+                ...productInStock, 
+                estoqueAtual: currentStock - soldQuantity 
+            };
+        }
+        return productInStock;
+    });
+    localStorage.setItem('produtosServicos', JSON.stringify(updatedProductsServices));
+}
 
 function blockInstallments() {
     if (paymentMethod.value == 'credito' || paymentMethod.value == 'boleto') {
@@ -590,11 +621,11 @@ function finishSale() {
     } else {
         paymentMethodSelected = paymentMethod.options[paymentMethod.selectedIndex].text + " " + selectedPaymentInstallment.value + "x"
     }
-    const newSaleId = newMyId(allUserSales());
+    const newSaleId = newMyId(allSales());
     const currentClienteObject = selectedClient ? selectedClient : null;
-    const clienteId = currentClienteObject ? currentClienteObject.meuId : null; 
+    const clienteId = currentClienteObject ? currentClienteObject.meuId : null;
     const totalAmount = totalWithDiscountGlobal;
-    const paymentMethodType = paymentMethod.value; 
+    const paymentMethodType = paymentMethod.value;
     const finishedSale = {
         "meuId": newSaleId,
         "usuarioId": usuarioCorrente.id,
@@ -609,12 +640,16 @@ function finishSale() {
         "formaDePagamento": paymentMethodSelected,
         "insumosServico": null
     };
-    const currentSales = allUserSales()
+    const currentSales = allSales()
     currentSales.push(finishedSale);
     localStorage.setItem('vendas', JSON.stringify(currentSales));
 
-    const allContas = allUserContasReceber();
-    let nextContaMeuId = newMyId(allContas); 
+
+    updateStock(productsToSale);
+
+
+    const allContas = allContasReceber();
+    let nextContaMeuId = newMyId(allContas);
     const newPayments = [];
     const hoje = new Date();
 
