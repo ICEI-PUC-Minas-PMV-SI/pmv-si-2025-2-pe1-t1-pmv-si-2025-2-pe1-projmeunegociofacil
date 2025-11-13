@@ -20,7 +20,37 @@
   }
 }
 
+/*
+ * Corrige o zoom automático do Safari em inputs no iOS.
+ * 
+ * Se o framework (Bootstrap) usa 'rem' (ex: 1rem = 16px), 
+ * usar '1rem' é semanticamente melhor. Se 1rem for diferente 
+ * de 16px no seu projeto, use '16px' explicitamente.
+*/
 
+/*
+ * Aplica estes estilos APENAS em telas com largura 
+ * máxima de 767.98px (ou seja, abaixo do breakpoint 'md' 
+ * do Bootstrap, o que cobre a maioria dos celulares).
+*/
+
+@media (max-width: 767.98px) {
+    
+    .form-control, /* Classe padrão do Bootstrap */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="url"],
+    input[type="number"],
+    textarea,
+    select {
+        font-size: 16px; 
+        /* Se você usa 'rem', 1rem geralmente é 16px */
+    }
+
+}
 
 :root {
   --primary-color: #2988CA;
