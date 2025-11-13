@@ -21,18 +21,6 @@
 }
 
 
-.form-control, 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="search"],
-input[type="tel"],
-input[type="url"],
-input[type="number"],
-textarea,
-select {
-    font-size: 16px; 
-}
 
 
 :root {
