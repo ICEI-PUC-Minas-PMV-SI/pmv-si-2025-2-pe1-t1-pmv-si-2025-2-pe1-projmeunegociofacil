@@ -20,13 +20,6 @@
   }
 }
 
-/*
- * Corrige o zoom automático do Safari em inputs no iOS.
- * 
- * Se o framework (Bootstrap) usa 'rem' (ex: 1rem = 16px), 
- * usar '1rem' é semanticamente melhor. Se 1rem for diferente 
- * de 16px no seu projeto, use '16px' explicitamente.
-*/
 
 .form-control, 
 input[type="text"],
@@ -38,7 +31,7 @@ input[type="url"],
 input[type="number"],
 textarea,
 select {
-    font-size: 1rem; 
+    font-size: 16px; 
 }
 
 
