@@ -182,11 +182,11 @@
                 <table class="table table-hover">
                   <thead class="table-light">
                     <tr>
-                      <th class="text-center pe-4 ps-4" scope="col">Código</th>
-                      <th class="text-start pe-4 ps-4" scope="col">Descrição</th>
-                      <th class="text-center pe-4 ps-4" scope="col">Quantidade</th>
-                      <th class="text-end pe-4 ps-4" scope="col">Valor</th>
-                      <th class="text-center pe-4" scope="col">Ação</th>
+                      <th class="text-center" scope="col">Código</th>
+                      <th class="text-start" scope="col">Descrição</th>
+                      <th class="text-center" scope="col">Quantidade</th>
+                      <th class="text-end" scope="col">Valor</th>
+                      <th class="text-center" scope="col">Ação</th>
 
                     </tr>
                   </thead>
@@ -205,34 +205,31 @@
       <div class="main-footer">
         <!-- Totalizer -->
         <div class="container">
-          <div class=" totalizer ms-3 me-3 pt-1">
-            <div class="d-flex mt-2">
-              <div class="col-7 col-md-8 me-2">
+          <div class=" totalizer ms-3 me-3 py-2">
+            <div class="d-flex ms-3 me-3">
+              <div class="col text-end">
+                <span><strong>Itens: </strong><span id="quantity" class="me-5"></span><strong>Total: </strong><span
+                    id="totalizer-total"></span></span>
               </div>
-              <div class="col-2 col-md-2 text-center me-2">
-                <p><strong>Itens: </strong><span id="quantity"></span></p>
-              </div>
-              <div class="col-2 col-md-2  text-center me-2">
-                <p><strong>Total: </strong><span id="totalizer-total"></span></p>
-              </div>
+
             </div>
           </div>
 
         </div>
         <!-- Buttons -->
         <div class="container">
-    <div class="d-flex justify-content-center gap-2 d-md-block text-md-end mt-2 me-2">
-        <a id="btn-cancel" class="btn btn-secondary ps-4 pe-4 flex-grow-1 flex-md-grow-0 m-md-2" href="#"
-            role="button">Cancelar</a>
+          <div class="d-flex justify-content-center gap-2 d-md-block text-md-end mt-2 me-2">
+            <a id="btn-cancel" class="btn btn-secondary ps-4 pe-4 flex-grow-1 flex-md-grow-0 m-md-2" href="#"
+              role="button">Cancelar</a>
 
-        <a class="btn btn-secondary ps-4 pe-4 flex-grow-1 flex-md-grow-0 m-md-2" href="#" role="button"
-            data-bs-toggle="modal" data-bs-target="#save-modal">Gravar</a>
+            <a class="btn btn-secondary ps-4 pe-4 flex-grow-1 flex-md-grow-0 m-md-2" href="#" role="button"
+              data-bs-toggle="modal" data-bs-target="#save-modal">Gravar</a>
 
-        <a id="checkout-modal-btn" class="btn btn-primary ps-4 pe-4 flex-grow-1 flex-md-grow-0 m-md-2" href="#"
-            role="button" data-bs-toggle="modal" data-bs-target="#checkout-modal">Efetuar Pagamento</a>
-    </div>
+            <a id="checkout-modal-btn" class="btn btn-primary ps-4 pe-4 flex-grow-1 flex-md-grow-0 m-md-2" href="#"
+              role="button" data-bs-toggle="modal" data-bs-target="#checkout-modal">Efetuar Pagamento</a>
+          </div>
 
-</div>
+        </div>
 
       </div>
 
@@ -347,7 +344,7 @@
                       placeholder="10">
                   </div>
                   <div class="col-4"><button id="btn-insert-discount-incriase" type="button"
-                      class="btn btn-primary">Inserir</button></div>
+                      class="btn btn-primary w-100">Inserir</button></div>
                 </div>
               </div>
             </div>
