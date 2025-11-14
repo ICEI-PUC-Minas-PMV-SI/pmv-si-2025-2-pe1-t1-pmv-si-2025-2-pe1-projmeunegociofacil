@@ -3,6 +3,7 @@ import { newMyId, makeDecimal } from "./utils.js";
 let selectedClient = null;
 let productsToSale = [];
 let totalWithDiscountGlobal = 0;
+let inputsToSale = [];
 
 // CLIENT
 const clientInput = document.getElementById('selected-client');
@@ -13,9 +14,9 @@ const tbodyListOfClients = document.getElementById('list-of-clients');
 const buttonUnselectClient = document.getElementById('button-unselect-client');
 
 // SEARCH PRODUCTS
-const searchProductsInput = document.getElementById('search-products-input');
+const searchProductsInput = document.getElementById('search-services-input');
 const btnSearchProducts = document.getElementById('btn-search-products');
-const tableProductsSearch = document.getElementById('table-products-search');
+const tableProductsSearch = document.getElementById('table-services-search');
 
 // PRODUCTS
 const tbodyListOfProducts = document.getElementById('list-of-products');
@@ -26,11 +27,9 @@ const totalizerTotalSpan = document.getElementById('totalizer-total');
 const subtotalSpan = document.getElementById('totalizer-subtotal');
 const totalSpan = document.getElementById('total-span');
 
-
-
 // MODAL
 const modalClient = document.getElementById('select-client-modal');
-const modalSearchProducts = document.getElementById('search-products-modal');
+const modalSearchProducts = document.getElementById('search-services-modal');
 const saveModal = document.getElementById('save-modal')
 
 // SAVE
@@ -57,11 +56,15 @@ const finishModal = document.getElementById('finish-modal')
 const htmlFinishModal = document.getElementById('html-finish-modal')
 
 
+// ADD INPUTS
+const addInputsQuantity = document.getElementById('add-input-quantity')
+const addInputsUnity = document.getElementById('add-input-unity')
+const addInputsUnitPrice = document.getElementById('add-input-unit-price')
+const addInputsDescription = document.getElementById('add-input-desc')
+const addInputTtotal = document.getElementById('add-input-total')
+const btnAddInputs = document.getElementById('add-input-add')
 
 // INIT
-
-
-
 btnFinishSale.addEventListener('click', finishSale)
 paymentMethod.addEventListener('change', blockInstallments)
 btnInsertDiscountIncriase.addEventListener('click', updateDiscountIncriase)
@@ -75,6 +78,9 @@ checkoutModal.addEventListener('show.bs.modal', verifyProductsIsValid)
 saveModal.addEventListener('show.bs.modal', verifyProductsIsValid)
 selectedPaymentInstallment.addEventListener('change', updatePayment)
 finishModal.addEventListener('hidden.bs.modal', () => { location.reload() })
+addInputsQuantity.addEventListener('input', updateInputTotal)
+addInputsUnitPrice.addEventListener('input', updateInputTotal)
+btnAddInputs.addEventListener('click', addInput)
 
 // INIT
 function allUserUnclosedSales() {
@@ -102,19 +108,8 @@ function allUserProducts() {
 
     try {
         return JSON.parse(localStorage.getItem('produtosServicos')).filter(item => {
-            return item.tipo === "produto" && item.usuarioId === usuarioCorrente.id;
+            return item.tipo === "servico" && item.usuarioId === usuarioCorrente.id;
         });
-    }
-    catch {
-        return []
-    }
-}
-
-function allItens() {
-
-
-    try {
-        return JSON.parse(localStorage.getItem('produtosServicos'))
     }
     catch {
         return []
@@ -154,7 +149,6 @@ function cancelSale() {
         location.reload();
     }
 }
-
 
 function totalizerQuantity(productsToSale) {
     const quantify = productsToSale.reduce((acumulador, produto) => {
@@ -227,6 +221,7 @@ function renderProducts(productsToSale) {
         <tr data-id="${product.meuId}">
         <th class="text-center" scope="row">${product.meuId}</th>
         <td class="text-start">${product.descricao}</td>
+            <td class="text-center">${product.unidade}</td>
         <td class="text-center"><input class="input-quantidade text-center" value="${product.quantidade}" readonly>
         </td>
         <td class="text-end">${makeDecimal(product.precoVenda)}</td>
@@ -368,7 +363,7 @@ function renderProductsSearch(productsToShow) {
     <th scope="col">Valor</th>
     </tr>
     </thead>
-    <tbody id="list-of-products-search"> `
+    <tbody id="list-of-services-search"> `
     const rowsHtml = productsToShow.map(product => {
         return `
     <tr data-id="${product.meuId}">
@@ -389,7 +384,7 @@ function renderProductsSearch(productsToShow) {
 function listOfProductsSearch() {
     tableProductsSearch.addEventListener('click', (event) => {
         event.preventDefault();
-        const clickedRow = event.target.closest('#list-of-products-search tr');
+        const clickedRow = event.target.closest('#list-of-services-search tr');
         if (!clickedRow) return;
         const productMyId = clickedRow.dataset.id;
         const selectedProductSearch = allUserProducts().find(product => product.meuId == productMyId);
@@ -491,7 +486,7 @@ function save() {
             "meuId": newMyId(allUserUnclosedSales()),
             "usuarioId": usuarioCorrente.id,
             "clientesFornecedoresMeuId": currentCliente,
-            "tipoVenda": "produto",
+            "tipoVenda": "servico",
             "dataVenda": new Date(),
             "quantidadeItens": totalizerQuantity(productsToSale),
             "valorTotal": totalizerTotal(productsToSale),
@@ -516,29 +511,151 @@ function save() {
 
 }
 
-// CHECKOUT
+// INPUTS
 
+function updateInputTotal() {
+    const quantity = addInputsQuantity.value
+    const unit = addInputsUnitPrice.value
+    const sumTotalToUpdate = quantity * unit
+    addInputTtotal.value = makeDecimal(sumTotalToUpdate)
 
-function updateStock(soldItems) {
-
-    const allProductsServices = JSON.parse(localStorage.getItem('produtosServicos')) || [];
-
-    const updatedProductsServices = allProductsServices.map(productInStock => {
-        const soldProduct = soldItems.find(item => item.meuId === productInStock.meuId);
-
-        if (soldProduct) {
-            const currentStock = Number(productInStock.estoqueAtual) || 0;
-            const soldQuantity = Number(soldProduct.quantidade) || 0;
-
-            return {
-                ...productInStock, 
-                estoqueAtual: currentStock - soldQuantity 
-            };
-        }
-        return productInStock;
-    });
-    localStorage.setItem('produtosServicos', JSON.stringify(updatedProductsServices));
 }
+
+function addInput(event) {
+    event.preventDefault
+
+    const vaddInputsQuantity = addInputsQuantity.value
+    const vaddInputsUnity = addInputsUnity.value || "un"
+    const vaddInputsUnitPrice = addInputsUnitPrice.value
+    const vaddInputsDescription = addInputsDescription.value
+    const vaddInputTtotal = addInputTtotal.value
+    if (!vaddInputsQuantity || !vaddInputsUnitPrice || !vaddInputsDescription) {
+        alert('Informe os campos corretamente.')
+        return
+    }
+    const inputToInsert = [{
+        "quantidade": vaddInputsQuantity,
+        "unidade": vaddInputsUnity,
+        "descricao": vaddInputsDescription,
+        "precoUnitario": vaddInputsUnitPrice,
+        "subtotal": vaddInputTtotal,
+    }]
+    const inputsAtualizados = [...inputsToSale, ...inputToInsert];
+    inputsToSale = inputsAtualizados
+    addInputsQuantity.value = ""
+    addInputsUnity.value = ""
+    addInputsUnitPrice.value = ""
+    addInputsDescription.value = ""
+    addInputTtotal.value = ""
+    console.log(inputsToSale)
+
+}
+
+// function renderProducts(productsToSale) {
+//     const rowsHtml = productsToSale.map(product => {
+//         return `
+//         <tr data-id="${product.meuId}">
+//         <th class="text-center" scope="row">${product.meuId}</th>
+//         <td class="text-start">${product.descricao}</td>
+//             <td class="text-center">${product.unidade}</td>
+//         <td class="text-center"><input class="input-quantidade text-center" value="${product.quantidade}" readonly>
+//         </td>
+//         <td class="text-end">${makeDecimal(product.precoVenda)}</td>
+//         <td class="text-center"> 
+//         <button class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil"></i></button>
+//         <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
+//         </td>
+//         </tr>
+//   `;
+//     }).join('');
+//     tbodyListOfProducts.innerHTML = rowsHtml;
+//      renderProducts(productsToSale)
+//     totalizerQuantity(productsToSale);
+//     totalizerTotal(productsToSale);
+// }
+
+
+// function listenerListOfProducts() {
+//     function saveProductQuantity(row, input) {
+//         const productId = row.dataset.id;
+//         const inputfield = Number(input.value);
+//         const newQuantity = Number.isInteger(inputfield) ? inputfield : NaN;
+//         if (isNaN(newQuantity) || newQuantity <= 0) {
+//             alert("Insira um valor inteiro maior que 0.");
+//             input.focus();
+//             return;
+//         }
+//         const productToUpdate = productsToSale.find(product => product.meuId == productId);
+//         if (productToUpdate) {
+//             productToUpdate.quantidade = newQuantity;
+//         }
+//         input.readOnly = true;
+//         input.classList.remove('form-control');
+//         const editButton = row.querySelector('.btn-outline-success');
+//         const icon = editButton.querySelector('i');
+//         icon.classList.remove('bi-check');
+//         icon.classList.add('bi-pencil');
+//         editButton.classList.remove('btn-outline-success');
+//         editButton.classList.add('btn-outline-primary');
+//         totalizerQuantity(productsToSale);
+//         totalizerTotal(productsToSale);
+//     }
+//     tbodyListOfProducts.addEventListener('click', (event) => {
+//         event.preventDefault();
+//         const deleteButton = event.target.closest('.btn-outline-danger');
+//         if (deleteButton) {
+//             const row = deleteButton.closest('tr');
+//             const productId = row.dataset.id;
+//             if (window.confirm("Deseja realmente excluir o produto?")) {
+//                 const indexToRemove = productsToSale.findIndex(product => product.meuId == productId);
+//                 if (indexToRemove > -1) {
+//                     productsToSale.splice(indexToRemove, 1);
+//                 }
+//                 renderProducts(productsToSale);
+//                 totalizerQuantity(productsToSale);
+//                 totalizerTotal(productsToSale);
+//             }
+//         }
+//         const editButton = event.target.closest('.btn-outline-primary, .btn-outline-success');
+//         if (editButton) {
+//             const row = editButton.closest('tr');
+//             const input = row.querySelector('.input-quantidade');
+//             const icon = editButton.querySelector('i');
+
+//             if (icon.classList.contains('bi-pencil')) {
+//                 input.readOnly = false;
+//                 input.classList.add('form-control');
+//                 input.focus();
+//                 input.select();
+
+//                 icon.classList.remove('bi-pencil');
+//                 icon.classList.add('bi-check');
+//                 editButton.classList.remove('btn-outline-primary');
+//                 editButton.classList.add('btn-outline-success');
+
+//             }
+//             else if (icon.classList.contains('bi-check')) {
+//                 saveProductQuantity(row, input);
+//             }
+//         }
+//     });
+//     tbodyListOfProducts.addEventListener('keydown', (event) => {
+//         if (event.key === 'Enter' &&
+//             event.target.classList.contains('input-quantidade') &&
+//             !event.target.readOnly) {
+//             event.preventDefault();
+//             const input = event.target;
+//             const row = input.closest('tr');
+
+//             saveProductQuantity(row, input);
+//         }
+//     });
+// }
+
+
+
+
+// CHECKOUT
 
 function blockInstallments() {
     if (paymentMethod.value == 'credito' || paymentMethod.value == 'boleto') {
@@ -569,6 +686,7 @@ function makeDiscountIncriase(valor) {
     }
 
 }
+
 function renderDiscountView(discount) {
     const discountDecimal = makeDecimal(discount)
     discountView.innerHTML = `
@@ -630,7 +748,7 @@ function finishSale() {
         "meuId": newSaleId,
         "usuarioId": usuarioCorrente.id,
         "clientesFornecedoresMeuId": clienteId,
-        "tipoVenda": "produto",
+        "tipoVenda": "servico",
         "dataVenda": new Date().toISOString(),
         "quantidadeItens": totalizerQuantity(productsToSale),
         "valorTotal": totalizerTotal(productsToSale),
@@ -643,9 +761,6 @@ function finishSale() {
     const currentSales = allSales()
     currentSales.push(finishedSale);
     localStorage.setItem('vendas', JSON.stringify(currentSales));
-
-
-    updateStock(productsToSale);
 
 
     const allContas = allContasReceber();
@@ -728,7 +843,7 @@ function finishSale() {
         </div>
         <div class="row m-4">
         <div class="col text-center">
-        <a type="button" class="btn btn-success" href="assets/static/receipt-products.html?id=${finishedSale.meuId}"
+        <a type="button" class="btn btn-success" href="assets/static/receipt-services.html?id=${finishedSale.meuId}"
       >Imprimir</a>
         </div>
         </div> `;

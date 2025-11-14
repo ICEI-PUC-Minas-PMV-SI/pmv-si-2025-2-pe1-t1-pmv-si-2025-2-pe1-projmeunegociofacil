@@ -408,7 +408,7 @@
       "precoCusto": 0,
       "estoqueAtual": null,
       "unidade": "hr",
-      "usuarioId": 2
+      "usuarioId": 1
     },
     {
       "meuId": 2,
@@ -432,7 +432,7 @@
       "precoCusto": 50.00,
       "estoqueAtual": null,
       "unidade": "serv",
-      "usuarioId": 2
+      "usuarioId": 1
     },
     {
       "meuId": 3,
@@ -528,7 +528,7 @@
       "precoCusto": 20.00,
       "estoqueAtual": null,
       "unidade": "hr",
-      "usuarioId": 2
+      "usuarioId": 1
     },
     {
       "meuId": 7,

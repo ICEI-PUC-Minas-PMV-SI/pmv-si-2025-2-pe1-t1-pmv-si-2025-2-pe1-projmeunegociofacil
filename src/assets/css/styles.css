@@ -22,8 +22,10 @@
 
 
 
+
 :root {
   --primary-color: #2988CA;
+  font-size: clamp(0.8rem, 1.0vw, 1.5rem);
 }
 
 body {
