@@ -168,7 +168,267 @@
       </div>
 
 
+      <!-- inicio do codigo da agenda -->
+<style>
+body { font-family: Arial, sans-serif; text-align: center; }
+table { border-collapse: collapse; width: 100%; max-width: 1200px; margin: 0 auto; }
+th { border: 1px solid #aaa; padding: 10px; width: 14%; height: 20px; vertical-align: top; position: relative; }
+td { border: 1px solid #aaa; padding: 10px; width: 14%; height: 80px; vertical-align: top; position: relative; }
+th { background-color: white; }
+td:hover { background-color: #e0f7fa; cursor: pointer; }
+.event { display: block; margin-top: 3px; padding: 2px 4px; font-size: 0.75em; border-radius: 4px; color: white; cursor: grab; }
+#eventModal, #allEventsModal { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.5); justify-content:center; align-items:center; overflow:auto; }
+#eventContent, #allEventsContent { background:white; padding:20px; border-radius:8px; width:350px; text-align:left; max-height: 90%; overflow-y: auto; }
+input, select, button { margin: 5px 0; padding: 5px; width: 100%; }
+.closeBtn { float: right; cursor: pointer; font-weight: bold; }
+#legend { margin: 10px auto; display: flex; justify-content: center; gap: 10px; max-width: 700px; flex-wrap: wrap; }
+.legend-item { display:flex; align-items:center; gap:5px; }
+.color-box { width:15px; height:15px; display:inline-block; border-radius:3px; }
+#viewAllBtn { margin: 10px; padding: 10px 20px; }
+.mes-atual { font-size: large;}
+.botaoExibir { width: 200px; cursor: pointer; font-family: "Outfit", sans-serif; font-weight: 400; background-color: #2988CA; color: white;}
+.botaoExibir:hover {cursor: pointer; background-color: #267ab6;}
+.mesAnterior {width: 30px;}
+.proximoMes {width: 30px;}
+</style>
+</head>
+<body>
 
+
+<div class="controle-mes">
+  <button class="mesAnterior" onclick="prevMonth()">⬅</button>
+  <span class="mes-atual" id="monthYear"></span>
+  <button  class="proximoMes" onclick="nextMonth()">➡</button>
+  <button  class="botaoExibir" id="viewAllBtn" onclick="openAllEvents()">Ver Todos os Eventos</button>
+</div>
+
+
+
+<table>
+<thead>
+<tr><th>Dom</th><th>Seg</th><th>Ter</th><th>Qua</th><th>Qui</th><th>Sex</th><th>Sáb</th></tr>
+</thead>
+<tbody id="calendarBody"></tbody>
+</table>
+
+<div id="legend"></div>
+
+
+
+<!-- Modal de Eventos por dia -->
+<div id="eventModal">
+<div id="eventContent">
+<span class="closeBtn" onclick="closeModal()">×</span>
+<h3 id="modalDate"></h3>
+<div id="eventList"></div>
+<hr>
+<input type="text" id="eventText" placeholder="Descrição do evento">
+<label>Horário início:</label>
+<input type="time" id="eventStart">
+<label>Horário fim:</label>
+<input type="time" id="eventEnd">
+<select id="eventColor">
+  <option value="#f44336">Vermelho</option>
+  <option value="#2196F3">Azul</option>
+  <option value="#4CAF50">Verde</option>
+  <option value="#FF9800">Laranja</option>
+  <option value="#9C27B0">Roxo</option>
+</select>
+<select id="eventRepeat">
+  <option value="none">Não recorrente</option>
+  <option value="daily">Diário</option>
+  <option value="weekly">Semanal</option>
+  <option value="monthly">Mensal</option>
+</select>
+<button onclick="addEvent()">Adicionar Evento</button>
+</div>
+</div>
+
+<!-- Modal Todos os Eventos -->
+<div id="allEventsModal">
+<div id="allEventsContent">
+<span class="closeBtn" onclick="closeAllEvents()">×</span>
+<h3>Todos os Eventos</h3>
+<div id="allEventsList"></div>
+</div>
+</div>
+
+<script>
+let events = {};
+let today = new Date();
+let currentMonth = today.getMonth();
+let currentYear = today.getFullYear();
+const monthYear = document.getElementById("monthYear");
+const calendarBody = document.getElementById("calendarBody");
+const eventModal = document.getElementById("eventModal");
+const modalDate = document.getElementById("modalDate");
+let selectedDate = null;
+
+function generateCalendar(month, year) {
+  calendarBody.innerHTML = "";
+  monthYear.textContent = `${new Date(year, month).toLocaleString('pt-BR',{month:'long'})} ${year}`;
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  let date=1;
+  for(let i=0;i<6;i++){
+    const row=document.createElement("tr");
+    for(let j=0;j<7;j++){
+      const cell=document.createElement("td");
+      if(i===0 && j<firstDay || date>daysInMonth){ cell.textContent=""; }
+      else{
+        cell.textContent=date;
+        const cellDate = `${year}-${String(month+1).padStart(2,'0')}-${String(date).padStart(2,'0')}`;
+        if(events[cellDate]){
+          events[cellDate].forEach((ev,index)=>{
+            const evDiv=document.createElement("span");
+            evDiv.textContent = ev.start ? `${ev.start}-${ev.end} ${ev.text}` : ev.text;
+            evDiv.className="event";
+            evDiv.style.backgroundColor=ev.color;
+            evDiv.draggable=true;
+            evDiv.ondragstart=e=>{e.dataTransfer.setData("text/plain", JSON.stringify({from:cellDate,index:index}));};
+            cell.appendChild(evDiv);
+          });
+        }
+        cell.ondragover=e=>e.preventDefault();
+        cell.ondrop=e=>{
+          const data=JSON.parse(e.dataTransfer.getData("text/plain"));
+          const movedEvent=events[data.from][data.index];
+          events[data.from].splice(data.index,1);
+          if(events[data.from].length===0) delete events[data.from];
+          if(!events[cellDate]) events[cellDate]=[];
+          events[cellDate].push(movedEvent);
+          generateCalendar(currentMonth,currentYear);
+        };
+        cell.onclick=()=>openModal(cellDate);
+        date++;
+      }
+      row.appendChild(cell);
+    }
+    calendarBody.appendChild(row);
+  }
+  updateLegend();
+}
+
+function prevMonth(){currentMonth--; if(currentMonth<0){currentMonth=11;currentYear--;} generateCalendar(currentMonth,currentYear);}
+function nextMonth(){currentMonth++; if(currentMonth>11){currentMonth=0;currentYear++;} generateCalendar(currentMonth,currentYear);}
+function openModal(date){selectedDate=date; modalDate.textContent=`Eventos em ${date}`; renderEvents(); eventModal.style.display="flex";}
+function closeModal(){eventModal.style.display="none"; document.getElementById("eventText").value=""; document.getElementById("eventStart").value=""; document.getElementById("eventEnd").value="";}
+
+function addEvent(){
+  const text=document.getElementById("eventText").value.trim();
+  const color=document.getElementById("eventColor").value;
+  const repeat=document.getElementById("eventRepeat").value;
+  const start=document.getElementById("eventStart").value;
+  const end=document.getElementById("eventEnd").value;
+  if(!text) return alert("Escreva a descrição do evento.");
+  const newEvent={text,color,start,end};
+  if(repeat==="none"){
+    if(!events[selectedDate]) events[selectedDate]=[];
+    events[selectedDate].push(newEvent);
+  } else {
+    let startDate=new Date(selectedDate);
+    for(let i=0;i<12;i++){
+      const y=startDate.getFullYear();
+      const m=startDate.getMonth();
+      const d=startDate.getDate();
+      const dStr=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      if(!events[dStr]) events[dStr]=[];
+      events[dStr].push(newEvent);
+      if(repeat==="daily") startDate.setDate(startDate.getDate()+1);
+      else if(repeat==="weekly") startDate.setDate(startDate.getDate()+7);
+      else if(repeat==="monthly") startDate.setMonth(startDate.getMonth()+1);
+    }
+  }
+  document.getElementById("eventText").value="";
+  document.getElementById("eventStart").value="";
+  document.getElementById("eventEnd").value="";
+  renderEvents();
+  generateCalendar(currentMonth,currentYear);
+}
+
+function deleteEvent(index){
+  events[selectedDate].splice(index,1);
+  if(events[selectedDate].length===0) delete events[selectedDate];
+  renderEvents();
+  generateCalendar(currentMonth,currentYear);
+}
+
+function renderEvents(){
+  const eventList=document.getElementById("eventList");
+  eventList.innerHTML="";
+  if(events[selectedDate]){
+    events[selectedDate].forEach((ev,index)=>{
+      const div=document.createElement("div");
+      div.textContent= ev.start ? `${ev.start}-${ev.end} ${ev.text}` : ev.text;
+      div.style.backgroundColor=ev.color;
+      div.style.color="white";
+      div.style.padding="3px";
+      div.style.margin="2px 0";
+      div.style.borderRadius="4px";
+      const delBtn=document.createElement("button");
+      delBtn.textContent="X";
+      delBtn.style.float="right";
+      delBtn.onclick=()=>deleteEvent(index);
+      div.appendChild(delBtn);
+      eventList.appendChild(div);
+    });
+  }
+}
+
+function updateLegend(){
+  const legend=document.getElementById("legend");
+  legend.innerHTML="";
+  let colorsUsed={};
+  Object.values(events).flat().forEach(ev=>colorsUsed[ev.color]=ev.text);
+  for(const color in colorsUsed){
+    const item=document.createElement("div");
+    item.className="legend-item";
+    const box=document.createElement("span");
+    box.className="color-box";
+    box.style.backgroundColor=color;
+    item.appendChild(box);
+    item.appendChild(document.createTextNode("Evento"));
+    legend.appendChild(item);
+  }
+}
+
+// Modal Todos os eventos
+const allEventsModal = document.getElementById("allEventsModal");
+const allEventsList = document.getElementById("allEventsList");
+
+function openAllEvents(){
+  allEventsList.innerHTML="";
+  let all = [];
+  for(const date in events){
+    events[date].forEach(ev=>all.push({date,...ev}));
+  }
+  all.sort((a,b)=>{
+    if(a.date!==b.date) return a.date.localeCompare(b.date);
+    if(a.start && b.start) return a.start.localeCompare(b.start);
+    return 0;
+  });
+  if(all.length===0){ allEventsList.textContent="Nenhum evento cadastrado."; }
+  else{
+    all.forEach(ev=>{
+      const div=document.createElement("div");
+      div.textContent = ev.start ? `${ev.date} ${ev.start}-${ev.end} ${ev.text}` : `${ev.date} ${ev.text}`;
+      div.style.backgroundColor=ev.color;
+      div.style.color="white";
+      div.style.padding="5px";
+      div.style.margin="3px 0";
+      div.style.borderRadius="4px";
+      allEventsList.appendChild(div);
+    });
+  }
+  allEventsModal.style.display="flex";
+}
+
+function closeAllEvents(){allEventsModal.style.display="none";}
+
+generateCalendar(currentMonth,currentYear);
+</script>
+
+<!--final do codigo da agenda-->
 
 
 
