@@ -1,9 +1,15 @@
+import { makeDecimal } from "./utils.js";
+
 const clientsFilterDiv = document.getElementById('clients-filter-div')
 const initDate = document.getElementById('init-date')
 const endDate = document.getElementById('end-date')
 const filterTypeInput = document.getElementById('filter-type')
 const filterPaymentInpyt = document.getElementById('filter-payment')
 const btnMakeFilter = document.getElementById('btn-make-filter')
+const results = document.getElementById('results')
+let filtredSales = []
+
+listOfClients()
 
 btnMakeFilter.addEventListener('click', makeFilter)
 
@@ -41,10 +47,10 @@ function listOfClients() {
 
 // MAKE FILTER
 function makeFilter(event) {
+    filtredSales = allUserSales()
     const clientsFilter = document.getElementById('clients-filter')
-
     event.preventDefault();
-    let filtredSales = allUserSales()
+
     function filterDate() {
         if (initDate.value || endDate.value) {
             if (initDate.value && endDate.value) {
@@ -79,9 +85,6 @@ function makeFilter(event) {
             const paymentText = filterPaymentInpyt.value.toLowerCase()
             filtredSales = filtredSales.filter(sale => {
                 const salePaymentText = sale.formaDePagamento;
-
-                // Agora, ele só tenta o .toLowerCase() se salePaymentText "existir"
-                // (não for undefined, null, ou uma string vazia)
                 return salePaymentText && salePaymentText.toLowerCase().includes(paymentText);
             });
         }
@@ -90,6 +93,7 @@ function makeFilter(event) {
     filterType()
     filterClient()
     filterPayment()
+    renderFilter(filtredSales)
     initDate.value = ""
     endDate.value = ""
     filterTypeInput.value = ""
@@ -97,7 +101,53 @@ function makeFilter(event) {
     clientsFilter.value = ""
     console.log(filtredSales)
 }
+function renderFilter() {
+    if (filtredSales.length > 0) {
+        const initHtml = `<div class="card mb-4">
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0" id="tabelaProdutosServicos">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Data</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Cliente</th>
+                  <th scope="col">Forma de Pagamento</th>
+                  <th class="text-end" scope="col">Valor</th>
+                  <th class="text-center" scope="col">Ação</th>
+                </tr>
+              </thead>
+              <tbody>`
 
+        const endHtml = `     
+        </tbody>
+            </table>
+          </div>
+        </div>
+      </div>`
+        const rowsHtml = filtredSales.map(sale => {
+            return `
+           
+            <tr id="item-1">
+                  <td id=${sale.meuId}}>${sale.meuId}</td>
+                  <td>${sale.dataVenda}</td>
+                  <td>${sale.tipoVenda}</td>
+                  <td>Fazer um filter para pegar o nome</td>
+                  <td>${sale.formaDePagamento}</td>
+                  <td class="text-end">${makeDecimal(sale.valorTotal)}</td>
+                  <td class="text-center">
+                    <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
+                    <button class="btn btn-outline-success btn-sm"><i class="bi bi-printer"></i></button>
+                  </td>
+                </tr>
+            `;
+        }).join('');
+        results.innerHTML = initHtml + rowsHtml + endHtml
+
+    } else { results.innerHTML = `<div class="col text-center"><h4>Nenhuma venda encontrada.</h4></div>` }
+
+}
 
 
 
