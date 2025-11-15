@@ -531,8 +531,8 @@ function updateStock(soldItems) {
             const soldQuantity = Number(soldProduct.quantidade) || 0;
 
             return {
-                ...productInStock, 
-                estoqueAtual: currentStock - soldQuantity 
+                ...productInStock,
+                estoqueAtual: currentStock - soldQuantity
             };
         }
         return productInStock;
@@ -615,6 +615,10 @@ function updatePayment() {
 }
 
 function finishSale() {
+    if (paymentMethod.value == "") {
+        alert('Selecione a forma de pagamento')
+        return
+    }
     let paymentMethodSelected = ""
     if (selectedPaymentInstallment.value == 1) {
         paymentMethodSelected = paymentMethod.options[paymentMethod.selectedIndex].text;
