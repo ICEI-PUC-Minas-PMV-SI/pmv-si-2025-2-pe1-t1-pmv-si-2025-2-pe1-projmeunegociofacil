@@ -772,7 +772,7 @@ function finishSale() {
         "usuarioId": usuarioCorrente.id,
         "clientesFornecedoresMeuId": clienteId,
         "tipoVenda": "servico",
-        "dataVenda": new Date().toISOString(),
+        "dataVenda": new Date(),
         "quantidadeItens": totalizerQuantity(),
         "valorTotal": totalizerTotal(),
         "valorDescontoAcrescimo": (totalizerTotal() - totalAmount),
