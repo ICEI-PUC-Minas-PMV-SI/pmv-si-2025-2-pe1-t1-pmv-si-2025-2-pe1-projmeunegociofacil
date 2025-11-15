@@ -131,7 +131,7 @@ function renderFilter() {
            
             <tr id="item-1">
                   <td id=${sale.meuId}}>${sale.meuId}</td>
-                  <td>${sale.dataVenda}</td>
+                  <td>${new Date(sale.dataVenda).toLocaleDateString('pt-BR')}</td>
                   <td>${sale.tipoVenda}</td>
                   <td>Fazer um filter para pegar o nome</td>
                   <td>${sale.formaDePagamento}</td>
