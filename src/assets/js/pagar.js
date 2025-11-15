@@ -6,7 +6,7 @@
 
     // Variável global para o ID do usuário logado
     const ID_LOGIN_GLOBAL = usuarioCorrente.id_login_global;
-
+    
     function initPage() {
       // garante que o conteúdo inicial seja carregado.
       document.getElementById('btn_logout').addEventListener('click', logoutUser);

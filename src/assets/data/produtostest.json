@@ -1,0 +1,246 @@
+{
+  "produtos": [
+    {
+      "id": 1,
+      "tipo": "produto",
+      "codigo": "GN-5330",
+      "nome": "Manípulo Ponte GN 5330",
+      "categoria": "Componentes Mecânicos",
+      "fabricante": "Elesa+Ganter",
+      "preco": 42.90
+    },
+    {
+      "id": 2,
+      "tipo": "produto",
+      "codigo": "RE.G5",
+      "nome": "Roldana de Poliamida RE.G5",
+      "categoria": "Rodas Industriais",
+      "fabricante": "Elesa+Ganter",
+      "preco": 65.00
+    },
+    {
+      "id": 3,
+      "tipo": "produto",
+      "codigo": "EBT",
+      "nome": "Puxador Tubular EBT",
+      "categoria": "Puxadores",
+      "fabricante": "Elesa+Ganter",
+      "preco": 29.50
+    },
+    {
+      "id": 4,
+      "tipo": "produto",
+      "codigo": "MBT-SST",
+      "nome": "Manípulo com Rosca MBT Inox",
+      "categoria": "Parafusos e Manípulos",
+      "fabricante": "Elesa+Ganter",
+      "preco": 18.90
+    },
+    {
+      "id": 5,
+      "tipo": "produto",
+      "codigo": "GN-816",
+      "nome": "Prisioneiro de Ação Rápida GN 816",
+      "categoria": "Fixadores",
+      "fabricante": "Elesa+Ganter",
+      "preco": 74.80
+    },
+    {
+      "id": 6,
+      "tipo": "produto",
+      "codigo": "RE.F2",
+      "nome": "Rodízio RE.F2",
+      "categoria": "Rodízios Industriais",
+      "fabricante": "Elesa+Ganter",
+      "preco": 89.90
+    },
+    {
+      "id": 7,
+      "tipo": "produto",
+      "codigo": "CFN",
+      "nome": "Pé Nivelador CFN",
+      "categoria": "Niveladores",
+      "fabricante": "Elesa+Ganter",
+      "preco": 22.30
+    },
+    {
+      "id": 8,
+      "tipo": "produto",
+      "codigo": "M.643",
+      "nome": "Manípulo Estrela M.643",
+      "categoria": "Manípulos",
+      "fabricante": "Elesa+Ganter",
+      "preco": 11.99
+    },
+    {
+      "id": 9,
+      "tipo": "produto",
+      "codigo": "LAC",
+      "nome": "Dobradiça LAC",
+      "categoria": "Dobradiças",
+      "fabricante": "Elesa+Ganter",
+      "preco": 33.00
+    },
+    {
+      "id": 10,
+      "tipo": "produto",
+      "codigo": "GN-2276",
+      "nome": "Indicador de Nível GN 2276",
+      "categoria": "Indicadores",
+      "fabricante": "Elesa+Ganter",
+      "preco": 55.40
+    },
+    {
+      "id": 11,
+      "tipo": "produto",
+      "codigo": "PA-01",
+      "nome": "Pega Tubular PA",
+      "categoria": "Puxadores",
+      "fabricante": "Elesa+Ganter",
+      "preco": 24.00
+    },
+    {
+      "id": 12,
+      "tipo": "produto",
+      "codigo": "RE.G2",
+      "nome": "Roldana RE.G2",
+      "categoria": "Rodas",
+      "fabricante": "Elesa+Ganter",
+      "preco": 58.00
+    },
+    {
+      "id": 13,
+      "tipo": "produto",
+      "codigo": "M.990",
+      "nome": "Manípulo M.990",
+      "categoria": "Manípulos",
+      "fabricante": "Elesa+Ganter",
+      "preco": 19.90
+    },
+    {
+      "id": 14,
+      "tipo": "produto",
+      "codigo": "GN-817",
+      "nome": "Pino de Aperto GN 817",
+      "categoria": "Fixação",
+      "fabricante": "Elesa+Ganter",
+      "preco": 37.20
+    },
+    {
+      "id": 15,
+      "tipo": "produto",
+      "codigo": "CFW",
+      "nome": "Pé Articulado CFW",
+      "categoria": "Niveladores",
+      "fabricante": "Elesa+Ganter",
+      "preco": 27.50
+    }
+  ],
+  "servicos": [
+    {
+      "id": 16,
+      "tipo": "servico",
+      "nome": "Manutenção Preventiva de Máquinas Industriais",
+      "descricao": "Revisão completa e lubrificação programada.",
+      "preco": 350.00
+    },
+    {
+      "id": 17,
+      "tipo": "servico",
+      "nome": "Instalação de Equipamentos Mecânicos",
+      "descricao": "Montagem e fixação em linha de produção.",
+      "preco": 500.00
+    },
+    {
+      "id": 18,
+      "tipo": "servico",
+      "nome": "Solda e Ajustes Estruturais",
+      "descricao": "Correções em estruturas metálicas.",
+      "preco": 280.00
+    },
+    {
+      "id": 19,
+      "tipo": "servico",
+      "nome": "Calibração de Sensores e Atuadores",
+      "descricao": "Ajuste fino e emissão de relatório.",
+      "preco": 180.00
+    },
+    {
+      "id": 20,
+      "tipo": "servico",
+      "nome": "Consultoria Técnica em Automação",
+      "descricao": "Análise e sugestões de melhoria.",
+      "preco": 650.00
+    },
+    {
+      "id": 21,
+      "tipo": "servico",
+      "nome": "Instalação de Painéis Elétricos",
+      "descricao": "Montagem e testes de painel.",
+      "preco": 800.00
+    },
+    {
+      "id": 22,
+      "tipo": "servico",
+      "nome": "Limpeza e Manutenção de Rolamentos",
+      "descricao": "Desmontagem e limpeza técnica.",
+      "preco": 120.00
+    },
+    {
+      "id": 23,
+      "tipo": "servico",
+      "nome": "Alinhamento de Eixos",
+      "descricao": "Correção de desalinhamentos críticos.",
+      "preco": 240.00
+    },
+    {
+      "id": 24,
+      "tipo": "servico",
+      "nome": "Balanceamento de Motores",
+      "descricao": "Balanceamento dinâmico em bancada.",
+      "preco": 320.00
+    },
+    {
+      "id": 25,
+      "tipo": "servico",
+      "nome": "Montagem de Estruturas Mecânicas",
+      "descricao": "Montagem sob demanda em indústrias.",
+      "preco": 700.00
+    },
+    {
+      "id": 26,
+      "tipo": "servico",
+      "nome": "Perícia Técnica Industrial",
+      "descricao": "Avaliação profissional de equipamentos.",
+      "preco": 1200.00
+    },
+    {
+      "id": 27,
+      "tipo": "servico",
+      "nome": "Instalação de Rodízios e Niveladores",
+      "descricao": "Aplicação de produtos industriais.",
+      "preco": 150.00
+    },
+    {
+      "id": 28,
+      "tipo": "servico",
+      "nome": "Manutenção Corretiva",
+      "descricao": "Reparo emergencial.",
+      "preco": 450.00
+    },
+    {
+      "id": 29,
+      "tipo": "servico",
+      "nome": "Pintura Industrial",
+      "descricao": "Aplicação de tinta em estruturas e peças.",
+      "preco": 500.00
+    },
+    {
+      "id": 30,
+      "tipo": "servico",
+      "nome": "Instalação e Configuração de Softwares Industriais",
+      "descricao": "Setup completo de programas e SCADA.",
+      "preco": 950.00
+    }
+  ]
+}
