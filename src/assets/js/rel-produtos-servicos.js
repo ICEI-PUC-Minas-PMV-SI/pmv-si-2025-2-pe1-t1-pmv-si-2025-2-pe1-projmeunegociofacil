@@ -108,26 +108,25 @@ async function inicializarCatalogo() {
 // =========================================
 
 async function initPage() {
-    // Garante que o conteúdo inicial seja carregado.
+
     document.getElementById('btn_logout').addEventListener('click', logoutUser);
     document.getElementById('nomeUsuario').innerHTML = usuarioCorrente.nome || 'Usuário';
 
-    // 1. CARREGA/INICIALIZA O LOCALSTORAGE COM O JSON (Se vazio)
+
     await inicializarCatalogo(); 
 
   
     
-    // 3. CARREGA A TABELA
+    // carrega a tabela (agora com dados, se nao ter nada no LocalStorage)
     carregarTabelaProdutosServicos();
 }
 
 // =========================================
 // FUNÇÕES DE FILTRO E CARREGAMENTO DA TABELA
-// =========================================
 
 /**
  * Preenche a tabela com os itens, aplicando os filtros se fornecidos.
- * (A lógica foi mantida para ser funcional, filtrando por ID_LOGIN_GLOBAL)
+    filtrando por ID_LOGIN_GLOBAL)
  * @param {Array<object>} [itensFiltrados=null] Array opcional de itens já filtrados.
  */
 function carregarTabelaProdutosServicos(itensFiltrados = null) {
@@ -244,11 +243,11 @@ function popularSelectFornecedores(items) {
 
 // =========================================
 // CRUD - EDIÇÃO (U) E EXCLUSÃO (D)
-// (Mantido funcional e com filtro por ID_LOGIN_GLOBAL)
+    // com filtro por ID_LOGIN_GLOBAL)
 // =========================================
 
 /**
- * Abre o modal de edição (Atualização - U)
+ * Abre o modal de edição 
  * @param {number} id ID do item a ser editado.
  */
 function abrirModalProdutoServico(id) {
@@ -271,7 +270,7 @@ function abrirModalProdutoServico(id) {
 }
 
 /**
- * Salva as alterações feitas no modal (Atualização - U)
+ * Salva as alterações feitas no modal 
  */
 function salvarProdutoServico() {
     const id = parseInt(document.getElementById('itemId').value);
