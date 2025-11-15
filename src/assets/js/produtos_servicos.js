@@ -10,10 +10,9 @@ async function inicializarCatalogo() {
     const response = await fetch('/src/assets/data/produtostest.json');
     const data = await response.json();
 
-    window.catalogoProdutos = data.produtos; // Mantém para uso futuro, se necessário
-    window.catalogoServicos = data.servicos; // Mantém para uso futuro, se necessário
+    window.catalogoProdutos = data.produtos; // mantendo para uso futuro
+    window.catalogoServicos = data.servicos; // 
 
-    // VAMOS USAR UM OBJETO COMBINADO, já que o LocalStorage usa 'items'
     // Crie um array de itens combinando os dados
     const novosItens = [
         ...data.produtos.map(p => ({ ...p, tipo: 'Produto' })), // Assuma 'Produto'
@@ -26,7 +25,7 @@ async function inicializarCatalogo() {
         unidade: item.unidade || 'UN' // Adiciona unidade padrão se não existir
     }));
     
-    // Se o LocalStorage estiver vazio, use os dados do JSON para inicializar
+    // usando os dados do JSON apenas se o LocalStorage estiver vazio
     if (!db_produtosServicos || db_produtosServicos.items.length === 0) {
         db_produtosServicos = {
             items: novosItens
@@ -42,30 +41,25 @@ async function inicializarCatalogo() {
   }
 }
 
-// =========================================
 // INICIALIZAÇÃO DA TELA
-// =========================================
-async function initPage() { // Mudei para async para esperar o JSON
+
+async function initPage() { // esperar o JSON
     document.getElementById('btn_logout').addEventListener('click', logoutUser);
     document.getElementById('nomeUsuario').innerHTML = usuarioCorrente.nome;
 
-    // 1. Carrega o JSON e inicializa o LocalStorage se estiver vazio
+    //  Carrega o JSON e inicializa o LocalStorage se estiver vazio
     await inicializarCatalogo(); 
 
-    // 2. Carrega a tabela (agora com dados, se o LocalStorage estava vazio)
+    //  Carrega a tabela (agora com dados, se o LocalStorage estava vazio)
     carregarTabelaProdutosServicos();
 }
 
 window.addEventListener('load', initPage); // O listener agora executa a função async
 
-// Remova a chamada solta: carregarCatalogo('./assets/data/produtos_servicos.json');
-
-
-// =========================================
 // CRUD COMPLETO
-// =========================================
 
-// ---- Lê o banco atualizado ----
+
+// ---- Lê o banco atualizado ---
 function getDB() {
     return JSON.parse(localStorage.getItem('db_produtosServicos'));
 }
