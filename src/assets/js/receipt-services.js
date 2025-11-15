@@ -9,9 +9,8 @@ const htmlCalcDiscount = document.getElementById('calc-discount')
 const tbodyProducts = document.getElementById('tbody-products')
 const tbodyInstallments = document.getElementById('tbody-installments')
 const title = document.getElementById('title')
-
-
-
+const inputsDiv = document.getElementById('inputs-div')
+const paymentTitle = document.getElementById('installments-title')
 
 
 
@@ -35,6 +34,17 @@ function allUserContasReceber() {
     catch {
         return []
     }
+}
+
+function totalizerInputs(iInputsToSale = currentSale.insumosServico) {
+    let totalInputs = 0
+    if (iInputsToSale) {
+        totalInputs = iInputsToSale.reduce((acumulador, inputs) => {
+            const subtotalInputs = inputs.subtotal;
+            return acumulador + subtotalInputs;
+        }, 0);
+    }
+    return totalInputs
 }
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -90,15 +100,22 @@ htmlSalesData.innerHTML = ` <div class="sale-data row ms-2 me-2 mb-4">
                             </div>`
 const saleDateString = new Date(currentSale.dataVenda).toLocaleDateString('pt-BR')
 const buyerName = currentClient.nomeRazaoSocial
+
+
+const htmlInputsData = `<span><strong>Produtos: </strong>${makeDecimal(currentSale.valorTotal-totalizerInputs())}</span><br>
+                        <span><strong>Insumos: </strong>${makeDecimal(totalizerInputs())}</span><br>
+                        `
 const htmlCalcDiscountData = ` <span><strong>Subtotal: </strong>${makeDecimal(currentSale.valorTotal)}</span><br>
                             <span><strong>Desconto: </strong> ${makeDecimal(currentSale.valorDescontoAcrescimo)}</span><br>
                             <span> <strong>Valor Total: </strong>${makeDecimal(currentSale.valorComDesconto)}</span> `
-
+paymentTitle.innerHTML = `Forma de Pagamento: ${currentSale.formaDePagamento}`
 
 
 htmlNameBuyer.innerHTML = buyerName
 htmlSaleDate.innerHTML = saleDateString
-htmlCalcDiscount.innerHTML = htmlCalcDiscountData
+if (currentSale.insumosServico.length > 0) {
+    htmlCalcDiscount.innerHTML = htmlInputsData + htmlCalcDiscountData
+} else { htmlCalcDiscount.innerHTML = htmlCalcDiscountData }
 
 const htmlTbodyInstallments = currentInstallmentsSearch.map(installment => {
     return `
@@ -115,7 +132,7 @@ const htmlTbodyProducts = currentSale.itens.map(product => {
         <tr>
         <th scope="row">${product.meuId}</th>
         <td>${product.descricao}</td>
-        <td class="text-center">${product.unidade.toUpperCase()}</td>
+        <td class="text-center">${product.unidade}</td>
         <td class="text-center">${product.quantidade}</td>
         <td class="text-end">${makeDecimal(product.precoVenda / product.quantidade)}</td>
         <td class="text-end">${makeDecimal(product.precoVenda)}</td>
@@ -126,4 +143,45 @@ tbodyProducts.innerHTML = htmlTbodyProducts;
 tbodyInstallments.innerHTML = htmlTbodyInstallments
 title.innerHTML = "Meu Negócio Fácil - Comprovante " + String(currentSale.meuId).padStart(5, '0')
 
+
+
+const inputsInitHtml = `<div class="container p-2"></div>
+         <span> <strong>Insumos Utilizados: </span> </strong>
+        <div class="sale-itens card mb-4">
+        <div class="card-body p-0">
+        <div class="container">
+        <div class="products_list row g-2 align-items-center">
+
+        <table class="table">
+        <thead class="table-light x-small">
+        <tr>
+        <th class="text-start" scope="col">Descrição</th>
+        <th class="text-center" scope="col">Quantidade</th>
+        <th class="text-center" scope="col">Valor Unitário</th>
+        <th class="text-end" scope="col">Subtotal</th>
+        </tr>
+        </thead>
+        <tbody id="tbody-inputs-div" class="table-group-divider" style="font-size: small"> `
+
+const inputsEndHtml = `     
+        </tbody>
+        </table>
+        </div>
+        </div>
+        </div>
+        </div>`
+
+if (currentSale.insumosServico.length > 0) {
+    const inputsRowsHtml = currentSale.insumosServico.map(input => {
+        return `
+           <tr>
+            <td class="text-start" scope="col">${input.descricao}</td>
+            <td class="text-center" scope="col">${makeDecimal(input.quantidade)}</td>
+            <td class="text-center" scope="col">${makeDecimal(input.precoUnitario)}</td>
+            <td class="text-end" scope="col">${makeDecimal(input.subtotal)}</td>
+            </tr>
+            `;
+    }).join('');
+    inputsDiv.innerHTML = inputsInitHtml + inputsRowsHtml + inputsEndHtml
+} else { inputsDiv.innerHTML = "" }
 

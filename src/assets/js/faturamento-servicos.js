@@ -1,9 +1,9 @@
 import { newMyId, makeDecimal } from "./utils.js";
 
 let selectedClient = null;
-let productsToSale = [];
+let productsToSale = "";
 let totalWithDiscountGlobal = 0;
-let inputsToSale = [];
+let inputsToSale = "";
 
 // CLIENT
 const clientInput = document.getElementById('selected-client');
@@ -22,10 +22,11 @@ const tableProductsSearch = document.getElementById('table-services-search');
 const tbodyListOfProducts = document.getElementById('list-of-products');
 const productsForm = document.getElementById('products-form');
 const productsInput = document.getElementById('products-input');
-const quantitySpan = document.getElementById('quantity');
+// const quantitySpan = document.getElementById('quantity');
 const totalizerTotalSpan = document.getElementById('totalizer-total');
 const subtotalSpan = document.getElementById('totalizer-subtotal');
 const totalSpan = document.getElementById('total-span');
+const textSubtotalServices = document.getElementById('text-subtotal-services')
 
 // MODAL
 const modalClient = document.getElementById('select-client-modal');
@@ -58,13 +59,15 @@ const htmlFinishModal = document.getElementById('html-finish-modal')
 
 // ADD INPUTS
 const addInputsQuantity = document.getElementById('add-input-quantity')
-const addInputsUnity = document.getElementById('add-input-unity')
 const addInputsUnitPrice = document.getElementById('add-input-unit-price')
 const addInputsDescription = document.getElementById('add-input-desc')
 const addInputTtotal = document.getElementById('add-input-total')
 const btnAddInputs = document.getElementById('add-input-add')
+const inputsDiv = document.getElementById('inputs-div')
+const textSubtotalInputs = document.getElementById('text-subtotal-inputs')
+const addInputModal = document.getElementById('add-input-modal')
 
-// INIT
+// LISTENERS
 btnFinishSale.addEventListener('click', finishSale)
 paymentMethod.addEventListener('change', blockInstallments)
 btnInsertDiscountIncriase.addEventListener('click', updateDiscountIncriase)
@@ -150,38 +153,58 @@ function cancelSale() {
     }
 }
 
-function totalizerQuantity(productsToSale) {
-    const quantify = productsToSale.reduce((acumulador, produto) => {
+function totalizerQuantity(iProductsToSale = productsToSale) {
+    const quantify = iProductsToSale.reduce((acumulador, produto) => {
         return acumulador + produto.quantidade;
     }, 0);
-    renderTotalizerQuantity(quantify)
+    // renderTotalizerQuantity(quantify)
     return quantify;
 }
 
-function renderTotalizerQuantity(quantify) {
-    quantitySpan.innerHTML = quantify;
+function totalizerProduts(iProductsToSale = productsToSale) {
+    let totalProducts = 0;
+    if (iProductsToSale) {
+        totalProducts = iProductsToSale.reduce((acumulador, produto) => {
+            const subtotalProduto = produto.quantidade * produto.precoVenda;
+            return acumulador + subtotalProduto;
+        }, 0);
+    }
+    return totalProducts
 }
 
-function totalizerTotal(productsToSale) {
-    const valorTotal = productsToSale.reduce((acumulador, produto) => {
-        const subtotalProduto = produto.quantidade * produto.precoVenda;
-        return acumulador + subtotalProduto;
-    }, 0);
-    totalWithDiscountGlobal = valorTotal;
-    renderTotalizerTotal(valorTotal)
-    return valorTotal
+function totalizerInputs(iInputsToSale = inputsToSale) {
+    let totalInputs = 0
+    if (iInputsToSale) {
+        totalInputs = iInputsToSale.reduce((acumulador, inputs) => {
+            const subtotalInputs = inputs.subtotal;
+            return acumulador + subtotalInputs;
+        }, 0);
+    }
+    return totalInputs
 }
 
-function renderTotalizerTotal(valorTotal) {
-    totalizerTotalSpan.innerHTML = makeDecimal(valorTotal);
-    subtotalSpan.innerHTML = makeDecimal(valorTotal);
-    totalSpan.innerHTML = makeDecimal(valorTotal);
+function totalizerTotal() {
+    totalWithDiscountGlobal = totalizerProduts() + totalizerInputs();
+    return totalWithDiscountGlobal
+}
+
+function renderTotalizerTotal(iValorTotal = totalWithDiscountGlobal) {
+    if (inputsToSale.length > 0) {
+        textSubtotalInputs.innerHTML = `<strong class="ms-5">Subtotal Insumos: </strong>${makeDecimal(totalizerInputs())}`
+        textSubtotalServices.innerHTML = `<strong class="ms-5">Subtotal Serviços: </strong>${makeDecimal(totalizerProduts())}`
+    } else {
+        textSubtotalServices.innerHTML = ""
+        textSubtotalInputs.innerHTML = ""
+    }
+    totalizerTotalSpan.innerHTML = makeDecimal(iValorTotal);
+    subtotalSpan.innerHTML = makeDecimal(iValorTotal);
+    totalSpan.innerHTML = makeDecimal(iValorTotal);
 }
 
 function verifyProductsIsValid(event) {
-    if (productsToSale.length === 0) {
+    if (productsToSale.length === 0 && inputsToSale.length === 0) {
         event.preventDefault();
-        alert("Adicione produtos para prosseguir.");
+        alert("Adicione serviços ou insumos para prosseguir.");
     }
 
 
@@ -202,21 +225,30 @@ function makeInsertProduct(productToSearch) {
         alert('Produto não encontrado')
         return
     }
-    const productOnList = productsToSale.find(item => item.meuId == productToSearch || item.codigoBarras == productToSearch);
+    let productOnList
+    if (productsToSale) {
+        productOnList = productsToSale.find(item => item.meuId == productToSearch || item.codigoBarras == productToSearch);
+    }
     if (productOnList) {
         productOnList.quantidade++;
     } else {
-        const productToInsertWhitQuantity = { ...productToInsert, quantidade: 1 };
-        productsToSale.push(productToInsertWhitQuantity);
+        if (productsToSale) {
+            const productToInsertWhitQuantity = { ...productToInsert, quantidade: 1 };
+            productsToSale.push(productToInsertWhitQuantity);
+        } else {
+            const productToInsertWhitQuantity = { ...productToInsert, quantidade: 1 };
+            productsToSale = [productToInsertWhitQuantity]
+        }
     }
-    renderProducts(productsToSale)
-    totalizerQuantity(productsToSale);
-    totalizerTotal(productsToSale);
+    renderProducts()
+    totalizerQuantity()
+    totalizerTotal()
+    renderTotalizerTotal()
 
 }
 
-function renderProducts(productsToSale) {
-    const rowsHtml = productsToSale.map(product => {
+function renderProducts(iproductsToSale = productsToSale) {
+    const rowsHtml = iproductsToSale.map(product => {
         return `
         <tr data-id="${product.meuId}">
         <th class="text-center" scope="row">${product.meuId}</th>
@@ -224,7 +256,7 @@ function renderProducts(productsToSale) {
             <td class="text-center">${product.unidade}</td>
         <td class="text-center"><input class="input-quantidade text-center" value="${product.quantidade}" readonly>
         </td>
-        <td class="text-end">${makeDecimal(product.precoVenda)}</td>
+        <td class="text-end">${makeDecimal(product.precoVenda * product.quantidade)}</td>
         <td class="text-center"> 
         <button class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil"></i></button>
         <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
@@ -258,8 +290,9 @@ function listenerListOfProducts() {
         icon.classList.add('bi-pencil');
         editButton.classList.remove('btn-outline-success');
         editButton.classList.add('btn-outline-primary');
-        totalizerQuantity(productsToSale);
-        totalizerTotal(productsToSale);
+        totalizerQuantity();
+        totalizerTotal();
+        renderTotalizerTotal();
     }
     tbodyListOfProducts.addEventListener('click', (event) => {
         event.preventDefault();
@@ -272,9 +305,10 @@ function listenerListOfProducts() {
                 if (indexToRemove > -1) {
                     productsToSale.splice(indexToRemove, 1);
                 }
-                renderProducts(productsToSale);
-                totalizerQuantity(productsToSale);
-                totalizerTotal(productsToSale);
+                renderProducts();
+                totalizerQuantity();
+                totalizerTotal();
+                renderTotalizerTotal();
             }
         }
         const editButton = event.target.closest('.btn-outline-primary, .btn-outline-success');
@@ -473,6 +507,130 @@ function removeClient(event) {
 
 }
 
+
+// INPUTS
+
+function updateInputTotal() {
+    const quantity = addInputsQuantity.value
+    const unit = addInputsUnitPrice.value
+    const sumTotalToUpdate = +quantity * +unit
+    addInputTtotal.value = makeDecimal(sumTotalToUpdate)
+
+}
+
+function addInput(event) {
+    event.preventDefault
+
+    function newMyInputId(a = inputsToSale) {
+        if (inputsToSale) {
+            const allIds = a.map(item => Number(item.meuId));
+            const maxId = Math.max(-1, ...allIds);
+            return maxId + 1;
+        } else {
+            return 1;
+        }
+
+    }
+
+
+    const inputId = newMyInputId()
+    const vaddInputsQuantity = +addInputsQuantity.value
+    const vaddInputsUnitPrice = +addInputsUnitPrice.value
+    const vaddInputsDescription = addInputsDescription.value
+    const vaddInputTtotal = vaddInputsQuantity * vaddInputsUnitPrice
+    if (!vaddInputsQuantity || !vaddInputsUnitPrice || !vaddInputsDescription) {
+        alert('Informe os campos corretamente.')
+        return
+    }
+    const inputToInsert = [{
+        "meuId": inputId,
+        "quantidade": vaddInputsQuantity,
+        "descricao": vaddInputsDescription,
+        "precoUnitario": vaddInputsUnitPrice,
+        "subtotal": vaddInputTtotal,
+    }]
+    const inputsAtualizados = [...inputsToSale, ...inputToInsert];
+    inputsToSale = inputsAtualizados
+    addInputsQuantity.value = ""
+    addInputsUnitPrice.value = ""
+    addInputsDescription.value = ""
+    addInputTtotal.value = ""
+
+    const modalInstance = bootstrap.Modal.getInstance(addInputModal);
+    if (modalInstance) {
+        modalInstance.hide();
+    }
+
+    renderInputs()
+    totalizerTotal();
+    renderTotalizerTotal();
+
+}
+
+function renderInputs(iInputsToSale = inputsToSale) {
+    const initHtml = `<div class="container p-2"></div>
+        <hr class="sep-insumos-produtos">
+        <p class="titulo-sep-insumos-produtos" style="font-size: small">Insumos Utilizados:</p>
+        <div class="container">
+        <div class="products_list row g-2 align-items-center">
+
+        <table class="table table-hover">
+        <thead class="table-light x-small" style="font-size: small;">
+        <tr>
+        <th class="text-start" scope="col">Descrição</th>
+        <th class="text-center" scope="col">Quantidade</th>
+        <th class="text-center" scope="col">Valor Unitário</th>
+        <th class="text-end" scope="col">Subtotal</th>
+        <th class="text-center" scope="col">Ação</th>
+
+        </tr>
+        </thead>
+        <tbody id="tbody-inputs-div" class="table-group-divider" style="font-size: small"> `
+
+    const endHtml = `     
+        </tbody>
+
+        </table>
+        </div>
+        </div>`
+    const rowsHtml = iInputsToSale.map(input => {
+        return `
+           <tr data-id="${input.meuId}">
+            <th class="text-start" scope="col">${input.descricao}</th>
+            <th class="text-center" scope="col">${makeDecimal(input.quantidade)}</th>
+            <th class="text-center" scope="col">${makeDecimal(input.precoUnitario)}</th>
+            <th class="text-end" scope="col">${makeDecimal(input.subtotal)}</th>
+            <td class="text-center"> 
+            <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
+            </td>
+            </tr>
+            `;
+    }).join('');
+    if (inputsToSale.length > 0) { inputsDiv.innerHTML = initHtml + rowsHtml + endHtml } else { inputsDiv.innerHTML = "" }
+}
+
+
+function listenerListOfInputs() {
+    inputsDiv.addEventListener('click', (event) => {
+        event.preventDefault();
+        const deleteButton = event.target.closest('.btn-outline-danger');
+        if (deleteButton) {
+            const row = deleteButton.closest('tr');
+            const inputId = row.dataset.id;
+            if (window.confirm("Deseja realmente excluir o produto?")) {
+                const indexToRemove = inputsToSale.findIndex(input => input.meuId == inputId);
+                if (indexToRemove > -1) {
+                    inputsToSale.splice(indexToRemove, 1);
+                }
+                renderInputs()
+                totalizerTotal();
+                renderTotalizerTotal();
+            }
+        }
+    });
+
+}
+
 // SAVE
 
 function save() {
@@ -488,11 +646,11 @@ function save() {
             "clientesFornecedoresMeuId": currentCliente,
             "tipoVenda": "servico",
             "dataVenda": new Date(),
-            "quantidadeItens": totalizerQuantity(productsToSale),
-            "valorTotal": totalizerTotal(productsToSale),
+            "quantidadeItens": totalizerQuantity(),
+            "valorTotal": totalizerTotal(),
             "observacoes": saveObservacoes,
             "itens": productsToSale,
-            "insumosServico": null,
+            "insumosServico": inputsToSale,
             "formaDePagamento": selectedPaymentInstallment.value
 
         };
@@ -511,150 +669,6 @@ function save() {
 
 }
 
-// INPUTS
-
-function updateInputTotal() {
-    const quantity = addInputsQuantity.value
-    const unit = addInputsUnitPrice.value
-    const sumTotalToUpdate = quantity * unit
-    addInputTtotal.value = makeDecimal(sumTotalToUpdate)
-
-}
-
-function addInput(event) {
-    event.preventDefault
-
-    const vaddInputsQuantity = addInputsQuantity.value
-    const vaddInputsUnity = addInputsUnity.value || "un"
-    const vaddInputsUnitPrice = addInputsUnitPrice.value
-    const vaddInputsDescription = addInputsDescription.value
-    const vaddInputTtotal = addInputTtotal.value
-    if (!vaddInputsQuantity || !vaddInputsUnitPrice || !vaddInputsDescription) {
-        alert('Informe os campos corretamente.')
-        return
-    }
-    const inputToInsert = [{
-        "quantidade": vaddInputsQuantity,
-        "unidade": vaddInputsUnity,
-        "descricao": vaddInputsDescription,
-        "precoUnitario": vaddInputsUnitPrice,
-        "subtotal": vaddInputTtotal,
-    }]
-    const inputsAtualizados = [...inputsToSale, ...inputToInsert];
-    inputsToSale = inputsAtualizados
-    addInputsQuantity.value = ""
-    addInputsUnity.value = ""
-    addInputsUnitPrice.value = ""
-    addInputsDescription.value = ""
-    addInputTtotal.value = ""
-    console.log(inputsToSale)
-
-}
-
-// function renderProducts(productsToSale) {
-//     const rowsHtml = productsToSale.map(product => {
-//         return `
-//         <tr data-id="${product.meuId}">
-//         <th class="text-center" scope="row">${product.meuId}</th>
-//         <td class="text-start">${product.descricao}</td>
-//             <td class="text-center">${product.unidade}</td>
-//         <td class="text-center"><input class="input-quantidade text-center" value="${product.quantidade}" readonly>
-//         </td>
-//         <td class="text-end">${makeDecimal(product.precoVenda)}</td>
-//         <td class="text-center"> 
-//         <button class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil"></i></button>
-//         <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
-//         </td>
-//         </tr>
-//   `;
-//     }).join('');
-//     tbodyListOfProducts.innerHTML = rowsHtml;
-//      renderProducts(productsToSale)
-//     totalizerQuantity(productsToSale);
-//     totalizerTotal(productsToSale);
-// }
-
-
-// function listenerListOfProducts() {
-//     function saveProductQuantity(row, input) {
-//         const productId = row.dataset.id;
-//         const inputfield = Number(input.value);
-//         const newQuantity = Number.isInteger(inputfield) ? inputfield : NaN;
-//         if (isNaN(newQuantity) || newQuantity <= 0) {
-//             alert("Insira um valor inteiro maior que 0.");
-//             input.focus();
-//             return;
-//         }
-//         const productToUpdate = productsToSale.find(product => product.meuId == productId);
-//         if (productToUpdate) {
-//             productToUpdate.quantidade = newQuantity;
-//         }
-//         input.readOnly = true;
-//         input.classList.remove('form-control');
-//         const editButton = row.querySelector('.btn-outline-success');
-//         const icon = editButton.querySelector('i');
-//         icon.classList.remove('bi-check');
-//         icon.classList.add('bi-pencil');
-//         editButton.classList.remove('btn-outline-success');
-//         editButton.classList.add('btn-outline-primary');
-//         totalizerQuantity(productsToSale);
-//         totalizerTotal(productsToSale);
-//     }
-//     tbodyListOfProducts.addEventListener('click', (event) => {
-//         event.preventDefault();
-//         const deleteButton = event.target.closest('.btn-outline-danger');
-//         if (deleteButton) {
-//             const row = deleteButton.closest('tr');
-//             const productId = row.dataset.id;
-//             if (window.confirm("Deseja realmente excluir o produto?")) {
-//                 const indexToRemove = productsToSale.findIndex(product => product.meuId == productId);
-//                 if (indexToRemove > -1) {
-//                     productsToSale.splice(indexToRemove, 1);
-//                 }
-//                 renderProducts(productsToSale);
-//                 totalizerQuantity(productsToSale);
-//                 totalizerTotal(productsToSale);
-//             }
-//         }
-//         const editButton = event.target.closest('.btn-outline-primary, .btn-outline-success');
-//         if (editButton) {
-//             const row = editButton.closest('tr');
-//             const input = row.querySelector('.input-quantidade');
-//             const icon = editButton.querySelector('i');
-
-//             if (icon.classList.contains('bi-pencil')) {
-//                 input.readOnly = false;
-//                 input.classList.add('form-control');
-//                 input.focus();
-//                 input.select();
-
-//                 icon.classList.remove('bi-pencil');
-//                 icon.classList.add('bi-check');
-//                 editButton.classList.remove('btn-outline-primary');
-//                 editButton.classList.add('btn-outline-success');
-
-//             }
-//             else if (icon.classList.contains('bi-check')) {
-//                 saveProductQuantity(row, input);
-//             }
-//         }
-//     });
-//     tbodyListOfProducts.addEventListener('keydown', (event) => {
-//         if (event.key === 'Enter' &&
-//             event.target.classList.contains('input-quantidade') &&
-//             !event.target.readOnly) {
-//             event.preventDefault();
-//             const input = event.target;
-//             const row = input.closest('tr');
-
-//             saveProductQuantity(row, input);
-//         }
-//     });
-// }
-
-
-
-
 // CHECKOUT
 
 function blockInstallments() {
@@ -669,16 +683,16 @@ function makeDiscountIncriase(valor) {
     if (valor) {
         if (discountIncriase.value == "discount") {
             if (typeDiscountIncriase.value == "%") {
-                return (valorDiscountIncriase.value / 100 * totalizerTotal(productsToSale)) * -1
+                return (valorDiscountIncriase.value / 100 * totalizerTotal()) * -1
             } else if (typeDiscountIncriase.value == "R$") {
                 return valorDiscountIncriase.value / -1
 
             }
         } else if (discountIncriase.value == "increase") {
             if (typeDiscountIncriase.value == "%") {
-                return valorDiscountIncriase.value / 100 * totalizerTotal(productsToSale)
+                return valorDiscountIncriase.value / 100 * totalizerTotal()
             } else if (typeDiscountIncriase.value == "R$") {
-                return valorDiscountIncriase.value
+                return valorDiscountIncriase.value * 1
             }
         }
     } else {
@@ -697,8 +711,9 @@ function renderDiscountView(discount) {
 }
 
 function updateDiscountIncriase() {
+    console.log(valorDiscountIncriase.value)
     if (valorDiscountIncriase.value) {
-        const totalWhithoutDiscount = totalizerTotal(productsToSale)
+        const totalWhithoutDiscount = totalizerTotal()
         const discountValue = renderDiscountView(makeDiscountIncriase(valorDiscountIncriase.value))
         const totalWhithDiscount = totalWhithoutDiscount + discountValue
         totalWithDiscountGlobal = totalWhithDiscount
@@ -708,15 +723,19 @@ function updateDiscountIncriase() {
             maximumFractionDigits: 2
         });
     } else if (totalWithDiscountGlobal) {
+        totalWithDiscountGlobal = totalizerTotal()
         const totalWhithDiscount = totalWithDiscountGlobal
         totalSpan.innerHTML = totalWhithDiscount.toLocaleString('pt-BR', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         });
+        discountView.innerHTML = ""
+
     } else {
-        totalWithDiscountGlobal = totalizerTotal(productsToSale)
+        totalWithDiscountGlobal = totalizerTotal()
     }
 }
+
 function updatePayment() {
     updateDiscountIncriase()
     const actualSelectedPaymentInstallment = selectedPaymentInstallment.value
@@ -733,6 +752,10 @@ function updatePayment() {
 }
 
 function finishSale() {
+    if (paymentMethod.value == "") {
+        alert('Selecione a forma de pagamento')
+        return
+    }
     let paymentMethodSelected = ""
     if (selectedPaymentInstallment.value == 1) {
         paymentMethodSelected = paymentMethod.options[paymentMethod.selectedIndex].text;
@@ -750,13 +773,13 @@ function finishSale() {
         "clientesFornecedoresMeuId": clienteId,
         "tipoVenda": "servico",
         "dataVenda": new Date().toISOString(),
-        "quantidadeItens": totalizerQuantity(productsToSale),
-        "valorTotal": totalizerTotal(productsToSale),
-        "valorDescontoAcrescimo": (totalizerTotal(productsToSale) - totalAmount),
+        "quantidadeItens": totalizerQuantity(),
+        "valorTotal": totalizerTotal(),
+        "valorDescontoAcrescimo": (totalizerTotal() - totalAmount),
         "valorComDesconto": totalAmount,
         "itens": productsToSale,
         "formaDePagamento": paymentMethodSelected,
-        "insumosServico": null
+        "insumosServico": inputsToSale
     };
     const currentSales = allSales()
     currentSales.push(finishedSale);
@@ -837,7 +860,7 @@ function finishSale() {
         A venda foi concluída com sucesso!
         </div>
         <div class="row text-center">
-        <h5>Nota Fiscal nº <span>${finishedSale.meuId}</span></h5>
+        <h5>Ordem de Serviço nº <span>${finishedSale.meuId}</span></h5>
         <span><strong> Cliente:</strong> <span>${selectedClient ? selectedClient.nomeRazaoSocial : "Consumidor Final"}</span></span> <br>
         <span><strong> Total:</strong> R$ <span>${makeDecimal(finishedSale.valorComDesconto)}</span></span>
         </div>
@@ -866,4 +889,5 @@ searchClients();
 listOfClientes();
 listOfProductsSearch();
 listenerListOfProducts();
+listenerListOfInputs();
 searchProducts();

@@ -10,11 +10,6 @@ const tbodyProducts = document.getElementById('tbody-products')
 const tbodyInstallments = document.getElementById('tbody-installments')
 const title = document.getElementById('title')
 
-
-
-
-
-
 function allUserSales() {
     return JSON.parse(localStorage.getItem('vendas')).filter(item => {
         return item.usuarioId === usuarioCorrente.id;
@@ -115,7 +110,7 @@ const htmlTbodyProducts = currentSale.itens.map(product => {
         <tr>
         <th scope="row">${product.meuId}</th>
         <td>${product.descricao}</td>
-        <td class="text-center">${product.unidade.toUpperCase()}</td>
+        <td class="text-center">${product.unidade}</td>
         <td class="text-center">${product.quantidade}</td>
         <td class="text-end">${makeDecimal(product.precoVenda / product.quantidade)}</td>
         <td class="text-end">${makeDecimal(product.precoVenda)}</td>
