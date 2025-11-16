@@ -3,7 +3,7 @@
 // ===================================================
 
 
-// Simulação do usuário logado (em um backend real viria da sessão)
+// Simulação do usuário logado
 var usuarioCorrente = { 
     id_login_global: 999,
     email_login: 'teste@teste.com',
@@ -13,9 +13,7 @@ var usuarioCorrente = {
 const ID_LOGIN_GLOBAL = usuarioCorrente.id_login_global;
 
 
-// ===================================================
 //                FUNÇÕES UTILITÁRIAS
-// ===================================================
 
 function logoutUser() {
     localStorage.removeItem('usuarioCorrente');
@@ -29,14 +27,40 @@ function formatarDataParaExibicao(dataString) {
 }
 
 
-// ===================================================
+
 //                CONTAS A PAGAR
-// ===================================================
+
 
 let contasPagar = JSON.parse(localStorage.getItem('contasPagar')) || [
-    { id: 101, status: 'Pendente', tipo: 'Aluguel', valor: '1500.00', descricao: 'Aluguel Novembro', vencimento: '2025-11-05', id_login_global: 999 },
-    { id: 102, status: 'Pago', tipo: 'Luz', valor: '250.50', descricao: 'Energia', vencimento: '2025-11-10', id_login_global: 100 }
+    {
+        id: 1,
+        status: 'Pendente',  
+        tipo: 'Outro',       
+        valor: '350.00',    
+        descricao: "Compra de material de escritório (NF 1051)",
+        vencimento: "2025-11-15", // JSON: data_vencimento
+        id_login_global: 1        // JSON: usuarioId
+    },
+    { 
+        id: 101, 
+        status: 'Pendente', 
+        tipo: 'Aluguel', 
+        valor: '1500.00', 
+        descricao: 'Aluguel Novembro', 
+        vencimento: '2025-11-05', 
+        id_login_global: 999 
+    },
+    { 
+        id: 102, 
+        status: 'Pago', 
+        tipo: 'Luz', 
+        valor: '250.50', 
+        descricao: 'Energia', 
+        vencimento: '2025-11-10', 
+        id_login_global: 100 
+    }
 ];
+
 
 function salvarNoLocalStoragePagar() {
     localStorage.setItem('contasPagar', JSON.stringify(contasPagar));

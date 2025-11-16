@@ -16,7 +16,35 @@
 
     // =================== CONTAS A PAGAR ===================
     // Inicializa carregando todas as contas (ou array vazio)
-    let contasPagar = JSON.parse(localStorage.getItem('contasPagar')) || [];
+    let contasPagar = JSON.parse(localStorage.getItem('contasPagar')) || [
+      {
+        id: 1,
+        status: 'Pendente',  
+        tipo: 'Outro',       
+        valor: '350.00',    
+        descricao: "Compra de material de escritório (NF 1051)",
+        vencimento: "2025-11-15",
+        id_login_global: 1
+    },
+    { 
+        id: 101, 
+        status: 'Pendente', 
+        tipo: 'Aluguel', 
+        valor: '1500.00', 
+        descricao: 'Aluguel Novembro', 
+        vencimento: '2025-11-05', 
+        id_login_global: 999 
+    },
+    { 
+        id: 102, 
+        status: 'Pago', 
+        tipo: 'Luz', 
+        valor: '250.50', 
+        descricao: 'Energia', 
+        vencimento: '2025-11-10', 
+        id_login_global: 100 
+    }
+    ];
 
     function salvarNoLocalStorage() {
       // Salva a lista COMPLETA de volta ao localStorage

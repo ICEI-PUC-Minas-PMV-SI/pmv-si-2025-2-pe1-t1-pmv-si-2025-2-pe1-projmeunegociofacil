@@ -49,7 +49,7 @@ async function inicializarCatalogo() {
     if (db.items.length === 0) {
         try {
             // Caminho que a outra tela está usando. Ajuste se o caminho 404 persistir.
-            const response = await fetch('assets/data/produtostest.json'); 
+            const response = await fetch('assets/data/maketesttemp.json'); 
             if (!response.ok) {
                 // Se o JSON falhar, loga o erro e retorna o DB vazio
                 console.error("Falha ao carregar JSON. Status:", response.status);

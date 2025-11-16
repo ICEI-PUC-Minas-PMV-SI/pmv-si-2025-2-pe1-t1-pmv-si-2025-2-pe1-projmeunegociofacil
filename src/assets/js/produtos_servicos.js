@@ -7,7 +7,7 @@ var db_produtosServicos = JSON.parse(localStorage.getItem('db_produtosServicos')
 // Função para carregar o JSON e inicializar o LocalStorage
 async function inicializarCatalogo() {
   try {
-    const response = await fetch('/src/assets/data/produtostest.json');
+    const response = await fetch('/src/assets/data/maketesttemp.json');
     const data = await response.json();
 
     window.catalogoProdutos = data.produtos; // mantendo para uso futuro
