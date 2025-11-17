@@ -14,6 +14,15 @@ listOfClients()
 btnMakeFilter.addEventListener('click', makeFilter)
 
 // INIT
+function allSales() {
+    try {
+        return JSON.parse(localStorage.getItem('vendas'));
+    }
+    catch {
+        return []
+    }
+}
+
 function allUserSales() {
     return JSON.parse(localStorage.getItem('vendas')).filter(item => {
         return item.usuarioId === usuarioCorrente.id;
@@ -99,7 +108,6 @@ function makeFilter(event) {
     filterTypeInput.value = ""
     filterPayment.value = ""
     clientsFilter.value = ""
-    console.log(filtredSales)
 }
 function renderFilter() {
     if (filtredSales.length > 0) {
@@ -118,7 +126,7 @@ function renderFilter() {
                   <th class="text-center" scope="col">Ação</th>
                 </tr>
               </thead>
-              <tbody>`
+              <tbody id="list-of-sales">`
 
         const endHtml = `     
         </tbody>
@@ -127,28 +135,77 @@ function renderFilter() {
         </div>
       </div>`
         const rowsHtml = filtredSales.map(sale => {
+            const searchcurrentClient = allUserClients().find(item => item.meuId == sale.clientesFornecedoresMeuId)
+            const currentClient = searchcurrentClient ? searchcurrentClient : {
+                "nomeRazaoSocial": "Consumidor Final",
+                "cpfCnpj": "",
+                "tem_cnpj": false,
+                "telefone": "",
+                "endereco": ""
+            }
+            let url = ""
+            if (sale.tipoVenda == "produto") {
+                url = "assets/static/receipt-products.html?id=" + sale.meuId
+            } else if (sale.tipoVenda == "servico") {
+                url = "assets/static/receipt-services.html?id=" + sale.meuId
+            }
             return `
            
-            <tr id="item-1">
-                  <td id=${sale.meuId}}>${sale.meuId}</td>
+            <tr data-id=${sale.meuId}>
+                  <td }>${sale.meuId}</td>
                   <td>${new Date(sale.dataVenda).toLocaleDateString('pt-BR')}</td>
-                  <td>${sale.tipoVenda}</td>
-                  <td>Fazer um filter para pegar o nome</td>
+                  <td>${sale.tipoVenda.charAt(0).toUpperCase() + sale.tipoVenda.slice(1)}</td>
+                  <td>${currentClient.nomeRazaoSocial}</td>
                   <td>${sale.formaDePagamento}</td>
                   <td class="text-end">${makeDecimal(sale.valorTotal)}</td>
                   <td class="text-center">
-                    <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
-                    <button class="btn btn-outline-success btn-sm"><i class="bi bi-printer"></i></button>
+                    <button class="btn btn-outline-danger btn-sm"><i class="bi bi-x-circle"></i></button>
+                    <a href="${url}"> <button class="btn btn-outline-success btn-sm"><i class="bi bi-printer"></i></button></a>
                   </td>
                 </tr>
             `;
         }).join('');
         results.innerHTML = initHtml + rowsHtml + endHtml
-
-    } else { results.innerHTML = `<div class="col text-center"><h4>Nenhuma venda encontrada.</h4></div>` }
+        listenerListOfSales()
+    } else {
+        results.innerHTML = `<div class="col text-center"><h4>Nenhuma venda encontrada.</h4></div>`
+    }
 
 }
 
+function listenerListOfSales() {
+    const tbodyListOfSales = document.getElementById('list-of-sales')
+    tbodyListOfSales.addEventListener('click', (event) => {
+        const deleteButton = event.target.closest('.btn-outline-danger');
+        const allSalesTemp = allSales()
+        if (deleteButton) {
+            event.preventDefault();
+            const row = deleteButton.closest('tr');
+            const saleRowId = row.dataset.id;
+            console.log(saleRowId)
+            if (window.confirm("Deseja realmente excluir a venda?")) {
+                if (allSalesTemp.length > 0) {
+                    const indexToRemove = allSalesTemp.findIndex(sale => sale.meuId == saleRowId && sale.usuarioId === usuarioCorrente.id);
+                    if (indexToRemove > -1) {
+                        allSalesTemp.splice(indexToRemove, 1);
+                        localStorage.setItem('vendas', JSON.stringify(allSalesTemp));
+                        alert('Venda excluída com sucesso!')
+                        if (filtredSales.length > 0) {
+                            const indexToRemove = filtredSales.findIndex(sale => sale.meuId == saleRowId && sale.usuarioId === usuarioCorrente.id);
+                            if (indexToRemove > -1) {
+                                filtredSales.splice(indexToRemove, 1);
+                            }
+                            renderFilter();
+                            return
+                        }
+                    }
+
+                }
+                alert('Ocorreu um erro ao excluir a venda.')
+            }
+        }
+    });
+}
 
 
 listOfClients();
