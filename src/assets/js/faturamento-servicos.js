@@ -1,7 +1,7 @@
 import { newMyId, makeDecimal } from "./utils.js";
 
 let selectedClient = null;
-let productsToSale = "";
+let productsToSale = [];
 let totalWithDiscountGlobal = 0;
 let inputsToSale = "";
 
@@ -154,11 +154,13 @@ function cancelSale() {
 }
 
 function totalizerQuantity(iProductsToSale = productsToSale) {
-    const quantify = iProductsToSale.reduce((acumulador, produto) => {
-        return acumulador + produto.quantidade;
-    }, 0);
-    // renderTotalizerQuantity(quantify)
-    return quantify;
+    if (productsToSale.length > 0) {
+        const quantify = iProductsToSale.reduce((acumulador, produto) => {
+            return acumulador + produto.quantidade;
+        }, 0);
+        // renderTotalizerQuantity(quantify)
+        return quantify;
+    }
 }
 
 function totalizerProduts(iProductsToSale = productsToSale) {

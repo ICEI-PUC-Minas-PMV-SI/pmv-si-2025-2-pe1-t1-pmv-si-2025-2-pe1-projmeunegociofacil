@@ -20,63 +20,69 @@
 
 
   <!-- Start Main -->
-  <main class="container pt-5 align-items-center">
-    <div class="topbar-home row align-items-center px-5 w-100 pb-3">
+  <main class="container pt-5">
 
-      <div class="col">
-        <img src="assets/img/logo_home.png" class="img-fluid" style="max-width: 400px;">
+    <div class="topbar-home row align-items-center px-3 px-md-5 w-100 pb-3">
+      <div class="col-12 col-md-6 text-center text-md-start mb-3 mb-md-0">
+        <img src="assets/img/logo_home.png" class="img-fluid" style="max-width: 300px;">
       </div>
+      <div class="col-12 col-md-6">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <a class="btn btn-link px-4" data-bs-toggle="modal" data-bs-target="#SignUpModal">Efetuar Cadastro</a>
+          <a class="btn btn-primary px-5" data-bs-toggle="modal" data-bs-target="#LoginModal">Login</a>
+        </div>
+      </div>
+    </div>
 
-      <div class="col d-flex justify-content-end align-items-center ">
-        <a class="btn btn-link px-4" data-bs-toggle="modal" data-bs-target="#SignUpModal">Efetuar Cadastro</a>
-        <a class="btn btn-primary px-5" data-bs-toggle="modal" data-bs-target="#LoginModal">Login</a>
+    <div class="row my-5">
+      <div class="col-12">
+        <div id="carousel-home" class="carousel carousel-dark slide">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carousel-home" data-bs-slide-to="0" class="active"
+              aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carousel-home" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carousel-home" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <a data-bs-toggle="modal" data-bs-target="#SignUpModal"><img src="assets/img/slideshow/init.png"
+                  class="d-block w-100"></a>
+            </div>
+            <div class="carousel-item">
+              <a data-bs-toggle="modal" data-bs-target="#SignUpModal"><img src="assets/img/slideshow/init.png"
+                  class="d-block w-100"></a>
+            </div>
+            <div class="carousel-item">
+              <a data-bs-toggle="modal" data-bs-target="#SignUpModal"><img src="assets/img/slideshow/init.png"
+                  class="d-block w-100"></a>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carousel-home" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carousel-home" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-home row text-center pt-5 px-3 px-md-5 pb-5">
+
+      <div class="col-12 col-md-4 mb-4 mb-md-0">
+        <img src="assets/img/home-itens/completo.png" class="img-fluid" style="max-width: 180px;">
+      </div>
+      <div class="col-12 col-md-4 mb-4 mb-md-0">
+        <img src="assets/img/home-itens/facil.png" class="img-fluid" style="max-width: 180px;">
+      </div>
+      <div class="col-12 col-md-4">
+        <img src="assets/img/home-itens/gratuito.png" class="img-fluid" style="max-width: 180px;">
       </div>
 
     </div>
 
-    <div id="carousel-home" class="carousel  carousel-dark slide">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carousel-home" data-bs-slide-to="0" class="active" aria-current="true"
-          aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carousel-home" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carousel-home" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <a data-bs-toggle="modal" data-bs-target="#SignUpModal"><img src="assets/img/slideshow/init.png"
-              class="d-block w-100"></a>
-
-        </div>
-        <div class="carousel-item">
-          <a data-bs-toggle="modal" data-bs-target="#SignUpModal"><img src="assets/img/slideshow/init.png"
-              class="d-block w-100"></a>
-        </div>
-        <div class="carousel-item">
-          <a data-bs-toggle="modal" data-bs-target="#SignUpModal"><img src="assets/img/slideshow/init.png"
-              class="d-block w-100"></a>
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carousel-home" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carousel-home" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-    <div class="pt-5 footer-home row align-items-center px-5 pb-5">
-
-      <div class="col">
-        <img src="assets/img/home-itens/completo.png">
-      </div>
-      <div class="col">
-        <img src="assets/img/home-itens/facil.png">
-      </div>
-      <div class="col">
-        <img src="assets/img/home-itens/gratuito.png">
-      </div>
-    </div>
   </main>
 
 
@@ -98,7 +104,7 @@
             <div class="col">
               <form action="dashboard.html">
                 <div class="form-group">
-                  <label for="user_name">Nome Completo</label>
+                  <label for="sign-up-nome">Nome Completo</label>
                   <input type="text" class="form-control mb-2" id="sign-up-nome" placeholder="Insira seu Nome Completo">
                 </div>
                 <div class="row ">
@@ -121,36 +127,36 @@
                   </div>
                   <div class="col align-self-center">
                     <div class="form-group">
-                      <label for="user_name">CPF/CNPJ</label>
+                      <label for="sign-up-cpf-cnpj">CPF/CNPJ</label>
                       <input type="text" class="form-control" id="sign-up-cpf-cnpj" placeholder="Insira o CPF/CNPJ">
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="user_name">Nome da Empresa</label>
+                  <label for="sign-up-razao-social">Nome da Empresa</label>
                   <input type="text" class="form-control mb-2" id="sign-up-razao-social"
                     placeholder="Insira o Nome da Empresa">
                 </div>
                 <div class="form-group">
-                  <label for="user_name">Endereço</label>
+                  <label for="sign-up-endereco">Endereço</label>
                   <input type="text" class="form-control mb-2" id="sign-up-endereco" placeholder="Insira o Endereço">
                 </div>
                 <div class="form-group">
-                  <label for="user_name">Telefone</label>
+                  <label for="sign-up-telefone">Telefone</label>
                   <input type="text" class="form-control mb-2" id="sign-up-telefone"
                     placeholder="Insira o número de Telefone">
                 </div>
                 <div class="form-group">
-                  <label for="user_mail">Endereço de E-mail</label>
+                  <label for="sign-up-email">Endereço de E-mail</label>
                   <input type="email" class="form-control mb-2" id="sign-up-email" aria-describedby="emailHelp"
                     placeholder="Insira seu e-mail">
                 </div>
                 <div class="form-group">
-                  <label for="user_password">Senha</label>
+                  <label for="sign-up-password">Senha</label>
                   <input type="password" class="form-control mb-3" id="sign-up-password" placeholder="Insira sua senha">
                 </div>
                 <div class="form-group">
-                  <label for="user_password">Repita a Senha</label>
+                  <label for="sign-up-password2">Repita a Senha</label>
                   <input type="password" class="form-control mb-3" id="sign-up-password2"
                     placeholder="Insira sua senha">
                 </div>
@@ -194,8 +200,6 @@
             </div>
           </form>
           <div class="row mb-2">
-            <div class="col"><a id="efetuar-teste" class="btn-link" href="#">Efetuar Teste</a>
-            </div>
 
             <div class="col  text-end">
               <input type="submit" name="submit" class="btn btn-primary" value="Efetuar Login" form="login-form">
@@ -210,37 +214,27 @@
 
   </div>
 
-
-  <!-- End LoginModal-->
   <script src="assets/js/login.js"></script>
 
   <script>
 
-    // Declara uma função para processar o formulário de login
     function processaFormLogin(event) {
-      // Cancela a submissão do formulário para tratar sem fazer refresh da tela
       event.preventDefault();
 
-      // Obtem os dados de login e senha a partir do formulário de login
       var username = document.getElementById('username').value;
       var password = document.getElementById('password').value;
 
-      // Valida login e se estiver ok, redireciona para tela inicial da aplicação
       resultadoLogin = loginUser(username, password);
       if (resultadoLogin) {
         window.location.href = 'dashboard.html';
       }
-      else { // Se login falhou, avisa ao usuário
+      else {
         alert('Usuário ou senha incorretos');
       }
     }
 
     function salvaLogin(event) {
-      // Cancela a submissão do formulário para tratar sem fazer refresh da tela
       event.preventDefault();
-
-      // Obtem os dados do formulário
-
 
       let nome = document.getElementById('sign-up-nome').value || "";
       let nomeRazao = document.getElementById('sign-up-razao-social').value || "";
@@ -256,28 +250,17 @@
         alert('As senhas informadas não conferem.');
         return
       }
-
-      // Adiciona o usuário no banco de dados
       if (checkFields(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senha)) {
         return
       }
-
       addUser(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senha);
-      alert('Usuário salvo com sucesso. Proceda com o login para ');
+      alert('Usuário salvo com sucesso. Proceda com o login para acessar o sistema.');
       bootstrap.Modal.getInstance(document.getElementById('SignUpModal')).hide()
     }
 
-  
 
-    // associa função makeTest ao botão
-    document.getElementById('efetuar-teste').addEventListener('click', makeTest);
-
-
-    // Associa a funçao processaFormLogin  formulário adicionado um manipulador do evento submit
     document.getElementById('login-form').addEventListener('submit', processaFormLogin);
-    // document.getElementById('login-form').addEventListener('submit', forceLogin);
 
-    // Associar salvamento ao botao
     document.getElementById('btn_salvar').addEventListener('click', salvaLogin);        
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>

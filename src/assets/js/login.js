@@ -9,20 +9,19 @@ var db = {};
 var usuarioCorrente = {};
 
 async function makeTest() {
-    if (window.confirm('Deseja realmente realizar um teste? \nTodos os dados locais salvos anteriormente serão substituídos, sem possibilidade de recuperação.')) {
+
+    if (localStorage.length === 0) {
+        alert('LocalStorage vazio, carregando arquivos de teste...');
 
         try {
-            // busca o json e converte para js
             const response = await fetch('assets/data/maketest.json');
             const makeTestData = await response.json();
-            localStorage.clear();
             Object.keys(makeTestData).forEach(key => {
                 const data = makeTestData[key];
                 localStorage.setItem(key, JSON.stringify(data));
             })
 
-            // informa que deu certo
-            alert('Arquivos de teste carregados com sucesso. \nEfetue login utilizando os dados:\nLogin: admin@admin.com\nSenha: admin');
+            alert('Arquivos de teste carregados com sucesso. \n\nEfetue login utilizando os dados:\nLOGIN: admin@admin.com\nSENHA: admin');
             console.log(localStorage.getItem('usuarios'))
             console.log(localStorage.getItem('clientes_fornecedores'))
             console.log(localStorage.getItem('produtos_servicos'))
@@ -104,7 +103,7 @@ function addUser(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senh
     //    Se o 'id' do usuário for maior, ele se torna o novo 'max'.
     const maxId = db.reduce((max, usuario) => {
         // Converte o id para Número para garantir a comparação correta
-        const currentId = Number(usuario.id); 
+        const currentId = Number(usuario.id);
         return currentId > max ? currentId : max;
     }, 0); // O '0' é o valor inicial. Se 'db' estiver vazio, maxId será 0.
 
@@ -192,5 +191,5 @@ function checkFields(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, 
     }
 }
 
-// init 
+makeTest()
 initLoginApp();
