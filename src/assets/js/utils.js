@@ -1,4 +1,4 @@
-function newMyId(a) {
+export function newMyId(a) {
     const arrayToMakeMyId = a
     const maxId = arrayToMakeMyId.reduce((max, usuario) => {
         const currentId = Number(usuario.meuId);
@@ -8,7 +8,17 @@ function newMyId(a) {
     return newId
 }
 
-function makeDecimal(number) {
+export function newUserId(a) {
+    const arrayToFindMaxId = a;
+
+    const maxId = arrayToFindMaxId.reduce((max, usuario) => {
+        const currentId = Number(usuario.id);
+        return currentId > max ? currentId : max;
+    }, -1);
+    return maxId;
+}
+
+export function makeDecimal(number) {
     const numberVerified = number ? number : 0
     return numberVerified.toLocaleString('pt-BR', {
         style: 'decimal',
@@ -18,4 +28,11 @@ function makeDecimal(number) {
 
 }
 
-export { makeDecimal, newMyId }
+export function allUsers() {
+    try {
+        return JSON.parse(localStorage.getItem('usuarios'));
+    }
+    catch {
+        return []
+    }
+}
