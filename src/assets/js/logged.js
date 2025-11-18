@@ -11,7 +11,7 @@ function initPage() {
 }
 
 
-function loggedUser() {
+export function loggedUser() {
     const loggedUserJSON = sessionStorage.getItem('loggedUser');
     if (loggedUserJSON) {
         return JSON.parse(loggedUserJSON);
