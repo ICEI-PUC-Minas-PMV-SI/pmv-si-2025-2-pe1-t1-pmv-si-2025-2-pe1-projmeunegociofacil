@@ -102,7 +102,7 @@
           <div class="container">
 
             <div class="col">
-              <form action="dashboard.html">
+              <form>
                 <div class="form-group">
                   <label for="sign-up-nome">Nome Completo</label>
                   <input type="text" class="form-control mb-2" id="sign-up-nome" placeholder="Insira seu Nome Completo">
@@ -226,7 +226,7 @@
 
       resultadoLogin = loginUser(username, password);
       if (resultadoLogin) {
-        window.location.href = 'dashboard.html';
+        window.location.href = '/auth/index.html';
       }
       else {
         alert('Usuário ou senha incorretos');

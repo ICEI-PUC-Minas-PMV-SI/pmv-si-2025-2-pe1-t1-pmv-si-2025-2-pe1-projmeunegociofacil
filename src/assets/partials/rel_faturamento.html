@@ -4,21 +4,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Meu Negócio Fácil - Dashboard</title>
+  <title>Meu Negócio Fácil - Relatório de Faturamento</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="../assets/css/styles.css" rel="stylesheet">
+  <link href="assets/css/styles.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
-  <script type="module" src="../assets/js/logged.js"></script>
-    <script type="module" src="../assets/js/ajax-worker.js"></script>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <script src="assets/js/login.js"></script>
+  <script>
+    //Verifica se o usuário já esta logado e se negativo, redireciona para tela de login        
+    if (!usuarioCorrente.email_login) {
+      window.location.href = LOGIN_URL;
+    }
 
+    function initPage() {
+
+      // Associa a função de logout ao botão
+      document.getElementById('btn_logout').addEventListener('click', logoutUser);
+
+      // Informa o nome do usuário logado
+      document.getElementById('nomeUsuario').innerHTML = usuarioCorrente.nome;
+
+
+    }
+
+    // Associa ao evento de carga da página a função para verificar se o usuário está logado
+    window.addEventListener('load', initPage);
+  </script>
 </head>
 
 <body>
-  <!-- TOPBAR -->
   <div class="topbar d-flex align-items-center justify-content-between px-3">
     <button class="btn btn-sm btn-light d-lg-none me-3" type="button" data-bs-toggle="offcanvas"
       data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
@@ -27,9 +44,8 @@
     <div class="brand">Olá, <span id="nomeUsuario"></span></div>
     <a href="" id="btn_logout"><button class="btn btn-sm btn-light">Logout</button></a>
   </div>
-
   <div class="app d-flex">
-    <!-- SIDEBAR -->
+
     <div class="offcanvas offcanvas-start offcanvas-lg" tabindex="-1" id="offcanvasSidebar"
       aria-labelledby="offcanvasSidebarLabel">
 
@@ -40,13 +56,13 @@
 
       <div class="offcanvas-body p-3">
         <div class="d-flex align-items-center mb-3 ">
-          <a href="index.html">
-            <img src="/assets/img/logo_menu.png" width="50%">
+          <a href="dashboard.html">
+            <img src="assets/img/logo_menu.png" width="50%">
           </a>
         </div>
         <ul class="nav flex-column">
           <li class="nav-item mb-2">
-            <a class="nav-link active" href="index.html">
+            <a class="nav-link" href="dashboard.html">
               <span><i class="bi bi-house me-2"></i>Página Inicial</span>
             </a>
           </li>
@@ -59,7 +75,7 @@
             <div class="collapse" id="CadastroCollapse" data-bs-parent="#offcanvasSidebar">
               <ul class="nav flex-column ms-3">
                 <li class="nav-item"><a class="nav-link nav-sublink"
-                    href="../assets/partials/clientes_fornecedores.html">Clientes/Fornecedores</a></li>
+                    href="clientes_fornecedores.html">Clientes/Fornecedores</a></li>
                 <li class="nav-item"><a class="nav-link nav-sublink" href="produtos_servicos.html">Produtos/Serviços</a>
                 </li>
               </ul>
@@ -107,12 +123,13 @@
               <span><i class="bi bi-graph-up me-2"></i>Relatórios</span>
               <i class="bi bi-chevron-down"></i>
             </a>
-            <div class="collapse" id="RelatoriosCollapse" data-bs-parent="#offcanvasSidebar">
+            <div class="collapse show" id="RelatoriosCollapse" data-bs-parent="#offcanvasSidebar">
               <ul class="nav flex-column ms-3">
                 <li class="nav-item"><a class="nav-link nav-sublink"
                     href="rel_produtos_servicos.html">Produtos/Serviços</a></li>
                 <li class="nav-item"><a class="nav-link nav-sublink" href="rel_financeiro.html">Financeiro</a></li>
-                <li class="nav-item"><a class="nav-link nav-sublink" href="rel_faturamento.html">Faturamento</a></li>
+                <li class="nav-item"><a class="nav-link nav-sublink active" href="rel_faturamento.html">Faturamento</a>
+                </li>
               </ul>
             </div>
           </li>
@@ -125,13 +142,69 @@
         </ul>
       </div>
     </div>
+    <!-- End Sidebar -->
 
-    <!-- MAIN -->
-    <div class="page-content w-100"></div>
+
+    <!-- Start Main -->
+    <main class="flex-grow-1 p-4">
+
+      <div class="container-fluid px-0">
+        <h1 class="h4 mb-3">Relatório de Faturamento</h1>
+
+        <form>
+          <div class="row g-3 mb-3">
+
+            <div class="col-12 col-md-6">
+              <label class="form-label fw-semibold">Período:</label>
+              <div class="input-group">
+                <input id="init-date" type="date" class="form-control" aria-label="Data inicial">
+                <span class="input-group-text">a</span>
+                <input id="end-date" type="date" class="form-control" aria-label="Data final">
+
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label for="filter-type" class="form-label fw-semibold">Tipo:</label>
+              <select id="filter-type" class="form-select" aria-placeholder="">
+                <option value="" selected disabled>Produtos e Serviços</option>
+                <option value="produto">Produtos</option>
+                <option value="servico">Serviços</option>
+              </select>
+            </div>
+
+            <div id="clients-filter-div" class="col-12 col-md-6">
+
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label for="filter-payment" class="form-label fw-semibold">Forma de Pagamento:</label>
+              <select id="filter-payment" class="form-select" aria-placeholder="">
+                <option value="" selected disabled>Todas as formas de pagamento</option>
+                <option value="dinheiro">Dinheiro</option>
+                <option value="débito">Débito</option>
+                <option value="crédito">Crédito</option>
+                <option value="boleto">Boleto</option>
+              </select>
+            </div>
+
+            <div class="col-12 d-flex justify-content-end mt-3">
+              <button id="btn-make-filter" type="submit" class="btn btn-primary">Filtrar</button>
+            </div>
+
+          </div>
+        </form>
+      </div> 
+
+
+      <div id="results"></div>
+    </main>
+
+
     <!-- End Main -->
   </div>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="assets/js/rel-faturamento.js"> </script>
 </body>
 
 </html>

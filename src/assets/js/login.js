@@ -39,7 +39,7 @@ async function makeTest() {
 // Inicializa o usuarioCorrente e banco de dados de usuários da aplicação de Login
 function initLoginApp() {
     // PARTE 1 - INICIALIZA USUARIOCORRENTE A PARTIR DE DADOS NO LOCAL STORAGE, CASO EXISTA
-    usuarioCorrenteJSON = sessionStorage.getItem('usuarioCorrente');
+    usuarioCorrenteJSON = sessionStorage.getItem('loggedUser');
     if (usuarioCorrenteJSON) {
         usuarioCorrente = JSON.parse(usuarioCorrenteJSON);
     }
@@ -73,7 +73,7 @@ function loginUser(email_login, senha) {
             usuarioCorrente.endereco = usuario.endereco;
 
             // Salva os dados do usuário corrente no Session Storage, mas antes converte para string
-            sessionStorage.setItem('usuarioCorrente', JSON.stringify(usuarioCorrente));
+            sessionStorage.setItem('loggedUser', JSON.stringify(usuarioCorrente));
 
             // Retorna true para usuário encontrado
             return true;
@@ -87,7 +87,7 @@ function loginUser(email_login, senha) {
 // Apaga os dados do usuário corrente no sessionStorage
 function logoutUser() {
     usuarioCorrente = {};
-    sessionStorage.setItem('usuarioCorrente', JSON.stringify(usuarioCorrente));
+    sessionStorage.setItem('loggedUser', JSON.stringify(usuarioCorrente));
     window.location = LOGIN_URL;
 }
 
