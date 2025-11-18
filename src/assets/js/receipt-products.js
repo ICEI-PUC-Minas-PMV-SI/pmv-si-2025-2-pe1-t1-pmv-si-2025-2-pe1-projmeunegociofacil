@@ -1,3 +1,4 @@
+import { loggedUser } from "./auth.js";
 import { makeDecimal } from "./utils.js";
 
 
@@ -12,14 +13,14 @@ const title = document.getElementById('title')
 
 function allUserSales() {
     return JSON.parse(localStorage.getItem('vendas')).filter(item => {
-        return item.usuarioId === usuarioCorrente.id;
+        return item.usuarioId === loggedUser().id;
     });
 }
 
 
 function allUserClients() {
     return JSON.parse(localStorage.getItem('clientesFornecedores')).filter(item => {
-        return item.tipo === "cliente" && item.usuarioId === usuarioCorrente.id;
+        return item.tipo === "cliente" && item.usuarioId === loggedUser().id;
     });
 }
 
@@ -69,11 +70,11 @@ htmlSalesData.innerHTML = ` <div class="sale-data row ms-2 me-2 mb-4">
                             </div>
                             <div class="row">
                             <div class="col-6">
-                            <strong><span>${usuarioCorrente.tem_cnpj ? "Razão Social: " : "Nome: "}</span></strong> <span>${usuarioCorrente.tem_cnpj ? usuarioCorrente.razao_social : usuarioCorrente.nome}</span> <br>
-                            <strong><span>${usuarioCorrente.tem_cnpj ? "CNPJ: " : "CPF: "}</span></strong> <span>${usuarioCorrente.cpf_cnpj}</span> <br>
-                            <strong><span>Endereço:</span></strong> <span>${usuarioCorrente.endereco}</span>
+                            <strong><span>${loggedUser().tem_cnpj ? "Razão Social: " : "Nome: "}</span></strong> <span>${loggedUser().tem_cnpj ? loggedUser().razao_social : loggedUser().nome}</span> <br>
+                            <strong><span>${loggedUser().tem_cnpj ? "CNPJ: " : "CPF: "}</span></strong> <span>${loggedUser().cpf_cnpj}</span> <br>
+                            <strong><span>Endereço:</span></strong> <span>${loggedUser().endereco}</span>
                             <br>
-                            <strong><span>Telefone: </span></strong> <span>${usuarioCorrente.telefone}</span>
+                            <strong><span>Telefone: </span></strong> <span>${loggedUser().telefone}</span>
                             </div>
                             <div class="col-6">
                             <strong><span>${currentClient.tem_cnpj ? "Razão Social: " : "Nome: "}</span></strong> <span>${currentClient.nomeRazaoSocial}</span> <br>

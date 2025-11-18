@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+
+<head>
+    <title>Clientes/Fornecedores</title>
+    <script>
+        if (!usuarioCorrente || !usuarioCorrente.email_login) {
+            window.location.href = LOGIN_URL;
+        }
+
+        const ID_USUARIO = Number(usuarioCorrente.id);
+        let clientesFornecedores = JSON.parse(localStorage.getItem('clientesFornecedores')) || [];
+        let termoBusca = '';
+
+        function initPage() {
+            document.getElementById('btn_logout').addEventListener('click', logoutUser);
+            document.getElementById('nomeUsuario').innerHTML = usuarioCorrente.nome;
+
+            const campoBusca = document.getElementById('buscar-clientes');
+            if (campoBusca) {
+                campoBusca.addEventListener('input', function (event) {
+                    termoBusca = event.target.value.toLowerCase();
+                    preencherTabela();
+                });
+            }
+
+            document.getElementById('button-filter').addEventListener('click', function () {
+                alert('Filtro avançado será implementado depois.');
+            });
+
+            preencherTabela();
+        }
+
+        function salvarLocalStorage() {
+            localStorage.setItem('clientesFornecedores', JSON.stringify(clientesFornecedores));
+        }
+
+        function listaDoUsuario() {
+            return clientesFornecedores.filter(item => Number(item.usuarioId) === ID_USUARIO);
+        }
+
+        function gerarProximoCodigo() {
+            const lista = listaDoUsuario();
+            if (lista.length === 0) {
+                return 1;
+            }
+            return lista.reduce((maior, item) => {
+                const atual = Number(item.meuId) || 0;
+                return atual > maior ? atual : maior;
+            }, 0) + 1;
+        }
+
+        function preencherTabela() {
+            const tbody = document.querySelector('#tabelaClientesFornecedores tbody');
+            tbody.innerHTML = '';
+            const lista = listaDoUsuario().filter(item => {
+                if (!termoBusca) return true;
+                const nome = (item.nomeRazaoSocial || '').toLowerCase();
+                const doc = (item.cpfCnpj || '').toLowerCase();
+                const codigo = String(item.meuId || '').toLowerCase();
+                return nome.includes(termoBusca) || doc.includes(termoBusca) || codigo.includes(termoBusca);
+            }).sort((a, b) => Number(a.meuId || 0) - Number(b.meuId || 0));
+
+            if (lista.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center py-3">Nenhum registro encontrado.</td></tr>';
+                return;
+            }
+
+            lista.forEach(item => {
+                const idSeguro = JSON.stringify(String(item.meuId));
+                tbody.insertAdjacentHTML('beforeend', `
+                    <tr id="item-${item.meuId}">
+                        <td>${item.meuId || '-'}</td>
+                        <td>${(item.tipo || '').toLowerCase() === 'fornecedor' ? 'Fornecedor' : 'Cliente'}</td>
+                        <td>${item.nomeRazaoSocial || '-'}</td>
+                        <td>${item.cpfCnpj || '-'}</td>
+                        <td>
+                            <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
+                                data-bs-target="#clienteFornecedorModal" onclick="abrirModalClienteFornecedor(${idSeguro})">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm" onclick="excluirClienteFornecedor(${idSeguro})">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `);
+            });
+        }
+
+        function preencherFormulario(cliente) {
+            document.getElementById('itemId').value = cliente ? cliente.meuId : '';
+            document.getElementById('modalCodigo').value = cliente ? cliente.meuId : gerarProximoCodigo();
+            document.getElementById('modalTipo').value = cliente ? (cliente.tipo || '').charAt(0).toUpperCase() + (cliente.tipo || '').slice(1) : '';
+            document.getElementById('modalNome').value = cliente ? cliente.nomeRazaoSocial : '';
+            document.getElementById('modalid').value = cliente ? cliente.cpfCnpj : '';
+        }
+
+        function abrirModalClienteFornecedor(meuId) {
+            const titulo = document.getElementById('clienteFornecedorModalLabel');
+            if (meuId) {
+                const cliente = clientesFornecedores.find(item => String(item.meuId) === String(meuId) && Number(item.usuarioId) === ID_USUARIO);
+                if (!cliente) {
+                    alert('Registro não encontrado.');
+                    return;
+                }
+                titulo.textContent = 'Editar Cliente/Fornecedor';
+                preencherFormulario(cliente);
+            } else {
+                titulo.textContent = 'Adicionar Cliente/Fornecedor';
+                document.getElementById('formClienteFornecedor').reset();
+                preencherFormulario(null);
+            }
+        }
+
+        function camposValidos(codigo, tipo, nome, documento) {
+            if (!codigo || !tipo || !nome || !documento) {
+                alert('Preencha todos os campos obrigatórios.');
+                return false;
+            }
+            if (nome.length < 3) {
+                alert('Informe um nome válido.');
+                return false;
+            }
+            if (documento.length < 5) {
+                alert('Informe o CPF/CNPJ completo.');
+                return false;
+            }
+            return true;
+        }
+
+        function salvarClienteFornecedor() {
+            const idCampo = document.getElementById('itemId').value;
+            const codigoCampo = document.getElementById('modalCodigo').value.trim();
+            const tipoCampo = document.getElementById('modalTipo').value.trim();
+            const nomeCampo = document.getElementById('modalNome').value.trim();
+            const documentoCampo = document.getElementById('modalid').value.trim();
+
+            if (!camposValidos(codigoCampo, tipoCampo, nomeCampo, documentoCampo)) {
+                return;
+            }
+
+            const codigoNormalizado = isNaN(Number(codigoCampo)) ? codigoCampo : Number(codigoCampo);
+
+            if (idCampo) {
+                const cliente = clientesFornecedores.find(item => String(item.meuId) === String(idCampo) && Number(item.usuarioId) === ID_USUARIO);
+                if (!cliente) {
+                    alert('Registro não encontrado.');
+                    return;
+                }
+                cliente.meuId = codigoNormalizado;
+                cliente.tipo = tipoCampo.toLowerCase();
+                cliente.nomeRazaoSocial = nomeCampo;
+                cliente.cpfCnpj = documentoCampo;
+            } else {
+                const codigoEmUso = clientesFornecedores.some(item => String(item.meuId) === String(codigoNormalizado) && Number(item.usuarioId) === ID_USUARIO);
+                if (codigoEmUso) {
+                    alert('Já existe um registro com este código.');
+                    return;
+                }
+                clientesFornecedores.push({
+                    meuId: codigoNormalizado,
+                    tipo: tipoCampo.toLowerCase(),
+                    nomeRazaoSocial: nomeCampo,
+                    cpfCnpj: documentoCampo,
+                    telefone: '',
+                    email: '',
+                    endereco: '',
+                    contatoNome: '',
+                    usuarioId: ID_USUARIO
+                });
+            }
+
+            salvarLocalStorage();
+            preencherTabela();
+            bootstrap.Modal.getInstance(document.getElementById('clienteFornecedorModal')).hide();
+        }
+
+        function excluirClienteFornecedor(meuId) {
+            if (!confirm('Deseja realmente excluir este registro?')) {
+                return;
+            }
+            const tamanhoAntes = clientesFornecedores.length;
+            clientesFornecedores = clientesFornecedores.filter(item => !(String(item.meuId) === String(meuId) && Number(item.usuarioId) === ID_USUARIO));
+            if (clientesFornecedores.length === tamanhoAntes) {
+                alert('Registro não encontrado.');
+                return;
+            }
+            salvarLocalStorage();
+            preencherTabela();
+        }
+
+        window.addEventListener('load', initPage);
+    </script>
+
+    <script>
+        // ========================= CLIENTES / FORNECEDORES =========================
+        let listaClientesFornecedores = [];
+        let termoBuscaClientes = '';
+
+        function carregarClientesFornecedores() {
+            try {
+                const dados = localStorage.getItem('clientesFornecedores');
+                listaClientesFornecedores = dados ? JSON.parse(dados) : [];
+            } catch {
+                listaClientesFornecedores = [];
+            }
+        }
+
+        function salvarClientesFornecedores() {
+            localStorage.setItem('clientesFornecedores', JSON.stringify(listaClientesFornecedores));
+        }
+
+        function clientesDoUsuario() {
+            const idUsuario = usuarioCorrente ? Number(usuarioCorrente.id) : null;
+            return listaClientesFornecedores.filter(item => Number(item.usuarioId) === Number(idUsuario));
+        }
+
+        function gerarNovoCodigo() {
+            const listaUsuario = clientesDoUsuario();
+            if (listaUsuario.length === 0) {
+                return 1;
+            }
+            const maior = listaUsuario.reduce((acc, item) => {
+                const atual = Number(item.meuId) || 0;
+                return atual > acc ? atual : acc;
+            }, 0);
+            return maior + 1;
+        }
+
+        function renderizarClientesFornecedores() {
+            const tabela = document.querySelector('#tabelaClientesFornecedores tbody');
+            if (!tabela) {
+                return;
+            }
+            tabela.innerHTML = '';
+            const termo = termoBuscaClientes.toLowerCase();
+            const listaFiltrada = clientesDoUsuario()
+                .filter(item => {
+                    if (!termo) return true;
+                    const texto = [
+                        item.nomeRazaoSocial,
+                        item.cpfCnpj,
+                        item.tipo,
+                        item.meuId
+                    ].map(valor => (valor || '').toString().toLowerCase());
+                    return texto.some(valor => valor.includes(termo));
+                })
+                .sort((a, b) => Number(a.meuId || 0) - Number(b.meuId || 0));
+
+            if (listaFiltrada.length === 0) {
+                tabela.innerHTML = '<tr><td colspan="5" class="text-center py-3">Nenhum registro encontrado.</td></tr>';
+                return;
+            }
+
+            listaFiltrada.forEach(item => {
+                const codigo = item.meuId || '-';
+                const tipo = (item.tipo || '').toLowerCase() === 'fornecedor' ? 'Fornecedor' : 'Cliente';
+                const nome = item.nomeRazaoSocial || '-';
+                const documento = item.cpfCnpj || '-';
+                const idSeguro = String(item.meuId || '').replace(/"/g, '&quot;');
+
+                tabela.insertAdjacentHTML('beforeend', `
+                    <tr id="item-${codigo}">
+                        <td>${codigo}</td>
+                        <td>${tipo}</td>
+                        <td>${nome}</td>
+                        <td>${documento}</td>
+                        <td>
+                            <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
+                                data-id="${idSeguro}" data-bs-target="#clienteFornecedorModal"
+                                onclick="abrirModalClienteFornecedor(this.dataset.id)">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm" data-id="${idSeguro}"
+                                onclick="excluirItem('cliente', this.dataset.id)">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `);
+            });
+        }
+
+        function preencherFormularioCliente(dados) {
+            document.getElementById('itemId').value = dados ? dados.meuId : '';
+            document.getElementById('modalCodigo').value = dados ? dados.meuId : gerarNovoCodigo();
+            document.getElementById('modalTipo').value = dados ? (dados.tipo || '').charAt(0).toUpperCase() + (dados.tipo || '').slice(1) : '';
+            document.getElementById('modalNome').value = dados ? dados.nomeRazaoSocial : '';
+            document.getElementById('modalid').value = dados ? dados.cpfCnpj : '';
+            document.getElementById('clienteFornecedorModalLabel').textContent = dados ? 'Editar Cliente/Fornecedor' : 'Adicionar Cliente/Fornecedor';
+        }
+
+        function abrirModalClienteFornecedor(meuId) {
+            carregarClientesFornecedores();
+            if (meuId) {
+                const registro = listaClientesFornecedores.find(item =>
+                    String(item.meuId) === String(meuId) &&
+                    Number(item.usuarioId) === Number(usuarioCorrente ? usuarioCorrente.id : null)
+                );
+                if (!registro) {
+                    alert('Registro não encontrado.');
+                    return;
+                }
+                preencherFormularioCliente(registro);
+            } else {
+                preencherFormularioCliente(null);
+            }
+        }
+
+        function camposClienteValidos(codigo, tipo, nome, documento) {
+            if (!codigo) {
+                alert('Informe o código.');
+                return false;
+            }
+            if (!tipo) {
+                alert('Selecione o tipo (Cliente ou Fornecedor).');
+                return false;
+            }
+            if (!nome || nome.length < 3) {
+                alert('Informe o nome ou razão social.');
+                return false;
+            }
+            if (!documento || documento.length < 5) {
+                alert('Informe o CPF/CNPJ.');
+                return false;
+            }
+            return true;
+        }
+
+        function salvarClienteFornecedor() {
+            carregarClientesFornecedores();
+            const codigoCampo = document.getElementById('modalCodigo');
+            const tipoCampo = document.getElementById('modalTipo');
+            const nomeCampo = document.getElementById('modalNome');
+            const documentoCampo = document.getElementById('modalid');
+            const idCampo = document.getElementById('itemId');
+
+            const codigo = codigoCampo.value.trim();
+            const tipo = tipoCampo.value.trim().toLowerCase();
+            const nome = nomeCampo.value.trim();
+            const documento = documentoCampo.value.trim();
+
+            if (!camposClienteValidos(codigo, tipoCampo.value, nome, documento)) {
+                return;
+            }
+
+            const idUsuario = Number(usuarioCorrente ? usuarioCorrente.id : null);
+            const registroExistente = listaClientesFornecedores.find(item =>
+                String(item.meuId) === String(idCampo.value) &&
+                Number(item.usuarioId) === idUsuario
+            );
+
+            if (registroExistente) {
+                registroExistente.meuId = isNaN(Number(codigo)) ? codigo : Number(codigo);
+                registroExistente.tipo = tipo;
+                registroExistente.nomeRazaoSocial = nome;
+                registroExistente.cpfCnpj = documento;
+            } else {
+                const jaExisteCodigo = listaClientesFornecedores.some(item =>
+                    String(item.meuId) === String(codigo) &&
+                    Number(item.usuarioId) === idUsuario
+                );
+                if (jaExisteCodigo) {
+                    alert('Já existe um registro com este código.');
+                    return;
+                }
+
+                listaClientesFornecedores.push({
+                    meuId: isNaN(Number(codigo)) ? codigo : Number(codigo),
+                    tipo,
+                    nomeRazaoSocial: nome,
+                    cpfCnpj: documento,
+                    telefone: '',
+                    email: '',
+                    endereco: '',
+                    contatoNome: '',
+                    usuarioId: idUsuario
+                });
+            }
+
+            salvarClientesFornecedores();
+            renderizarClientesFornecedores();
+
+            const modalElement = document.getElementById('clienteFornecedorModal');
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+        }
+
+        function excluirItem(_, meuId) {
+            if (!confirm('Deseja realmente excluir este registro?')) {
+                return;
+            }
+            carregarClientesFornecedores();
+            const idUsuario = Number(usuarioCorrente ? usuarioCorrente.id : null);
+            const tamanhoAntes = listaClientesFornecedores.length;
+            listaClientesFornecedores = listaClientesFornecedores.filter(item =>
+                !(String(item.meuId) === String(meuId) && Number(item.usuarioId) === idUsuario)
+            );
+            if (listaClientesFornecedores.length === tamanhoAntes) {
+                alert('Registro não encontrado.');
+                return;
+            }
+            salvarClientesFornecedores();
+            renderizarClientesFornecedores();
+        }
+
+        function prepararBuscaClientes() {
+            const botaoBusca = document.getElementById('button-search');
+            const campoBusca = botaoBusca ? botaoBusca.previousElementSibling : null;
+            const botaoFiltro = document.getElementById('button-filter');
+
+            if (campoBusca) {
+                campoBusca.addEventListener('input', function (event) {
+                    termoBuscaClientes = event.target.value || '';
+                    renderizarClientesFornecedores();
+                });
+            }
+
+            if (botaoBusca && campoBusca) {
+                botaoBusca.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    termoBuscaClientes = campoBusca.value || '';
+                    renderizarClientesFornecedores();
+                });
+            }
+
+            if (botaoFiltro) {
+                botaoFiltro.addEventListener('click', function () {
+                    alert('Filtros avançados serão disponibilizados em breve.');
+                });
+            }
+        }
+
+        function initClientesFornecedores() {
+            carregarClientesFornecedores();
+            prepararBuscaClientes();
+            renderizarClientesFornecedores();
+        }
+
+        window.addEventListener('load', initClientesFornecedores);
+    </script>
+</head>
+
+
+        <!-- Start Main -->
+        <main class="flex-grow-1 p-4">
+            <h1 class="h4 mb-3">Cadastro de Clientes/Fornecedores</h1>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clienteFornecedorModal"
+                    onclick="abrirModalClienteFornecedor(null)">
+                    Novo Cliente/Fornecedor
+                </button>
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" id="buscar-clientes">
+                    <button class="btn btn-outline-secondary" type="button" id="button-search"><i
+                            class="bi bi-search"></i></button>
+                    <button class="btn btn-outline-secondary" type="button" id="button-filter"><i
+                            class="bi bi-filter"></i></button>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0" id="tabelaClientesFornecedores">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Código</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">Nome/Razão Social</th>
+                                    <th scope="col">CPF/CNPJ</th>
+                                    <th scope="col" class="text-center">Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+    <div class="modal fade" id="clienteFornecedorModal" tabindex="-1" aria-labelledby="clienteFornecedorModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="clienteFornecedorModalLabel">Adicionar/Editar Cliente/Fornecedor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formClienteFornecedor">
+                        <input type="hidden" id="itemId" value="">
+                        <div class="mb-3">
+                            <label for="modalCodigo" class="form-label">Código</label>
+                            <input type="text" class="form-control" id="modalCodigo"
+                                placeholder="Código do cliente/fornecedor">
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalTipo" class="form-label">Tipo</label>
+                            <select class="form-select" id="modalTipo">
+                                <option value="">Selecione...</option>
+                                <option value="Cliente">Cliente</option>
+                                <option value="Fornecedor">Fornecedor</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalNome" class="form-label">Nome ou Razão Social</label>
+                            <textarea class="form-control" id="modalNome" rows="1"
+                                placeholder="Coloque aqui o nome"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalid" class="form-label">CPF/CNPJ</label>
+                            <input type="text" class="form-control" id="modalid" placeholder="xxx.xxx...">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="salvarClienteFornecedor()">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Main -->
+
+    
+
