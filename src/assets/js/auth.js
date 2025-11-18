@@ -3,8 +3,12 @@ import { LOGIN_URL } from "./config.js"
 window.addEventListener('load', initPage);
 
 function initPage() {
-    document.getElementById('btn_logout').addEventListener('click', logoutUser);
-    document.getElementById('nomeUsuario').innerHTML = loggedUser().nome;
+    const btnLogout = document.getElementById('btn_logout')
+    const spanHello = document.getElementById('nomeUsuario')
+
+    if (btnLogout) { btnLogout.addEventListener('click', logoutUser); }
+    if (spanHello) { spanHello.innerHTML = loggedUser().nome; }
+    
     if (!loggedUser().email_login) {
         logoutUser()
     }

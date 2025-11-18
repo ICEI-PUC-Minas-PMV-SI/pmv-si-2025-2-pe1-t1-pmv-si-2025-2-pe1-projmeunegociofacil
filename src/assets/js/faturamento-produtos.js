@@ -1,5 +1,6 @@
+import { loggedUser } from "./auth.js";
 import { newMyId, makeDecimal } from "./utils.js";
-import { loggedUser } from "./logged.js";
+
 
 
 
@@ -735,8 +736,8 @@ function finishSale() {
         </div>
         <div class="row m-4">
         <div class="col text-center">
-        <a type="button" class="btn btn-success" href="../assets/static/receipt-products.html?id=${finishedSale.meuId}"
-      >Imprimir</a>
+        <a type="button" class="btn btn-success" href="../assets/static/receipt-products.html?id=${finishedSale.meuId}">
+        Imprimir</a>
         </div>
         </div> `;
     const modalInstance = bootstrap.Modal.getInstance(checkoutModal);

@@ -1,3 +1,4 @@
+import { loggedUser } from "./auth.js";
 import { newMyId, makeDecimal } from "./utils.js";
 
 let selectedClient = null;
@@ -89,7 +90,7 @@ btnAddInputs.addEventListener('click', addInput)
 function allUserUnclosedSales() {
     try {
         return JSON.parse(localStorage.getItem('vendasEmAberto')).filter(item => {
-            return item.usuarioId === usuarioCorrente.id;
+            return item.usuarioId === loggedUser().id;
         });
     }
     catch {
@@ -111,7 +112,7 @@ function allUserProducts() {
 
     try {
         return JSON.parse(localStorage.getItem('produtosServicos')).filter(item => {
-            return item.tipo === "servico" && item.usuarioId === usuarioCorrente.id;
+            return item.tipo === "servico" && item.usuarioId === loggedUser().id;
         });
     }
     catch {
@@ -122,7 +123,7 @@ function allUserProducts() {
 function allUserClients() {
     try {
         return JSON.parse(localStorage.getItem('clientesFornecedores')).filter(item => {
-            return item.tipo === "cliente" && item.usuarioId === usuarioCorrente.id;
+            return item.tipo === "cliente" && item.usuarioId === loggedUser().id;
         });
     }
     catch {
@@ -644,7 +645,7 @@ function save() {
         const currentCliente = selectedClient ? selectedClient : saveClient.value;
         const unclosedSale = {
             "meuId": newMyId(allUserUnclosedSales()),
-            "usuarioId": usuarioCorrente.id,
+            "usuarioId": loggedUser().id,
             "clientesFornecedoresMeuId": currentCliente,
             "tipoVenda": "servico",
             "dataVenda": new Date(),
@@ -771,7 +772,7 @@ function finishSale() {
     const paymentMethodType = paymentMethod.value;
     const finishedSale = {
         "meuId": newSaleId,
-        "usuarioId": usuarioCorrente.id,
+        "usuarioId": loggedUser().id,
         "clientesFornecedoresMeuId": clienteId,
         "tipoVenda": "servico",
         "dataVenda": new Date(),
@@ -846,7 +847,7 @@ function finishSale() {
             "data_vencimento": dataVencimento,
             "data_pagamento": dataPagamento,
             "status": status,
-            "usuarioId": usuarioCorrente.id,
+            "usuarioId": loggedUser().id,
             "parcela": parcela
         };
 

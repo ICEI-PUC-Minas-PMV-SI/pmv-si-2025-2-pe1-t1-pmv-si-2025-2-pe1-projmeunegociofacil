@@ -1,4 +1,5 @@
-import { makeDecimal } from "./utils.js";
+import { newMyId, makeDecimal } from "./utils.js";
+import { loggedUser } from "./logged.js";
 
 const clientsFilterDiv = document.getElementById('clients-filter-div')
 const initDate = document.getElementById('init-date')
@@ -25,13 +26,13 @@ function allSales() {
 
 function allUserSales() {
     return JSON.parse(localStorage.getItem('vendas')).filter(item => {
-        return item.usuarioId === usuarioCorrente.id;
+        return item.usuarioId === loggedUser().id;
     });
 }
 
 function allUserClients() {
     return JSON.parse(localStorage.getItem('clientesFornecedores')).filter(item => {
-        return item.tipo === "cliente" && item.usuarioId === usuarioCorrente.id;
+        return item.tipo === "cliente" && item.usuarioId === loggedUser().id;
     }).sort((a, b) => {
         const nomeA = a.nomeRazaoSocial || '';
         const nomeB = b.nomeRazaoSocial || '';
@@ -185,13 +186,13 @@ function listenerListOfSales() {
             console.log(saleRowId)
             if (window.confirm("Deseja realmente excluir a venda?")) {
                 if (allSalesTemp.length > 0) {
-                    const indexToRemove = allSalesTemp.findIndex(sale => sale.meuId == saleRowId && sale.usuarioId === usuarioCorrente.id);
+                    const indexToRemove = allSalesTemp.findIndex(sale => sale.meuId == saleRowId && sale.usuarioId === loggedUser().id);
                     if (indexToRemove > -1) {
                         allSalesTemp.splice(indexToRemove, 1);
                         localStorage.setItem('vendas', JSON.stringify(allSalesTemp));
                         alert('Venda excluída com sucesso!')
                         if (filtredSales.length > 0) {
-                            const indexToRemove = filtredSales.findIndex(sale => sale.meuId == saleRowId && sale.usuarioId === usuarioCorrente.id);
+                            const indexToRemove = filtredSales.findIndex(sale => sale.meuId == saleRowId && sale.usuarioId === loggedUser().id);
                             if (indexToRemove > -1) {
                                 filtredSales.splice(indexToRemove, 1);
                             }
