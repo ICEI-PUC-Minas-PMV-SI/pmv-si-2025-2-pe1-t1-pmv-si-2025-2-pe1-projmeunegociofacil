@@ -185,8 +185,12 @@
       line-height: 1.4;
           }
           textarea {
-            resize: none;
+            resize: none; font-size: clamp(0.3rem, 0.9vw, 3rem);
+      line-height: 1.4;
         }
+          .calendario-grid {
+            border-collapse: collapse; width: 100%; max-width: 1200px; margin: 0 auto;
+          }
         </style>
     <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg p-6">
         <div class="flex justify-between items-center mb-4">
@@ -253,7 +257,7 @@
                     
                     const caixinhaCompromisso = document.createElement('textarea');
                     caixinhaCompromisso.className = 'w-full flex-grow mt-1 p-1 text-xs border rounded focus:outline-none focus:ring-2 focus:ring-blue-400';
-                    caixinhaCompromisso.placeholder = 'Compromisso...';
+                    
                     caixinhaCompromisso.dataset.chave = chaveCompromisso;
                     
                     if (compromissos[chaveCompromisso]) {
