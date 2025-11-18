@@ -1,3 +1,4 @@
+const atualPageUrl = ""
 const request = obj => {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -5,7 +6,7 @@ const request = obj => {
     xhr.send();
 
     xhr.addEventListener('load', () => {
-      if(xhr.status >= 200 && xhr.status < 300) {
+      if (xhr.status >= 200 && xhr.status < 300) {
         resolve(xhr.responseText);
       } else {
         reject(xhr.statusText);
@@ -26,7 +27,8 @@ document.addEventListener('click', e => {
 
 async function carregaPagina(el) {
   const href = el.getAttribute('href');
-
+  atualPageUrl = href
+  console.log(href);
   const objConfig = {
     method: 'GET',
     url: href
@@ -35,7 +37,8 @@ async function carregaPagina(el) {
   try {
     const response = await request(objConfig);
     carregaResultado(response);
-  } catch(e) {
+    console.log(response);
+  } catch (e) {
     console.log(e);
   }
 }
