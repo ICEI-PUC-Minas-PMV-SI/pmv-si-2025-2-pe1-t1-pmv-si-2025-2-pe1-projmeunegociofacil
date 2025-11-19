@@ -1,5 +1,5 @@
-import { newMyId, makeDecimal } from "./utils.js";
-import { loggedUser } from "./logged.js";
+import { makeDecimal } from "./utils.js";
+import { loggedUser } from "./auth.js";
 
 const clientsFilterDiv = document.getElementById('clients-filter-div')
 const initDate = document.getElementById('init-date')
@@ -146,9 +146,9 @@ function renderFilter() {
             }
             let url = ""
             if (sale.tipoVenda == "produto") {
-                url = "assets/static/receipt-products.html?id=" + sale.meuId
+                url = "../assets/static/receipt-products.html?id=" + sale.meuId
             } else if (sale.tipoVenda == "servico") {
-                url = "assets/static/receipt-services.html?id=" + sale.meuId
+                url = "../assets/static/receipt-services.html?id=" + sale.meuId
             }
             return `
            

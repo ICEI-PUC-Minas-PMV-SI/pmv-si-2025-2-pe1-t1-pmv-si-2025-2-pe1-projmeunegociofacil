@@ -21,10 +21,8 @@ function addUser(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senh
 
     };
 
-    // Inclui o novo usuario no banco de dados baseado em JSON
     db.push(usuario);
 
-    // Salva o novo banco de dados com o novo usuário no localStorage
     localStorage.setItem('usuarios', JSON.stringify(db));
 }
 
@@ -42,7 +40,7 @@ function checkFields(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, 
         alert('Preencha corretamente o Telefone');
         return true;
     }
-    else if (email.length < 10) {
+    else if (email.length < 5) {
         alert('Preencha corretamente o E-mail');
         return true;
     }
@@ -57,22 +55,20 @@ function checkFields(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, 
     else if (isPj == true && nomeRazao.length < 5) {
         alert('Cadastro Pessoa Jurídica\nInforme a Razão Social');
         return true;
-    } // --- NOVAS VALIDAÇÕES (Duplicidade) ---
+    } 
 
-    // Verifica se o e-mail já existe no banco de dados 'db'
-    // O 'db' foi carregado no initLoginApp()
+
     else if (db.some(usuario => usuario.email_login === email)) {
         alert('Erro: Este e-mail já está cadastrado.');
         return true;
     }
 
-    // Verifica se o CPF/CNPJ já existe no banco de dados 'db'
     else if (db.some(usuario => usuario.cpf_cnpj === cpfCNPJ)) {
         alert('Erro: Este CPF/CNPJ já está cadastrado.');
         return true;
     }
 
-    // Se passou por todas as verificações, retorna false (sem erros)
+
     else {
         return false;
     }

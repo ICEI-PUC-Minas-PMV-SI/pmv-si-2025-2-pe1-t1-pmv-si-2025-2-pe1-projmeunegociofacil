@@ -2,6 +2,15 @@ import { authPage } from "./config.js"
 import { allUsers } from "./utils.js";
 import { newUser } from "./signup.js";
 
+const radioPj = document.getElementById('sign-up-is-pj')
+const divNomeFantasia = document.getElementById('div-nome-fantasia')
+const radioInstPj = document.getElementById('sign-up-isnt-pj')
+const divCpfCnpj = document.getElementById('div-cpf-cnpj')
+const divNomeDaEmpresa = document.getElementById('div-nome-da-empresa')
+
+
+
+
 
 async function makeTest() {
 
@@ -60,5 +69,26 @@ function performLogin(event) {
 document.getElementById('login-form').addEventListener('submit', performLogin);
 
 document.getElementById('btn_salvar').addEventListener('click', newUser);
+
+radioPj.addEventListener('change', () => {
+    if (radioPj.checked) {
+        divNomeFantasia.innerHTML = ` <label for="sign-up-nome">Nome Fantasia</label>
+            <input type="text" class="form-control mb-2" id="sign-up-nome" placeholder="Insira o Nome Fantasia">`
+        divCpfCnpj.innerHTML = `<label for="sign-up-cpf-cnpj">CNPJ</label>
+            <input type="text" class="form-control" id="sign-up-cpf-cnpj" placeholder="Insira o CNPJ">`
+        divNomeDaEmpresa.classList.remove('d-none');
+    }
+});
+
+radioInstPj.addEventListener('change', () => {
+    if (radioInstPj.checked) {
+        divNomeFantasia.innerHTML = ` <label for="sign-up-nome">Nome Completo</label>
+            <input type="text" class="form-control mb-2" id="sign-up-nome" placeholder="Insira o seu Nome Completo">`
+        divCpfCnpj.innerHTML = `<label for="sign-up-cpf-cnpj">CPF</label>
+            <input type="text" class="form-control" id="sign-up-cpf-cnpj" placeholder="Insira o CPF">`
+        divNomeDaEmpresa.classList.add('d-none');
+    }
+});
+
 
 makeTest()

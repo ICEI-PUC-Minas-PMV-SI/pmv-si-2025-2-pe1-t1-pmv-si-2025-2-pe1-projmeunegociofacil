@@ -98,12 +98,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <input type="hidden" id="contaPagarId" value="">
           <div class="container">
 
             <div class="col">
               <form>
-                <div class="form-group">
+                <div id="div-nome-fantasia" class="form-group">
                   <label for="sign-up-nome">Nome Completo</label>
                   <input type="text" class="form-control mb-2" id="sign-up-nome" placeholder="Insira seu Nome Completo">
                 </div>
@@ -117,22 +116,22 @@
                         </label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sign-up-is-pj" id="flexRadioDefault2"
+                        <input class="form-check-input" type="radio" name="sign-up-is-pj" id="sign-up-isnt-pj"
                           checked>
-                        <label class="form-check-label" for="flexRadioDefault2">
+                        <label class="form-check-label" for="sign-up-isnt-pj">
                           Pessoa Física
                         </label>
                       </div>
                     </div>
                   </div>
                   <div class="col align-self-center">
-                    <div class="form-group">
-                      <label for="sign-up-cpf-cnpj">CPF/CNPJ</label>
-                      <input type="text" class="form-control" id="sign-up-cpf-cnpj" placeholder="Insira o CPF/CNPJ">
+                    <div id="div-cpf-cnpj" class="form-group">
+                      <label for="sign-up-cpf-cnpj">CPF</label>
+                      <input type="text" class="form-control" id="sign-up-cpf-cnpj" placeholder="Insira o CPF">
                     </div>
                   </div>
                 </div>
-                <div class="form-group">
+                <div id="div-nome-da-empresa" class="form-group d-none">
                   <label for="sign-up-razao-social">Nome da Empresa</label>
                   <input type="text" class="form-control mb-2" id="sign-up-razao-social"
                     placeholder="Insira o Nome da Empresa">
@@ -204,9 +203,7 @@
             <div class="col  text-end">
               <input type="submit" name="submit" class="btn btn-primary" value="Efetuar Login" form="login-form">
             </div>
-            <!-- <div class="col  text-end">
-              <input type="submit" name="submit" class="btn btn-primary" value="Efetuar Login" form="login-form">
-            </div> -->
+
           </div>
         </div>
       </div>
@@ -215,54 +212,6 @@
   </div>
 
   <script type="module" src="assets/js/login.js"></script>
-
-  <!-- <script>
-
-    function processaFormLogin(event) {
-      event.preventDefault();
-
-      var username = document.getElementById('username').value;
-      var password = document.getElementById('password').value;
-
-      resultadoLogin = loginUser(username, password);
-      if (resultadoLogin) {
-        window.location.href = './auth/index.html';
-      }
-      else {
-        alert('Usuário ou senha incorretos');
-      }
-    }
-
-    function salvaLogin(event) {
-      event.preventDefault();
-
-      let nome = document.getElementById('sign-up-nome').value || "";
-      let nomeRazao = document.getElementById('sign-up-razao-social').value || "";
-      let isPj = document.getElementById('sign-up-is-pj').checked;
-      let cpfCNPJ = document.getElementById('sign-up-cpf-cnpj').value || "";
-      let endereco = document.getElementById('sign-up-endereco').value || "";
-      let telefone = document.getElementById('sign-up-telefone').value || "";
-      let email = document.getElementById('sign-up-email').value || "";
-      let senha = document.getElementById('sign-up-password').value || "";
-      let senha2 = document.getElementById('sign-up-password2').value;
-      console.log(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senha, senha2)
-      if (senha != senha2) {
-        alert('As senhas informadas não conferem.');
-        return
-      }
-      if (checkFields(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senha)) {
-        return
-      }
-      addUser(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senha);
-      alert('Usuário salvo com sucesso. Proceda com o login para acessar o sistema.');
-      bootstrap.Modal.getInstance(document.getElementById('SignUpModal')).hide()
-    }
-
-
-    document.getElementById('login-form').addEventListener('submit', processaFormLogin);
-
-    document.getElementById('btn_salvar').addEventListener('click', salvaLogin);        
-  </script> -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

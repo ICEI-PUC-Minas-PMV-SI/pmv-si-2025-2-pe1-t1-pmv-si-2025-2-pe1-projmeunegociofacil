@@ -132,3 +132,4 @@ function atualizaSidebar(url) {
     }
   }
 }
+window.reloadContent = carregaConteudoPelaUrl;

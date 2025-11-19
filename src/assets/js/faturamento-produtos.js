@@ -7,6 +7,7 @@ import { newMyId, makeDecimal } from "./utils.js";
 let selectedClient = null;
 let productsToSale = [];
 let totalWithDiscountGlobal = 0;
+let inputsToSale = [];
 
 // CLIENT
 const clientInput = document.getElementById('selected-client');
@@ -172,20 +173,26 @@ function renderTotalizerQuantity(quantify) {
     quantitySpan.innerHTML = quantify;
 }
 
-function totalizerTotal(productsToSale) {
-    const valorTotal = productsToSale.reduce((acumulador, produto) => {
-        const subtotalProduto = produto.quantidade * produto.precoVenda;
-        return acumulador + subtotalProduto;
-    }, 0);
-    totalWithDiscountGlobal = valorTotal;
-    renderTotalizerTotal(valorTotal)
-    return valorTotal
+function totalizerProduts(iProductsToSale = productsToSale) {
+    let totalProducts = 0;
+    if (iProductsToSale) {
+        totalProducts = iProductsToSale.reduce((acumulador, produto) => {
+            const subtotalProduto = produto.quantidade * produto.precoVenda;
+            return acumulador + subtotalProduto;
+        }, 0);
+    }
+    return totalProducts
 }
 
-function renderTotalizerTotal(valorTotal) {
-    totalizerTotalSpan.innerHTML = makeDecimal(valorTotal);
-    subtotalSpan.innerHTML = makeDecimal(valorTotal);
-    totalSpan.innerHTML = makeDecimal(valorTotal);
+function totalizerTotal() {
+    totalWithDiscountGlobal = totalizerProduts()
+    return totalWithDiscountGlobal
+}
+
+function renderTotalizerTotal(iValorTotal = totalWithDiscountGlobal) {
+    totalizerTotalSpan.innerHTML = makeDecimal(iValorTotal);
+    subtotalSpan.innerHTML = makeDecimal(iValorTotal);
+    totalSpan.innerHTML = makeDecimal(iValorTotal);
 }
 
 function verifyProductsIsValid(event) {
@@ -222,6 +229,7 @@ function makeInsertProduct(productToSearch) {
     renderProducts(productsToSale)
     totalizerQuantity(productsToSale);
     totalizerTotal(productsToSale);
+    renderTotalizerTotal();
 
 }
 
@@ -269,6 +277,8 @@ function listenerListOfProducts() {
         editButton.classList.add('btn-outline-primary');
         totalizerQuantity(productsToSale);
         totalizerTotal(productsToSale);
+        renderTotalizerTotal();
+
     }
     tbodyListOfProducts.addEventListener('click', (event) => {
         event.preventDefault();
@@ -284,6 +294,7 @@ function listenerListOfProducts() {
                 renderProducts(productsToSale);
                 totalizerQuantity(productsToSale);
                 totalizerTotal(productsToSale);
+                renderTotalizerTotal();
             }
         }
         const editButton = event.target.closest('.btn-outline-primary, .btn-outline-success');
@@ -583,8 +594,9 @@ function renderDiscountView(discount) {
 }
 
 function updateDiscountIncriase() {
+    console.log(valorDiscountIncriase.value)
     if (valorDiscountIncriase.value) {
-        const totalWhithoutDiscount = totalizerTotal(productsToSale)
+        const totalWhithoutDiscount = totalizerTotal()
         const discountValue = renderDiscountView(makeDiscountIncriase(valorDiscountIncriase.value))
         const totalWhithDiscount = totalWhithoutDiscount + discountValue
         totalWithDiscountGlobal = totalWhithDiscount
@@ -594,15 +606,19 @@ function updateDiscountIncriase() {
             maximumFractionDigits: 2
         });
     } else if (totalWithDiscountGlobal) {
+        totalWithDiscountGlobal = totalizerTotal()
         const totalWhithDiscount = totalWithDiscountGlobal
         totalSpan.innerHTML = totalWhithDiscount.toLocaleString('pt-BR', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         });
+        discountView.innerHTML = ""
+
     } else {
-        totalWithDiscountGlobal = totalizerTotal(productsToSale)
+        totalWithDiscountGlobal = totalizerTotal()
     }
 }
+
 function updatePayment() {
     updateDiscountIncriase()
     const actualSelectedPaymentInstallment = selectedPaymentInstallment.value

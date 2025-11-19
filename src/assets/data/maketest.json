@@ -5,7 +5,7 @@
       "tem_cnpj": true,
       "razao_social": "Minha Empresa LTDA",
       "nome": "Minha Empresa",
-      "cpfCnpj": "00.000.000/0001-00",
+      "cpf_cnpj": "00.000.000/0001-00",
       "telefone": "(11) 99999-8888",
       "endereco": "Rua das Flores, 123, São Paulo, SP",
       "email_login": "admin@admin.com",
@@ -3651,6 +3651,169 @@
         "2025-11-05T14:00:00Z",
         "2025-12-05T14:00:00Z"
       ]
+    }
+  ],
+  "vendasEmAberto": [
+    {
+      "meuId": 0,
+      "usuarioId": 1,
+      "clientesFornecedoresMeuId": {
+        "meuId": 5,
+        "tipo": "cliente",
+        "nomeRazaoSocial": "Épsilon Transportes",
+        "cpfCnpj": "05.000.005/0001-05",
+        "tem_cnpj": true,
+        "telefone": "(51) 95555-0005",
+        "email": "logistica@epsilon.com",
+        "endereco": "Rodovia BR-101, 50, Porto Alegre, RS",
+        "contatoNome": null,
+        "usuarioId": 1
+      },
+      "tipoVenda": "produto",
+      "dataVenda": "2025-11-19T10:44:19.243Z",
+      "quantidadeItens": 1,
+      "valorTotal": 89.9,
+      "observacoes": {},
+      "itens": [
+        {
+          "meuId": 1,
+          "tipo": "produto",
+          "descricao": "Mouse Sem Fio Ultra Slim",
+          "referencia": "83749201",
+          "codigoBarras": "7890123456789",
+          "precoVenda": 89.9,
+          "precoCusto": 45,
+          "estoqueAtual": 50,
+          "unidade": "un",
+          "usuarioId": 1,
+          "quantidade": 1
+        }
+      ],
+      "insumosServico": null,
+      "formaDePagamento": "1"
+    },
+    {
+      "meuId": 1,
+      "usuarioId": 1,
+      "clientesFornecedoresMeuId": {
+        "meuId": 2,
+        "tipo": "cliente",
+        "nomeRazaoSocial": "Comércio Beta SA",
+        "cpfCnpj": "02.000.002/0001-02",
+        "tem_cnpj": true,
+        "telefone": "(21) 92222-0002",
+        "email": "compras@beta.com.br",
+        "endereco": "Avenida Principal, 20, Rio de Janeiro, RJ",
+        "contatoNome": null,
+        "usuarioId": 1
+      },
+      "tipoVenda": "produto",
+      "dataVenda": "2025-11-19T10:44:41.616Z",
+      "quantidadeItens": 4,
+      "valorTotal": 147.38,
+      "observacoes": {},
+      "itens": [
+        {
+          "meuId": 2,
+          "tipo": "produto",
+          "descricao": "Arroz Agulhinha Tipo 1 (Pacote 5kg)",
+          "referencia": "10293847",
+          "codigoBarras": "7891112223334",
+          "precoVenda": 24.99,
+          "precoCusto": 18.5,
+          "estoqueAtual": 200,
+          "unidade": "pct",
+          "usuarioId": 1,
+          "quantidade": 2
+        },
+        {
+          "meuId": 1,
+          "tipo": "produto",
+          "descricao": "Mouse Sem Fio Ultra Slim",
+          "referencia": "83749201",
+          "codigoBarras": "7890123456789",
+          "precoVenda": 89.9,
+          "precoCusto": 45,
+          "estoqueAtual": 50,
+          "unidade": "un",
+          "usuarioId": 1,
+          "quantidade": 1
+        },
+        {
+          "meuId": 4,
+          "tipo": "produto",
+          "descricao": "Óleo de Soja (Garrafa 900ml)",
+          "referencia": "77665544",
+          "codigoBarras": "7893334445556",
+          "precoVenda": 7.5,
+          "precoCusto": 5.8,
+          "estoqueAtual": 500,
+          "unidade": "un",
+          "usuarioId": 1,
+          "quantidade": 1
+        }
+      ],
+      "insumosServico": null,
+      "formaDePagamento": "1"
+    },
+    {
+      "meuId": 2,
+      "usuarioId": 1,
+      "clientesFornecedoresMeuId": {
+        "meuId": 10,
+        "tipo": "cliente",
+        "nomeRazaoSocial": "Capa Construções",
+        "cpfCnpj": "10.000.010/0001-10",
+        "tem_cnpj": true,
+        "telefone": "(21) 91010-0010",
+        "email": "obras@capa.com",
+        "endereco": "Praia de Botafogo, 100, Rio de Janeiro, RJ",
+        "contatoNome": null,
+        "usuarioId": 1
+      },
+      "tipoVenda": "servico",
+      "dataVenda": "2025-11-19T10:46:02.489Z",
+      "quantidadeItens": 4,
+      "valorTotal": 1000,
+      "observacoes": {},
+      "itens": [
+        {
+          "meuId": 1,
+          "tipo": "servico",
+          "descricao": "Formatação de Computador com Backup",
+          "referencia": null,
+          "codigoBarras": null,
+          "precoVenda": 150,
+          "precoCusto": 0,
+          "estoqueAtual": null,
+          "unidade": "hr",
+          "usuarioId": 1,
+          "quantidade": 3
+        },
+        {
+          "meuId": 2,
+          "tipo": "servico",
+          "descricao": "Instalação de Ar Condicionado Split (até 12.000 BTUs)",
+          "referencia": null,
+          "codigoBarras": null,
+          "precoVenda": 450,
+          "precoCusto": 50,
+          "estoqueAtual": null,
+          "unidade": "serv",
+          "usuarioId": 1,
+          "quantidade": 1
+        }
+      ],
+      "insumosServico": [
+        {
+          "meuId": 1,
+          "quantidade": 10,
+          "descricao": "Metro de Fio",
+          "precoUnitario": 10,
+          "subtotal": 100
+        }
+      ],
+      "formaDePagamento": "1"
     }
   ]
 }

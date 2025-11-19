@@ -10,12 +10,11 @@ export function newMyId(a) {
 
 export function newUserId(a) {
     const arrayToFindMaxId = a;
-
     const maxId = arrayToFindMaxId.reduce((max, usuario) => {
         const currentId = Number(usuario.id);
         return currentId > max ? currentId : max;
     }, -1);
-    return maxId;
+    return maxId + 1;
 }
 
 export function makeDecimal(number) {

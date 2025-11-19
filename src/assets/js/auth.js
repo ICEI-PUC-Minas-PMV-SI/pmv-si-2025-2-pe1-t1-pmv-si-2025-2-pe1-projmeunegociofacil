@@ -24,7 +24,7 @@ export function loggedUser() {
     }
 };
 
-function logoutUser(event) {
+export function logoutUser(event) {
     if (event) event.preventDefault();
     sessionStorage.removeItem('loggedUser');
     window.location.href = LOGIN_URL;
