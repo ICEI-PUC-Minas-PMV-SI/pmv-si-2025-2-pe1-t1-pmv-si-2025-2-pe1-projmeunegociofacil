@@ -66,19 +66,19 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT05 - Visualização do Dashboard e Verificação de Acesso**
+**Caso de Teste** | **CT05 - Visualização do Dashboard e Verificação de Acesso**
 :--- | :---
-**Procedimento** | 1) Efetuar login com sucesso (CT03). <br> 2) Ao ser redirecionado para `dashboard.html`, verificar os elementos da página. <br> 3) Tentar acessar `dashboard.html` diretamente em uma nova sessão (sem login) e verificar se é redirecionado para o login.
+**Procedimento** | 1) Efetuar login com sucesso (CT03). <br> 2) Ao ser redirecionado para o **Dashboard**, verificar os elementos da página. <br> 3) Tentar acessar **Dashboard** diretamente em uma nova sessão (sem login) e verificar se é redirecionado para o login.
 **Requisitos associados** | RF-02, RNF-01
-**Resultado esperado** | O dashboard é exibido corretamente após o login, mostrando o nome do usuário, gráficos e tabelas. O acesso direto sem login falha (redireciona para `index.html`).
+**Resultado esperado** | O dashboard é exibido corretamente após o login, mostrando o nome do usuário, gráficos e tabelas. O acesso direto sem login falha (redireciona para a **Home**).
 **Dados de entrada** | N/A (Navegação)
 **Resultado obtido** | Sucesso
 
 ---
 
-**Caso de Teste** | `rever` **CT06 - Adicionar Novo Cliente**
+**Caso de Teste** | **CT06 - Adicionar Novo Cliente**
 :--- | :---
-**Procedimento** | 1) Navegar para `clientes_fornecedores.html`. <br> 2) Clicar no botão "Novo Cliente/Fornecedor". <br> 3) No modal, preencher Código, selecionar "Cliente" no Tipo, Nome e CPF/CNPJ. <br> 4) Clicar em "Salvar".
+**Procedimento** | 1) Navegar para **Clientes e Fornecedores**. <br> 2) Clicar no botão "Novo Cliente/Fornecedor". <br> 3) No modal, preencher Código, selecionar "Cliente" no Tipo, Nome e CPF/CNPJ. <br> 4) Clicar em "Salvar".
 **Requisitos associados** | RF-03
 **Resultado esperado** | O modal é fechado e o novo cliente é adicionado e exibido na tabela da página principal.
 **Dados de entrada** | Código: 10, Tipo: Cliente, Nome: "Teste Cliente", Documento: "111.111.111-11"
@@ -86,9 +86,9 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT07 - Buscar Cliente/Fornecedor**
+**Caso de Teste** | **CT07 - Buscar Cliente/Fornecedor**
 :--- | :---
-**Procedimento** | 1) Navegar para `clientes_fornecedores.html`. <br> 2) Digitar um termo de busca (ex: "Maria") no campo "Buscar".
+**Procedimento** | 1) Navegar para **Clientes e Fornecedores**. <br> 2) Digitar um termo de busca (ex: "Maria") no campo "Buscar".
 **Requisitos associados** | RF-03
 **Resultado esperado** | A tabela é filtrada dinamicamente para exibir apenas os registros que contêm o termo "Maria" (com base nos dados mocados ou adicionados).
 **Dados de entrada** | Termo de busca: "Maria"
@@ -96,9 +96,9 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT08 - Excluir Cliente/Fornecedor**
+**Caso de Teste** | **CT08 - Excluir Cliente/Fornecedor**
 :--- | :---
-**Procedimento** | 1) Navegar para `clientes_fornecedores.html`. <br> 2) Localizar um registro na tabela. <br> 3) Clicar no ícone de lixeira (excluir) referente a esse registro. <br> 4) Confirmar a exclusão na caixa de diálogo do navegador (confirm).
+**Procedimento** | 1) Navegar para **Clientes e Fornecedores**. <br> 2) Localizar um registro na tabela. <br> 3) Clicar no ícone de lixeira (excluir) referente a esse registro. <br> 4) Confirmar a exclusão na caixa de diálogo do navegador (confirm).
 **Requisitos associados** | RF-03
 **Resultado esperado** | O registro é removido da tabela.
 **Dados de entrada** | N/A (Confirmação de exclusão)
@@ -106,9 +106,9 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT09 - Adicionar Novo Produto**
+**Caso de Teste** | **CT09 - Adicionar Novo Produto**
 :--- | :---
-**Procedimento** | 1) Navegar para `produtos_servicos.html`. <br> 2) Clicar no botão "Novo Produto/Serviço". <br> 3) No modal, preencher Código, selecionar "Produto" no Tipo, Descrição e Unidade. <br> 4) Clicar em "Salvar".
+**Procedimento** | 1) Navegar para **Produtos e Serviços**. <br> 2) Clicar no botão "Novo Produto/Serviço". <br> 3) No modal, preencher Código, selecionar "Produto" no Tipo, Descrição e Unidade. <br> 4) Clicar em "Salvar".
 **Requisitos associados** | RF-04
 **Resultado esperado** | O modal é fechado e o novo produto é adicionado e exibido na tabela da página principal.
 **Dados de entrada** | Código: 100, Tipo: Produto, Descrição: "Produto Teste", Unidade: "PC"
@@ -116,9 +116,9 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT10 - Adicionar Novo Serviço**
+**Caso de Teste** | **CT10 - Adicionar Novo Serviço**
 :--- | :---
-**Procedimento** | 1) Navegar para `produtos_servicos.html`. <br> 2) Clicar no botão "Novo Produto/Serviço". <br> 3) No modal, preencher Código, selecionar "Serviço" no Tipo, Descrição e Unidade (ex: HORA). <br> 4) Clicar em "Salvar".
+**Procedimento** | 1) Navegar para **Produtos e Serviços**. <br> 2) Clicar no botão "Novo Produto/Serviço". <br> 3) No modal, preencher Código, selecionar "Serviço" no Tipo, Descrição e Unidade (ex: HORA). <br> 4) Clicar em "Salvar".
 **Requisitos associados** | RF-04
 **Resultado esperado** | O modal é fechado e o novo serviço é adicionado e exibido na tabela da página principal.
 **Dados de entrada** | Código: 101, Tipo: Serviço, Descrição: "Consultoria", Unidade: "HORA"
@@ -136,7 +136,7 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT12 - Finalizar Venda de Produto (Pagamento)**
+**Caso de Teste** | **CT12 - Finalizar Venda de Produto (Pagamento)**
 :--- | :---
 **Procedimento** | 1) Em **Faturamento de Produtos**, após adicionar produtos (CT11). <br> 2) Clicar em "Efetuar Pagamento". <br> 3) No modal "Efetuar Pagamento", selecionar uma Forma de Pagamento (ex: "Dinheiro"). <br> 4) Clicar em "Finalizar Venda".
 **Requisitos associados** | RF-05
@@ -176,9 +176,9 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT16 - Editar Venda "Em Aberto"**
+**Caso de Teste** | **CT16 - Editar Venda "Em Aberto"**
 :--- | :---
-**Procedimento** | 1) Navegar para `vendas_aberto.html`. <br> 2) Localizar uma venda gravada (do CT15). <br> 3) Clicar no ícone de lápis (editar) correspondente.
+**Procedimento** | 1) Navegar para **Vendas em Aberto**. <br> 2) Localizar uma venda gravada (do CT15). <br> 3) Clicar no ícone de lápis (editar) correspondente.
 **Requisitos associados** | RF-07
 **Resultado esperado** | O usuário é redirecionado de volta para a tela de faturamento (produtos ou serviços) com todos os dados da venda (cliente, itens) pré-carregados para edição.
 **Dados de entrada** | N/A (Navegação)
@@ -186,9 +186,9 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT17 - Adicionar Nova Conta a Pagar**
+**Caso de Teste** | **CT17 - Adicionar Nova Conta a Pagar**
 :--- | :---
-**Procedimento** | 1) Navegar para `pagar.html`. <br> 2) Clicar em "+ Nova Conta". <br> 3) Preencher o modal "Adicionar Nova Conta a Pagar" (Status, Tipo, Valor, Descrição, Vencimento). <br> 4) Clicar em "Salvar".
+**Procedimento** | 1) Navegar para **Contas a Pagar**. <br> 2) Clicar em "+ Nova Conta". <br> 3) Preencher o modal "Adicionar Nova Conta a Pagar" (Status, Tipo, Valor, Descrição, Vencimento). <br> 4) Clicar em "Salvar".
 **Requisitos associados** | RF-08
 **Resultado esperado** | O modal é fechado e a nova conta é adicionada e exibida na tabela.
 **Dados de entrada** | Status: Pendente, Tipo: "Fornecedor", Valor: 200.00, Descrição: "Material Escritório"
@@ -196,9 +196,9 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT18 - Adicionar Nova Conta a Receber**
+**Caso de Teste** | **CT18 - Adicionar Nova Conta a Receber**
 :--- | :---
-**Procedimento** | 1) Navegar para `receber.html`. <br> 2) Clicar em "Nova Fatura". <br> 3) Preencher o modal "Adicionar/Editar Conta a Receber" (Status, Tipo, Cliente, Descrição, Vencimento, Valor). <br> 4) Clicar em "Salvar".
+**Procedimento** | 1) Navegar para **Contas a Receber**. <br> 2) Clicar em "Nova Fatura". <br> 3) Preencher o modal "Adicionar/Editar Conta a Receber" (Status, Tipo, Cliente, Descrição, Vencimento, Valor). <br> 4) Clicar em "Salvar".
 **Requisitos associados** | RF-08
 **Resultado esperado** | O modal é fechado e a nova fatura é adicionada e exibida na tabela.
 **Dados de entrada** | Status: Pendente, Tipo: "Serviço", Cliente: "Cliente Teste", Valor: 500.00
@@ -206,9 +206,9 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT19 - Adicionar Compromisso na Agenda**
+**Caso de Teste** | **CT19 - Adicionar Compromisso na Agenda**
 :--- | :---
-**Procedimento** | 1) Navegar para `agenda.html`. <br> 2) Clicar em "Novo Compromisso". <br> 3) No modal, inserir a "Descrição do Compromisso" e a "Data do Compromisso". <br> 4) Clicar em "Salvar".
+**Procedimento** | 1) Navegar para **Agenda**. <br> 2) Clicar em "Novo Compromisso". <br> 3) No modal, inserir a "Descrição do Compromisso" e a "Data do Compromisso". <br> 4) Clicar em "Salvar".
 **Requisitos associados** | RF-09
 **Resultado esperado** | O modal é fechado. (A validação visual do evento no calendário depende da implementação JS da agenda).
 **Dados de entrada** | Descrição: "Reunião Equipe", Data: (data futura)
@@ -216,9 +216,9 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT20 - Alternar Visualização da Agenda (Diário/Mensal)**
+**Caso de Teste** | **CT20 - Alternar Visualização da Agenda (Diário/Mensal)**
 :--- | :---
-**Procedimento** | 1) Navegar para `agenda.html`. <br> 2) Clicar no botão "Diário/Mensal".
+**Procedimento** | 1) Navegar para **Agenda**. <br> 2) Clicar no botão "Diário/Mensal".
 **Requisitos associados** | RF-09
 **Resultado esperado** | A visualização da agenda alterna entre a exibição do calendário mensal e a exibição da agenda diária (por horas).
 **Dados de entrada** | N/A (Clique)
@@ -226,9 +226,9 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT21 - Teste de Responsividade (Menu Sidebar)**
+**Caso de Teste** | **CT21 - Teste de Responsividade (Menu Sidebar)**
 :--- | :---
-**Procedimento** | 1) Acessar qualquer página logada (ex: `dashboard.html`) em um desktop. <br> 2) Reduzir a largura da janela do navegador (simulando um dispositivo móvel). <br> 3) Observar o menu lateral. <br> 4) Clicar no botão "hamburger" (ícone de lista) que aparece no topo.
+**Procedimento** | 1) Acessar qualquer página logada (ex: **Dashboard**) em um desktop. <br> 2) Reduzir a largura da janela do navegador (simulando um dispositivo móvel). <br> 3) Observar o menu lateral. <br> 4) Clicar no botão "hamburger" (ícone de lista) que aparece no topo.
 **Requisitos associados** | RNF-02
 **Resultado esperado** | Em larguras menores, o menu lateral (sidebar) desaparece. O botão "hamburger" é exibido. Ao clicar no botão, o menu (offcanvas) desliza para a tela.
 **Dados de entrada** | N/A (Redimensionamento de tela)
@@ -236,9 +236,9 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT22 - Interação com Filtros (Relatório Produtos/Serviços)**
+**Caso de Teste** | **CT22 - Interação com Filtros (Relatório Produtos/Serviços)**
 :--- | :---
-**Procedimento** | 1) Acessar `rel_produtos_servicos.html` (após login). <br> 2) Interagir com os campos de filtro (Tipo, Fornecedor, Produtos/Serviços, Saldo). <br> 3) Clicar no botão "Filtrar".
+**Procedimento** | 1) Acessar **Relatório de Produtos e Serviços** (após login). <br> 2) Interagir com os campos de filtro (Tipo, Fornecedor, Produtos/Serviços, Saldo). <br> 3) Clicar no botão "Filtrar".
 **Requisitos associados** | RF-10, RNF-01
 **Resultado esperado** | A página permite a seleção de valores nos filtros e o clique no botão "Filtrar" (a ação de filtragem real depende do backend, mas a interação da interface é testada). O acesso sem login é bloqueado.
 **Dados de entrada** | N/A (Interação com a UI)
@@ -246,9 +246,9 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT23 - Interação com Filtros (Relatório Financeiro)**
+**Caso de Teste** | **CT23 - Interação com Filtros (Relatório Financeiro)**
 :--- | :---
-**Procedimento** | 1) Acessar `rel_financeiro.html` (após login). <br> 2) Interagir com os campos de filtro (Período, Status, Tipo, Cliente/Fornecedor). <br> 3) Clicar no botão "Filtrar".
+**Procedimento** | 1) Acessar **Relatório Financeiro** (após login). <br> 2) Interagir com os campos de filtro (Período, Status, Tipo, Cliente/Fornecedor). <br> 3) Clicar no botão "Filtrar".
 **Requisitos associados** | RF-11, RNF-01
 **Resultado esperado** | A página permite a seleção de valores nos filtros e o clique no botão "Filtrar". O gráfico SVG e a tabela são exibidos. O acesso sem login é bloqueado.
 **Dados de entrada** | N/A (Interação com a UI)
@@ -256,11 +256,11 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT24 - Interação com Filtros (Relatório Faturamento)**
+**Caso de Teste** | **CT24 - Interação com Filtros (Relatório Faturamento)**
 :--- | :---
-**Procedimento** | 1) Acessar `rel_faturamento.html` (após login). <br> 2) Interagir com os campos de filtro (Período, Tipo, Forma de Pagamento). <br> 3) Clicar no botão "Filtrar".
+**Procedimento** | 1) Acessar **Relatório de Faturamento** (após login). <br> 2) Interagir com os campos de filtro (Período, Tipo, Forma de Pagamento). <br> 3) Clicar no botão "Filtrar".
 **Requisitos associados** | RF-12, RNF-01
-**Resultado esperado** | A página permite a seleção de valores nos filtros e o clique no botão "Filtrar". O acesso sem login é bloqueado (verificado pelo script `if (!usuarioCorrente.email_login)`).
+**Resultado esperado** | A página permite a seleção de valores nos filtros e o clique no botão "Filtrar". O acesso sem login é bloqueado (verificado pelo script `if (!loggedUser())`).
 **Dados de entrada** | N/A (Interação com a UI)
 **Resultado obtido** | Sucesso
 
@@ -276,9 +276,9 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT26 - Teste de Desempenho (Carga de Página) - (Planejado)**
+**Caso de Teste** | **CT26 - Teste de Desempenho (Carga de Página) - (Planejado)**
 :--- | :---
-**Procedimento** | 1) (Planejado) Utilizar ferramentas (ex: Lighthouse, PageSpeed Insights) em ambiente de homologação. <br> 2) Medir o tempo de carregamento (LCP - Largest Contentful Paint) da `dashboard.html` após o login.
+**Procedimento** | 1) (Planejado) Utilizar ferramentas (ex: Lighthouse, PageSpeed Insights) em ambiente de homologação. <br> 2) Medir o tempo de carregamento (LCP - Largest Contentful Paint) da **Dashboard** após o login.
 **Requisitos associados** | RNF-03
 **Resultado esperado** | (Planejado) O tempo de LCP deve ser inferior a 2.5 segundos, conforme especificado no requisito RNF-03.
 **Dados de entrada** | N/A (Ferramenta de medição)
@@ -286,7 +286,7 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 
 ---
 
-**Caso de Teste** | `rever` **CT27 - Teste de Confiabilidade (Estresse) - (Planejado)**
+**Caso de Teste** | **CT27 - Teste de Confiabilidade (Estresse) - (Planejado)**
 :--- | :---
 **Procedimento** | 1) (Planejado) Utilizar ferramenta de teste de carga (ex: JMeter, K6) em ambiente de homologação. <br> 2) Simular 50 usuários concorrentes (conforme RNF-05) realizando as ações de Login (CT03) e Faturamento (CT11) por um período de 10 minutos.
 **Requisitos associados** | RNF-05, RNF-03
