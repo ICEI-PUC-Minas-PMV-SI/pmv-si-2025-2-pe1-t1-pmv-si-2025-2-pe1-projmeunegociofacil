@@ -3,6 +3,7 @@
 
 <head>
   <title>Relatório Financeiro</title>
+  <script type="module" src="assets/js/rel-financeiro.js"></script>
 </head>
 
 <body>
@@ -20,41 +21,43 @@
           <div class="col-12 col-md-6">
             <div class="d-flex align-items-center flex-wrap gap-2">
               <label class="me-2 mb-0 fw-semibold">Período:</label>
-              <input type="text" class="form-control" style="max-width: 200px;" value="01/01/2025">
+              <input type="date" class="form-control" style="max-width: 200px;" id="filtroInicio">
               <span class="mx-1">a</span>
-              <input type="text" class="form-control" style="max-width: 200px;" value="31/12/2025">
+              <input type="date" class="form-control" style="max-width: 200px;" id="filtroFim">
             </div>
           </div>
           <div class="col-12 col-md-6">
             <div class="d-flex align-items-center justify-content-md-end flex-wrap gap-2">
               <label class="me-2 mb-0 fw-semibold">Status:</label>
-              <select class="form-select" style="max-width: 260px;">
-                <option selected>Em aberto/Pago</option>
+              <select class="form-select" style="max-width: 260px;" id="filtroStatus">
+                <option value="">Todos</option>
+                <option value="Em aberto">Em aberto</option>
+                <option value="Pago">Pago</option>
               </select>
             </div>
           </div>
           <div class="col-12 col-md-6">
             <div class="d-flex align-items-center flex-wrap gap-2">
               <label class="me-2 mb-0 fw-semibold">Tipo:</label>
-              <div class="input-group" style="max-width: 260px;">
-                <input type="text" class="form-control" placeholder="A pagar/A receber">
-                <button class="btn btn-outline-secondary" type="button"><i class="bi bi-caret-down-fill"></i></button>
-              </div>
+              <select class="form-select" style="max-width: 260px;" id="filtroTipo">
+                <option value="">Todos</option>
+                <option value="receber">A receber</option>
+                <option value="pagar">A pagar</option>
+              </select>
             </div>
           </div>
           <div class="col-12 col-md-6">
             <div class="d-flex align-items-center justify-content-md-end flex-wrap gap-2">
               <label class="me-2 mb-0 fw-semibold">Cliente/Fornecedor:</label>
-              <div class="input-group" style="max-width: 360px;">
-                <input type="text" class="form-control" placeholder="Selecione o cliente/fornecedor">
-                <button class="btn btn-outline-secondary" type="button"><i class="bi bi-caret-down-fill"></i></button>
-              </div>
+              <select class="form-select" style="max-width: 360px;" id="filtroPessoa">
+                <option value="">Todos</option>
+              </select>
 
             </div>
           </div>
           <div class="col-12">
             <div class="d-flex justify-content-md-end  gap-2">
-              <button class="btn btn-primary">Filtrar</button>
+              <button class="btn btn-primary" type="button" id="btnFiltrarFinanceiro">Filtrar</button>
             </div>
           </div>
         </div>
@@ -199,37 +202,7 @@
                   <th class="text-center">Ação</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>10/05/2025</td>
-                  <td>Maria de Oliveira</td>
-                  <td>Em aberto</td>
-                  <td>Dinheiro</td>
-                  <td>110,00</td>
-                  <td class="text-center">
-                    <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-trash3-fill"></i></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>25/06/2025</td>
-                  <td>José da Silva</td>
-                  <td>Em aberto</td>
-                  <td>Crédito 1x</td>
-                  <td>85,00</td>
-                  <td class="text-center">
-                    <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-trash3-fill"></i></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>01/07/2025</td>
-                  <td>Marcos Aurélio</td>
-                  <td>Pago</td>
-                  <td>Credito 10x</td>
-                  <td>240,00</td>
-                  <td class="text-center">
-                    <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-trash3-fill"></i></button>
-                  </td>
-                </tr>
+              <tbody id="corpoRelFinanceiro">
               </tbody>
             </table>
           </div>
