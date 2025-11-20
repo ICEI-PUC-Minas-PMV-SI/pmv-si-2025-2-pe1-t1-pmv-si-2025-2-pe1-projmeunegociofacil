@@ -1,6 +1,6 @@
 import { loggedUser, logoutUser } from "./auth.js";
 import { LOGIN_URL } from "./config.js" 
-// Presume-se que o Bootstrap e seu CSS/JS estão carregados para usar 'bootstrap.Modal'
+
 
 // Joga a chamada da função em uma const para usar seus dados
 const usuarioCorrente = loggedUser(); 
@@ -21,9 +21,9 @@ function initPage() {
   renderizarTabela(); // Chamamos a função principal de renderização desta tela
 }
 
-// ===================================================
+// 
 //                CONTAS A RECEBER
-// ===================================================
+
 
 let contasReceber =
     JSON.parse(localStorage.getItem('contasReceber')) ||
@@ -63,7 +63,7 @@ function imprimirRecibo() {
 }
 
 
-// --- Renderizar Tabela Receber (Renomeada para renderizarTabela) ---
+// --- Renderizar Tabela Receber 
 function renderizarTabela() {
     const tabela = document.querySelector('#tabelaContasReceber tbody');
     if (!tabela) return; // Garante que só roda se a tabela existir
@@ -226,13 +226,12 @@ function excluirItem(id) { // Renomeada para ser a função principal desta tela
 
 
 // =====================================================================
-// A CORREÇÃO: Expondo as funções ao escopo global (window)
-// para que os eventos 'onclick' do HTML possam encontrá-las.
-// =====================================================================
+// para que os eventos 'onclick' do HTML possam encontrá-las
+
 window.gerarRecibo = gerarRecibo;
 window.abrirModalContaReceber = abrirModalContaReceber;
 window.salvarContaReceber = salvarContaReceber;
-window.excluirItem = excluirItem; // Importante: Mantive o nome 'excluirItem' para consistência
+window.excluirItem = excluirItem; // o nome 'excluirItem' para consistência
 
 
 window.addEventListener('load', initPage);
