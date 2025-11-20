@@ -1,9 +1,6 @@
 import { loggedUser } from "./auth.js";
 import { newMyId, makeDecimal } from "./utils.js";
 
-
-
-
 let selectedClient = null;
 let productsToSale = [];
 let totalWithDiscountGlobal = 0;
@@ -81,12 +78,64 @@ saveModal.addEventListener('show.bs.modal', verifyProductsIsValid)
 selectedPaymentInstallment.addEventListener('change', updatePayment)
 finishModal.addEventListener('hidden.bs.modal', () => { location.reload() })
 
+
+// UNCLOSED SALES
+
+const urlParams = new URLSearchParams(window.location.search);
+
+const unclosedId = urlParams.get('unclosed-sale');
+const currentUnclosedSale = allUserUnclosedSales().find(item => item.meuId == unclosedId)
+
+if (unclosedId && currentUnclosedSale) {
+    productsToSale = currentUnclosedSale.itens
+    renderProducts()
+    totalizerQuantity();
+    totalizerTotal();
+    renderTotalizerTotal();
+    if (currentUnclosedSale.clientesFornecedoresMeuId.meuId) {
+        selectedClient = currentUnclosedSale.clientesFornecedoresMeuId;
+        clientInput.value = selectedClient.nomeRazaoSocial;
+        saveClient.value = selectedClient.nomeRazaoSocial;
+        saveTelefone.value = selectedClient.telefone;
+        saveCpfCnpj.value = selectedClient.cpfCnpj;
+        buttonUnselectClient.innerHTML = `  
+                <div class="input-group-append">
+                <button id="unselect-client" class="btn btn-outline-secondary selected-client" type="button">x</button>
+                </div>`;
+    }
+}
+
+function deleteUnclosed() {
+    if (unclosedId && currentUnclosedSale) {
+        const allUnclosedTemp = allUnclosedSales()
+
+        if (allUnclosedTemp.length > 0) {
+            const indexToRemove = allUnclosedTemp.findIndex(sale => sale.meuId == unclosedId && sale.usuarioId === loggedUser().id);
+            if (indexToRemove > -1) {
+                allUnclosedTemp.splice(indexToRemove, 1);
+                localStorage.setItem('vendasEmAberto', JSON.stringify(allUnclosedTemp));
+            }
+        }
+
+    }
+}
+
+
 // INIT
 function allUserUnclosedSales() {
     try {
         return JSON.parse(localStorage.getItem('vendasEmAberto')).filter(item => {
             return item.usuarioId === loggedUser().id;
         });
+    }
+    catch {
+        return []
+    }
+}
+
+function allUnclosedSales() {
+    try {
+        return JSON.parse(localStorage.getItem('vendasEmAberto'));
     }
     catch {
         return []
@@ -161,8 +210,8 @@ function cancelSale() {
 }
 
 
-function totalizerQuantity(productsToSale) {
-    const quantify = productsToSale.reduce((acumulador, produto) => {
+function totalizerQuantity(iProductsToSale = productsToSale) {
+    const quantify = iProductsToSale.reduce((acumulador, produto) => {
         return acumulador + produto.quantidade;
     }, 0);
     renderTotalizerQuantity(quantify)
@@ -233,8 +282,8 @@ function makeInsertProduct(productToSearch) {
 
 }
 
-function renderProducts(productsToSale) {
-    const rowsHtml = productsToSale.map(product => {
+function renderProducts(iProductsToSale = productsToSale) {
+    const rowsHtml = iProductsToSale.map(product => {
         return `
         <tr data-id="${product.meuId}">
         <th class="text-center" scope="row">${product.meuId}</th>
@@ -516,13 +565,14 @@ function save() {
             "formaDePagamento": selectedPaymentInstallment.value
 
         };
-        const currentUnslosedSales = allUserUnclosedSales()
+        const currentUnslosedSales = allUnclosedSales()
         currentUnslosedSales.push(unclosedSale);
         localStorage.setItem('vendasEmAberto', JSON.stringify(currentUnslosedSales));
         const modalInstance = bootstrap.Modal.getInstance(saveModal);
         if (modalInstance) {
             modalInstance.hide();
         }
+        deleteUnclosed()
         alert('Venda gravada com sucesso!')
         location.reload();
 
@@ -740,7 +790,7 @@ function finishSale() {
 
     const allContasAtualizado = [...allContas, ...newPayments];
     localStorage.setItem('contasReceber', JSON.stringify(allContasAtualizado));
-
+    deleteUnclosed()
     htmlFinishModal.innerHTML = ` 
         <div class="alert alert-success text-center" role="alert">
         A venda foi concluída com sucesso!
@@ -769,8 +819,8 @@ function finishSale() {
     }
 }
 
-totalizerQuantity([]);
-totalizerTotal([]);
+totalizerQuantity();
+totalizerTotal();
 searchClients();
 listOfClientes();
 listOfProductsSearch();

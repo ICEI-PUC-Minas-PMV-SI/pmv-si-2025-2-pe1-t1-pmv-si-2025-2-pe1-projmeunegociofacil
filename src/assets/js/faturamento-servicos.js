@@ -86,12 +86,62 @@ addInputsQuantity.addEventListener('input', updateInputTotal)
 addInputsUnitPrice.addEventListener('input', updateInputTotal)
 btnAddInputs.addEventListener('click', addInput)
 
+const urlParams = new URLSearchParams(window.location.search);
+
+const unclosedId = urlParams.get('unclosed-sale');
+const currentUnclosedSale = allUserUnclosedSales().find(item => item.meuId == unclosedId)
+
+if (unclosedId && currentUnclosedSale) {
+    productsToSale = currentUnclosedSale.itens
+    inputsToSale = currentUnclosedSale.insumosServico
+    renderProducts()
+    totalizerQuantity();
+    totalizerTotal();
+    renderTotalizerTotal();
+    renderInputs();
+    if (currentUnclosedSale.clientesFornecedoresMeuId.meuId) {
+        selectedClient = currentUnclosedSale.clientesFornecedoresMeuId;
+        clientInput.value = selectedClient.nomeRazaoSocial;
+        saveClient.value = selectedClient.nomeRazaoSocial;
+        saveTelefone.value = selectedClient.telefone;
+        saveCpfCnpj.value = selectedClient.cpfCnpj;
+        buttonUnselectClient.innerHTML = `  
+                <div class="input-group-append">
+                <button id="unselect-client" class="btn btn-outline-secondary selected-client" type="button">x</button>
+                </div>`;
+    }
+}
+
+function deleteUnclosed() {
+    if (unclosedId && currentUnclosedSale) {
+        const allUnclosedTemp = allUnclosedSales()
+
+        if (allUnclosedTemp.length > 0) {
+            const indexToRemove = allUnclosedTemp.findIndex(sale => sale.meuId == unclosedId && sale.usuarioId === loggedUser().id);
+            if (indexToRemove > -1) {
+                allUnclosedTemp.splice(indexToRemove, 1);
+                localStorage.setItem('vendasEmAberto', JSON.stringify(allUnclosedTemp));
+            }
+        }
+
+    }
+}
+
 // INIT
 function allUserUnclosedSales() {
     try {
         return JSON.parse(localStorage.getItem('vendasEmAberto')).filter(item => {
             return item.usuarioId === loggedUser().id;
         });
+    }
+    catch {
+        return []
+    }
+}
+
+function allUnclosedSales() {
+    try {
+        return JSON.parse(localStorage.getItem('vendasEmAberto'));
     }
     catch {
         return []
@@ -657,13 +707,14 @@ function save() {
             "formaDePagamento": selectedPaymentInstallment.value
 
         };
-        const currentUnslosedSales = allUserUnclosedSales()
+        const currentUnslosedSales = allUnclosedSales()
         currentUnslosedSales.push(unclosedSale);
         localStorage.setItem('vendasEmAberto', JSON.stringify(currentUnslosedSales));
         const modalInstance = bootstrap.Modal.getInstance(saveModal);
         if (modalInstance) {
             modalInstance.hide();
         }
+        deleteUnclosed()
         alert('Venda gravada com sucesso!')
         location.reload();
 
@@ -881,6 +932,7 @@ function finishSale() {
         const finishModalInstance = bootstrap.Modal.getOrCreateInstance(finishModal);
         finishModalInstance.show();
     } else {
+        deleteUnclosed()
         alert('Venda gravada com sucesso!');
         location.reload();
     }
