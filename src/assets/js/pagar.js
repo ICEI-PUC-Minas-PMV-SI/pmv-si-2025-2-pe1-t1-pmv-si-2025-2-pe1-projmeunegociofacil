@@ -1,5 +1,5 @@
 import { loggedUser, logoutUser } from "./auth.js";
-import { LOGIN_URL } from "./config.js" // Presume-se que LOGIN_URL vem deste arquivo
+import { LOGIN_URL } from "./config.js" 
 
 // Joga a chamada da função em uma const para usar seus dados
 const usuarioCorrente = loggedUser(); 
