@@ -187,9 +187,7 @@ function salvarProdutoServico() {
 }
 
 
-// =========================================
 // EXCLUIR
-// =========================================
 
 function excluirItem(id) {
     if (!confirm("Tem certeza que deseja excluir este item?")) return;
