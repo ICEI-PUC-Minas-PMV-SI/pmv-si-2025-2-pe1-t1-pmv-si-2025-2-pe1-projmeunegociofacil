@@ -3,14 +3,10 @@
 
 <head>
   <title>Agenda</title>
-  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  <!--<script src="https://cdn.tailwindcss.com"></script>-->
   
 
-  <style>
-    textarea {
-            resize: none;
-        }
-  </style>
+  
 </head>
 
 <body>
@@ -54,21 +50,21 @@
       line-height: 1.4;
           }
           textarea {
-            resize: none; font-size: clamp(0.3rem, 0.9vw, 3rem);
-      line-height: 1.4;
+            resize: none;
         }
-          .calendario-grid {
-            border-collapse: collapse; width: 100%; max-width: 1200px; margin: 0 auto;
-          }
         </style>
-    <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg p-6">
+    <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg p-3 sm:p-6">
+        
+        <!-- Cabeçalho do Mês -->
         <div class="flex justify-between items-center mb-4">
-            <button id="btn-ant" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">&lt;</button>
-            <h2 id="mes-ano" class="text-2xl font-bold text-gray-800"></h2>
-            <button id="btn-prox" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"> &gt;</button>
+            <button id="btn-ant" class="px-3 py-1 sm:px-4 sm:py-2 text-sm sm:text-base bg-gray-200 rounded-lg hover:bg-gray-300">&lt; <span class="hidden sm:inline">Ant</span></button>
+            <h2 id="mes-ano" class="text-lg sm:text-2xl font-bold text-gray-800 text-center"></h2>
+            <button id="btn-prox" class="px-3 py-1 sm:px-4 sm:py-2 text-sm sm:text-base bg-gray-200 rounded-lg hover:bg-gray-300"><span class="hidden sm:inline">Prox</span> &gt;</button>
         </div>
 
-        <div class="grid grid-cols-7 gap-2 text-center font-semibold text-gray-600 mb-2">
+        <!-- Dias da Semana -->
+        <!-- Mantém o grid de 7 colunas sempre, mas com texto menor no mobile -->
+        <div class="grid grid-cols-7 gap-1 sm:gap-2 text-center font-semibold text-gray-600 mb-2 text-xs sm:text-base">
             <div>Dom</div>
             <div>Seg</div>
             <div>Ter</div>
@@ -78,71 +74,96 @@
             <div>Sáb</div>
         </div>
 
-        <div id="calendario-grid" class="grid grid-cols-7 gap-2"></div>
+        <!-- Grade do Calendário (35 células) -->
+        <!-- Mantém 7 colunas (grid-cols-7) mesmo no mobile -->
+        <div id="calendario-grid" class="grid grid-cols-7 gap-1 sm:gap-2">
+            <!-- As células serão geradas pelo JavaScript -->
+        </div>
 
     </div>
 
-        <script>
+    <script>
         const gridCalendario = document.getElementById('calendario-grid');
         const cabecalhoMesAno = document.getElementById('mes-ano');
         const btnAnterior = document.getElementById('btn-ant');
         const btnProximo = document.getElementById('btn-prox');
 
+        // Variável principal
         let mesEmExibicao = new Date();
-        let compromissos = {};
+
+        // Armazenamento simples para os compromissos
+        let compromissos = {}; 
 
         function renderizarCalendario() {
-          gridCalendario.innerHTML = '';
-          
-          const ano = mesEmExibicao.getFullYear();
-          const mes = mesEmExibicao.getMonth();
+            gridCalendario.innerHTML = '';
 
-          cabecalhoMesAno.textContent = `${mesEmExibicao.toLocaleString('pt-br', { month: 'long' })} de ${ano}`;
-          
-          const primeiroDiaSemana = new Date(ano, mes, 1).getDay();
-          const numDiasNoMes = new Date(ano, mes + 1, 0).getDate();
+            const ano = mesEmExibicao.getFullYear();
+            const mes = mesEmExibicao.getMonth();
 
-          let diaAtual = 1;
+            cabecalhoMesAno.textContent = `${mesEmExibicao.toLocaleString('pt-br', { month: 'long' })} ${ano}`;
 
-          for (let i = 0; i < 42; i++) {
+            const primeiroDiaSemana = new Date(ano, mes, 1).getDay();
+            const numDiasNoMes = new Date(ano, mes + 1, 0).getDate();
+
+            let diaAtual = 1;
+
+            // Loop para 35 ou 42 células (para garantir que o mês caiba sempre)
+            // Usei 42 (6 linhas) para garantir meses longos que começam no sábado
+            const totalCelulas = 42; 
+
+            for (let i = 0; i < totalCelulas; i++) {
                 const celula = document.createElement('div');
-                celula.className = 'border rounded-lg p-2 h-36 flex flex-col';
-
+                
+                // Estrutura mantida: padding menor no mobile (p-1) e altura menor (h-24 vs h-36)
+                celula.className = 'border rounded sm:rounded-lg p-1 sm:p-2 flex flex-col h-24 sm:h-36 bg-white relative'; 
+                
                 let numeroDia = null;
                 let chaveCompromisso = '';
 
                 if (i >= primeiroDiaSemana && diaAtual <= numDiasNoMes) {
+                    // Dia Válido
                     numeroDia = diaAtual;
                     
                     const diaFormatado = String(numeroDia).padStart(2, '0');
                     const mesFormatado = String(mes + 1).padStart(2, '0');
                     chaveCompromisso = `${ano}-${mesFormatado}-${diaFormatado}`;
 
-                    celula.classList.add('bg-white');
+                    celula.classList.add('border-gray-200'); 
                     
+                    // Número do dia
                     const spanDia = document.createElement('span');
-                    spanDia.className = 'font-semibold text-gray-900';
+                    spanDia.className = 'font-semibold text-gray-900 text-xs sm:text-base mb-1';
                     spanDia.textContent = numeroDia;
+                    celula.appendChild(spanDia);
                     
+                    // Caixa de Texto
                     const caixinhaCompromisso = document.createElement('textarea');
-                    caixinhaCompromisso.className = 'w-full flex-grow mt-1 p-1 text-xs border rounded focus:outline-none focus:ring-2 focus:ring-blue-400';
-                    
+                    // Texto bem pequeno no mobile (text-[10px]) para caber
+                    caixinhaCompromisso.className = 'w-full h-full p-1 text-[10px] sm:text-xs border rounded focus:outline-none focus:ring-1 focus:ring-blue-400 bg-gray-50 focus:bg-white resize-none leading-tight';
+                    caixinhaCompromisso.placeholder = '.'; // Placeholder minimalista para economizar espaço
                     caixinhaCompromisso.dataset.chave = chaveCompromisso;
                     
                     if (compromissos[chaveCompromisso]) {
                         caixinhaCompromisso.value = compromissos[chaveCompromisso];
+                        // Destaca visualmente se tem conteúdo
+                        caixinhaCompromisso.classList.add('bg-blue-50');
                     }
 
                     caixinhaCompromisso.addEventListener('input', (e) => {
                         compromissos[e.target.dataset.chave] = e.target.value;
+                        if(e.target.value) {
+                            e.target.classList.add('bg-blue-50');
+                        } else {
+                            e.target.classList.remove('bg-blue-50');
+                        }
                     });
 
-                    celula.appendChild(spanDia);
                     celula.appendChild(caixinhaCompromisso);
                     
                     diaAtual++;
                 } else {
-                    celula.classList.add('bg-gray-50', 'opacity-50');
+                    // Célula vazia (mantendo a estrutura)
+                    celula.classList.add('bg-gray-100', 'opacity-60');
                 }
 
                 gridCalendario.appendChild(celula);
@@ -160,9 +181,8 @@
         });
 
         renderizarCalendario();
-        
 
-        </script>
+    </script>
 
           <!-- <tbody class="text-center">
             <tr>
