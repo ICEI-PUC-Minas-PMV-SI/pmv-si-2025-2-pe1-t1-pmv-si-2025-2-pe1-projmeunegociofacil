@@ -113,8 +113,8 @@ const htmlTbodyProducts = currentSale.itens.map(product => {
         <td>${product.descricao}</td>
         <td class="text-center">${product.unidade}</td>
         <td class="text-center">${product.quantidade}</td>
-        <td class="text-end">${makeDecimal(product.precoVenda / product.quantidade)}</td>
         <td class="text-end">${makeDecimal(product.precoVenda)}</td>
+        <td class="text-end">${makeDecimal(product.precoVenda * product.quantidade)}</td>
         </tr>
   `;
 }).join('');

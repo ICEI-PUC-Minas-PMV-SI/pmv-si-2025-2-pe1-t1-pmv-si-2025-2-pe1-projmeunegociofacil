@@ -104,7 +104,7 @@ const saleDateString = new Date(currentSale.dataVenda).toLocaleDateString('pt-BR
 const buyerName = currentClient.nomeRazaoSocial
 
 
-const htmlInputsData = `<span><strong>Produtos: </strong>${makeDecimal(currentSale.valorTotal-totalizerInputs())}</span><br>
+const htmlInputsData = `<span><strong>Serviços: </strong>${makeDecimal(currentSale.valorTotal-totalizerInputs())}</span><br>
                         <span><strong>Insumos: </strong>${makeDecimal(totalizerInputs())}</span><br>
                         `
 const htmlCalcDiscountData = ` <span><strong>Subtotal: </strong>${makeDecimal(currentSale.valorTotal)}</span><br>
@@ -136,8 +136,8 @@ const htmlTbodyProducts = currentSale.itens.map(product => {
         <td>${product.descricao}</td>
         <td class="text-center">${product.unidade}</td>
         <td class="text-center">${product.quantidade}</td>
-        <td class="text-end">${makeDecimal(product.precoVenda / product.quantidade)}</td>
         <td class="text-end">${makeDecimal(product.precoVenda)}</td>
+        <td class="text-end">${makeDecimal(product.precoVenda * product.quantidade)}</td>
         </tr>
   `;
 }).join('');
