@@ -41,6 +41,8 @@
                                         <th scope="col">Tipo</th>
                                         <th scope="col">Descrição</th>
                                         <th scope="col">Unidade</th>
+                                        <th scope="col">Preço Venda</th>
+                                        <th scope="col">Estoque</th>
                                         <th scope="col">Ação</th>
                                     </tr>
                                 </thead>
@@ -51,6 +53,8 @@
                                         <td>Produto</td>
                                         <td>Biscoito Recheado</td>
                                         <td>UN</td>
+                                        <td>R$ 0.00</td>
+                                        <td>0</td>
                                         <td>
                                             <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
                                                 data-bs-target="#produtoServicoModal"
@@ -66,6 +70,8 @@
                                         <td>Produto</td>
                                         <td>Detergente</td>
                                         <td>UN</td>
+                                        <td>R$ 0.00</td>
+                                        <td>0</td>
                                         <td>
                                             <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
                                                 data-bs-target="#produtoServicoModal"
@@ -81,6 +87,8 @@
                                         <td>Serviço</td>
                                         <td>Pintura de Porta</td>
                                         <td>-</td>
+                                        <td>R$ 0.00</td>
+                                        <td>0</td>
                                         <td>
                                             <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
                                                 data-bs-target="#produtoServicoModal"
@@ -113,11 +121,11 @@
                         <div class="mb-3">
                             <label for="modalCodigo" class="form-label">Código</label>
                             <input type="text" class="form-control" id="modalCodigo"
-                                placeholder="Código do produto/serviço">
+                                placeholder="Código do produto/serviço" required>
                         </div>
                         <div class="mb-3">
                             <label for="modalTipo" class="form-label">Tipo</label>
-                            <select class="form-select" id="modalTipo">
+                            <select class="form-select" id="modalTipo" required>
                                 <option value="">Selecione...</option>
                                 <option value="Produto">Produto</option>
                                 <option value="Serviço">Serviço</option>
@@ -126,13 +134,29 @@
                         <div class="mb-3">
                             <label for="modalDescricao" class="form-label">Descrição</label>
                             <textarea class="form-control" id="modalDescricao" rows="3"
-                                placeholder="Descrição detalhada do item"></textarea>
+                                placeholder="Descrição detalhada do item" required></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="modalUnidade" class="form-label">Unidade</label>
-                            <input type="text" class="form-control" id="modalUnidade" placeholder="Ex: UN, KG, HORA">
+                            <input type="text" class="form-control" id="modalUnidade" placeholder="Ex: UN, KG, HORA" required>
                         </div>
-                    </form>
+
+                        <div class="mb-3">
+                            <label for="modalPrecoVenda" class="form-label">Preço de Venda</label>
+                            <input type="number" step="0.01" class="form-control" id="modalPrecoVenda" 
+                                placeholder="Preço que será vendido (R$)" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalPrecoCusto" class="form-label">Preço de Custo</label>
+                            <input type="number" step="0.01" class="form-control" id="modalPrecoCusto" 
+                                placeholder="Custo do produto/serviço (R$)" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalEstoqueInicial" class="form-label">Estoque Inicial</label>
+                            <input type="number" class="form-control" id="modalEstoqueInicial" 
+                                placeholder="Quantidade inicial em estoque" required>
+                        </div>
+                        </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -141,7 +165,7 @@
             </div>
         </div>
     </div>
-    <script type= "module" src="../assets/js/produtos_servicos.js"></script>
+    <script type="module" src="../assets/js/produtos_servicos.js"></script>
 
 </body>
 

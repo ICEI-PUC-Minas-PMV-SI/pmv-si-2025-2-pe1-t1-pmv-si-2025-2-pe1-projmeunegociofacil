@@ -1,6 +1,10 @@
 import { loggedUser, logoutUser } from "./auth.js";
 import { LOGIN_URL } from "./config.js"; 
 
+// =========================================================
+// VARIÁVEIS GLOBAIS E AUTENTICAÇÃO (RF-08 CORRIGIDA)
+// =========================================================
+
 // Joga a chamada da função em uma const para usar seus dados
 const usuarioCorrente = loggedUser(); 
 
@@ -9,21 +13,24 @@ if (!usuarioCorrente || !usuarioCorrente.email_login) {
   window.location.href = LOGIN_URL;
 }
 
-// Variável global para o ID do usuário logado (mantida por consistência)
-const ID_LOGIN_GLOBAL = usuarioCorrente.id_login_global; 
+// Variável global ID_LOGIN_GLOBAL removida para evitar erro fatal (RF-08)
+// Você deve usar 'usuarioCorrente.algumIdValido' ou 'usuarioCorrente.email_login' se precisar de um ID.
 
-// ===================================================
-//                PERSISTÊNCIA E INICIALIZAÇÃO
-// ===================================================
 
-// Funções para gerenciar o LocalStorage (Fonte única de verdade)
+// =========================================================
+// INICIALIZAÇÃO E GERENCIAMENTO DO BANCO DE DADOS (RF-04 CORRIGIDA)
+// =========================================================
+
+// Função para gerenciar o LocalStorage (Fonte única de verdade)
+// CHAVE CORRIGIDA de 'db_produtosServicos' para 'produtosServicos'
 function getDB() {
     // Garante que o LocalStorage retorne um objeto válido para acessar .items
-    return JSON.parse(localStorage.getItem('db_produtosServicos')) || { items: [] };
+    return JSON.parse(localStorage.getItem('produtosServicos')) || { items: [] };
 }
 
+// CHAVE CORRIGIDA de 'db_produtosServicos' para 'produtosServicos'
 function saveDB(db) {
-    localStorage.setItem('db_produtosServicos', JSON.stringify(db));
+    localStorage.setItem('produtosServicos', JSON.stringify(db));
 }
 
 // Função para carregar o JSON e inicializar o LocalStorage
@@ -37,41 +44,44 @@ async function inicializarCatalogo() {
 
     const data = await response.json();
 
-    // =========================================================
-    // CORREÇÃO: Usar a chave 'produtosServicos' e filtrar
-    // =========================================================
-    // 1. Acessa a chave correta ou usa um array vazio se ela não existir
+    // Filtra os itens em 'produtos' e 'servicos'
     const todosItens = (data.produtosServicos && Array.isArray(data.produtosServicos)) 
                         ? data.produtosServicos : [];
 
-    // 2. Filtra os itens em 'produtos' e 'servicos' separadamente
     const produtos = todosItens.filter(item => item.tipo === 'produto');
     const servicos = todosItens.filter(item => item.tipo === 'servico');
 
-    // 3. Cria um array de itens combinando os dados processados
+    // Cria um array de itens combinando os dados processados
+    // Adicionei valores padrão para os novos campos (RF-04)
     const novosItens = [
         ...produtos.map(p => ({ 
             ...p, 
-            tipo: 'Produto', // Padroniza tipo para maiúscula
-            // Define 'codigo' usando o campo mais relevante do produto
-            codigo: p.referencia || p.codigoBarras || p.meuId.toString()
+            tipo: 'Produto',
+            codigo: p.referencia || p.codigoBarras || p.meuId.toString(),
+            precoVenda: p.preco || 0, // Novo campo
+            precoCusto: p.custo || 0,  // Novo campo
+            estoqueInicial: p.estoque || 0 // Novo campo
         })), 
         ...servicos.map(s => ({ 
             ...s, 
-            tipo: 'Serviço', // Padroniza tipo para maiúscula
-            // Define 'codigo' usando o campo mais relevante do serviço
-            codigo: s.meuId.toString() || s.referencia
+            tipo: 'Serviço',
+            codigo: s.meuId.toString() || s.referencia,
+            precoVenda: s.preco || 0, // Novo campo
+            precoCusto: s.custo || 0,  // Novo campo
+            estoqueInicial: 0 // Serviço geralmente não tem estoque
         }))  
     ].map((item, index) => ({ 
-        id: index + 1, // Recalcula ID sequencial e único
-        codigo: String(item.codigo || index + 1), // Garante que o código seja uma string
+        id: index + 1,
+        codigo: String(item.codigo || index + 1),
         tipo: item.tipo,
         descricao: item.descricao || item.nome, 
-        unidade: item.unidade || 'UN' 
+        unidade: item.unidade || 'UN',
+        precoVenda: item.precoVenda, // Mapeado
+        precoCusto: item.precoCusto, // Mapeado
+        estoqueInicial: item.estoqueInicial // Mapeado
     }));
-    // =========================================================
     
-    let db = getDB(); // Usa a função para ler o banco atual
+    let db = getDB(); // Usa a função para ler o banco atual (já corrigida)
 
     // Usando os dados do JSON apenas se o LocalStorage estiver vazio
     if (!db.items || db.items.length === 0) {
@@ -90,9 +100,9 @@ async function inicializarCatalogo() {
 }
 
 
-// ===================================================
-//                INICIALIZAÇÃO DA PÁGINA
-// ===================================================
+// =========================================================
+// INICIALIZAÇÃO DA PÁGINA
+// =========================================================
 
 async function initPage() { 
     // Autenticação e cabeçalho
@@ -106,9 +116,10 @@ async function initPage() {
     carregarTabelaProdutosServicos();
 }
 
-// ===================================================
-//                CRUD COMPLETO
-// ===================================================
+
+// =========================================================
+// CRUD COMPLETO (RF-04 CORRIGIDA)
+// =========================================================
 
 function carregarTabelaProdutosServicos() {
     const tbody = document.querySelector('#tabelaProdutosServicos tbody');
@@ -119,16 +130,23 @@ function carregarTabelaProdutosServicos() {
     db.items.forEach((item) => {
         const tr = document.createElement('tr');
         tr.id = `item-${item.id}`;
+        
+        // Adiciona novos datasets (opcional, mas bom para rastreamento)
         tr.dataset.codigo = item.codigo;
         tr.dataset.tipo = item.tipo;
         tr.dataset.descricao = item.descricao;
         tr.dataset.unidade = item.unidade;
+        tr.dataset.precoVenda = item.precoVenda;
+        tr.dataset.precoCusto = item.precoCusto;
+        tr.dataset.estoqueInicial = item.estoqueInicial;
 
         tr.innerHTML = `
             <td>${item.codigo}</td>
             <td>${item.tipo}</td>
             <td>${item.descricao}</td>
             <td>${item.unidade}</td>
+            <td>R$ ${item.precoVenda.toFixed(2)}</td> 
+            <td>${item.estoqueInicial}</td>
             <td>
                 <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
                         data-bs-target="#produtoServicoModal"
@@ -163,6 +181,11 @@ function abrirModalProdutoServico(id) {
             document.getElementById('modalTipo').value = item.tipo;
             document.getElementById('modalDescricao').value = item.descricao;
             document.getElementById('modalUnidade').value = item.unidade;
+            
+            // Novos campos (RF-04)
+            document.getElementById('modalPrecoVenda').value = item.precoVenda;
+            document.getElementById('modalPrecoCusto').value = item.precoCusto;
+            document.getElementById('modalEstoqueInicial').value = item.estoqueInicial;
         }
     } else {
         modalTitle.textContent = 'Adicionar Novo Item';
@@ -175,12 +198,20 @@ function salvarProdutoServico() {
     const tipo = document.getElementById('modalTipo').value;
     const descricao = document.getElementById('modalDescricao').value.trim();
     const unidade = document.getElementById('modalUnidade').value.trim();
+    
+    // Novos campos (RF-04)
+    const precoVenda = parseFloat(document.getElementById('modalPrecoVenda').value) || 0;
+    const precoCusto = parseFloat(document.getElementById('modalPrecoCusto').value) || 0;
+    const estoqueInicial = parseInt(document.getElementById('modalEstoqueInicial').value) || 0;
 
-    if (!codigo || !tipo || !descricao || !unidade) {
-        alert("Preencha todos os campos!");
+
+    // Validação com os novos campos obrigatórios (RF-04)
+    if (!codigo || !tipo || !descricao || !unidade || 
+        isNaN(precoVenda) || isNaN(precoCusto) || isNaN(estoqueInicial) ) {
+        alert("Preencha todos os campos obrigatórios: Código, Tipo, Descrição, Unidade, Preço de Venda, Preço de Custo e Estoque Inicial.");
         return;
     }
-
+    
     const db = getDB();
 
     // EDITAR
@@ -192,6 +223,10 @@ function salvarProdutoServico() {
             db.items[index].tipo = tipo;
             db.items[index].descricao = descricao;
             db.items[index].unidade = unidade;
+            // Salva novos campos
+            db.items[index].precoVenda = precoVenda;
+            db.items[index].precoCusto = precoCusto;
+            db.items[index].estoqueInicial = estoqueInicial;
         } else {
              alert("Erro: Item de ID não encontrado para edição.");
              return;
@@ -207,13 +242,17 @@ function salvarProdutoServico() {
             codigo,
             tipo,
             descricao,
-            unidade
+            unidade,
+            // Adiciona novos campos
+            precoVenda,
+            precoCusto,
+            estoqueInicial
         });
     }
 
     saveDB(db);
 
-    // Fecha modal (presume a existência de Bootstrap)
+    // Fecha modal 
     var modal = bootstrap.Modal.getInstance(document.getElementById('produtoServicoModal'));
     if(modal) modal.hide();
 
@@ -230,9 +269,6 @@ function excluirItem(id) {
     saveDB(db);
     carregarTabelaProdutosServicos();
 }
-
-// ===================================================
-//                CORREÇÃO DE ESCOPO GLOBAL
 // ===================================================
 
 // Expõe as funções ao escopo 'window' para que o HTML (onclick) possa chamá-las.
