@@ -908,7 +908,7 @@ function finishSale() {
 
     const allContasAtualizado = [...allContas, ...newPayments];
     localStorage.setItem('contasReceber', JSON.stringify(allContasAtualizado));
-
+    deleteUnclosed()
     htmlFinishModal.innerHTML = ` 
         <div class="alert alert-success text-center" role="alert">
         A venda foi concluída com sucesso!
@@ -920,7 +920,7 @@ function finishSale() {
         </div>
         <div class="row m-4">
         <div class="col text-center">
-        <a type="button" class="btn btn-success" href="assets/static/receipt-services.html?id=${finishedSale.meuId}"
+        <a type="button" class="btn btn-success" href="../assets/static/receipt-services.html?id=${finishedSale.meuId}"
       >Imprimir</a>
         </div>
         </div> `;
@@ -932,7 +932,7 @@ function finishSale() {
         const finishModalInstance = bootstrap.Modal.getOrCreateInstance(finishModal);
         finishModalInstance.show();
     } else {
-        deleteUnclosed()
+    
         alert('Venda gravada com sucesso!');
         location.reload();
     }

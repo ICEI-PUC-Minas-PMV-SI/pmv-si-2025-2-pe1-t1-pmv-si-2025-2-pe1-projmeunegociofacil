@@ -25,9 +25,14 @@ function allSales() {
 }
 
 function allUserSales() {
-    return JSON.parse(localStorage.getItem('vendas')).filter(item => {
-        return item.usuarioId === loggedUser().id;
-    });
+    try {
+        return JSON.parse(localStorage.getItem('vendas')).filter(item => {
+            return item.usuarioId === loggedUser().id;
+        });
+    }
+    catch {
+        return []
+    }
 }
 
 function allUserClients() {
