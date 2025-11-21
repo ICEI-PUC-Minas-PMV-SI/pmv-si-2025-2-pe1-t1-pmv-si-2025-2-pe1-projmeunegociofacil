@@ -43,9 +43,13 @@ function renderSalesChart() {
         const ano = data.getFullYear();
         const mes = data.getMonth();
 
-        if (ano === 2024) {
+        const dataAtual = new Date();
+        const anoAtual = dataAtual.getFullYear();
+        const anoAnterior = anoAtual - 1;
+
+        if (ano === anoAnterior) {
             totais2024[mes] += parseFloat(venda.valorTotal);
-        } else if (ano === 2025) {
+        } else if (ano === anoAtual) {
             totais2025[mes] += parseFloat(venda.valorTotal);
         }
     });
@@ -137,7 +141,7 @@ function renderMissingProducts() {
             tdPreco.textContent = `R$ ${makeDecimal(produto.precoVenda)}`;
 
             const tdSaldo = document.createElement('td');
-            tdSaldo.classList.add('text-danger', 'fw-bold', 'text-center'); 
+            tdSaldo.classList.add('text-danger', 'fw-bold', 'text-center');
             tdSaldo.textContent = produto.estoqueAtual;
 
             tr.appendChild(tdCodigo);
@@ -148,7 +152,7 @@ function renderMissingProducts() {
             tableBody.appendChild(tr);
         });
 
-        
+
     }
 }
 
