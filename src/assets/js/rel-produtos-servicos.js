@@ -48,7 +48,7 @@ async function inicializarCatalogo() {
     // Verifica se precisa carregar o JSON (só se o banco de dados estiver vazio)
     if (db.items.length === 0) {
         try {
-            // Caminho que a outra tela está usando. Ajuste se o caminho 404 persistir.
+            // Caminho que a outra tela está usando.
             const response = await fetch('assets/data/maketesttemp.json'); 
             if (!response.ok) {
                 // Se o JSON falhar, loga o erro e retorna o DB vazio

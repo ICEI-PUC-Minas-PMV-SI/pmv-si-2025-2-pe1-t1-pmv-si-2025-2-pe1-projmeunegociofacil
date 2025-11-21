@@ -1,36 +1,84 @@
+import { loggedUser, logoutUser } from "./auth.js";
+import { LOGIN_URL } from "./config.js"; 
 
+// Joga a chamada da função em uma const para usar seus dados
+const usuarioCorrente = loggedUser(); 
 
-// cria lista global no LocalStorage
-// Mantenha esta parte para garantir que o LocalStorage exista
-var db_produtosServicos = JSON.parse(localStorage.getItem('db_produtosServicos'));
+// Verifica login: Agora usa o objeto retornado pela função
+if (!usuarioCorrente || !usuarioCorrente.email_login) {
+  window.location.href = LOGIN_URL;
+}
+
+// Variável global para o ID do usuário logado (mantida por consistência)
+const ID_LOGIN_GLOBAL = usuarioCorrente.id_login_global; 
+
+// ===================================================
+//                PERSISTÊNCIA E INICIALIZAÇÃO
+// ===================================================
+
+// Funções para gerenciar o LocalStorage (Fonte única de verdade)
+function getDB() {
+    // Garante que o LocalStorage retorne um objeto válido para acessar .items
+    return JSON.parse(localStorage.getItem('db_produtosServicos')) || { items: [] };
+}
+
+function saveDB(db) {
+    localStorage.setItem('db_produtosServicos', JSON.stringify(db));
+}
 
 // Função para carregar o JSON e inicializar o LocalStorage
 async function inicializarCatalogo() {
   try {
-    const response = await fetch('/src/assets/data/maketesttemp.json');
+    const response = await fetch('/src/assets/data/maketest.json');
+    
+    if (!response.ok) {
+        throw new Error(`Falha ao carregar o JSON: Status ${response.status}`);
+    }
+
     const data = await response.json();
 
-    window.catalogoProdutos = data.produtos; // mantendo para uso futuro
-    window.catalogoServicos = data.servicos; // 
+    // =========================================================
+    // CORREÇÃO: Usar a chave 'produtosServicos' e filtrar
+    // =========================================================
+    // 1. Acessa a chave correta ou usa um array vazio se ela não existir
+    const todosItens = (data.produtosServicos && Array.isArray(data.produtosServicos)) 
+                        ? data.produtosServicos : [];
 
-    // Crie um array de itens combinando os dados
+    // 2. Filtra os itens em 'produtos' e 'servicos' separadamente
+    const produtos = todosItens.filter(item => item.tipo === 'produto');
+    const servicos = todosItens.filter(item => item.tipo === 'servico');
+
+    // 3. Cria um array de itens combinando os dados processados
     const novosItens = [
-        ...data.produtos.map(p => ({ ...p, tipo: 'Produto' })), // Assuma 'Produto'
-        ...data.servicos.map(s => ({ ...s, tipo: 'Serviço' }))  // Assuma 'Serviço'
-    ].map((item, index) => ({ // Adiciona ID sequencial
-        id: index + 1,
-        codigo: item.codigo || item.id_servico || item.id_produto, // Usa um campo de código/ID
+        ...produtos.map(p => ({ 
+            ...p, 
+            tipo: 'Produto', // Padroniza tipo para maiúscula
+            // Define 'codigo' usando o campo mais relevante do produto
+            codigo: p.referencia || p.codigoBarras || p.meuId.toString()
+        })), 
+        ...servicos.map(s => ({ 
+            ...s, 
+            tipo: 'Serviço', // Padroniza tipo para maiúscula
+            // Define 'codigo' usando o campo mais relevante do serviço
+            codigo: s.meuId.toString() || s.referencia
+        }))  
+    ].map((item, index) => ({ 
+        id: index + 1, // Recalcula ID sequencial e único
+        codigo: String(item.codigo || index + 1), // Garante que o código seja uma string
         tipo: item.tipo,
-        descricao: item.descricao || item.nome, // Usa um campo de descrição/nome
-        unidade: item.unidade || 'UN' // Adiciona unidade padrão se não existir
+        descricao: item.descricao || item.nome, 
+        unidade: item.unidade || 'UN' 
     }));
+    // =========================================================
     
-    // usando os dados do JSON apenas se o LocalStorage estiver vazio
-    if (!db_produtosServicos || db_produtosServicos.items.length === 0) {
-        db_produtosServicos = {
+    let db = getDB(); // Usa a função para ler o banco atual
+
+    // Usando os dados do JSON apenas se o LocalStorage estiver vazio
+    if (!db.items || db.items.length === 0) {
+        db = {
             items: novosItens
         };
-        localStorage.setItem('db_produtosServicos', JSON.stringify(db_produtosServicos));
+        saveDB(db);
         console.log("LocalStorage inicializado com dados do JSON.");
     } else {
         console.log("LocalStorage já contém dados, pulando inicialização com JSON.");
@@ -41,38 +89,26 @@ async function inicializarCatalogo() {
   }
 }
 
-// INICIALIZAÇÃO DA TELA
 
-async function initPage() { // esperar o JSON
+// ===================================================
+//                INICIALIZAÇÃO DA PÁGINA
+// ===================================================
+
+async function initPage() { 
+    // Autenticação e cabeçalho
     document.getElementById('btn_logout').addEventListener('click', logoutUser);
     document.getElementById('nomeUsuario').innerHTML = usuarioCorrente.nome;
 
-    //  Carrega o JSON e inicializa o LocalStorage se estiver vazio
+    // Carrega/inicializa o catálogo
     await inicializarCatalogo(); 
 
-    //  Carrega a tabela (agora com dados, se o LocalStorage estava vazio)
+    // Carrega a tabela
     carregarTabelaProdutosServicos();
 }
 
-window.addEventListener('load', initPage); // O listener agora executa a função async
-
-// CRUD COMPLETO
-
-
-// ---- Lê o banco atualizado ---
-function getDB() {
-    return JSON.parse(localStorage.getItem('db_produtosServicos'));
-}
-
-// ---- Salva o banco inteiro ----
-function saveDB(db) {
-    localStorage.setItem('db_produtosServicos', JSON.stringify(db));
-}
-
-
-// =========================================
-// LISTAGEM NA TABELA
-// =========================================
+// ===================================================
+//                CRUD COMPLETO
+// ===================================================
 
 function carregarTabelaProdutosServicos() {
     const tbody = document.querySelector('#tabelaProdutosServicos tbody');
@@ -110,36 +146,28 @@ function carregarTabelaProdutosServicos() {
     });
 }
 
-
-// =========================================
-// MODAL - Abrir
-// =========================================
-
 function abrirModalProdutoServico(id) {
     document.getElementById('itemId').value = id || "";
+    const modalTitle = document.getElementById('produtoServicoModalLabel');
+    const form = document.getElementById('formProdutoServico');
+    form.reset();
 
     // Se for editar
     if (id) {
+        modalTitle.textContent = 'Editar Item';
         const db = getDB();
-        const item = db.items.find(x => x.id === id);
+        const item = db.items.find(x => x.id === id); 
 
-        document.getElementById('modalCodigo').value = item.codigo;
-        document.getElementById('modalTipo').value = item.tipo;
-        document.getElementById('modalDescricao').value = item.descricao;
-        document.getElementById('modalUnidade').value = item.unidade;
+        if (item) {
+            document.getElementById('modalCodigo').value = item.codigo;
+            document.getElementById('modalTipo').value = item.tipo;
+            document.getElementById('modalDescricao').value = item.descricao;
+            document.getElementById('modalUnidade').value = item.unidade;
+        }
     } else {
-        // Novo item
-        document.getElementById('modalCodigo').value = "";
-        document.getElementById('modalTipo').value = "";
-        document.getElementById('modalDescricao').value = "";
-        document.getElementById('modalUnidade').value = "";
+        modalTitle.textContent = 'Adicionar Novo Item';
     }
 }
-
-
-// =========================================
-// SALVAR (NOVO OU EDIÇÃO)
-// =========================================
 
 function salvarProdutoServico() {
     const id = document.getElementById('itemId').value;
@@ -158,18 +186,24 @@ function salvarProdutoServico() {
     // EDITAR
     if (id) {
         const index = db.items.findIndex(item => item.id == id);
-
-        db.items[index].codigo = codigo;
-        db.items[index].tipo = tipo;
-        db.items[index].descricao = descricao;
-        db.items[index].unidade = unidade;
+        
+        if (index !== -1) { 
+            db.items[index].codigo = codigo;
+            db.items[index].tipo = tipo;
+            db.items[index].descricao = descricao;
+            db.items[index].unidade = unidade;
+        } else {
+             alert("Erro: Item de ID não encontrado para edição.");
+             return;
+        }
 
     } else {
         // NOVO ITEM (ID AUTO)
-        const novoId = db.items.length > 0 ? db.items[db.items.length - 1].id + 1 : 1;
-
+        // Calcula o novo ID baseado no maior ID existente para evitar duplicidade
+        const newId = db.items.length > 0 ? Math.max(...db.items.map(i => i.id)) + 1 : 1; 
+        
         db.items.push({
-            id: novoId,
+            id: newId,
             codigo,
             tipo,
             descricao,
@@ -179,17 +213,12 @@ function salvarProdutoServico() {
 
     saveDB(db);
 
-    // Fecha modal
+    // Fecha modal (presume a existência de Bootstrap)
     var modal = bootstrap.Modal.getInstance(document.getElementById('produtoServicoModal'));
-    modal.hide();
+    if(modal) modal.hide();
 
     carregarTabelaProdutosServicos();
 }
-
-
-// =========================================
-// EXCLUIR
-// =========================================
 
 function excluirItem(id) {
     if (!confirm("Tem certeza que deseja excluir este item?")) return;
@@ -202,3 +231,14 @@ function excluirItem(id) {
     carregarTabelaProdutosServicos();
 }
 
+// ===================================================
+//                CORREÇÃO DE ESCOPO GLOBAL
+// ===================================================
+
+// Expõe as funções ao escopo 'window' para que o HTML (onclick) possa chamá-las.
+window.abrirModalProdutoServico = abrirModalProdutoServico;
+window.salvarProdutoServico = salvarProdutoServico;
+window.excluirItem = excluirItem;
+
+// Inicia a página após o carregamento
+window.addEventListener('load', initPage);
