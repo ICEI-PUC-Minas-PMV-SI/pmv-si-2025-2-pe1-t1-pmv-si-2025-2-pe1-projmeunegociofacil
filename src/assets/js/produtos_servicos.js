@@ -21,8 +21,7 @@ if (!usuarioCorrente || !usuarioCorrente.email_login) {
 // INICIALIZAÇÃO E GERENCIAMENTO DO BANCO DE DADOS (RF-04 CORRIGIDA)
 // =========================================================
 
-// Função para gerenciar o LocalStorage (Fonte única de verdade)
-// CHAVE CORRIGIDA de 'db_produtosServicos' para 'produtosServicos'
+// Função para gerenciar o LocalStorage 
 function getDB() {
     // Garante que o LocalStorage retorne um objeto válido para acessar .items
     return JSON.parse(localStorage.getItem('produtosServicos')) || { items: [] };
