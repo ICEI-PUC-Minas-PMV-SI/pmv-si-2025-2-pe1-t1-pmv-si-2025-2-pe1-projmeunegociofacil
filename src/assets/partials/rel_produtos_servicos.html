@@ -3,69 +3,53 @@
 
 <head>
   <title>Relatório de Produtos/Serviços</title>
-  <script src="assets/js/rel-produtos-servicos.js"></script>
-
 </head>
 
 <body>
 
   <div class="app d-flex">
 
-
-    <!-- End Sidebar -->
-
-
-    <!-- Start Main -->
     <main class="flex-grow-1 p-4">
 
       <div class="container-fluid px-0">
-        <div class="row g-3 align-items-end">
-          <h1 class="h4 mb-3">Relatório de Produtos/Serviços</h1>
-          <div class="col-12 col-md-6">
-            <div class="d-flex align-items-center flex-wrap gap-2">
-              <label class="me-2 mb-0 fw-semibold">Tipo:</label>
-              <div class="input-group" style="max-width: 260px;">
-                <input type="text" class="form-control" placeholder="Produto/Serviço">
-                <button class="btn btn-outline-secondary" type="button"><i class="bi bi-caret-down-fill"></i></button>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="d-flex align-items-center justify-content-md-end flex-wrap gap-2">
-              <label class="me-2 mb-0 fw-semibold">Fornecedor:</label>
-              <select class="form-select" style="max-width: 260px;">
-                <option selected>Selecione o Fornecedor</option>
-              </select>
-            </div>
-          </div>
+        <h1 class="h4 mb-3">Relatório de Produtos/Serviços</h1>
 
-          <div class="col-12 col-md-6">
-            <div class="d-flex align-items-center  flex-wrap gap-2">
-              <label class="me-2 mb-0 fw-semibold">Produtos/Serviços:</label>
-              <div class="input-group" style="max-width: 360px;">
-                <input type="text" class="form-control" placeholder="Selecione os itens">
-                <button class="btn btn-outline-secondary" type="button"><i class="bi bi-caret-down-fill"></i></button>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="d-flex align-items-center justify-content-md-end flex-wrap gap-2">
-              <label class="me-2 mb-0 fw-semibold">Saldo:</label>
-              <select class="form-select" style="max-width: 260px;">
-                <option selected>Em Estoque/Sem Estoque</option>
+        <form onsubmit="return false;">
+          <div class="row g-3 align-items-end">
+
+            <div class="col-12 col-md-4">
+              <label class="form-label fw-semibold">Tipo:</label>
+              <select id="filtroTipo" class="form-select">
+                <option value="Todos" selected>Todos</option>
+                <option value="produto">Produto</option>
+                <option value="servico">Serviço</option>
               </select>
             </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label fw-semibold">Buscar (Nome/Código):</label>
+              <input type="text" id="filtroBusca" class="form-control" placeholder="Digite para buscar...">
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label fw-semibold">Saldo em Estoque:</label>
+              <select id="filtroSaldo" class="form-select">
+                <option value="Todos" selected>Todos</option>
+                <option value="Em Estoque">Em Estoque (> 0)</option>
+                <option value="Sem Estoque">Sem Estoque (0 ou negativo)</option>
+              </select>
+            </div>
+
+            <div class="col-12 text-end mt-4">
+              <button id="btn-filtrar" class="btn btn-primary">
+                <i class="bi bi-filter me-2"></i>Filtrar
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="col-12">
-          <div class="d-flex mt-4 mb-4 justify-content-md-end  gap-2">
-            <button class="btn btn-primary">Filtrar</button>
-          </div>
-        </div>
+        </form>
       </div>
 
-
-      <div class="card mb-4">
+      <div class="card mb-4 mt-4">
         <div class="card-body p-0">
           <div class="table-responsive">
             <table class="table table-hover mb-0" id="tabelaProdutosServicos">
@@ -74,59 +58,21 @@
                   <th scope="col">Código</th>
                   <th scope="col">Tipo</th>
                   <th scope="col">Descrição</th>
-                  <th scope="col">Unidade</th>
-                  <th scope="col">Valor</th>
-                  <th scope="col">Saldo</th>
+                  <th scope="col" class="text-center">Unidade</th>
+                  <th scope="col" class="text-end">Preço Venda</th>
+                  <th scope="col" class="text-center">Saldo Atual</th>
                 </tr>
               </thead>
               <tbody>
-                <tr id="item-1" data-codigo="1" data-tipo="Produto" data-descricao="Biscoito Recheado"
-                  data-unidade="UN">
-                  <td>1</td>
-                  <td>Produto</td>
-                  <td>Biscoito Recheado</td>
-                  <td>UN</td>
-                  <td>5.90</td>
-                  <td>5</td>
-                </tr>
-                <tr id="item-1" data-codigo="1" data-tipo="Produto" data-descricao="Biscoito Recheado"
-                  data-unidade="UN">
-                  <td>1</td>
-                  <td>Produto</td>
-                  <td>Biscoito Recheado</td>
-                  <td>UN</td>
-                  <td>5.90</td>
-                  <td>5</td>
-                </tr>
-                <tr id="item-1" data-codigo="1" data-tipo="Produto" data-descricao="Biscoito Recheado"
-                  data-unidade="UN">
-                  <td>1</td>
-                  <td>Produto</td>
-                  <td>Biscoito Recheado</td>
-                  <td>UN</td>
-                  <td>5.90</td>
-                  <td>5</td>
-                </tr>
-                <tr id="item-1" data-codigo="1" data-tipo="Produto" data-descricao="Biscoito Recheado"
-                  data-unidade="UN">
-                  <td>1</td>
-                  <td>Produto</td>
-                  <td>Biscoito Recheado</td>
-                  <td>UN</td>
-                  <td>5.90</td>
-                  <td>5</td>
-                </tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
 
-
-
     </main>
   </div>
-  <!-- End Main -->
+  <script type="module" src="../assets/js/rel-produtos-servicos.js"></script>
 
 </body>
 

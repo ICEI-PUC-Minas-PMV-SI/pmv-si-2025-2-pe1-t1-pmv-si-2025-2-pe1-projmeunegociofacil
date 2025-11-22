@@ -9,15 +9,16 @@ const usuarioCorrente = loggedUser();
 if (!usuarioCorrente) window.location.href = LOGIN_URL;
 
 const KEY_AGENDA = 'agenda_compromissos';
-let dataAtual = new Date(); // Começa com a data de hoje
-let viewAtual = 'mensal';   // Padrão: visão mensal
+let dataAtual = new Date();
+let viewAtual = 'mensal';
 
 // ==========================================
-// 2. EXPOR FUNÇÕES PARA O HTML (Global)
+// 2. EXPOR FUNÇÕES PARA O HTML
 // ==========================================
 window.abrirModalNovoCompromisso = abrirModalNovoCompromisso;
+window.abrirModalEdicao = abrirModalEdicao; // Nova função para editar
 window.salvarCompromisso = salvarCompromisso;
-window.excluirCompromisso = excluirCompromisso;
+window.excluirDoModal = excluirDoModal; // Nova função para excluir via modal
 
 // ==========================================
 // 3. GERENCIAMENTO DO BANCO DE DADOS
@@ -38,29 +39,38 @@ function saveDB(data) {
 
 function gerarNovoId(db) {
     if (db.length === 0) return 1;
-    const maxId = db.reduce((max, item) => (item.meuId > max ? item.meuId : max), 0);
+    // Garante que meuId seja tratado como número
+    const maxId = db.reduce((max, item) => (Number(item.meuId) > max ? Number(item.meuId) : max), 0);
     return maxId + 1;
 }
 
+// Utilitário para separar Data e Hora da string ISO (YYYY-MM-DDTHH:mm:ss)
+function parseDataHora(isoString) {
+    if (!isoString) return { data: '', hora: '' };
+    const partes = isoString.split('T');
+    const data = partes[0];
+    const hora = partes[1] ? partes[1].substring(0, 5) : '00:00';
+    return { data, hora };
+}
+
 // ==========================================
-// 4. INICIALIZAÇÃO DA PÁGINA
+// 4. INICIALIZAÇÃO
 // ==========================================
 
-// CORREÇÃO: Removemos o 'DOMContentLoaded' pois o script carrega dinamicamente.
-// Criamos uma função init() e a chamamos imediatamente no final do arquivo.
+// Chamada direta para inicializar ao carregar via AJAX
+initAgenda();
+
 function initAgenda() {
     const btnAnt = document.getElementById('btn-ant');
     const btnProx = document.getElementById('btn-prox');
     const btnMensal = document.getElementById('btn-view-monthly');
     const btnDiario = document.getElementById('btn-view-daily');
 
-    // Verificações de segurança para garantir que o HTML já existe
     if (btnAnt) btnAnt.onclick = () => navegar(-1);
     if (btnProx) btnProx.onclick = () => navegar(1);
     if (btnMensal) btnMensal.onclick = () => trocarVisao('mensal');
     if (btnDiario) btnDiario.onclick = () => trocarVisao('diaria');
 
-    // RENDERIZA A AGENDA IMEDIATAMENTE
     renderizar();
 }
 
@@ -88,21 +98,31 @@ function trocarVisao(visao) {
     if (visao === 'mensal') {
         containerMensal.classList.remove('d-none');
         containerDiaria.classList.add('d-none');
-        btnMensal.classList.add('active');
-        btnDiario.classList.remove('active');
+        
+        // Mensal fica Sólido, Diário fica Vazado
+        btnMensal.classList.add('btn-primary');
+        btnMensal.classList.remove('btn-outline-primary');
+        
+        btnDiario.classList.add('btn-outline-primary');
+        btnDiario.classList.remove('btn-primary');
+
     } else {
         containerMensal.classList.add('d-none');
         containerDiaria.classList.remove('d-none');
-        btnMensal.classList.remove('active');
-        btnDiario.classList.add('active');
+        
+        // Diário fica Sólido, Mensal fica Vazado
+        btnDiario.classList.add('btn-primary');
+        btnDiario.classList.remove('btn-outline-primary');
+        
+        btnMensal.classList.add('btn-outline-primary');
+        btnMensal.classList.remove('btn-primary');
     }
     renderizar();
 }
 
 function renderizar() {
     const label = document.getElementById('mes-ano-label');
-    // Proteção caso a função seja chamada antes do DOM estar pronto
-    if (!label) return; 
+    if (!label) return;
     
     if (viewAtual === 'mensal') {
         label.textContent = dataAtual.toLocaleString('pt-BR', { month: 'long', year: 'numeric' });
@@ -114,19 +134,17 @@ function renderizar() {
 }
 
 // ==========================================
-// 6. VISÃO MENSAL (GRID)
+// 6. VISÃO MENSAL
 // ==========================================
 
 function renderizarGridMensal() {
     const grid = document.getElementById('calendario-grid');
     if (!grid) return;
-    
     grid.innerHTML = '';
 
     const ano = dataAtual.getFullYear();
     const mes = dataAtual.getMonth();
-
-    const primeiroDiaSemana = new Date(ano, mes, 1).getDay(); 
+    const primeiroDiaSemana = new Date(ano, mes, 1).getDay();
     const ultimoDiaMes = new Date(ano, mes + 1, 0).getDate();
     
     const db = getDB();
@@ -136,7 +154,7 @@ function renderizarGridMensal() {
 
     for (let i = 0; i < 42; i++) {
         const celula = document.createElement('div');
-        celula.className = 'calendar-cell'; 
+        celula.className = 'calendar-cell';
 
         if (i >= primeiroDiaSemana && diaContador <= ultimoDiaMes) {
             const diaFormatado = String(diaContador).padStart(2, '0');
@@ -148,31 +166,36 @@ function renderizarGridMensal() {
             divDia.textContent = diaContador;
             celula.appendChild(divDia);
 
+            // Marca o dia atual
             const hoje = new Date();
             if (diaContador === hoje.getDate() && mes === hoje.getMonth() && ano === hoje.getFullYear()) {
                 celula.classList.add('today');
             }
 
-            // Filtro de eventos
+            // Filtrar eventos
             const eventosDoDia = meusCompromissos.filter(c => c.data_hora.startsWith(dataIsoCelula));
-            
             eventosDoDia.sort((a, b) => a.data_hora.localeCompare(b.data_hora));
 
             eventosDoDia.forEach(evento => {
-                const hora = evento.data_hora.split('T')[1]?.substring(0, 5) || '';
+                const { hora } = parseDataHora(evento.data_hora);
+                
                 const badge = document.createElement('div');
                 badge.className = 'event-badge';
+                // Usa cor salva ou azul padrão se não tiver
                 badge.style.backgroundColor = evento.cor || '#2988CA';
                 badge.textContent = `${hora} ${evento.titulo}`;
-                badge.title = evento.titulo; 
+                badge.title = "Clique para editar";
                 
+                // Clique para EDITAR
                 badge.onclick = (e) => {
                     e.stopPropagation(); 
-                    excluirCompromisso(evento.meuId);
+                    abrirModalEdicao(evento.meuId);
                 };
+                
                 celula.appendChild(badge);
             });
 
+            // Clique na célula vazia -> Visão diária
             celula.onclick = () => {
                 dataAtual = new Date(ano, mes, diaContador);
                 trocarVisao('diaria');
@@ -187,14 +210,14 @@ function renderizarGridMensal() {
 }
 
 // ==========================================
-// 7. VISÃO DIÁRIA (LISTA)
+// 7. VISÃO DIÁRIA
 // ==========================================
 
 function renderizarListaDiaria() {
     const container = document.getElementById('lista-horarios');
     if (!container) return;
-    
     container.innerHTML = '';
+
     const labelDia = document.getElementById('dia-atual-label');
     if(labelDia) labelDia.textContent = `Agenda de ${dataAtual.toLocaleDateString('pt-BR')}`;
 
@@ -229,18 +252,16 @@ function renderizarListaDiaria() {
                 const divEv = document.createElement('div');
                 divEv.className = 'p-2 mb-1 rounded text-white d-flex justify-content-between align-items-center';
                 divEv.style.backgroundColor = ev.cor || '#2988CA';
+                divEv.style.cursor = 'pointer';
                 
-                const horaMin = ev.data_hora.split('T')[1]?.substring(0, 5);
+                const { hora } = parseDataHora(ev.data_hora);
                 const spanTexto = document.createElement('span');
-                spanTexto.textContent = `${horaMin} - ${ev.titulo}`;
+                spanTexto.textContent = `${hora} - ${ev.titulo}`;
                 
-                const btnDel = document.createElement('button');
-                btnDel.className = 'btn btn-sm text-white';
-                btnDel.innerHTML = '<i class="bi bi-trash"></i>';
-                btnDel.onclick = () => excluirCompromisso(ev.meuId);
+                // Ao clicar no evento, abre edição
+                divEv.onclick = () => abrirModalEdicao(ev.meuId);
 
                 divEv.appendChild(spanTexto);
-                divEv.appendChild(btnDel);
                 contentCol.appendChild(divEv);
             });
         }
@@ -252,35 +273,73 @@ function renderizarListaDiaria() {
 }
 
 // ==========================================
-// 8. FUNÇÕES DO MODAL (CRUD)
+// 8. CRUD (MODAIS)
 // ==========================================
 
+/**
+ * Prepara o modal para CRIAR um novo compromisso
+ */
 function abrirModalNovoCompromisso() {
+    // Limpa ID oculto
+    document.getElementById('inputId').value = '';
+    
+    // Ajusta Título e Botões
+    document.getElementById('novocompromissoModalLabel').textContent = 'Adicionar Novo Compromisso';
+    const btnExcluir = document.getElementById('btnExcluirModal');
+    if(btnExcluir) btnExcluir.classList.add('d-none'); // Esconde excluir
+
+    // Preenche data e hora atuais
     const ano = dataAtual.getFullYear();
     const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
     const dia = String(dataAtual.getDate()).padStart(2, '0');
-    
-    const elInputData = document.getElementById('inputData');
-    if(elInputData) elInputData.value = `${ano}-${mes}-${dia}`;
+    document.getElementById('inputData').value = `${ano}-${mes}-${dia}`;
     
     const agora = new Date();
     const hora = String(agora.getHours()).padStart(2, '0');
     const min = String(agora.getMinutes()).padStart(2, '0');
-    
-    const elInputHora = document.getElementById('inputHora');
-    if(elInputHora) elInputHora.value = `${hora}:${min}`;
+    document.getElementById('inputHora').value = `${hora}:${min}`;
 
-    const elDescricao = document.getElementById('inputDescricao');
-    if(elDescricao) elDescricao.value = '';
-    
+    document.getElementById('inputDescricao').value = '';
+    document.getElementById('inputCor').value = '#2988CA'; // Reset cor
+
+    // Abre modal
     const el = document.getElementById('novocompromissoModal');
-    if(el) {
-        const modal = new bootstrap.Modal(el);
-        modal.show();
-    }
+    const modal = new bootstrap.Modal(el);
+    modal.show();
+}
+
+/**
+ * Prepara o modal para EDITAR um compromisso existente
+ */
+function abrirModalEdicao(id) {
+    const db = getDB();
+    const evento = db.find(e => e.meuId == id && e.usuarioId == usuarioCorrente.id);
+
+    if (!evento) return;
+
+    // Preenche ID oculto
+    document.getElementById('inputId').value = evento.meuId;
+
+    // Ajusta Título e Botões
+    document.getElementById('novocompromissoModalLabel').textContent = 'Editar Compromisso';
+    const btnExcluir = document.getElementById('btnExcluirModal');
+    if(btnExcluir) btnExcluir.classList.remove('d-none'); // Mostra excluir
+
+    // Preenche campos
+    const { data, hora } = parseDataHora(evento.data_hora);
+    document.getElementById('inputData').value = data;
+    document.getElementById('inputHora').value = hora;
+    document.getElementById('inputDescricao').value = evento.titulo;
+    document.getElementById('inputCor').value = evento.cor || '#2988CA';
+
+    // Abre modal
+    const el = document.getElementById('novocompromissoModal');
+    const modal = new bootstrap.Modal(el);
+    modal.show();
 }
 
 function salvarCompromisso() {
+    const id = document.getElementById('inputId').value; // ID oculto (vazio se for novo)
     const descricao = document.getElementById('inputDescricao').value;
     const data = document.getElementById('inputData').value;
     const hora = document.getElementById('inputHora').value;
@@ -293,19 +352,31 @@ function salvarCompromisso() {
 
     const dataHoraCombinada = `${data}T${hora}:00`;
     const db = getDB();
-    
-    const novoEvento = {
-        meuId: gerarNovoId(db),
-        usuarioId: usuarioCorrente.id,
-        titulo: descricao,
-        data_hora: dataHoraCombinada,
-        cor: cor,
-        vendaMeuId: null,
-        clientes_fornecedoresId: null,
-        recorrencia: []
-    };
 
-    db.push(novoEvento);
+    if (id) {
+        // --- EDIÇÃO ---
+        const index = db.findIndex(e => e.meuId == id && e.usuarioId == usuarioCorrente.id);
+        if (index !== -1) {
+            db[index].titulo = descricao;
+            db[index].data_hora = dataHoraCombinada;
+            db[index].cor = cor;
+            // Mantém outros campos originais do JSON
+        }
+    } else {
+        // --- CRIAÇÃO ---
+        const novoEvento = {
+            meuId: gerarNovoId(db),
+            usuarioId: usuarioCorrente.id,
+            titulo: descricao,
+            data_hora: dataHoraCombinada,
+            cor: cor, // Campo extra de UI
+            vendaMeuId: null,
+            clientes_fornecedoresMeuId: null,
+            recorrencia: []
+        };
+        db.push(novoEvento);
+    }
+
     saveDB(db);
 
     const el = document.getElementById('novocompromissoModal');
@@ -315,17 +386,22 @@ function salvarCompromisso() {
     renderizar();
 }
 
-function excluirCompromisso(id) {
-    if(confirm("Excluir este compromisso?")) {
+/**
+ * Chamado pelo botão EXCLUIR dentro do modal
+ */
+function excluirDoModal() {
+    const id = document.getElementById('inputId').value;
+    if (!id) return;
+
+    if(confirm("Tem certeza que deseja excluir este compromisso?")) {
         let db = getDB();
-        db = db.filter(c => c.meuId !== id);
+        db = db.filter(c => c.meuId != id); // Filtra removendo o ID
         saveDB(db);
+
+        const el = document.getElementById('novocompromissoModal');
+        const modal = bootstrap.Modal.getInstance(el);
+        if(modal) modal.hide();
+
         renderizar();
     }
 }
-
-// ==========================================
-// CHAMADA DE INICIALIZAÇÃO
-// ==========================================
-// Esta função roda assim que o arquivo JS é carregado pelo ajax-worker
-initAgenda();

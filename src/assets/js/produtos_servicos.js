@@ -1,16 +1,16 @@
 import { loggedUser, logoutUser } from "./auth.js";
-import { LOGIN_URL } from "./config.js"; 
+import { LOGIN_URL } from "./config.js";
 
 // =========================================================
 // VARIÁVEIS GLOBAIS E AUTENTICAÇÃO (RF-08 CORRIGIDA)
 // =========================================================
 
 // Joga a chamada da função em uma const para usar seus dados
-const usuarioCorrente = loggedUser(); 
+const usuarioCorrente = loggedUser();
 
 // Verifica login: Agora usa o objeto retornado pela função
 if (!usuarioCorrente || !usuarioCorrente.email_login) {
-  window.location.href = LOGIN_URL;
+    window.location.href = LOGIN_URL;
 }
 
 // Variável global ID_LOGIN_GLOBAL removida para evitar erro fatal (RF-08)
@@ -34,68 +34,68 @@ function saveDB(db) {
 
 // Função para carregar o JSON e inicializar o LocalStorage
 async function inicializarCatalogo() {
-  try {
-    const response = await fetch('/src/assets/data/maketest.json');
-    
-    if (!response.ok) {
-        throw new Error(`Falha ao carregar o JSON: Status ${response.status}`);
+    try {
+        const response = await fetch('/src/assets/data/maketest.json');
+
+        if (!response.ok) {
+            throw new Error(`Falha ao carregar o JSON: Status ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Filtra os itens em 'produtos' e 'servicos'
+        const todosItens = (data.produtosServicos && Array.isArray(data.produtosServicos))
+            ? data.produtosServicos : [];
+
+        const produtos = todosItens.filter(item => item.tipo === 'produto');
+        const servicos = todosItens.filter(item => item.tipo === 'servico');
+
+        // Cria um array de itens combinando os dados processados
+        // Adicionei valores padrão para os novos campos (RF-04)
+        const novosItens = [
+            ...produtos.map(p => ({
+                ...p,
+                tipo: 'Produto',
+                codigo: p.referencia || p.codigoBarras || p.meuId.toString(),
+                precoVenda: p.preco || 0, // Novo campo
+                precoCusto: p.custo || 0,  // Novo campo
+                estoqueInicial: p.estoque || 0 // Novo campo
+            })),
+            ...servicos.map(s => ({
+                ...s,
+                tipo: 'Serviço',
+                codigo: s.meuId.toString() || s.referencia,
+                precoVenda: s.preco || 0, // Novo campo
+                precoCusto: s.custo || 0,  // Novo campo
+                estoqueInicial: 0 // Serviço geralmente não tem estoque
+            }))
+        ].map((item, index) => ({
+            id: index + 1,
+            codigo: String(item.codigo || index + 1),
+            tipo: item.tipo,
+            descricao: item.descricao || item.nome,
+            unidade: item.unidade || 'UN',
+            precoVenda: item.precoVenda, // Mapeado
+            precoCusto: item.precoCusto, // Mapeado
+            estoqueInicial: item.estoqueInicial // Mapeado
+        }));
+
+        let db = getDB(); // Usa a função para ler o banco atual (já corrigida)
+
+        // Usando os dados do JSON apenas se o LocalStorage estiver vazio
+        if (!db.items || db.items.length === 0) {
+            db = {
+                items: novosItens
+            };
+            saveDB(db);
+            console.log("LocalStorage inicializado com dados do JSON.");
+        } else {
+            console.log("LocalStorage já contém dados, pulando inicialização com JSON.");
+        }
+
+    } catch (error) {
+        console.error("Erro ao carregar ou inicializar catálogo:", error);
     }
-
-    const data = await response.json();
-
-    // Filtra os itens em 'produtos' e 'servicos'
-    const todosItens = (data.produtosServicos && Array.isArray(data.produtosServicos)) 
-                        ? data.produtosServicos : [];
-
-    const produtos = todosItens.filter(item => item.tipo === 'produto');
-    const servicos = todosItens.filter(item => item.tipo === 'servico');
-
-    // Cria um array de itens combinando os dados processados
-    // Adicionei valores padrão para os novos campos (RF-04)
-    const novosItens = [
-        ...produtos.map(p => ({ 
-            ...p, 
-            tipo: 'Produto',
-            codigo: p.referencia || p.codigoBarras || p.meuId.toString(),
-            precoVenda: p.preco || 0, // Novo campo
-            precoCusto: p.custo || 0,  // Novo campo
-            estoqueInicial: p.estoque || 0 // Novo campo
-        })), 
-        ...servicos.map(s => ({ 
-            ...s, 
-            tipo: 'Serviço',
-            codigo: s.meuId.toString() || s.referencia,
-            precoVenda: s.preco || 0, // Novo campo
-            precoCusto: s.custo || 0,  // Novo campo
-            estoqueInicial: 0 // Serviço geralmente não tem estoque
-        }))  
-    ].map((item, index) => ({ 
-        id: index + 1,
-        codigo: String(item.codigo || index + 1),
-        tipo: item.tipo,
-        descricao: item.descricao || item.nome, 
-        unidade: item.unidade || 'UN',
-        precoVenda: item.precoVenda, // Mapeado
-        precoCusto: item.precoCusto, // Mapeado
-        estoqueInicial: item.estoqueInicial // Mapeado
-    }));
-    
-    let db = getDB(); // Usa a função para ler o banco atual (já corrigida)
-
-    // Usando os dados do JSON apenas se o LocalStorage estiver vazio
-    if (!db.items || db.items.length === 0) {
-        db = {
-            items: novosItens
-        };
-        saveDB(db);
-        console.log("LocalStorage inicializado com dados do JSON.");
-    } else {
-        console.log("LocalStorage já contém dados, pulando inicialização com JSON.");
-    }
-
-  } catch (error) {
-    console.error("Erro ao carregar ou inicializar catálogo:", error);
-  }
 }
 
 
@@ -103,13 +103,13 @@ async function inicializarCatalogo() {
 // INICIALIZAÇÃO DA PÁGINA
 // =========================================================
 
-async function initPage() { 
+async function initPage() {
     // Autenticação e cabeçalho
     document.getElementById('btn_logout').addEventListener('click', logoutUser);
     document.getElementById('nomeUsuario').innerHTML = usuarioCorrente.nome;
 
     // Carrega/inicializa o catálogo
-    await inicializarCatalogo(); 
+    await inicializarCatalogo();
 
     // Carrega a tabela
     carregarTabelaProdutosServicos();
@@ -125,11 +125,12 @@ function carregarTabelaProdutosServicos() {
     tbody.innerHTML = "";
 
     const db = getDB();
+    const itensUsuario = db.items.filter(item => item.usuarioId === usuarioCorrente.id); // <--- FILTRAR AQUI
 
-    db.items.forEach((item) => {
+    itensUsuario.forEach((item) => {
         const tr = document.createElement('tr');
         tr.id = `item-${item.id}`;
-        
+
         // Adiciona novos datasets (opcional, mas bom para rastreamento)
         tr.dataset.codigo = item.codigo;
         tr.dataset.tipo = item.tipo;
@@ -173,14 +174,14 @@ function abrirModalProdutoServico(id) {
     if (id) {
         modalTitle.textContent = 'Editar Item';
         const db = getDB();
-        const item = db.items.find(x => x.id === id); 
+        const item = db.items.find(x => x.id === id);
 
         if (item) {
             document.getElementById('modalCodigo').value = item.codigo;
             document.getElementById('modalTipo').value = item.tipo;
             document.getElementById('modalDescricao').value = item.descricao;
             document.getElementById('modalUnidade').value = item.unidade;
-            
+
             // Novos campos (RF-04)
             document.getElementById('modalPrecoVenda').value = item.precoVenda;
             document.getElementById('modalPrecoCusto').value = item.precoCusto;
@@ -197,7 +198,7 @@ function salvarProdutoServico() {
     const tipo = document.getElementById('modalTipo').value;
     const descricao = document.getElementById('modalDescricao').value.trim();
     const unidade = document.getElementById('modalUnidade').value.trim();
-    
+
     // Novos campos (RF-04)
     const precoVenda = parseFloat(document.getElementById('modalPrecoVenda').value) || 0;
     const precoCusto = parseFloat(document.getElementById('modalPrecoCusto').value) || 0;
@@ -205,19 +206,19 @@ function salvarProdutoServico() {
 
 
     // Validação com os novos campos obrigatórios (RF-04)
-    if (!codigo || !tipo || !descricao || !unidade || 
-        isNaN(precoVenda) || isNaN(precoCusto) || isNaN(estoqueInicial) ) {
+    if (!codigo || !tipo || !descricao || !unidade ||
+        isNaN(precoVenda) || isNaN(precoCusto) || isNaN(estoqueInicial)) {
         alert("Preencha todos os campos obrigatórios: Código, Tipo, Descrição, Unidade, Preço de Venda, Preço de Custo e Estoque Inicial.");
         return;
     }
-    
+
     const db = getDB();
 
     // EDITAR
     if (id) {
         const index = db.items.findIndex(item => item.id == id);
-        
-        if (index !== -1) { 
+
+        if (index !== -1) {
             db.items[index].codigo = codigo;
             db.items[index].tipo = tipo;
             db.items[index].descricao = descricao;
@@ -227,17 +228,18 @@ function salvarProdutoServico() {
             db.items[index].precoCusto = precoCusto;
             db.items[index].estoqueInicial = estoqueInicial;
         } else {
-             alert("Erro: Item de ID não encontrado para edição.");
-             return;
+            alert("Erro: Item de ID não encontrado para edição.");
+            return;
         }
 
     } else {
         // NOVO ITEM (ID AUTO)
         // Calcula o novo ID baseado no maior ID existente para evitar duplicidade
-        const newId = db.items.length > 0 ? Math.max(...db.items.map(i => i.id)) + 1 : 1; 
-        
+        const newId = db.items.length > 0 ? Math.max(...db.items.map(i => i.id)) + 1 : 1;
+
         db.items.push({
             id: newId,
+            usuarioId: usuarioCorrente.id,
             codigo,
             tipo,
             descricao,
@@ -253,7 +255,7 @@ function salvarProdutoServico() {
 
     // Fecha modal 
     var modal = bootstrap.Modal.getInstance(document.getElementById('produtoServicoModal'));
-    if(modal) modal.hide();
+    if (modal) modal.hide();
 
     carregarTabelaProdutosServicos();
 }

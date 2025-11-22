@@ -68,7 +68,7 @@ function performLogin(event) {
 
 document.getElementById('login-form').addEventListener('submit', performLogin);
 
-document.getElementById('btn_salvar').addEventListener('click', newUser);
+document.getElementById('signup-form').addEventListener('submit', newUser);
 
 radioPj.addEventListener('change', () => {
     if (radioPj.checked) {
