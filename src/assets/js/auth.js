@@ -27,6 +27,5 @@ export function loggedUser() {
 export function logoutUser(event) {
     if (event) event.preventDefault();
     sessionStorage.removeItem('loggedUser');
-    window.location.href = LOGIN_URL;
+    window.location.replace(LOGIN_URL); // .replace é melhor que .href para logout (impede voltar)
 }
-
