@@ -3,12 +3,17 @@
 
 <head>
   <title>Relatório de Produtos/Serviços</title>
+<<<<<<< HEAD
   </head>
+=======
+</head>
+>>>>>>> f3a56a57c5d744b5799d55f2e8fd9356e0a3048d
 
 <body>
 
   <div class="app d-flex">
 
+<<<<<<< HEAD
     <aside class="sidebar">
         <div class="p-3 border-top">
             Olá, <span id="nomeUsuario" class="fw-bold">Usuário</span>!
@@ -59,9 +64,46 @@
                 <option selected value="Todos">Todos</option>
                 <option value="Com Estoque">Com Estoque</option>
                 <option value="Sem Estoque">Sem Estoque</option>
+=======
+    <main class="flex-grow-1 p-4">
+
+      <div class="container-fluid px-0">
+        <h1 class="h4 mb-3">Relatório de Produtos/Serviços</h1>
+
+        <form onsubmit="return false;">
+          <div class="row g-3 align-items-end">
+
+            <div class="col-12 col-md-4">
+              <label class="form-label fw-semibold">Tipo:</label>
+              <select id="filtroTipo" class="form-select">
+                <option value="Todos" selected>Todos</option>
+                <option value="produto">Produto</option>
+                <option value="servico">Serviço</option>
+>>>>>>> f3a56a57c5d744b5799d55f2e8fd9356e0a3048d
               </select>
             </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label fw-semibold">Buscar (Nome/Código):</label>
+              <input type="text" id="filtroBusca" class="form-control" placeholder="Digite para buscar...">
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label fw-semibold">Saldo em Estoque:</label>
+              <select id="filtroSaldo" class="form-select">
+                <option value="Todos" selected>Todos</option>
+                <option value="Em Estoque">Em Estoque (> 0)</option>
+                <option value="Sem Estoque">Sem Estoque (0 ou negativo)</option>
+              </select>
+            </div>
+
+            <div class="col-12 text-end mt-4">
+              <button id="btn-filtrar" class="btn btn-primary">
+                <i class="bi bi-filter me-2"></i>Filtrar
+              </button>
+            </div>
           </div>
+<<<<<<< HEAD
         </div>
         
         <div class="col-12">
@@ -69,10 +111,12 @@
             <button class="btn btn-primary" id="btnFiltrar" onclick="aplicarFiltros()">Filtrar</button>
           </div>
         </div>
+=======
+        </form>
+>>>>>>> f3a56a57c5d744b5799d55f2e8fd9356e0a3048d
       </div>
 
-
-      <div class="card mb-4">
+      <div class="card mb-4 mt-4">
         <div class="card-body p-0">
           <div class="table-responsive">
             <table class="table table-hover mb-0" id="tabelaProdutosServicos">
@@ -81,6 +125,7 @@
                   <th scope="col">Código</th>
                   <th scope="col">Tipo</th>
                   <th scope="col">Descrição</th>
+<<<<<<< HEAD
                   <th scope="col">Unidade</th>
                   <th scope="col">Valor</th>
                   <th scope="col">Saldo</th>
@@ -88,6 +133,14 @@
               </thead>
               <tbody>
                 <tr><td colspan="7" class="text-center">Carregando dados...</td></tr>
+=======
+                  <th scope="col" class="text-center">Unidade</th>
+                  <th scope="col" class="text-end">Preço Venda</th>
+                  <th scope="col" class="text-center">Saldo Atual</th>
+                </tr>
+              </thead>
+              <tbody>
+>>>>>>> f3a56a57c5d744b5799d55f2e8fd9356e0a3048d
               </tbody>
             </table>
           </div>
@@ -118,6 +171,7 @@
                     </select>
                 </div>
 
+<<<<<<< HEAD
                 <div class="mb-3">
                     <label for="modalDescricao" class="form-label">Descrição</label>
                     <input type="text" class="form-control" id="modalDescricao" required>
@@ -147,6 +201,9 @@
         </div>
       </div>
       </main>
+=======
+    </main>
+>>>>>>> f3a56a57c5d744b5799d55f2e8fd9356e0a3048d
   </div>
   <script type="module" src="../assets/js/rel-produtos-servicos.js"></script>
 

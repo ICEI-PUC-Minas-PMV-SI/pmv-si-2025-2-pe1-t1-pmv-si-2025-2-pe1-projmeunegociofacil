@@ -2,27 +2,19 @@
 <html lang="pt-BR">
 
 <head>
-
   <title>Contas a Receber</title>
- 
-
   <style>
     .table-responsive {
       max-height: 500px;
-      /* Altura máxima para a tabela */
       overflow-y: auto;
     }
   </style>
-
 </head>
 
 <body>
 
-
   <div class="app d-flex">
 
-  
-    <!-- End Sidebar -->
     <main class="flex-grow-1 p-4">
       <h1 class="h4 mb-3">Contas a Receber</h1>
 
@@ -31,12 +23,12 @@
           onclick="abrirModalContaReceber(null)">
           <i class="bi bi-plus-lg me-2"></i>Nova Fatura
         </button>
+        
         <div class="input-group" style="width: 300px;">
-          <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar">
-          <button class="btn btn-outline-secondary" type="button" id="button-search-receber"><i
-              class="bi bi-search"></i></button>
-          <button class="btn btn-outline-secondary" type="button" id="button-filter-receber"><i
-              class="bi bi-filter"></i></button>
+          <input type="text" id="busca-receber" class="form-control" placeholder="Buscar" aria-label="Buscar">
+          <button class="btn btn-outline-secondary" type="button" id="btn-busca-receber">
+              <i class="bi bi-search"></i>
+          </button>
         </div>
       </div>
 
@@ -47,66 +39,15 @@
               <thead class="table-light">
                 <tr>
                   <th scope="col">Status</th>
-                  <th scope="col">Tipo</th>
                   <th scope="col">Cliente</th>
-                  <th scope="col">Produtos / Serviços</th>
+                  <th scope="col">Descrição</th>
                   <th scope="col">Vencimento</th>
-                  <th scope="col">Valor (R$)</th>
-                  <th scope="col">Ação</th>
+                  <th scope="col" class="text-end">Valor (R$)</th>
+                  <th scope="col" class="text-center">Ação</th>
                 </tr>
               </thead>
               <tbody>
-                <tr id="conta-receber-1" data-status="Pendente" data-tipo="Produto" data-cliente="Maria de Oliveira"
-                  data-descricao="Biscoito Recheado, arr..." data-vencimento="2025-10-15" data-valor="110.00">
-                  <td>Pendente</td>
-                  <td>Produto</td>
-                  <td>Maria de Oliveira</td>
-                  <td>Biscoito Recheado, arr...</td>
-                  <td>15/10/2025</td>
-                  <td>110,00</td>
-                  <td>
-                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
-                      data-bs-target="#contaReceberModal" onclick="abrirModalContaReceber(1)"><i
-                        class="bi bi-pencil"></i></button>
-                    <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a receber', 1)"><i
-                        class="bi bi-trash"></i></button>
-                  </td>
-                </tr>
-                <tr id="conta-receber-2" data-status="Pendente" data-tipo="Produto" data-cliente="José da Silva"
-                  data-descricao="Detergente" data-vencimento="2025-11-13" data-valor="85.00">
-                  <td>Pendente</td>
-                  <td>Produto</td>
-                  <td>José da Silva</td>
-                  <td>Detergente</td>
-                  <td>13/11/2025</td>
-                  <td>85,00</td>
-                  <td>
-                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
-                      data-bs-target="#contaReceberModal" onclick="abrirModalContaReceber(2)"><i
-                        class="bi bi-pencil"></i></button>
-                    <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a receber', 2)"><i
-                        class="bi bi-trash"></i></button>
-                  </td>
-                </tr>
-                <tr id="conta-receber-3" data-status="Recebido" data-tipo="Serviço" data-cliente="Marcos Aurélio"
-                  data-descricao="Pintura de Porta" data-vencimento="2025-09-26" data-valor="240.00">
-                  <td>Recebido</td>
-                  <td>Serviço</td>
-                  <td>Marcos Aurélio</td>
-                  <td>Pintura de Porta</td>
-                  <td>26/09/2025</td>
-                  <td>240,00</td>
-                  <td>
-                    <button class="btn btn-outline-success btn-sm me-1" data-bs-toggle="modal"
-                      data-bs-target="#reciboModal" onclick="gerarRecibo(3)"><i class="bi bi-receipt"></i></button>
-                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
-                      data-bs-target="#contaReceberModal" onclick="abrirModalContaReceber(3)"><i
-                        class="bi bi-pencil"></i></button>
-                    <button class="btn btn-outline-danger btn-sm" onclick="excluirItem('conta a receber', 3)"><i
-                        class="bi bi-trash"></i></button>
-                  </td>
-                </tr>
-              </tbody>
+                </tbody>
             </table>
           </div>
         </div>
@@ -114,8 +55,7 @@
     </main>
   </div>
 
-  <div class="modal fade" id="contaReceberModal" tabindex="-1" aria-labelledby="contaReceberModalLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="contaReceberModal" tabindex="-1" aria-labelledby="contaReceberModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -125,31 +65,33 @@
         <div class="modal-body">
           <form id="formContaReceber">
             <input type="hidden" id="contaReceberId" value="">
+            
             <div class="mb-3">
               <label for="modalStatusReceber" class="form-label">Status</label>
               <select class="form-select" id="modalStatusReceber">
-                <option value="Pendente">Pendente</option>
-                <option value="Recebido">Recebido</option>
-                <option value="Cancelado">Cancelado</option>
+                <option value="pendente">Pendente</option>
+                <option value="pago">Recebido / Pago</option>
+                <option value="cancelado">Cancelado</option>
               </select>
             </div>
+
             <div class="mb-3">
-              <label for="modalTipoReceber" class="form-label">Tipo</label>
-              <input type="text" class="form-control" id="modalTipoReceber" placeholder="Ex: Produto, Serviço, Aluguel">
+              <label for="modalClienteConta" class="form-label">Cliente</label>
+              <select id="modalClienteConta" class="form-select">
+                <option value="">Selecione um cliente...</option>
+              </select>
             </div>
+
             <div class="mb-3">
-              <label for="modalClienteReceber" class="form-label">Cliente</label>
-              <input type="text" class="form-control" id="modalClienteReceber" placeholder="Nome do Cliente">
+              <label for="modalDescricaoReceber" class="form-label">Descrição</label>
+              <textarea class="form-control" id="modalDescricaoReceber" rows="3" placeholder="Descrição do que precisa ser recebido"></textarea>
             </div>
-            <div class="mb-3">
-              <label for="modalDescricaoReceber" class="form-label">Descrição (Produtos/Serviços)</label>
-              <textarea class="form-control" id="modalDescricaoReceber" rows="3"
-                placeholder="Descrição do que precisa ser recebido"></textarea>
-            </div>
+
             <div class="mb-3">
               <label for="modalVencimentoReceber" class="form-label">Data de Vencimento</label>
               <input type="date" class="form-control" id="modalVencimentoReceber">
             </div>
+
             <div class="mb-3">
               <label for="modalValorReceber" class="form-label">Valor</label>
               <input type="number" step="0.01" class="form-control" id="modalValorReceber" placeholder="0.00">
@@ -164,29 +106,28 @@
     </div>
   </div>
 
-  <div class="modal fade" id="reciboModal" tabindex="-1" aria-labelledby="reciboModalLabel" aria-hidden="true">
+  <div class="modal fade" id="reciboModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="reciboModalLabel">Recibo de Pagamento</h5>
+          <h5 class="modal-title">Visualizar Recibo</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div id="recibo-conteudo" class="p-4 border">
-          </div>
+          <div id="recibo-conteudo">
+            </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
           <button type="button" class="btn btn-success" onclick="imprimirRecibo()">
-            <i class="bi bi-printer me-2"></i>Imprimir Recibo
+            <i class="bi bi-printer me-2"></i> Imprimir
           </button>
         </div>
       </div>
     </div>
   </div>
 
-<script type= "module" src="../assets/js/receber.js"></script>
+  <script type="module" src="../assets/js/receber.js"></script>
 
 </body>
-
 </html>

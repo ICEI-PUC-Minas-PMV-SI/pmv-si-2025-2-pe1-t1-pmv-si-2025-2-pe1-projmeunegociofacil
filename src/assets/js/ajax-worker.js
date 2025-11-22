@@ -10,10 +10,10 @@ function carregaConteudoPelaUrl() {
   const params = new URLSearchParams(window.location.search);
   const paginaSolicitada = params.get('page');
 
-  let urlParaCarregar = '../assets/partials/dashboard.html'; 
-  
+  let urlParaCarregar = '../assets/partials/dashboard.html';
+
   if (paginaSolicitada) {
-      urlParaCarregar = `../assets/partials/${paginaSolicitada}.html`;
+    urlParaCarregar = `../assets/partials/${paginaSolicitada}.html`;
   }
 
   const objConfig = { method: 'GET', url: urlParaCarregar };
@@ -30,7 +30,7 @@ const request = obj => {
     xhr.send();
 
     xhr.addEventListener('load', () => {
-      if(xhr.status >= 200 && xhr.status < 300) {
+      if (xhr.status >= 200 && xhr.status < 300) {
         resolve(xhr.responseText);
       } else {
         reject(xhr.statusText);
@@ -42,10 +42,10 @@ const request = obj => {
 document.addEventListener('click', e => {
   const el = e.target.closest('a');
   if (!el || !el.getAttribute('href')) return;
-  
+
   const href = el.getAttribute('href');
   const isInsideSidebar = el.closest('#offcanvasSidebar');
-  const isHash = href.includes('#'); 
+  const isHash = href.includes('#');
 
   if (isInsideSidebar && !isHash) {
     e.preventDefault();
@@ -54,29 +54,29 @@ document.addEventListener('click', e => {
     // Fecha o menu mobile se estiver aberto
     const offcanvasEl = document.getElementById('offcanvasSidebar');
     if (offcanvasEl) {
-        const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
-        if (bsOffcanvas) bsOffcanvas.hide(); 
+      const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+      if (bsOffcanvas) bsOffcanvas.hide();
     }
   }
 });
 
 async function loadPage(el) {
   const href = el.getAttribute('href');
-  
+
   const objConfig = {
     method: 'GET',
-    url: href 
+    url: href
   };
 
   try {
     const response = await request(objConfig);
-    
+
     let nomePagina = href.split('/').pop().replace('.html', '');
 
     window.history.pushState({}, "", `?page=${nomePagina}`);
 
-    loadResult(response, href); 
-  } catch(e) {
+    loadResult(response, href);
+  } catch (e) {
     console.log("Erro ao carregar: " + href);
     console.log(e);
   }
@@ -93,17 +93,33 @@ function loadResult(response, url) {
   const novoConteudo = novoHTML.querySelector('.page-content');
 
   if (novoConteudo) {
-      containerAtual.innerHTML = novoConteudo.innerHTML;
+    containerAtual.innerHTML = novoConteudo.innerHTML;
   } else {
-      containerAtual.innerHTML = response;
+    containerAtual.innerHTML = response;
   }
 
+  document.querySelectorAll('.script-dinamico').forEach(el => el.remove());
+
   const scripts = novoHTML.querySelectorAll('script');
+
   scripts.forEach(scriptAntigo => {
-      const scriptNovo = document.createElement('script');
-      Array.from(scriptAntigo.attributes).forEach(attr => scriptNovo.setAttribute(attr.name, attr.value));
-      scriptNovo.appendChild(document.createTextNode(scriptAntigo.innerHTML));
-      document.body.appendChild(scriptNovo);
+    const scriptNovo = document.createElement('script');
+
+    scriptNovo.classList.add('script-dinamico');
+
+    Array.from(scriptAntigo.attributes).forEach(attr => {
+      let valor = attr.value;
+
+      if (attr.name === 'src') {
+        const separador = valor.includes('?') ? '&' : '?';
+        valor = `${valor}${separador}t=${new Date().getTime()}`;
+      }
+
+      scriptNovo.setAttribute(attr.name, valor);
+    });
+
+    scriptNovo.appendChild(document.createTextNode(scriptAntigo.innerHTML));
+    document.body.appendChild(scriptNovo);
   });
 
   atualizaSidebar(url);
@@ -124,7 +140,7 @@ function atualizaSidebar(url) {
       menuCollapsePai.classList.add('show');
 
       const botaoToggle = document.querySelector(`[href="#${menuCollapsePai.id}"], [data-bs-target="#${menuCollapsePai.id}"]`);
-      
+
       if (botaoToggle) {
         botaoToggle.classList.remove('collapsed');
         botaoToggle.setAttribute('aria-expanded', 'true');

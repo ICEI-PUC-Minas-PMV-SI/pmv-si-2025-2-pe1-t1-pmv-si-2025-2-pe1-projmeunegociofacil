@@ -2,660 +2,266 @@
 <html lang="pt-BR">
 
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Agenda</title>
-  <!--<script src="https://cdn.tailwindcss.com"></script>-->
-  
 
-  
+  <style>
+    /* Estilos Específicos da Agenda */
+    
+    /* Botões Azuis Personalizados (Ações Principais) */
+    .btn-custom-blue {
+      background-color: #2988CA;
+      color: white;
+      border: none;
+      font-weight: 500;
+    }
+    .btn-custom-blue:hover {
+      background-color: #2c91d9;
+      color: white;
+    }
+
+    /* CORREÇÃO SOLICITADA: Forçar a cor #2988CA nos botões de filtro (Diário/Mensal) */
+    
+    /* Botão Sólido (Ativo) */
+    .btn-primary {
+      background-color: #2988CA !important;
+      border-color: #2988CA !important;
+    }
+    .btn-primary:hover, .btn-primary:active, .btn-primary.active {
+      background-color: #257ab5 !important; /* Um tom levemente mais escuro para hover */
+      border-color: #257ab5 !important;
+    }
+
+    /* Botão Vazado (Inativo) */
+    .btn-outline-primary {
+      color: #2988CA !important;
+      border-color: #2988CA !important;
+    }
+    .btn-outline-primary:hover, .btn-outline-primary.active {
+      background-color: #2988CA !important;
+      color: white !important;
+    }
+
+    /* Grid do Calendário */
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr)); 
+      gap: 5px;
+      width: 100%;
+    }
+
+    .calendar-day-header {
+      text-align: center;
+      font-weight: bold;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #dee2e6;
+      overflow: hidden;
+    }
+
+    .calendar-cell {
+      min-height: 120px;
+      border: 1px solid #dee2e6;
+      background-color: white;
+      padding: 5px;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .calendar-cell:hover {
+      background-color: #fdfdfd;
+    }
+
+    .calendar-cell.inactive {
+      background-color: #f0f0f0;
+      color: #999;
+      cursor: default;
+    }
+
+    .calendar-cell.today {
+      border: 2px solid #2988CA;
+    }
+
+    .event-badge {
+      font-size: 0.75rem;
+      padding: 2px 4px;
+      border-radius: 4px;
+      margin-bottom: 2px;
+      display: block;
+      color: white;
+      white-space: nowrap; 
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%; 
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .event-badge:hover {
+      opacity: 0.8;
+    }
+
+    .daily-row {
+      border-bottom: 1px solid #dee2e6;
+      padding: 15px;
+      display: flex;
+    }
+
+    .daily-time {
+      width: 80px;
+      font-weight: bold;
+      color: #555;
+      border-right: 2px solid #2988CA;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .daily-content {
+      flex-grow: 1;
+      min-width: 0;
+    }
+  </style>
 </head>
 
 <body>
 
-
   <div class="app d-flex">
+    <main class="flex-grow-1 p-4" style="overflow-x: hidden;">
+      <h1 class="h4 mb-4">Agenda</h1>
 
-
-  
-
-
-    <!-- Start Main -->
-    <main class="flex-grow-1 p-4" class="bg-gray-100 font-sans p-4 sm:p-8">
-      <h1 class="h4 mb-3">Agenda</h1>
-
-
-      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="btn-group me-2" role="group" aria-label="First group">
-          <button type="button" class="btn btn-primary" type="button" data-bs-toggle="collapse"
-            data-bs-target=".multi-collapse" aria-expanded="false"
-            aria-controls="agendaMensal agendaDiaria">Diário/Mensal</button>
-
-        </div>
-
-        <div class="btn-group me-2" role="group" aria-label="Third group">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#recorrenciaModal"
-            onclick="abrirmodalrecorrencia">Gestão de Recorrências</button>
-        </div>
-        <div class="btn-group me-2" role="group" aria-label="Forth group">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novocompromissoModal" onclick="abrirmodalnovocompromisso(1)">Novo Compromisso</button>
-        </div>
-      </div>
-
-      <style>
-          .texto-responsivo-letra {
-      font-size: clamp(0.5rem, 1.0vw, 1.5rem);
-      line-height: 1.4;
-    }
-          .texto-responsivo{
-            font-size: clamp(0.3rem, 0.9vw, 3rem);
-      line-height: 1.4;
-          }
-          textarea {
-            resize: none;
-        }
-        </style>
-    <div class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg p-3 sm:p-6">
-        
-        <!-- Cabeçalho do Mês -->
-        <div class="flex justify-between items-center mb-4">
-            <button id="btn-ant" class="px-3 py-1 sm:px-4 sm:py-2 text-sm sm:text-base bg-gray-200 rounded-lg hover:bg-gray-300">&lt; <span class="hidden sm:inline">Ant</span></button>
-            <h2 id="mes-ano" class="text-lg sm:text-2xl font-bold text-gray-800 text-center"></h2>
-            <button id="btn-prox" class="px-3 py-1 sm:px-4 sm:py-2 text-sm sm:text-base bg-gray-200 rounded-lg hover:bg-gray-300"><span class="hidden sm:inline">Prox</span> &gt;</button>
-        </div>
-
-        <!-- Dias da Semana -->
-        <!-- Mantém o grid de 7 colunas sempre, mas com texto menor no mobile -->
-        <div class="grid grid-cols-7 gap-1 sm:gap-2 text-center font-semibold text-gray-600 mb-2 text-xs sm:text-base">
-            <div>Dom</div>
-            <div>Seg</div>
-            <div>Ter</div>
-            <div>Qua</div>
-            <div>Qui</div>
-            <div>Sex</div>
-            <div>Sáb</div>
-        </div>
-
-        <!-- Grade do Calendário (35 células) -->
-        <!-- Mantém 7 colunas (grid-cols-7) mesmo no mobile -->
-        <div id="calendario-grid" class="grid grid-cols-7 gap-1 sm:gap-2">
-            <!-- As células serão geradas pelo JavaScript -->
-        </div>
-
-    </div>
-
-    <script>
-        const gridCalendario = document.getElementById('calendario-grid');
-        const cabecalhoMesAno = document.getElementById('mes-ano');
-        const btnAnterior = document.getElementById('btn-ant');
-        const btnProximo = document.getElementById('btn-prox');
-
-        // Variável principal
-        let mesEmExibicao = new Date();
-
-        // Armazenamento simples para os compromissos
-        let compromissos = {}; 
-
-        function renderizarCalendario() {
-            gridCalendario.innerHTML = '';
-
-            const ano = mesEmExibicao.getFullYear();
-            const mes = mesEmExibicao.getMonth();
-
-            cabecalhoMesAno.textContent = `${mesEmExibicao.toLocaleString('pt-br', { month: 'long' })} ${ano}`;
-
-            const primeiroDiaSemana = new Date(ano, mes, 1).getDay();
-            const numDiasNoMes = new Date(ano, mes + 1, 0).getDate();
-
-            let diaAtual = 1;
-
-            // Loop para 35 ou 42 células (para garantir que o mês caiba sempre)
-            // Usei 42 (6 linhas) para garantir meses longos que começam no sábado
-            const totalCelulas = 42; 
-
-            for (let i = 0; i < totalCelulas; i++) {
-                const celula = document.createElement('div');
-                
-                // Estrutura mantida: padding menor no mobile (p-1) e altura menor (h-24 vs h-36)
-                celula.className = 'border rounded sm:rounded-lg p-1 sm:p-2 flex flex-col h-24 sm:h-36 bg-white relative'; 
-                
-                let numeroDia = null;
-                let chaveCompromisso = '';
-
-                if (i >= primeiroDiaSemana && diaAtual <= numDiasNoMes) {
-                    // Dia Válido
-                    numeroDia = diaAtual;
-                    
-                    const diaFormatado = String(numeroDia).padStart(2, '0');
-                    const mesFormatado = String(mes + 1).padStart(2, '0');
-                    chaveCompromisso = `${ano}-${mesFormatado}-${diaFormatado}`;
-
-                    celula.classList.add('border-gray-200'); 
-                    
-                    // Número do dia
-                    const spanDia = document.createElement('span');
-                    spanDia.className = 'font-semibold text-gray-900 text-xs sm:text-base mb-1';
-                    spanDia.textContent = numeroDia;
-                    celula.appendChild(spanDia);
-                    
-                    // Caixa de Texto
-                    const caixinhaCompromisso = document.createElement('textarea');
-                    // Texto bem pequeno no mobile (text-[10px]) para caber
-                    caixinhaCompromisso.className = 'w-full h-full p-1 text-[10px] sm:text-xs border rounded focus:outline-none focus:ring-1 focus:ring-blue-400 bg-gray-50 focus:bg-white resize-none leading-tight';
-                    caixinhaCompromisso.placeholder = '.'; // Placeholder minimalista para economizar espaço
-                    caixinhaCompromisso.dataset.chave = chaveCompromisso;
-                    
-                    if (compromissos[chaveCompromisso]) {
-                        caixinhaCompromisso.value = compromissos[chaveCompromisso];
-                        // Destaca visualmente se tem conteúdo
-                        caixinhaCompromisso.classList.add('bg-blue-50');
-                    }
-
-                    caixinhaCompromisso.addEventListener('input', (e) => {
-                        compromissos[e.target.dataset.chave] = e.target.value;
-                        if(e.target.value) {
-                            e.target.classList.add('bg-blue-50');
-                        } else {
-                            e.target.classList.remove('bg-blue-50');
-                        }
-                    });
-
-                    celula.appendChild(caixinhaCompromisso);
-                    
-                    diaAtual++;
-                } else {
-                    // Célula vazia (mantendo a estrutura)
-                    celula.classList.add('bg-gray-100', 'opacity-60');
-                }
-
-                gridCalendario.appendChild(celula);
-            }
-        }
-
-        btnAnterior.addEventListener('click', () => {
-            mesEmExibicao.setMonth(mesEmExibicao.getMonth() - 1);
-            renderizarCalendario();
-        });
-
-        btnProximo.addEventListener('click', () => {
-            mesEmExibicao.setMonth(mesEmExibicao.getMonth() + 1);
-            renderizarCalendario();
-        });
-
-        renderizarCalendario();
-
-    </script>
-
-          <!-- <tbody class="text-center">
-            <tr>
-              <td>
-                1
-                <div class="row">
-                  <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br> Compromisso2</div>
-                </div>
-              </td>
-              <td>
-                2
-                <div class="row">
-                  <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-                </div>
-              </td>
-              <td>
-                3
-                <div class="row">
-                  <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-                </div>
-              </td>
-              <td>
-                4
-                <div class="row">
-                  <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-                </div>
-              </td>
-              <td>
-                5
-                <div class="row">
-                  <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-                </div>
-              </td>
-              <td>
-                <span class="dia-atual-agenda p-1">6</span>
-                <div class="row">
-                  <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-                </div>
-              </td>
-              <td>
-                7
-                <div class="row">
-                  <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                8
-                <div class="row">
-                  <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br> Compromisso2</div>
-                </div>
-              </td>
-              <td>
-                9
-                <div class="row">
-                  <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-                </div>
-              </td>
-              <td>
-                10
-                <div class="row">
-                  <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-                </div>
-              </td>
-              <td>
-                11
-                <div class="row">
-              </td>
-              <td>
-                12
-                <div class="row">
-              </td>
-              <td>
-                <span>13</span>
-                <div class="row">
-              </td>
-              <td>
-                14
-                <div class="row">
-                  <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end"></div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                15
-                <div class="row">
-                  <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br> Compromisso2</div>
-                </div>
-              </td>
-              <td>
-                16
-                <div class="row">
-                  <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-                </div>
-              </td>
-              <td>
-                17
-                <div class="row">
-              </td>
-              <td>
-                18
-      </div>
-      </td>
-      <td>
-        19
-        <div class="row">
-          <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-        </div>
-      </td>
-      <td>
-        <span>20</span>
-        <div class="row">
-      </td>
-      <td>
-        21
-        <div class="row">
-          <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-        </div>
-      </td>
-      </tr>
-      <tr>
-        <td>
-          22
-  </div>
-  </td>
-  <td>
-    23
-    <div class="row">
-      <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-    </div>
-  </td>
-  <td>
-    24
-    </div>
-  </td>
-  <td>
-    25
-    <div class="row">
-      <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-    </div>
-  </td>
-  <td>
-    26
-    <div class="row">
-  </td>
-  <td>
-    <span>28</span>
-    <div class="row">
-      <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-    </div>
-  </td>
-  <td>
-    28
-    <div class="row">
-      <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-    </div>
-  </td>
-  </tr>
-  <tr>
-    <td>
-      29
-      <div class="row">
-        <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br> Compromisso2</div>
-      </div>
-    </td>
-    <td>
-      30
-      <div class="row">
-        <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-      </div>
-    </td>
-    <td>
-      31
-      <div class="row">
-        <div class="texto-responsivo" class="col compromisso-agenda-mensal d-flex align-items-end">Compromisso1 <br></div>
-      </div>
-    </td>
-    <td>
-
-      <div class="row">
-        <div class="col compromisso-agenda-mensal d-flex align-items-end"></div>
-      </div>
-    </td>
-    <td>
-
-      <div class="row">
-        <div class="col compromisso-agenda-mensal d-flex align-items-end"></div>
-      </div>
-    </td>
-    <td>
-      <span></span>
-      <div class="row">
-        <div class="col compromisso-agenda-mensal d-flex align-items-end"></div>
-      </div>
-    </td>
-    <td>
-      28
-      <div class="row">
-        <div class="col compromisso-agenda-mensal d-flex align-items-end"></div>
-      </div>
-    </td>
-  </tr>
-  </tbody>
-  </table>
-  </div> -->
-
-  <div class="collapse multi-collapse" id="agendaDiaria">
-    <h1 class="mt-4">11 de outubro</h1>
-    <div class="row">
-      <div class="col-12 col-md-8 order-2 order-md-1">
-        <div class="table-responsive-agenda-diaria">
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <td class="coluna-hora-agenda-diaria">00:00</td>
-                <td></td>
-              </tr>
-
-              <tr>
-                <td>01:00</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>02:00</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>03:00</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>04:00</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>05:00</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>06:00</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>07:00</td>
-                <td></td>
-              </tr>
-              <tr id="initial-hour">
-                <td>08:00</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>09:00</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>10:00</td>
-                <td>Visitar cliente</td>
-              </tr>
-              <tr>
-                <td>11:00</td>
-                <td>Visitar cliente</td>
-              </tr>
-              <tr>
-                <td>12:00</td>
-                <td>Visitar cliente</td>
-              </tr>
-              <tr>
-                <td>13:00</td>
-                <td>Visitar cliente</td>
-              </tr>
-              <tr>
-                <td>14:00</td>
-                <td>Visitar cliente</td>
-              </tr>
-              <tr>
-                <td>15:00</td>
-                <td>Visitar cliente</td>
-              </tr>
-              <tr>
-                <td>16:00</td>
-                <td>Visitar cliente</td>
-              </tr>
-              <tr>
-                <td>17:00</td>
-                <td>Visitar cliente</td>
-              </tr>
-              <tr>
-                <td>18:00</td>
-                <td>Visitar cliente</td>
-              </tr>
-              <tr>
-                <td>19:00</td>
-                <td>Visitar cliente</td>
-              </tr>
-              <tr>
-                <td>20:00</td>
-                <td>Visitar cliente</td>
-              </tr>
-              <tr>
-                <td>21:00</td>
-                <td>Visitar cliente</td>
-              </tr>
-              <tr>
-                <td>22:00</td>
-                <td>Visitar cliente</td>
-              </tr>
-              <tr>
-                <td>23:00</td>
-                <td>Visitar cliente</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="col-12 col-md-4 order-1 order-md-2">
-        <div class="row">
-          <div class="col"><i class="bi bi-chevron-left"></i></div>
-          <div class="col">
-            <h4>Outubro</h4>
+      <div class="row mb-4 g-2">
+        <div class="col-12 col-md-6 d-flex gap-2">
+          <div class="btn-group" role="group">
+            <button id="btn-view-daily" type="button" class="btn btn-outline-primary">Diário</button>
+            <button id="btn-view-monthly" type="button" class="btn btn-primary">Mensal</button>
           </div>
-          <div class="col text-end"><i class="bi bi-chevron-right"></i></div>
         </div>
-        <table class="table table-bordered text-center">
-          <thead>
-            <th>S</th>
-            <th>T</th>
-            <th>Q</th>
-            <th>Q</th>
-            <th>S</th>
-            <th>S</th>
-            <th>D</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                1
-              </td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td class="table-active">5</td>
-              <td>6</td>
-              <td>7</td>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td>9</td>
-              <td>10</td>
-              <td><strong>11</strong></td>
-              <td>12</td>
-              <td>13
-                <!-- <div class="col text-center">
-                  <p>Domingo</p>
-                  <div class="col text-start">
-                    asdfasdf
-                  </div>
-                </div> -->
-              </td>
-              <td>14</td>
-            </tr>
-            <tr>
-              <td>16</td>
-              <td>17</td>
-              <td>18</td>
-              <td>19</td>
-              <td>20</td>
-              <td>21</td>
-              <td>22</td>
-            </tr>
-            </tr>
-            <tr>
-              <td>23</td>
-              <td>24</td>
-              <td>25</td>
-              <td>26</td>
-              <td>27</td>
-              <td>28</td>
-              <td>29</td>
-            </tr>
-            </tr>
-            <tr>
-              <td>30</td>
-              <td>31</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="col-12 col-md-6 d-flex justify-content-md-end gap-2">
+          <!-- <button class="btn btn-custom-blue" data-bs-toggle="modal" data-bs-target="#recorrenciaModal">
+            <i class="bi bi-arrow-repeat me-1"></i> Recorrências
+          </button> -->
+          <button class="btn btn-custom-blue" onclick="abrirModalNovoCompromisso()">
+            <i class="bi bi-plus-lg me-1"></i> Novo Compromisso
+          </button>
+        </div>
       </div>
-    </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-3 bg-white p-3 rounded shadow-sm border">
+        <button id="btn-ant" class="btn btn-outline-secondary btn-sm"><i class="bi bi-chevron-left"></i> Anterior</button>
+        <h3 id="mes-ano-label" class="m-0 text-capitalize fw-bold fs-5"></h3>
+        <button id="btn-prox" class="btn btn-outline-secondary btn-sm">Próximo <i class="bi bi-chevron-right"></i></button>
+      </div>
+
+      <div id="view-mensal" class="bg-white p-3 rounded shadow-sm border">
+        <div class="calendar-grid mb-2 d-none d-md-grid">
+          <div class="calendar-day-header">Dom</div>
+          <div class="calendar-day-header">Seg</div>
+          <div class="calendar-day-header">Ter</div>
+          <div class="calendar-day-header">Qua</div>
+          <div class="calendar-day-header">Qui</div>
+          <div class="calendar-day-header">Sex</div>
+          <div class="calendar-day-header">Sáb</div>
+        </div>
+        
+        <div class="calendar-grid mb-2 d-grid d-md-none" style="font-size: 0.8rem;">
+            <div class="calendar-day-header">D</div>
+            <div class="calendar-day-header">S</div>
+            <div class="calendar-day-header">T</div>
+            <div class="calendar-day-header">Q</div>
+            <div class="calendar-day-header">Q</div>
+            <div class="calendar-day-header">S</div>
+            <div class="calendar-day-header">S</div>
+        </div>
+
+        <div id="calendario-grid" class="calendar-grid">
+          </div>
+      </div>
+
+      <div id="view-diaria" class="bg-white p-3 rounded shadow-sm border d-none">
+        <h4 id="dia-atual-label" class="mb-3 text-capitalize"></h4>
+        <div class="table-responsive-agenda-diaria" style="max-height: 600px; overflow-y: auto;">
+          <div id="lista-horarios">
+            </div>
+        </div>
+      </div>
+
+    </main>
   </div>
-  </div>
-  <!-- <img src="assets/img/agenda.png"> -->
-  </main>
-  
-  <div class="modal fade" id="novocompromissoModal" tabindex="-1" aria-labelledby="novocompromissoModalLabel"
-    aria-hidden="true">
+
+  <div class="modal fade" id="novocompromissoModal" tabindex="-1" aria-labelledby="novocompromissoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="contaPagarModalLabel">Adicionar Novo Compromisso</h5>
+          <h5 class="modal-title" id="novocompromissoModalLabel">Adicionar Novo Compromisso</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="formContaPagar">
-            <input type="hidden" id="contaPagarId" value="">
-
+          <form id="formCompromisso">
+            <input type="hidden" id="inputId" value="">
 
             <div class="mb-3">
-              <label for="modalDescricaoConta" class="form-label">Descrição do Compromisso</label>
-              <textarea class="form-control" id="modalDescricaoConta" rows="3"
-                placeholder="Ex: Ligar para clinete"></textarea>
+              <label for="inputDescricao" class="form-label">Descrição</label>
+              <input type="text" class="form-control" id="inputDescricao" required placeholder="Ex: Reunião com cliente">
+            </div>
+            <div class="row">
+              <div class="col-6 mb-3">
+                <label for="inputData" class="form-label">Data</label>
+                <input type="date" class="form-control" id="inputData" required>
+              </div>
+              <div class="col-6 mb-3">
+                <label for="inputHora" class="form-label">Hora</label>
+                <input type="time" class="form-control" id="inputHora" required>
+              </div>
             </div>
             <div class="mb-3">
-              <label for="modalVencimentoConta" class="form-label">Data do Compromisso</label>
-              <input type="date" class="form-control" id="modalVencimentoConta">
+              <label for="inputCor" class="form-label">Tipo (Cor)</label>
+              <select class="form-select" id="inputCor">
+                <option value="#2988CA">Azul (Padrão)</option>
+                <option value="#dc3545">Vermelho (Urgente)</option>
+                <option value="#198754">Verde (Pessoal)</option>
+                <option value="#ffc107">Amarelo (Lembrete)</option>
+              </select>
             </div>
           </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" onclick="salvarContaPagar()">Salvar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="recorrenciaModal" tabindex="-1" aria-labelledby="recorrenciaModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="SelectClientesModalLabel">Editar Recorrência</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" id="contaPagarId" value="">
-
-
-          <input id="search_produto_fat_produtos" class="form-control mb-3" type="text" placeholder="Buscar">
-
-          <div class="card mb-4">
-            <div class="card-body p-0">
-              <div class="table-responsive tabelaModal">
-                <table class="table table-hover mb-0">
-                  <thead class="table-light">
-                    <tr>
-                      <th scope="col">Selecione a Recorrência</th>
-
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr id="produto-1">
-                      <th><a href="#">Comprar Papel Sulfite</a></th>
-                    </tr>
-                    <tr id="produto-1">
-                      <th><a href="#">Revisão Ferramentas</a></th>
-                    </tr>
-                    <tr id="produto-1">
-                      <th><a href="#">Ajuste Balança</a></th>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-danger d-none" id="btnExcluirModal" onclick="excluirDoModal()">
+            <i class="bi bi-trash"></i> Excluir
+          </button>
+          
+          <div class="d-flex gap-2 ms-auto">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" onclick="salvarCompromisso()">Salvar</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- End Main -->
-  <script src="/assets/js/agenda.js" defer></script>
-  
-</body>
 
+  <!-- <div class="modal fade" id="recorrenciaModal" tabindex="-1" aria-labelledby="recorrenciaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="recorrenciaModalLabel">Gestão de Recorrências</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle me-2"></i> Funcionalidade em desenvolvimento.
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <script type="module" src="../assets/js/agenda.js"></script>
+
+</body>
 </html>

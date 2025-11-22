@@ -1,4 +1,5 @@
 import { loggedUser, logoutUser } from "./auth.js";
+
 import { LOGIN_URL } from "./config.js" 
 
 // Joga a chamada da função em uma const para usar seus dados
@@ -29,95 +30,66 @@ if (!ID_LOGIN_GLOBAL) {
 // =========================================
 // UTILIDADES (GET/SAVE DB)
 
-// =========================================
+import { makeDecimal } from "./utils.js";
 
-/**
- * Lê o banco de dados atualizado do LocalStorage
- */
+// =========================================
+// 1. AUTENTICAÇÃO
+// =========================================
+const usuarioCorrente = loggedUser();
+if (!usuarioCorrente) {
+    window.location.href = '../index.html';
+}
+
+// =========================================
+// 2. CONFIGURAÇÕES E DADOS
+>>>>>>> f3a56a57c5d744b5799d55f2e8fd9356e0a3048d
+// =========================================
+const DB_KEY = 'produtosServicos';
+
 function getDB() {
-    return JSON.parse(localStorage.getItem('db_produtosServicos')) || { items: [] };
-}
-
-/**
- * Salva o banco de dados inteiro no LocalStorage
- * @param {object} db O objeto do banco de dados a ser salvo
- */
-function saveDB(db) {
-    localStorage.setItem('db_produtosServicos', JSON.stringify(db));
-}
-
-// =========================================
-// INICIALIZAÇÃO DO CATÁLOGO COM JSON
-// ... (RESTANTE DO CÓDIGO DA FUNÇÃO inicializarCatalogo PERMANECE IGUAL)
-// =========================================
-
-/**
- * Carrega o JSON e inicializa o LocalStorage se estiver vazio.
- * Adiciona o id_login_global no primeiro carregamento.
- */
-async function inicializarCatalogo() {
-    // Tenta carregar o DB atual antes de buscar o JSON
-    let db = getDB(); 
-
-    // Verifica se precisa carregar o JSON (só se o banco de dados estiver vazio)
-    if (db.items.length === 0) {
-        try {
-            // Caminho que a outra tela está usando.
-            const response = await fetch('assets/data/maketesttemp.json'); 
-            if (!response.ok) {
-                // Se o JSON falhar, loga o erro e retorna o DB vazio
-                console.error("Falha ao carregar JSON. Status:", response.status);
-                return;
-            }
-            
-            const data = await response.json();
-
-            // 1. Mapeia e combina produtos e serviços
-            const novosItens = [
-                ...data.produtos.map(p => ({ 
-                    ...p, 
-                    tipo: 'Produto', 
-                    // Adicionando campos específicos para Relatório/CRUD
-                    valor: p.valor || 0, 
-                    saldo: p.saldo || 0,
-                    fornecedor: p.fornecedor || 'Geral' 
-                })), 
-                ...data.servicos.map(s => ({ 
-                    ...s, 
-                    tipo: 'Serviço', 
-                    valor: s.valor || 0, // Serviço pode ter valor
-                    saldo: 999, // Serviço geralmente tem saldo alto/infinito
-                    fornecedor: s.fornecedor || 'Geral' 
-                }))
-            ].map((item, index) => ({ // Adiciona ID e associa ao usuário logado
-                id: index + 1,
-                codigo: item.codigo || item.id_servico || item.id_produto,
-                tipo: item.tipo,
-                descricao: item.descricao || item.nome,
-                unidade: item.unidade || 'UN',
-                valor: item.valor,
-                saldo: item.saldo,
-                fornecedor: item.fornecedor,
-                // ASSOCIA O ITEM AO USUÁRIO LOGADO NO PRIMEIRO CARREGAMENTO
-                id_login_global: ID_LOGIN_GLOBAL 
-            }));
-            
-            db.items = novosItens;
-            saveDB(db);
-            console.log("LocalStorage inicializado com dados do JSON e associado ao usuário.");
-
-        } catch (error) {
-            console.error("Erro fatal ao carregar catálogo via JSON:", error);
-        }
-    } else {
-        console.log("LocalStorage já contém dados, pulando inicialização com JSON.");
+    try {
+        const rawData = JSON.parse(localStorage.getItem(DB_KEY));
+        // Suporte para array direto ou objeto { items: [] } (legado)
+        if (rawData && Array.isArray(rawData)) return rawData;
+        if (rawData && rawData.items && Array.isArray(rawData.items)) return rawData.items;
+        return [];
+    } catch (e) {
+        console.error("Erro ao ler banco:", e);
+        return [];
     }
 }
 
 // =========================================
-// INICIALIZAÇÃO DA PÁGINA (ASYNC)
+<<<<<<< HEAD
+// INICIALIZAÇÃO DO CATÁLOGO COM JSON
+// ... (RESTANTE DO CÓDIGO DA FUNÇÃO inicializarCatalogo PERMANECE IGUAL)
+=======
+// 3. INICIALIZAÇÃO
+>>>>>>> f3a56a57c5d744b5799d55f2e8fd9356e0a3048d
 // =========================================
 
+function initPage() {
+    const btnFiltrar = document.getElementById('btn-filtrar');
+    if(btnFiltrar) {
+        btnFiltrar.addEventListener('click', aplicarFiltros);
+    }
+<<<<<<< HEAD
+=======
+    
+    // Listeners para filtros em tempo real
+    document.getElementById('filtroBusca').addEventListener('input', aplicarFiltros);
+    document.getElementById('filtroTipo').addEventListener('change', aplicarFiltros);
+    document.getElementById('filtroSaldo').addEventListener('change', aplicarFiltros);
+
+    aplicarFiltros();
+>>>>>>> f3a56a57c5d744b5799d55f2e8fd9356e0a3048d
+}
+
+// =========================================
+// 4. LÓGICA DE FILTRO E RENDERIZAÇÃO
+// =========================================
+
+<<<<<<< HEAD
 async function initPage() {
 
     document.getElementById('btn_logout').addEventListener('click', logoutUser);
@@ -156,24 +128,100 @@ function carregarTabelaProdutosServicos(itensFiltrados = null) {
     
     // Filtra os itens para exibir SOMENTE os do usuário logado
     const itensDoUsuario = db.items.filter(item => String(item.id_login_global) === String(ID_LOGIN_GLOBAL)); // Ajuste de comparação
+=======
+function normalizarTexto(texto) {
+    if (!texto) return "";
+    return String(texto)
+        .toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, ""); 
+}
 
-    // Se itensFiltrados não for passado, usa a lista completa do usuário
-    const itens = itensFiltrados || itensDoUsuario; 
+function aplicarFiltros(event) {
+    if(event && event.type === 'click') event.preventDefault();
 
-    if (itens.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" class="text-center">Nenhum item encontrado.</td></tr>';
+    const db = getDB();
+    
+    // 1. Filtra pelo USUÁRIO LOGADO
+    let itens = db.filter(item => String(item.usuarioId) === String(usuarioCorrente.id));
+>>>>>>> f3a56a57c5d744b5799d55f2e8fd9356e0a3048d
+
+    const termoBusca = normalizarTexto(document.getElementById('filtroBusca').value);
+    const tipoSelecionado = document.getElementById('filtroTipo').value; 
+    const saldoSelecionado = document.getElementById('filtroSaldo').value;
+
+    // 2. Filtro por Texto (Nome, Código ou Referência)
+    if (termoBusca) {
+        itens = itens.filter(item => {
+            const desc = normalizarTexto(item.descricao);
+            const cod = normalizarTexto(item.meuId); // Usando meuId como código principal
+            const ref = normalizarTexto(item.referencia);
+            const bar = normalizarTexto(item.codigoBarras);
+            
+            return desc.includes(termoBusca) || 
+                   cod.includes(termoBusca) || 
+                   ref.includes(termoBusca) || 
+                   bar.includes(termoBusca);
+        });
+    }
+
+    // 3. Filtro por Tipo (Produto/Serviço)
+    if (tipoSelecionado !== 'Todos') {
+        itens = itens.filter(item => {
+            const tipoItem = normalizarTexto(item.tipo); 
+            const tipoFiltro = normalizarTexto(tipoSelecionado);
+            return tipoItem === tipoFiltro;
+        });
+    }
+
+    // 4. Filtro por Saldo/Estoque
+    if (saldoSelecionado === 'Em Estoque') {
+        itens = itens.filter(item => Number(item.estoqueAtual) > 0);
+    } else if (saldoSelecionado === 'Sem Estoque') {
+        // Mostra itens zerados ou negativos APENAS se for produto.
+        itens = itens.filter(item => {
+            const isProduto = normalizarTexto(item.tipo) === 'produto';
+            const estoque = Number(item.estoqueAtual);
+            return isProduto && estoque <= 0;
+        });
+    }
+
+    renderizarTabela(itens);
+}
+
+function renderizarTabela(listaItens) {
+    const tbody = document.querySelector('#tabelaProdutosServicos tbody');
+    if(!tbody) return;
+    
+    tbody.innerHTML = "";
+
+    if (listaItens.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center py-3">Nenhum registro encontrado.</td></tr>';
         return;
     }
 
-    itens.forEach((item) => {
+    listaItens.forEach(item => {
         const tr = document.createElement('tr');
-        tr.dataset.id = item.id; 
-        tr.dataset.tipo = item.tipo;
-
-        // Formatação simples para valor
-        const valorFormatado = (item.valor || 0).toFixed(2).replace('.', ',');
+        
+        const codigo = item.meuId || '-';
+        const tipoDisplay = item.tipo ? item.tipo.charAt(0).toUpperCase() + item.tipo.slice(1) : '-';
+        const desc = item.descricao || '-';
+        const unid = item.unidade || '-';
+        
+        // CORREÇÃO: Campo correto do JSON é precoVenda
+        const valor = makeDecimal(item.precoVenda || 0); 
+        
+        // Estoque
+        let estoque = item.estoqueAtual;
+        
+        // Se for serviço, mostra "-" no estoque
+        if (normalizarTexto(item.tipo) === 'servico') {
+            estoque = '-'; 
+        } else if (estoque === null || estoque === undefined) {
+            estoque = 0;
+        }
 
         tr.innerHTML = `
+<<<<<<< HEAD
             <td>${item.codigo}</td>
             <td>${item.tipo}</td>
             <td>${item.descricao}</td>
@@ -191,12 +239,20 @@ function carregarTabelaProdutosServicos(itensFiltrados = null) {
                     <i class="bi bi-trash"></i>
                 </button>
             </td>
+=======
+            <td>${codigo}</td>
+            <td>${tipoDisplay}</td>
+            <td>${desc}</td>
+            <td class="text-center">${unid}</td>
+            <td class="text-end">R$ ${valor}</td>
+            <td class="text-center">${estoque}</td>
+>>>>>>> f3a56a57c5d744b5799d55f2e8fd9356e0a3048d
         `;
-
         tbody.appendChild(tr);
     });
 }
 
+<<<<<<< HEAD
 /**
  * Aplica os filtros e recarrega a tabela.
  */
@@ -365,3 +421,9 @@ window.salvarProdutoServico = salvarProdutoServico;
 
 // Associa a função de inicialização ao evento de carga da página
 window.addEventListener('load', initPage);
+=======
+// Inicializa apenas após o carregamento completo (garante que o HTML existe)
+// Se estiver usando ajax-worker, pode ser necessário chamar initPage() diretamente no final também
+window.addEventListener('load', initPage);
+initPage(); // Descomente se necessário para forçar execução imediata no SPA
+>>>>>>> f3a56a57c5d744b5799d55f2e8fd9356e0a3048d
