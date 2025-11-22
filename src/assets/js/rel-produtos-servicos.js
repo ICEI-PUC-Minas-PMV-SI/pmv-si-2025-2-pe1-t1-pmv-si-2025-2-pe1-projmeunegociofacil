@@ -1,21 +1,38 @@
-// A const LOGIN_URL e a função logoutUser são assumidas como acessíveis globalmente.
+// =========================================================
+// CORREÇÃO: Importação e Definição do Usuário Logado
+// Usa a nova variável loggedUser
+// =========================================================
+import { loggedUser, logoutUser } from "./auth.js";
+import { LOGIN_URL } from "./config.js" 
 
-// CARREGA O USUÁRIO LOGADO NO ESCOPO GLOBAL
-
+// Joga a chamada da função em uma const para usar seus dados
+const usuarioCorrente = loggedUser(); 
 
 // VERIFICA LOGIN IMEDIATAMENTE (ANTES DA initPage)
+// Agora usa o objeto retornado pela função
 if (!usuarioCorrente || !usuarioCorrente.email_login) {
     if (typeof LOGIN_URL !== 'undefined') {
         window.location.href = LOGIN_URL;
     } else {
         console.error("Erro: LOGIN_URL não definida, não foi possível redirecionar.");
+        // Se LOGIN_URL falhar, força o logout para evitar acesso não autorizado
+        logoutUser(); 
     }
 }
 
-const ID_LOGIN_GLOBAL = usuarioCorrente.id_login_global; 
+// =========================================================
+// CORREÇÃO: Definição de ID Global
+// Usa a propriedade 'id' ou 'email_login' do novo objeto usuarioCorrente
+// =========================================================
+const ID_LOGIN_GLOBAL = usuarioCorrente.id || usuarioCorrente.email_login; 
+if (!ID_LOGIN_GLOBAL) {
+    console.error("ID de usuário inválido. Forçando logout.");
+    logoutUser();
+}
 
 // =========================================
 // UTILIDADES (GET/SAVE DB)
+// ... (RESTANTE DO CÓDIGO DA FUNÇÃO getDB E saveDB PERMANECE IGUAL)
 // =========================================
 
 /**
@@ -35,6 +52,7 @@ function saveDB(db) {
 
 // =========================================
 // INICIALIZAÇÃO DO CATÁLOGO COM JSON
+// ... (RESTANTE DO CÓDIGO DA FUNÇÃO inicializarCatalogo PERMANECE IGUAL)
 // =========================================
 
 /**
@@ -98,9 +116,6 @@ async function inicializarCatalogo() {
     } else {
         console.log("LocalStorage já contém dados, pulando inicialização com JSON.");
     }
-    
-    // Popula o campo de fornecedores no select após a inicialização
-
 }
 
 // =========================================
@@ -110,19 +125,27 @@ async function inicializarCatalogo() {
 async function initPage() {
 
     document.getElementById('btn_logout').addEventListener('click', logoutUser);
+    // CORREÇÃO: usuarioCorrente.nome já está definido
     document.getElementById('nomeUsuario').innerHTML = usuarioCorrente.nome || 'Usuário';
 
-
     await inicializarCatalogo(); 
-
   
-    
+    popularSelectFornecedores(getDB().items); // CORREÇÃO: Popula o select após a inicialização
     // carrega a tabela (agora com dados, se nao ter nada no LocalStorage)
     carregarTabelaProdutosServicos();
+    
+    // CORREÇÃO: Adiciona listener para aplicar filtros ao mudar o select
+    document.getElementById('tipoFiltro').addEventListener('change', aplicarFiltros);
+    document.getElementById('fornecedorFiltro').addEventListener('change', aplicarFiltros);
+    document.getElementById('produtosFiltro').addEventListener('input', aplicarFiltros); // Busca ao digitar
+    document.getElementById('saldoFiltro').addEventListener('change', aplicarFiltros);
+
 }
 
 // =========================================
 // FUNÇÕES DE FILTRO E CARREGAMENTO DA TABELA
+// ... (RESTANTE DO CÓDIGO PERMANECE IGUAL)
+// =========================================
 
 /**
  * Preenche a tabela com os itens, aplicando os filtros se fornecidos.
@@ -136,7 +159,7 @@ function carregarTabelaProdutosServicos(itensFiltrados = null) {
     const db = getDB();
     
     // Filtra os itens para exibir SOMENTE os do usuário logado
-    const itensDoUsuario = db.items.filter(item => item.id_login_global == ID_LOGIN_GLOBAL);
+    const itensDoUsuario = db.items.filter(item => String(item.id_login_global) === String(ID_LOGIN_GLOBAL)); // Ajuste de comparação
 
     // Se itensFiltrados não for passado, usa a lista completa do usuário
     const itens = itensFiltrados || itensDoUsuario; 
@@ -159,7 +182,7 @@ function carregarTabelaProdutosServicos(itensFiltrados = null) {
             <td>${item.tipo}</td>
             <td>${item.descricao}</td>
             <td>${item.unidade}</td>
-            <td>${valorFormatado}</td>
+            <td>R$ ${valorFormatado}</td>
             <td>${item.saldo}</td>
             <td>
                 <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
@@ -184,7 +207,7 @@ function carregarTabelaProdutosServicos(itensFiltrados = null) {
 function aplicarFiltros() {
     const db = getDB();
     // Inicia a filtragem apenas com os itens do usuário logado
-    let itens = db.items.filter(item => item.id_login_global == ID_LOGIN_GLOBAL); 
+    let itens = db.items.filter(item => String(item.id_login_global) === String(ID_LOGIN_GLOBAL)); // Ajuste de comparação
 
     const tipoFiltro = document.getElementById('tipoFiltro').value;
     const fornecedorFiltro = document.getElementById('fornecedorFiltro').value;
@@ -229,7 +252,7 @@ function popularSelectFornecedores(items) {
     select.innerHTML = '<option value="Todos">Selecione o Fornecedor</option>'; 
     
     // Filtra fornecedores APENAS dos itens do usuário logado
-    const itensDoUsuario = items.filter(item => item.id_login_global == ID_LOGIN_GLOBAL);
+    const itensDoUsuario = items.filter(item => String(item.id_login_global) === String(ID_LOGIN_GLOBAL)); // Ajuste de comparação
     const fornecedores = [...new Set(itensDoUsuario.map(item => item.fornecedor).filter(f => f))].sort();
 
     fornecedores.forEach(fornecedor => {
@@ -251,21 +274,28 @@ function popularSelectFornecedores(items) {
  * @param {number} id ID do item a ser editado.
  */
 function abrirModalProdutoServico(id) {
-    document.getElementById('itemId').value = id;
+    document.getElementById('itemId').value = ''; // Limpa o ID
+    document.getElementById('formProdutoServico').reset(); // Limpa o formulário
+    
     const db = getDB();
     const item = db.items.find(x => x.id === id);
     
-    if (item && item.id_login_global == ID_LOGIN_GLOBAL) {
+    // Ajuste de comparação de ID
+    if (item && String(item.id_login_global) === String(ID_LOGIN_GLOBAL)) { 
+        document.getElementById('itemId').value = id;
         document.getElementById('modalCodigo').value = item.codigo;
         document.getElementById('modalTipo').value = item.tipo;
         document.getElementById('modalDescricao').value = item.descricao;
         document.getElementById('modalUnidade').value = item.unidade;
-        document.getElementById('modalValor').value = item.valor;
-        document.getElementById('modalSaldo').value = item.saldo; // Campo do relatório
+        document.getElementById('modalValor').value = parseFloat(item.valor).toFixed(2); // Formata para 2 casas
+        document.getElementById('modalSaldo').value = item.saldo; 
     } else {
         alert('Você não tem permissão para editar este item.');
-        const modal = bootstrap.Modal.getInstance(document.getElementById('produtoServicoModal'));
-        if (modal) modal.hide();
+        // Presumindo a existência do objeto bootstrap
+        if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('produtoServicoModal'));
+            if (modal) modal.hide();
+        }
     }
 }
 
@@ -278,7 +308,8 @@ function salvarProdutoServico() {
     const tipo = document.getElementById('modalTipo').value;
     const descricao = document.getElementById('modalDescricao').value.trim();
     const unidade = document.getElementById('modalUnidade').value.trim();
-    const valor = parseFloat(document.getElementById('modalValor').value.replace(',', '.'));
+    const valorInput = document.getElementById('modalValor').value.replace(',', '.');
+    const valor = parseFloat(valorInput);
     const saldo = parseInt(document.getElementById('modalSaldo').value);
 
     if (!codigo || !tipo || !descricao || !unidade || isNaN(valor) || isNaN(saldo)) {
@@ -287,21 +318,25 @@ function salvarProdutoServico() {
     }
 
     const db = getDB();
-    const index = db.items.findIndex(item => item.id === id && item.id_login_global === ID_LOGIN_GLOBAL); 
+    // Filtra por ID do item E o ID do usuário (corrigido)
+    const index = db.items.findIndex(item => item.id === id && String(item.id_login_global) === String(ID_LOGIN_GLOBAL)); 
 
     if (index !== -1) {
         db.items[index].codigo = codigo;
         db.items[index].tipo = tipo;
         db.items[index].descricao = descricao;
         db.items[index].unidade = unidade;
-        db.items[index].valor = valor;
+        db.items[index].valor = valor.toFixed(2); // Salva com 2 casas
         db.items[index].saldo = saldo;
         
         saveDB(db);
         
-        const modalElement = document.getElementById('produtoServicoModal');
-        const modal = bootstrap.Modal.getInstance(modalElement);
-        if (modal) modal.hide();
+        // Presumindo a existência do objeto bootstrap
+        if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+            const modalElement = document.getElementById('produtoServicoModal');
+            const modal = bootstrap.Modal.getInstance(modalElement);
+            if (modal) modal.hide();
+        }
 
         carregarTabelaProdutosServicos();
     } else {
@@ -318,11 +353,19 @@ function excluirItem(id) {
 
     const db = getDB();
     
-    db.items = db.items.filter(item => !(item.id === id && item.id_login_global === ID_LOGIN_GLOBAL));
+    // Filtra para remover o item, garantindo que é o item do usuário logado (usando o ID corrigido)
+    db.items = db.items.filter(item => !(item.id === id && String(item.id_login_global) === String(ID_LOGIN_GLOBAL)));
 
     saveDB(db);
     carregarTabelaProdutosServicos();
 }
+
+// =====================================================================
+// Expondo as funções ao escopo global (window)
+// =====================================================================
+window.excluirItem = excluirItem;
+window.abrirModalProdutoServico = abrirModalProdutoServico;
+window.salvarProdutoServico = salvarProdutoServico;
 
 // Associa a função de inicialização ao evento de carga da página
 window.addEventListener('load', initPage);
