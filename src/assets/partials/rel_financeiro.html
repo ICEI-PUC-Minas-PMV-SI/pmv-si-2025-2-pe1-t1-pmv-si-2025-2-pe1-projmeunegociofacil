@@ -3,10 +3,11 @@
 
 <head>
   <title>Relatório Financeiro</title>
+  <script type="module" src="../assets/js/rel-financeiro.js"></script>
 </head>
 
 <body>
-
+  
   <div class="app d-flex">
 
     <main class="flex-grow-1 p-4">
@@ -14,7 +15,7 @@
       <div class="container-fluid px-0">
         <div class="row g-3 align-items-end">
           <h1 class="h4 mb-3">Relatório Financeiro</h1>
-
+          
           <div class="col-12 col-md-6">
             <div class="d-flex align-items-center flex-wrap gap-2">
               <label class="me-2 mb-0 fw-semibold">Período:</label>
@@ -68,8 +69,7 @@
       <div class="mt-4">
         <div class="bg-white border rounded p-3">
           <div class="w-100" style="overflow-x:auto;">
-            <svg viewBox="0 0 1100 380" width="100%" height="380" xmlns="http://www.w3.org/2000/svg" role="img"
-              aria-label="Gráfico de Receitas e Despesas">
+            <svg viewBox="0 0 1100 380" width="100%" height="380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gráfico de Receitas e Despesas">
               <rect x="0" y="0" width="1100" height="380" fill="#ffffff" />
 
               <g transform="translate(60,20)">
@@ -113,13 +113,11 @@
 
           <div class="d-flex align-items-center mt-2" style="gap: 24px;">
             <span class="d-inline-flex align-items-center">
-              <span class="me-2"
-                style="display:inline-block;width:16px;height:16px;border:3px solid #e74c3c;border-radius:50%;"></span>
+              <span class="me-2" style="display:inline-block;width:16px;height:16px;border:3px solid #e74c3c;border-radius:50%;"></span>
               Despesas
             </span>
             <span class="d-inline-flex align-items-center">
-              <span class="me-2"
-                style="display:inline-block;width:16px;height:16px;border:3px solid #2988CA;border-radius:50%;"></span>
+              <span class="me-2" style="display:inline-block;width:16px;height:16px;border:3px solid #2988CA;border-radius:50%;"></span>
               Receitas
             </span>
           </div>
@@ -141,15 +139,12 @@
                 </tr>
               </thead>
               <tbody id="corpoRelFinanceiro">
-              </tbody>
+                </tbody>
             </table>
           </div>
         </div>
       </div>
     </main>
   </div>
-  <script type="module" src="../assets/js/rel-financeiro.js"></script>
-
 </body>
-
 </html>
