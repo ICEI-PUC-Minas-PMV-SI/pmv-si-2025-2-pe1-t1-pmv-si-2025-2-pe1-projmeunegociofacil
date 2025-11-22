@@ -225,3 +225,4 @@ function excluirClienteFornecedor(id) {
     saveDB(db);
     renderizarTabela();
 }
+initPage()
