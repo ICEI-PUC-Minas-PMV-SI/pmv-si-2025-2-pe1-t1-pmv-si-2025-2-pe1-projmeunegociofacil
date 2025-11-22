@@ -1,7 +1,3 @@
-// =========================================================
-// CORREÇÃO: Importação e Definição do Usuário Logado
-// Usa a nova variável loggedUser
-// =========================================================
 import { loggedUser, logoutUser } from "./auth.js";
 import { LOGIN_URL } from "./config.js" 
 
@@ -32,7 +28,7 @@ if (!ID_LOGIN_GLOBAL) {
 
 // =========================================
 // UTILIDADES (GET/SAVE DB)
-// ... (RESTANTE DO CÓDIGO DA FUNÇÃO getDB E saveDB PERMANECE IGUAL)
+
 // =========================================
 
 /**
@@ -125,12 +121,12 @@ async function inicializarCatalogo() {
 async function initPage() {
 
     document.getElementById('btn_logout').addEventListener('click', logoutUser);
-    // CORREÇÃO: usuarioCorrente.nome já está definido
+    // usuarioCorrente.nome já está definido
     document.getElementById('nomeUsuario').innerHTML = usuarioCorrente.nome || 'Usuário';
 
     await inicializarCatalogo(); 
   
-    popularSelectFornecedores(getDB().items); // CORREÇÃO: Popula o select após a inicialização
+    popularSelectFornecedores(getDB().items); // Popula o select após a inicialização
     // carrega a tabela (agora com dados, se nao ter nada no LocalStorage)
     carregarTabelaProdutosServicos();
     
