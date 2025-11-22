@@ -27,5 +27,10 @@ export function loggedUser() {
 export function logoutUser(event) {
     if (event) event.preventDefault();
     sessionStorage.removeItem('loggedUser');
-    window.location.replace(LOGIN_URL); // .replace é melhor que .href para logout (impede voltar)
+
+    // Isso pega a URL atual, sobe um nível (..) e adiciona index.html
+    // Funciona no localhost e no github pages automaticamente
+    const targetUrl = new URL('../index.html', window.location.href).href;
+
+    window.location.href = targetUrl;
 }
