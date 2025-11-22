@@ -319,82 +319,83 @@ Se o grupo tiver interesse em se aprofundar no desenvolvimento de testes de soft
 
 # Testes de Usabilidade
 
-O objetivo do Plano de Testes de Usabilidade é definir como serão coletadas as informações quanto à expectativa dos usuários em relação à funcionalidade da aplicação de forma geral.
+O objetivo do Plano de Testes de Usabilidade é obter informações quanto à expectativa dos usuários em relação à  funcionalidade da aplicação de forma geral.
 
-Para tanto, o planejamento prevê a execução de quatro cenários de teste, cada um baseado na definição das histórias de usuário estabelecidas na etapa de especificação do projeto.
+Para tanto, elaboramos quatro cenários, cada um baseado na definição apresentada sobre as histórias dos usuários, definido na etapa das especificações do projeto.
 
-Serão convidados de 3 a 5 voluntários que se encaixem no perfil do público-alvo (pequenos empreendedores) para averiguar os seguintes indicadores:
+Foram convidadas quatro pessoas que os perfis se encaixassem nas definições das histórias apresentadas na documentação, visando averiguar os seguintes indicadores:
 
-* **Taxa de sucesso:** Verifica se o usuário conseguiu ou não executar a tarefa proposta.
-* **Satisfação subjetiva:** Avalia como o usuário se sentiu em relação à execução da tarefa, utilizando a escala Likert de 1 a 5:
-    1.  Péssimo
-    2.  Ruim
-    3.  Regular
-    4.  Bom
-    5.  Ótimo
-* **Tempo para conclusão da tarefa:** Medido em segundos, para comparação posterior com o tempo ideal (benchmarking) realizado por um especialista (desenvolvedor).
+Taxa de sucesso: responde se o usuário conseguiu ou não executar a tarefa proposta;
 
-Visando respeitar as diretrizes da Lei Geral de Proteção de Dados (LGPD), as informações pessoais dos participantes não serão armazenadas, sendo identificados apenas por códigos (ex: Usuário 01) nos registros.
+Satisfação subjetiva: responde como o usuário avalia o sistema com relação à execução da tarefa proposta, conforme a seguinte escala:
 
-> **Ferramentas sugeridas para aplicação:**
-> - [UX Tools](https://uxdesign.cc/ux-user-research-and-user-testing-tools-2d339d379dc7) (Softwares para gravação de tela e cronometragem).
+1. Péssimo; 
+2. Ruim; 
+3. Regular; 
+4. Bom; 
+5. Ótimo.
+
+Tempo para conclusão da tarefa: em segundos, e em comparação com o tempo utilizado quando um especialista (um desenvolvedor) realiza a mesma tarefa.
+
+Objetivando respeitar as diretrizes da Lei Geral de Proteção de Dados, as informações pessoais dos usuários que participaram do teste não foram coletadas, tendo em vista a ausência de Termo de Consentimento Livre e Esclarecido.
+
+Apresente os cenários de testes utilizados na realização dos testes de usabilidade da sua aplicação. Escolha cenários de testes que demonstrem as principais histórias de usuário sendo realizadas. Neste tópico o grupo deve detalhar quais funcionalidades avaliadas, o grupo de usuários que foi escolhido para participar do teste e as ferramentas utilizadas.
+
+> - [UX Tools](https://uxdesign.cc/ux-user-research-and-user-testing-tools-2d339d379dc7)
+
 
 ## Cenários de Teste de Usabilidade
 
-Abaixo estão descritos os cenários planejados para demonstrar as principais funcionalidades do sistema sendo realizadas por um usuário final.
+| Nº do Cenário | Descrição do cenário |
+|---------------|----------------------|
+| 1             | Você é uma pessoa que deseja comprar um iphone. Encontre no site um iphone e veja detalhes de localização e contato da loja que anunciando. |
+| 2             | Você é uma pessoa que deseja comprar um smartphone até R$ 2.000,00. Encontre no site smartphone's nessa faixa de preço. |
 
-| Nº do Cenário | Descrição da Tarefa | Objetivo do Teste |
-| :--- | :--- | :--- |
-| **1** | Você é um novo empreendedor acessando o sistema pela primeira vez. Realize o cadastro de uma nova conta (Pessoa Jurídica) e, em seguida, faça o login para acessar o Dashboard. | Avaliar a facilidade de entrada no sistema (Onboarding) e clareza do formulário de cadastro. |
-| **2** | Você recebeu um novo lote de mercadorias. Acesse o módulo de cadastros e insira um novo produto (ex: "Mouse Sem Fio"), definindo seu preço de venda e a unidade. | Avaliar a intuitividade das operações de cadastro (CRUD) e navegação no menu. |
-| **3** | Um cliente está no balcão aguardando. Realize uma venda de 2 unidades de um produto para um cliente já cadastrado, selecione a forma de pagamento e finalize a operação. | Avaliar a eficiência do fluxo principal de negócio (Venda/PDV) e contar a quantidade de cliques necessária. |
-| **4** | Você precisa analisar a saúde financeira da empresa. Acesse o Relatório Financeiro, filtre pelos lançamentos do tipo "A receber" e identifique o gráfico de resultados. | Avaliar a capacidade do usuário de extrair informações gerenciais e interpretar os gráficos. |
 
-## Registro dos Testes de Usabilidade (Modelo)
 
-Esta seção apresenta os modelos de tabelas que serão utilizados para registrar os dados durante a futura execução dos testes.
+## Registro de Testes de Usabilidade
 
-### Modelo: Cenário 1 (Cadastro e Login)
+Cenário 1: Você é uma pessoa que deseja comprar um iphone. Encontre no site um iphone e veja detalhes de localização e contato da loja que anunciando.
 
-| Usuário | Taxa de sucesso (Sim/Não) | Satisfação subjetiva (1-5) | Tempo para conclusão (s) | Comentários / Observações |
-| :--- | :--- | :--- | :--- | :--- |
-| Usuário 01 | | | | |
-| Usuário 02 | | | | |
-| Usuário 03 | | | | |
-| **Média** | | | | |
+| Usuário | Taxa de sucesso | Satisfação subjetiva | Tempo para conclusão do cenário |
+|---------|-----------------|----------------------|---------------------------------|
+| 1       | SIM             | 5                    | 27.87 segundos                  |
+| 2       | SIM             | 5                    | 17.11 segundos                  |
+| 3       | SIM             | 5                    | 39.09 segundos                  |
+|  |  |  |  |
+| **Média**     | 100%           | 5                | 28.02 segundos                           |
+| **Tempo para conclusão pelo especialista** | SIM | 5 | 8.66 segundos |
 
-### Modelo: Cenário 2 (Cadastro de Produto)
 
-| Usuário | Taxa de sucesso (Sim/Não) | Satisfação subjetiva (1-5) | Tempo para conclusão (s) | Comentários / Observações |
-| :--- | :--- | :--- | :--- | :--- |
-| Usuário 01 | | | | |
-| Usuário 02 | | | | |
-| Usuário 03 | | | | |
-| **Média** | | | | |
+    Comentários dos usuários: Achei o site muito bom e intuitivo. 
+    Não tive dificuldades e acho que ficou bem intuitivo.
 
-### Modelo: Cenário 3 (Realização de Venda)
 
-| Usuário | Taxa de sucesso (Sim/Não) | Satisfação subjetiva (1-5) | Tempo para conclusão (s) | Comentários / Observações |
-| :--- | :--- | :--- | :--- | :--- |
-| Usuário 01 | | | | |
-| Usuário 02 | | | | |
-| Usuário 03 | | | | |
-| **Média** | | | | |
+Cenário 2: Você é uma pessoa que deseja comprar um smartphone até R$ 2.000,00. Encontre no site smartphone's nessa faixa de preço.
 
-### Modelo: Cenário 4 (Relatório Financeiro)
+| Usuário | Taxa de sucesso | Satisfação subjetiva | Tempo para conclusão do cenário |
+|---------|-----------------|----------------------|---------------------------------|
+| 1       | SIM             | 5                    | 22.54 segundos                          |
+| 2       | SIM             | 5                    | 31.42 segundos                          |
+| 3       | SIM             | 4                    | 36.21 segundos                          |
+|  |  |  |  |
+| **Média**     | 100%           | 4.67                | 30.05 segundos                           |
+| **Tempo para conclusão pelo especialista** | SIM | 5 | 13.57 segundos |
 
-| Usuário | Taxa de sucesso (Sim/Não) | Satisfação subjetiva (1-5) | Tempo para conclusão (s) | Comentários / Observações |
-| :--- | :--- | :--- | :--- | :--- |
-| Usuário 01 | | | | |
-| Usuário 02 | | | | |
-| Usuário 03 | | | | |
-| **Média** | | | | |
 
-## Avaliação dos Testes de Usabilidade (Critérios)
+    Comentários dos usuários: O site é fácil de acessar, mas algumas páginas poderiam 
+    redirecionar a gente automaticamente para outras. Senti a falta de mais opções de filtros, 
+    tanto na hora da pesquisa, quanto depois dela, nos resultados.
 
-Após a realização dos testes com os usuários, os dados coletados serão analisados com base nos seguintes critérios para propor melhorias no sistema:
+## Avaliação dos Testes de Usabilidade
 
-1.  **Análise de Eficiência:** Comparação entre o tempo médio dos usuários e o tempo do especialista. Diferenças superiores a 100% indicarão necessidade de revisão no fluxo da interface.
-2.  **Análise de Eficácia:** A taxa de sucesso deve ser de 100%. Caso ocorram falhas, o passo exato onde o usuário travou será identificado para correção.
-3.  **Análise de Satisfação:** Cenários com média de satisfação inferior a 4 (Bom) serão priorizados para refatoração de UX (Experiência do Usuário).
-4.  **Feedback Qualitativo:** As observações e dificuldades verbais relatadas pelos usuários serão compiladas para ajustes finos em rótulos, cores e posicionamento de botões.
+Tomando como base os resultados obtidos, foi possível verificar que a aplicação web apresenta bons resultados quanto à taxa de sucesso na interação dos usuários, tendo em vista que os cenários propostos foram concluídos com sucesso.
+
+Além disso, a aplicação obteve também uma elevada satisfação subjetiva dos usuários no momento que realizavam os cenários propostos. Prova são as médias das avaliações em cada um dos cenários, que variou entre 4 (bom) e 5 (ótimo).
+
+Com relação ao tempo para conclusão de cada tarefa/cenário, notamos discrepância entre a média de tempo dos usuários e o tempo do especialista/desenvolvedor em todos os cenários. Tal discrepância, em certa medida, é esperada, tendo em vista que o desenvolvedor já tem prévio conhecimento de toda a interface da aplicação, do posicionamento dos elementos, lógica de organização das páginas, etc.
+
+Contudo, tendo em vista que a diferença foi relevante (por exemplo, 113 segundos — média usuários — contra 25 segundos — especialista — no cenário três), e ainda os comentários feitos por alguns usuários, entendemos haver oportunidades de melhoria na usabilidade da aplicação.
+
+
+

@@ -3,68 +3,12 @@
 
 <head>
   <title>Relatório de Produtos/Serviços</title>
-<<<<<<< HEAD
-  </head>
-=======
 </head>
->>>>>>> f3a56a57c5d744b5799d55f2e8fd9356e0a3048d
 
 <body>
 
   <div class="app d-flex">
 
-<<<<<<< HEAD
-    <aside class="sidebar">
-        <div class="p-3 border-top">
-            Olá, <span id="nomeUsuario" class="fw-bold">Usuário</span>!
-            <button id="btn_logout" class="btn btn-sm btn-danger w-100 mt-2">Sair</button>
-        </div>
-    </aside>
-    <main class="flex-grow-1 p-4">
-
-      <div class="container-fluid px-0">
-        <div class="row g-3 align-items-end">
-          <h1 class="h4 mb-3">Relatório de Produtos/Serviços</h1>
-          
-          <div class="col-12 col-md-6">
-            <div class="d-flex align-items-center flex-wrap gap-2">
-              <label class="me-2 mb-0 fw-semibold">Tipo:</label>
-              <div class="input-group" style="max-width: 260px;">
-                <select class="form-select" id="tipoFiltro">
-                  <option value="Todos">Todos</option>
-                  <option value="Produto">Produto</option>
-                  <option value="Serviço">Serviço</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-12 col-md-6">
-            <div class="d-flex align-items-center justify-content-md-end flex-wrap gap-2">
-              <label class="me-2 mb-0 fw-semibold">Fornecedor:</label>
-              <select class="form-select" style="max-width: 260px;" id="fornecedorFiltro">
-                <option selected value="Todos">Selecione o Fornecedor</option>
-                </select>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-6">
-            <div class="d-flex align-items-center  flex-wrap gap-2">
-              <label class="me-2 mb-0 fw-semibold">Produtos/Serviços:</label>
-              <div class="input-group" style="max-width: 360px;">
-                <input type="text" class="form-control" placeholder="Selecione os itens" id="produtosFiltro">
-                </div>
-            </div>
-          </div>
-          
-          <div class="col-12 col-md-6">
-            <div class="d-flex align-items-center justify-content-md-end flex-wrap gap-2">
-              <label class="me-2 mb-0 fw-semibold">Saldo:</label>
-              <select class="form-select" style="max-width: 260px;" id="saldoFiltro">
-                <option selected value="Todos">Todos</option>
-                <option value="Com Estoque">Com Estoque</option>
-                <option value="Sem Estoque">Sem Estoque</option>
-=======
     <main class="flex-grow-1 p-4">
 
       <div class="container-fluid px-0">
@@ -79,7 +23,6 @@
                 <option value="Todos" selected>Todos</option>
                 <option value="produto">Produto</option>
                 <option value="servico">Serviço</option>
->>>>>>> f3a56a57c5d744b5799d55f2e8fd9356e0a3048d
               </select>
             </div>
 
@@ -103,17 +46,7 @@
               </button>
             </div>
           </div>
-<<<<<<< HEAD
-        </div>
-        
-        <div class="col-12">
-          <div class="d-flex mt-4 mb-4 justify-content-md-end  gap-2">
-            <button class="btn btn-primary" id="btnFiltrar" onclick="aplicarFiltros()">Filtrar</button>
-          </div>
-        </div>
-=======
         </form>
->>>>>>> f3a56a57c5d744b5799d55f2e8fd9356e0a3048d
       </div>
 
       <div class="card mb-4 mt-4">
@@ -125,85 +58,19 @@
                   <th scope="col">Código</th>
                   <th scope="col">Tipo</th>
                   <th scope="col">Descrição</th>
-<<<<<<< HEAD
-                  <th scope="col">Unidade</th>
-                  <th scope="col">Valor</th>
-                  <th scope="col">Saldo</th>
-                  <th scope="col">Ações</th> </tr>
-              </thead>
-              <tbody>
-                <tr><td colspan="7" class="text-center">Carregando dados...</td></tr>
-=======
                   <th scope="col" class="text-center">Unidade</th>
                   <th scope="col" class="text-end">Preço Venda</th>
                   <th scope="col" class="text-center">Saldo Atual</th>
                 </tr>
               </thead>
               <tbody>
->>>>>>> f3a56a57c5d744b5799d55f2e8fd9356e0a3048d
               </tbody>
             </table>
           </div>
         </div>
       </div>
-      
-      <div class="modal fade" id="produtoServicoModal" tabindex="-1" aria-labelledby="produtoServicoModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="produtoServicoModalLabel">Editar Item</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form id="formProdutoServico">
-                <input type="hidden" id="itemId">
-                
-                <div class="mb-3">
-                    <label for="modalCodigo" class="form-label">Código</label>
-                    <input type="text" class="form-control" id="modalCodigo" required>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="modalTipo" class="form-label">Tipo</label>
-                    <select class="form-select" id="modalTipo" required>
-                        <option value="Produto">Produto</option>
-                        <option value="Serviço">Serviço</option>
-                    </select>
-                </div>
 
-<<<<<<< HEAD
-                <div class="mb-3">
-                    <label for="modalDescricao" class="form-label">Descrição</label>
-                    <input type="text" class="form-control" id="modalDescricao" required>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="modalUnidade" class="form-label">Unidade</label>
-                    <input type="text" class="form-control" id="modalUnidade" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="modalValor" class="form-label">Valor</label>
-                    <input type="number" step="0.01" class="form-control" id="modalValor" required>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="modalSaldo" class="form-label">Saldo (Estoque)</label>
-                    <input type="number" class="form-control" id="modalSaldo" required>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-              <button type="button" class="btn btn-primary" onclick="salvarProdutoServico()">Salvar Alterações</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      </main>
-=======
     </main>
->>>>>>> f3a56a57c5d744b5799d55f2e8fd9356e0a3048d
   </div>
   <script type="module" src="../assets/js/rel-produtos-servicos.js"></script>
 
