@@ -4,196 +4,6 @@
 <head>
     <title>Clientes/Fornecedores</title>
     <script>
-        if (!usuarioCorrente || !usuarioCorrente.email_login) {
-            window.location.href = LOGIN_URL;
-        }
-
-        const ID_USUARIO = Number(usuarioCorrente.id);
-        let clientesFornecedores = JSON.parse(localStorage.getItem('clientesFornecedores')) || [];
-        let termoBusca = '';
-
-        function initPage() {
-            document.getElementById('btn_logout').addEventListener('click', logoutUser);
-            document.getElementById('nomeUsuario').innerHTML = usuarioCorrente.nome;
-
-            const campoBusca = document.getElementById('buscar-clientes');
-            if (campoBusca) {
-                campoBusca.addEventListener('input', function (event) {
-                    termoBusca = event.target.value.toLowerCase();
-                    preencherTabela();
-                });
-            }
-
-            document.getElementById('button-filter').addEventListener('click', function () {
-                alert('Filtro avançado será implementado depois.');
-            });
-
-            preencherTabela();
-        }
-
-        function salvarLocalStorage() {
-            localStorage.setItem('clientesFornecedores', JSON.stringify(clientesFornecedores));
-        }
-
-        function listaDoUsuario() {
-            return clientesFornecedores.filter(item => Number(item.usuarioId) === ID_USUARIO);
-        }
-
-        function gerarProximoCodigo() {
-            const lista = listaDoUsuario();
-            if (lista.length === 0) {
-                return 1;
-            }
-            return lista.reduce((maior, item) => {
-                const atual = Number(item.meuId) || 0;
-                return atual > maior ? atual : maior;
-            }, 0) + 1;
-        }
-
-        function preencherTabela() {
-            const tbody = document.querySelector('#tabelaClientesFornecedores tbody');
-            tbody.innerHTML = '';
-            const lista = listaDoUsuario().filter(item => {
-                if (!termoBusca) return true;
-                const nome = (item.nomeRazaoSocial || '').toLowerCase();
-                const doc = (item.cpfCnpj || '').toLowerCase();
-                const codigo = String(item.meuId || '').toLowerCase();
-                return nome.includes(termoBusca) || doc.includes(termoBusca) || codigo.includes(termoBusca);
-            }).sort((a, b) => Number(a.meuId || 0) - Number(b.meuId || 0));
-
-            if (lista.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="text-center py-3">Nenhum registro encontrado.</td></tr>';
-                return;
-            }
-
-            lista.forEach(item => {
-                const idSeguro = JSON.stringify(String(item.meuId));
-                tbody.insertAdjacentHTML('beforeend', `
-                    <tr id="item-${item.meuId}">
-                        <td>${item.meuId || '-'}</td>
-                        <td>${(item.tipo || '').toLowerCase() === 'fornecedor' ? 'Fornecedor' : 'Cliente'}</td>
-                        <td>${item.nomeRazaoSocial || '-'}</td>
-                        <td>${item.cpfCnpj || '-'}</td>
-                        <td>
-                            <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
-                                data-bs-target="#clienteFornecedorModal" onclick="abrirModalClienteFornecedor(${idSeguro})">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button class="btn btn-outline-danger btn-sm" onclick="excluirClienteFornecedor(${idSeguro})">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `);
-            });
-        }
-
-        function preencherFormulario(cliente) {
-            document.getElementById('itemId').value = cliente ? cliente.meuId : '';
-            document.getElementById('modalCodigo').value = cliente ? cliente.meuId : gerarProximoCodigo();
-            document.getElementById('modalTipo').value = cliente ? (cliente.tipo || '').charAt(0).toUpperCase() + (cliente.tipo || '').slice(1) : '';
-            document.getElementById('modalNome').value = cliente ? cliente.nomeRazaoSocial : '';
-            document.getElementById('modalid').value = cliente ? cliente.cpfCnpj : '';
-        }
-
-        function abrirModalClienteFornecedor(meuId) {
-            const titulo = document.getElementById('clienteFornecedorModalLabel');
-            if (meuId) {
-                const cliente = clientesFornecedores.find(item => String(item.meuId) === String(meuId) && Number(item.usuarioId) === ID_USUARIO);
-                if (!cliente) {
-                    alert('Registro não encontrado.');
-                    return;
-                }
-                titulo.textContent = 'Editar Cliente/Fornecedor';
-                preencherFormulario(cliente);
-            } else {
-                titulo.textContent = 'Adicionar Cliente/Fornecedor';
-                document.getElementById('formClienteFornecedor').reset();
-                preencherFormulario(null);
-            }
-        }
-
-        function camposValidos(codigo, tipo, nome, documento) {
-            if (!codigo || !tipo || !nome || !documento) {
-                alert('Preencha todos os campos obrigatórios.');
-                return false;
-            }
-            if (nome.length < 3) {
-                alert('Informe um nome válido.');
-                return false;
-            }
-            if (documento.length < 5) {
-                alert('Informe o CPF/CNPJ completo.');
-                return false;
-            }
-            return true;
-        }
-
-        function salvarClienteFornecedor() {
-            const idCampo = document.getElementById('itemId').value;
-            const codigoCampo = document.getElementById('modalCodigo').value.trim();
-            const tipoCampo = document.getElementById('modalTipo').value.trim();
-            const nomeCampo = document.getElementById('modalNome').value.trim();
-            const documentoCampo = document.getElementById('modalid').value.trim();
-
-            if (!camposValidos(codigoCampo, tipoCampo, nomeCampo, documentoCampo)) {
-                return;
-            }
-
-            const codigoNormalizado = isNaN(Number(codigoCampo)) ? codigoCampo : Number(codigoCampo);
-
-            if (idCampo) {
-                const cliente = clientesFornecedores.find(item => String(item.meuId) === String(idCampo) && Number(item.usuarioId) === ID_USUARIO);
-                if (!cliente) {
-                    alert('Registro não encontrado.');
-                    return;
-                }
-                cliente.meuId = codigoNormalizado;
-                cliente.tipo = tipoCampo.toLowerCase();
-                cliente.nomeRazaoSocial = nomeCampo;
-                cliente.cpfCnpj = documentoCampo;
-            } else {
-                const codigoEmUso = clientesFornecedores.some(item => String(item.meuId) === String(codigoNormalizado) && Number(item.usuarioId) === ID_USUARIO);
-                if (codigoEmUso) {
-                    alert('Já existe um registro com este código.');
-                    return;
-                }
-                clientesFornecedores.push({
-                    meuId: codigoNormalizado,
-                    tipo: tipoCampo.toLowerCase(),
-                    nomeRazaoSocial: nomeCampo,
-                    cpfCnpj: documentoCampo,
-                    telefone: '',
-                    email: '',
-                    endereco: '',
-                    contatoNome: '',
-                    usuarioId: ID_USUARIO
-                });
-            }
-
-            salvarLocalStorage();
-            preencherTabela();
-            bootstrap.Modal.getInstance(document.getElementById('clienteFornecedorModal')).hide();
-        }
-
-        function excluirClienteFornecedor(meuId) {
-            if (!confirm('Deseja realmente excluir este registro?')) {
-                return;
-            }
-            const tamanhoAntes = clientesFornecedores.length;
-            clientesFornecedores = clientesFornecedores.filter(item => !(String(item.meuId) === String(meuId) && Number(item.usuarioId) === ID_USUARIO));
-            if (clientesFornecedores.length === tamanhoAntes) {
-                alert('Registro não encontrado.');
-                return;
-            }
-            salvarLocalStorage();
-            preencherTabela();
-        }
-
-        window.addEventListener('load', initPage);
-    </script>
-
-    <script>
         // ========================= CLIENTES / FORNECEDORES =========================
         let listaClientesFornecedores = [];
         let termoBuscaClientes = '';
@@ -288,6 +98,9 @@
             document.getElementById('modalTipo').value = dados ? (dados.tipo || '').charAt(0).toUpperCase() + (dados.tipo || '').slice(1) : '';
             document.getElementById('modalNome').value = dados ? dados.nomeRazaoSocial : '';
             document.getElementById('modalid').value = dados ? dados.cpfCnpj : '';
+            document.getElementById('modalTelefone').value = dados ? dados.telefone || '' : '';
+            document.getElementById('modalEmail').value = dados ? dados.email || '' : '';
+            document.getElementById('modalEndereco').value = dados ? dados.endereco || '' : '';
             document.getElementById('clienteFornecedorModalLabel').textContent = dados ? 'Editar Cliente/Fornecedor' : 'Adicionar Cliente/Fornecedor';
         }
 
@@ -308,7 +121,7 @@
             }
         }
 
-        function camposClienteValidos(codigo, tipo, nome, documento) {
+        function camposClienteValidos(codigo, tipo, nome, documento, telefone, email, endereco) {
             if (!codigo) {
                 alert('Informe o código.');
                 return false;
@@ -325,6 +138,18 @@
                 alert('Informe o CPF/CNPJ.');
                 return false;
             }
+            if (!telefone) {
+                alert('Informe o telefone.');
+                return false;
+            }
+            if (!email) {
+                alert('Informe o e-mail.');
+                return false;
+            }
+            if (!endereco) {
+                alert('Informe o endereço.');
+                return false;
+            }
             return true;
         }
 
@@ -334,14 +159,20 @@
             const tipoCampo = document.getElementById('modalTipo');
             const nomeCampo = document.getElementById('modalNome');
             const documentoCampo = document.getElementById('modalid');
+            const telefoneCampo = document.getElementById('modalTelefone');
+            const emailCampo = document.getElementById('modalEmail');
+            const enderecoCampo = document.getElementById('modalEndereco');
             const idCampo = document.getElementById('itemId');
 
             const codigo = codigoCampo.value.trim();
             const tipo = tipoCampo.value.trim().toLowerCase();
             const nome = nomeCampo.value.trim();
             const documento = documentoCampo.value.trim();
+            const telefone = telefoneCampo.value.trim();
+            const email = emailCampo.value.trim();
+            const endereco = enderecoCampo.value.trim();
 
-            if (!camposClienteValidos(codigo, tipoCampo.value, nome, documento)) {
+            if (!camposClienteValidos(codigo, tipoCampo.value, nome, documento, telefone, email, endereco)) {
                 return;
             }
 
@@ -356,6 +187,9 @@
                 registroExistente.tipo = tipo;
                 registroExistente.nomeRazaoSocial = nome;
                 registroExistente.cpfCnpj = documento;
+                registroExistente.telefone = telefone;
+                registroExistente.email = email;
+                registroExistente.endereco = endereco;
             } else {
                 const jaExisteCodigo = listaClientesFornecedores.some(item =>
                     String(item.meuId) === String(codigo) &&
@@ -371,9 +205,9 @@
                     tipo,
                     nomeRazaoSocial: nome,
                     cpfCnpj: documento,
-                    telefone: '',
-                    email: '',
-                    endereco: '',
+                    telefone,
+                    email,
+                    endereco,
                     contatoNome: '',
                     usuarioId: idUsuario
                 });
@@ -517,6 +351,18 @@
                             <label for="modalid" class="form-label">CPF/CNPJ</label>
                             <input type="text" class="form-control" id="modalid" placeholder="xxx.xxx...">
                         </div>
+                        <div class="mb-3">
+                            <label for="modalTelefone" class="form-label">Telefone</label>
+                            <input type="text" class="form-control" id="modalTelefone" placeholder="(xx) xxxxx-xxxx">
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalEmail" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="modalEmail" placeholder="email@exemplo.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalEndereco" class="form-label">Endereço</label>
+                            <textarea class="form-control" id="modalEndereco" rows="2" placeholder="Endereço completo"></textarea>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -529,4 +375,3 @@
     <!-- End Main -->
 
     
-
