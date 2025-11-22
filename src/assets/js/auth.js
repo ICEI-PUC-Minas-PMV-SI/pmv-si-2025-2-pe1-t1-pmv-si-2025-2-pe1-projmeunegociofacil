@@ -30,4 +30,3 @@ export function logoutUser(event) {
     window.location.href = LOGIN_URL;
 }
 
-
