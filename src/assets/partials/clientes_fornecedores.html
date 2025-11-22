@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-
+<html lang="pt-BR">
 
 <head>
     <title>Clientes/Fornecedores</title>
+<<<<<<< HEAD
+    <script type="module" src="../assets/js/clientes_fornecedores.js"></script>
+=======
     <script>
         // ========================= CLIENTES / FORNECEDORES =========================
         let listaClientesFornecedores = [];
@@ -276,24 +279,24 @@
 
         window.addEventListener('load', initClientesFornecedores);
     </script>
+>>>>>>> 4cecb5fe4b8cc8d48182163340080fe7214cf916
 </head>
 
+<body>
 
-        <!-- Start Main -->
+    <div class="app d-flex">
+
         <main class="flex-grow-1 p-4">
             <h1 class="h4 mb-3">Cadastro de Clientes/Fornecedores</h1>
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clienteFornecedorModal"
-                    onclick="abrirModalClienteFornecedor(null)">
+                <button class="btn btn-primary" onclick="abrirModalClienteFornecedor(null)">
                     Novo Cliente/Fornecedor
                 </button>
                 <div class="input-group" style="width: 300px;">
                     <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" id="buscar-clientes">
                     <button class="btn btn-outline-secondary" type="button" id="button-search"><i
                             class="bi bi-search"></i></button>
-                    <button class="btn btn-outline-secondary" type="button" id="button-filter"><i
-                            class="bi bi-filter"></i></button>
                 </div>
             </div>
 
@@ -307,6 +310,7 @@
                                     <th scope="col">Tipo</th>
                                     <th scope="col">Nome/Razão Social</th>
                                     <th scope="col">CPF/CNPJ</th>
+                                    <th scope="col">Telefone</th>
                                     <th scope="col" class="text-center">Ação</th>
                                 </tr>
                             </thead>
@@ -316,7 +320,7 @@
                 </div>
             </div>
         </main>
-
+    </div>
 
     <div class="modal fade" id="clienteFornecedorModal" tabindex="-1" aria-labelledby="clienteFornecedorModalLabel"
         aria-hidden="true">
@@ -329,28 +333,50 @@
                 <div class="modal-body">
                     <form id="formClienteFornecedor">
                         <input type="hidden" id="itemId" value="">
-                        <div class="mb-3">
-                            <label for="modalCodigo" class="form-label">Código</label>
-                            <input type="text" class="form-control" id="modalCodigo"
-                                placeholder="Código do cliente/fornecedor">
+                        
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="modalCodigo" class="form-label">Código</label>
+                                <input type="text" class="form-control" id="modalCodigo" placeholder="Auto">
+                            </div>
+                            <div class="col-md-8 mb-3">
+                                <label for="modalTipo" class="form-label">Tipo</label>
+                                <select class="form-select" id="modalTipo">
+                                    <option value="">Selecione...</option>
+                                    <option value="cliente">Cliente</option>
+                                    <option value="fornecedor">Fornecedor</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="modalTipo" class="form-label">Tipo</label>
-                            <select class="form-select" id="modalTipo">
-                                <option value="">Selecione...</option>
-                                <option value="Cliente">Cliente</option>
-                                <option value="Fornecedor">Fornecedor</option>
-                            </select>
-                        </div>
+
                         <div class="mb-3">
                             <label for="modalNome" class="form-label">Nome ou Razão Social</label>
-                            <textarea class="form-control" id="modalNome" rows="1"
-                                placeholder="Coloque aqui o nome"></textarea>
+                            <input type="text" class="form-control" id="modalNome" placeholder="Nome completo">
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="modalid" class="form-label">CPF/CNPJ</label>
+                                <input type="text" class="form-control" id="modalid" placeholder="Somente números">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="modalTelefone" class="form-label">Telefone</label>
+                                <input type="text" class="form-control" id="modalTelefone" placeholder="(xx) xxxxx-xxxx">
+                            </div>
+                        </div>
+
                         <div class="mb-3">
-                            <label for="modalid" class="form-label">CPF/CNPJ</label>
-                            <input type="text" class="form-control" id="modalid" placeholder="xxx.xxx...">
+                            <label for="modalEmail" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="modalEmail" placeholder="email@exemplo.com">
                         </div>
+<<<<<<< HEAD
+
+                        <div class="mb-3">
+                            <label for="modalEndereco" class="form-label">Endereço</label>
+                            <input type="text" class="form-control" id="modalEndereco" placeholder="Rua, número, bairro...">
+                        </div>
+
+=======
                         <div class="mb-3">
                             <label for="modalTelefone" class="form-label">Telefone</label>
                             <input type="text" class="form-control" id="modalTelefone" placeholder="(xx) xxxxx-xxxx">
@@ -363,6 +389,7 @@
                             <label for="modalEndereco" class="form-label">Endereço</label>
                             <textarea class="form-control" id="modalEndereco" rows="2" placeholder="Endereço completo"></textarea>
                         </div>
+>>>>>>> 4cecb5fe4b8cc8d48182163340080fe7214cf916
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -372,6 +399,12 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+
+</body>
+</html>
+=======
     <!-- End Main -->
 
     
+>>>>>>> 4cecb5fe4b8cc8d48182163340080fe7214cf916
