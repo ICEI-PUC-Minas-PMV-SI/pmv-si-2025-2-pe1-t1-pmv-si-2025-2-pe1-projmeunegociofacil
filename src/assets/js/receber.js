@@ -114,7 +114,7 @@ function gerarRecibo(id) {
     
     const nomePagador = getNomeCliente(conta.clientes_fornecedoresId) || conta.cliente || "Consumidor Final";
     
-    let valorRaw = conta.valorComDesconto !== undefined ? conta.valorComDesconto : conta.valor;
+    let valorRaw = conta.valor !== undefined ? conta.valor : conta.valor;
     const valorFormatado = makeDecimal(Number(valorRaw));
     
     const dataPagamento = conta.data_pagamento 
@@ -212,7 +212,7 @@ function renderizarTabela() {
         const venc = formatarDataParaExibicao(conta.data_vencimento);
         const nomeCliente = getNomeCliente(conta.clientes_fornecedoresId);
         
-        let valorRaw = conta.valorComDesconto !== undefined ? conta.valorComDesconto : conta.valor;
+        let valorRaw = conta.valor !== undefined ? conta.valor : conta.valor;
         const valorFmt = makeDecimal(Number(valorRaw));
 
         const contaId = conta.meuId;
@@ -278,7 +278,7 @@ function abrirModalContaReceber(id) {
         document.getElementById('modalStatusReceber').value = conta.status; 
         document.getElementById('modalClienteConta').value = conta.clientes_fornecedoresId || '';
         
-        let valorRaw = conta.valorComDesconto !== undefined ? conta.valorComDesconto : conta.valor;
+        let valorRaw = conta.valor !== undefined ? conta.valor : conta.valor;
         document.getElementById('modalValorReceber').value = Number(valorRaw).toFixed(2);
         
         document.getElementById('modalDescricaoReceber').value = conta.descricao;
@@ -317,7 +317,7 @@ function salvarContaReceber() {
         status: status,
         tipo: 'receber', // Fixo
         clientes_fornecedoresId: clienteId ? Number(clienteId) : null,
-        valorComDesconto: valor, // Padronizado
+        valor: valor, // Padronizado
         valor: valor, // Fallback
         descricao: descricao,
         data_vencimento: vencimento,

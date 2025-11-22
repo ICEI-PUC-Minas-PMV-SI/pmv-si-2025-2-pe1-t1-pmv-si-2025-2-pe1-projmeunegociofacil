@@ -2,32 +2,25 @@
 <html lang="pt-BR">
 
 <head>
-
     <title>Cadastro de Produtos/Serviços</title>
-
+    <script type="module" src="../assets/js/produtos_servicos.js"></script>
 </head>
 
 <body>
 
     <div class="app d-flex">
 
-
-
         <div class="main-content flex-grow-1">
             <main class="p-4">
                 <h1 class="h4 mb-3">Cadastro de Produtos/Serviços</h1>
 
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#produtoServicoModal"
-                        onclick="abrirModalProdutoServico(null)">
+                    <button class="btn btn-primary" onclick="abrirModalProdutoServico(null)">
                         Novo Produto/Serviço
                     </button>
                     <div class="input-group" style="width: 300px;">
                         <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar">
-                        <button class="btn btn-outline-secondary" type="button" id="button-search"><i
-                                class="bi bi-search"></i></button>
-                        <button class="btn btn-outline-secondary" type="button" id="button-filter"><i
-                                class="bi bi-filter"></i></button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-search"><i class="bi bi-search"></i></button>
                     </div>
                 </div>
 
@@ -47,58 +40,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr id="item-1" data-codigo="1" data-tipo="Produto"
-                                        data-descricao="Biscoito Recheado" data-unidade="UN">
-                                        <td>1</td>
-                                        <td>Produto</td>
-                                        <td>Biscoito Recheado</td>
-                                        <td>UN</td>
-                                        <td>R$ 0.00</td>
-                                        <td>0</td>
-                                        <td>
-                                            <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
-                                                data-bs-target="#produtoServicoModal"
-                                                onclick="abrirModalProdutoServico(1)"><i
-                                                    class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-outline-danger btn-sm"
-                                                onclick="excluirItem('item', 1)"><i class="bi bi-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr id="item-2" data-codigo="2" data-tipo="Produto" data-descricao="Detergente"
-                                        data-unidade="UN">
-                                        <td>2</td>
-                                        <td>Produto</td>
-                                        <td>Detergente</td>
-                                        <td>UN</td>
-                                        <td>R$ 0.00</td>
-                                        <td>0</td>
-                                        <td>
-                                            <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
-                                                data-bs-target="#produtoServicoModal"
-                                                onclick="abrirModalProdutoServico(2)"><i
-                                                    class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-outline-danger btn-sm"
-                                                onclick="excluirItem('item', 2)"><i class="bi bi-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr id="item-3" data-codigo="3" data-tipo="Serviço"
-                                        data-descricao="Pintura de Porta" data-unidade="-">
-                                        <td>3</td>
-                                        <td>Serviço</td>
-                                        <td>Pintura de Porta</td>
-                                        <td>-</td>
-                                        <td>R$ 0.00</td>
-                                        <td>0</td>
-                                        <td>
-                                            <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
-                                                data-bs-target="#produtoServicoModal"
-                                                onclick="abrirModalProdutoServico(3)"><i
-                                                    class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-outline-danger btn-sm"
-                                                onclick="excluirItem('item', 3)"><i class="bi bi-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                    </tbody>
                             </table>
                         </div>
                     </div>
@@ -120,15 +62,14 @@
                         <input type="hidden" id="itemId" value="">
                         <div class="mb-3">
                             <label for="modalCodigo" class="form-label">Código</label>
-                            <input type="text" class="form-control" id="modalCodigo"
-                                placeholder="Código do produto/serviço" required>
+                            <input type="text" class="form-control" id="modalCodigo" placeholder="Auto">
                         </div>
                         <div class="mb-3">
                             <label for="modalTipo" class="form-label">Tipo</label>
                             <select class="form-select" id="modalTipo" required>
                                 <option value="">Selecione...</option>
-                                <option value="Produto">Produto</option>
-                                <option value="Serviço">Serviço</option>
+                                <option value="produto">Produto</option>
+                                <option value="servico">Serviço</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -152,11 +93,11 @@
                                 placeholder="Custo do produto/serviço (R$)" required>
                         </div>
                         <div class="mb-3">
-                            <label for="modalEstoqueInicial" class="form-label">Estoque Inicial</label>
+                            <label for="modalEstoqueInicial" class="form-label">Estoque Atual</label>
                             <input type="number" class="form-control" id="modalEstoqueInicial" 
-                                placeholder="Quantidade inicial em estoque" required>
+                                placeholder="Quantidade em estoque" required>
                         </div>
-                        </form>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -165,8 +106,6 @@
             </div>
         </div>
     </div>
-    <script type="module" src="../assets/js/produtos_servicos.js"></script>
 
 </body>
-
 </html>

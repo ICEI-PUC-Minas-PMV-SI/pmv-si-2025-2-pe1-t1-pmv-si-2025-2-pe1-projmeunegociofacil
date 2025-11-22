@@ -143,8 +143,8 @@ function renderizarTabela() {
         const vencimentoFormatado = formatarDataParaExibicao(conta.data_vencimento);
         const nomeFornecedor = getNomeFornecedor(conta.clientes_fornecedoresId);
 
-        // Prioriza valorComDesconto
-        let valorRaw = conta.valorComDesconto !== undefined ? conta.valorComDesconto : conta.valor;
+        // Prioriza valor
+        let valorRaw = conta.valor !== undefined ? conta.valor : conta.valor;
         const valorFormatado = makeDecimal(Number(valorRaw));
 
         const contaId = conta.meuId;
@@ -201,7 +201,7 @@ function abrirModalContaPagar(id) {
             if (dataVenc && dataVenc.includes('T')) dataVenc = dataVenc.split('T')[0];
             document.getElementById('modalVencimentoConta').value = dataVenc;
 
-            let valorRaw = conta.valorComDesconto !== undefined ? conta.valorComDesconto : conta.valor;
+            let valorRaw = conta.valor !== undefined ? conta.valor : conta.valor;
             document.getElementById('modalValorConta').value = Number(valorRaw).toFixed(2);
         }
     } else {
@@ -237,7 +237,7 @@ function salvarContaPagar() {
         descricao: descricao,
         data_vencimento: vencimento,
         data_pagamento: status === 'pago' ? new Date().toISOString() : null,
-        valorComDesconto: valor,
+        valor: valor,
         valor: valor,
         usuarioId: ID_LOGIN_GLOBAL,
         parcela: "1/1"
