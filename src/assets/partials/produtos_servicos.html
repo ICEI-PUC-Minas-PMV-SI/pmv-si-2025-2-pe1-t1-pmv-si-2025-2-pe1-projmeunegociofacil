@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <title>Cadastro de Produtos/Serviços</title>
+
+</head>
+
+<body>
+
+    <div class="app d-flex">
+
+
+
+        <div class="main-content flex-grow-1">
+            <main class="p-4">
+                <h1 class="h4 mb-3">Cadastro de Produtos/Serviços</h1>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#produtoServicoModal"
+                        onclick="abrirModalProdutoServico(null)">
+                        Novo Produto/Serviço
+                    </button>
+                    <div class="input-group" style="width: 300px;">
+                        <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar">
+                        <button class="btn btn-outline-secondary" type="button" id="button-search"><i
+                                class="bi bi-search"></i></button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-filter"><i
+                                class="bi bi-filter"></i></button>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="tabelaProdutosServicos">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">Código</th>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">Descrição</th>
+                                        <th scope="col">Unidade</th>
+                                        <th scope="col">Preço Venda</th>
+                                        <th scope="col">Estoque</th>
+                                        <th scope="col">Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="item-1" data-codigo="1" data-tipo="Produto"
+                                        data-descricao="Biscoito Recheado" data-unidade="UN">
+                                        <td>1</td>
+                                        <td>Produto</td>
+                                        <td>Biscoito Recheado</td>
+                                        <td>UN</td>
+                                        <td>R$ 0.00</td>
+                                        <td>0</td>
+                                        <td>
+                                            <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
+                                                data-bs-target="#produtoServicoModal"
+                                                onclick="abrirModalProdutoServico(1)"><i
+                                                    class="bi bi-pencil"></i></button>
+                                            <button class="btn btn-outline-danger btn-sm"
+                                                onclick="excluirItem('item', 1)"><i class="bi bi-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr id="item-2" data-codigo="2" data-tipo="Produto" data-descricao="Detergente"
+                                        data-unidade="UN">
+                                        <td>2</td>
+                                        <td>Produto</td>
+                                        <td>Detergente</td>
+                                        <td>UN</td>
+                                        <td>R$ 0.00</td>
+                                        <td>0</td>
+                                        <td>
+                                            <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
+                                                data-bs-target="#produtoServicoModal"
+                                                onclick="abrirModalProdutoServico(2)"><i
+                                                    class="bi bi-pencil"></i></button>
+                                            <button class="btn btn-outline-danger btn-sm"
+                                                onclick="excluirItem('item', 2)"><i class="bi bi-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr id="item-3" data-codigo="3" data-tipo="Serviço"
+                                        data-descricao="Pintura de Porta" data-unidade="-">
+                                        <td>3</td>
+                                        <td>Serviço</td>
+                                        <td>Pintura de Porta</td>
+                                        <td>-</td>
+                                        <td>R$ 0.00</td>
+                                        <td>0</td>
+                                        <td>
+                                            <button class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal"
+                                                data-bs-target="#produtoServicoModal"
+                                                onclick="abrirModalProdutoServico(3)"><i
+                                                    class="bi bi-pencil"></i></button>
+                                            <button class="btn btn-outline-danger btn-sm"
+                                                onclick="excluirItem('item', 3)"><i class="bi bi-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal fade" id="produtoServicoModal" tabindex="-1" aria-labelledby="produtoServicoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="produtoServicoModalLabel">Adicionar/Editar Produto/Serviço</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formProdutoServico">
+                        <input type="hidden" id="itemId" value="">
+                        <div class="mb-3">
+                            <label for="modalCodigo" class="form-label">Código</label>
+                            <input type="text" class="form-control" id="modalCodigo"
+                                placeholder="Código do produto/serviço" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalTipo" class="form-label">Tipo</label>
+                            <select class="form-select" id="modalTipo" required>
+                                <option value="">Selecione...</option>
+                                <option value="Produto">Produto</option>
+                                <option value="Serviço">Serviço</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalDescricao" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="modalDescricao" rows="3"
+                                placeholder="Descrição detalhada do item" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalUnidade" class="form-label">Unidade</label>
+                            <input type="text" class="form-control" id="modalUnidade" placeholder="Ex: UN, KG, HORA" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="modalPrecoVenda" class="form-label">Preço de Venda</label>
+                            <input type="number" step="0.01" class="form-control" id="modalPrecoVenda" 
+                                placeholder="Preço que será vendido (R$)" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalPrecoCusto" class="form-label">Preço de Custo</label>
+                            <input type="number" step="0.01" class="form-control" id="modalPrecoCusto" 
+                                placeholder="Custo do produto/serviço (R$)" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalEstoqueInicial" class="form-label">Estoque Inicial</label>
+                            <input type="number" class="form-control" id="modalEstoqueInicial" 
+                                placeholder="Quantidade inicial em estoque" required>
+                        </div>
+                        </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="salvarProdutoServico()">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="../assets/js/produtos_servicos.js"></script>
+
+</body>
+
+</html>

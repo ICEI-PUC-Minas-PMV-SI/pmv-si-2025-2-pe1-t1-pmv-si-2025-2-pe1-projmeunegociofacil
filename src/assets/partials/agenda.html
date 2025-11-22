@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agenda</title>
+
+  <style>
+    /* Estilos Específicos da Agenda */
+    
+    /* Botões Azuis Personalizados (Ações Principais) */
+    .btn-custom-blue {
+      background-color: #2988CA;
+      color: white;
+      border: none;
+      font-weight: 500;
+    }
+    .btn-custom-blue:hover {
+      background-color: #2c91d9;
+      color: white;
+    }
+
+    /* CORREÇÃO SOLICITADA: Forçar a cor #2988CA nos botões de filtro (Diário/Mensal) */
+    
+    /* Botão Sólido (Ativo) */
+    .btn-primary {
+      background-color: #2988CA !important;
+      border-color: #2988CA !important;
+    }
+    .btn-primary:hover, .btn-primary:active, .btn-primary.active {
+      background-color: #257ab5 !important; /* Um tom levemente mais escuro para hover */
+      border-color: #257ab5 !important;
+    }
+
+    /* Botão Vazado (Inativo) */
+    .btn-outline-primary {
+      color: #2988CA !important;
+      border-color: #2988CA !important;
+    }
+    .btn-outline-primary:hover, .btn-outline-primary.active {
+      background-color: #2988CA !important;
+      color: white !important;
+    }
+
+    /* Grid do Calendário */
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr)); 
+      gap: 5px;
+      width: 100%;
+    }
+
+    .calendar-day-header {
+      text-align: center;
+      font-weight: bold;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #dee2e6;
+      overflow: hidden;
+    }
+
+    .calendar-cell {
+      min-height: 120px;
+      border: 1px solid #dee2e6;
+      background-color: white;
+      padding: 5px;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .calendar-cell:hover {
+      background-color: #fdfdfd;
+    }
+
+    .calendar-cell.inactive {
+      background-color: #f0f0f0;
+      color: #999;
+      cursor: default;
+    }
+
+    .calendar-cell.today {
+      border: 2px solid #2988CA;
+    }
+
+    .event-badge {
+      font-size: 0.75rem;
+      padding: 2px 4px;
+      border-radius: 4px;
+      margin-bottom: 2px;
+      display: block;
+      color: white;
+      white-space: nowrap; 
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%; 
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .event-badge:hover {
+      opacity: 0.8;
+    }
+
+    .daily-row {
+      border-bottom: 1px solid #dee2e6;
+      padding: 15px;
+      display: flex;
+    }
+
+    .daily-time {
+      width: 80px;
+      font-weight: bold;
+      color: #555;
+      border-right: 2px solid #2988CA;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .daily-content {
+      flex-grow: 1;
+      min-width: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app d-flex">
+    <main class="flex-grow-1 p-4" style="overflow-x: hidden;">
+      <h1 class="h4 mb-4">Agenda</h1>
+
+      <div class="row mb-4 g-2">
+        <div class="col-12 col-md-6 d-flex gap-2">
+          <div class="btn-group" role="group">
+            <button id="btn-view-daily" type="button" class="btn btn-outline-primary">Diário</button>
+            <button id="btn-view-monthly" type="button" class="btn btn-primary">Mensal</button>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 d-flex justify-content-md-end gap-2">
+          <!-- <button class="btn btn-custom-blue" data-bs-toggle="modal" data-bs-target="#recorrenciaModal">
+            <i class="bi bi-arrow-repeat me-1"></i> Recorrências
+          </button> -->
+          <button class="btn btn-custom-blue" onclick="abrirModalNovoCompromisso()">
+            <i class="bi bi-plus-lg me-1"></i> Novo Compromisso
+          </button>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-3 bg-white p-3 rounded shadow-sm border">
+        <button id="btn-ant" class="btn btn-outline-secondary btn-sm"><i class="bi bi-chevron-left"></i> Anterior</button>
+        <h3 id="mes-ano-label" class="m-0 text-capitalize fw-bold fs-5"></h3>
+        <button id="btn-prox" class="btn btn-outline-secondary btn-sm">Próximo <i class="bi bi-chevron-right"></i></button>
+      </div>
+
+      <div id="view-mensal" class="bg-white p-3 rounded shadow-sm border">
+        <div class="calendar-grid mb-2 d-none d-md-grid">
+          <div class="calendar-day-header">Dom</div>
+          <div class="calendar-day-header">Seg</div>
+          <div class="calendar-day-header">Ter</div>
+          <div class="calendar-day-header">Qua</div>
+          <div class="calendar-day-header">Qui</div>
+          <div class="calendar-day-header">Sex</div>
+          <div class="calendar-day-header">Sáb</div>
+        </div>
+        
+        <div class="calendar-grid mb-2 d-grid d-md-none" style="font-size: 0.8rem;">
+            <div class="calendar-day-header">D</div>
+            <div class="calendar-day-header">S</div>
+            <div class="calendar-day-header">T</div>
+            <div class="calendar-day-header">Q</div>
+            <div class="calendar-day-header">Q</div>
+            <div class="calendar-day-header">S</div>
+            <div class="calendar-day-header">S</div>
+        </div>
+
+        <div id="calendario-grid" class="calendar-grid">
+          </div>
+      </div>
+
+      <div id="view-diaria" class="bg-white p-3 rounded shadow-sm border d-none">
+        <h4 id="dia-atual-label" class="mb-3 text-capitalize"></h4>
+        <div class="table-responsive-agenda-diaria" style="max-height: 600px; overflow-y: auto;">
+          <div id="lista-horarios">
+            </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <div class="modal fade" id="novocompromissoModal" tabindex="-1" aria-labelledby="novocompromissoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="novocompromissoModalLabel">Adicionar Novo Compromisso</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formCompromisso">
+            <input type="hidden" id="inputId" value="">
+
+            <div class="mb-3">
+              <label for="inputDescricao" class="form-label">Descrição</label>
+              <input type="text" class="form-control" id="inputDescricao" required placeholder="Ex: Reunião com cliente">
+            </div>
+            <div class="row">
+              <div class="col-6 mb-3">
+                <label for="inputData" class="form-label">Data</label>
+                <input type="date" class="form-control" id="inputData" required>
+              </div>
+              <div class="col-6 mb-3">
+                <label for="inputHora" class="form-label">Hora</label>
+                <input type="time" class="form-control" id="inputHora" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="inputCor" class="form-label">Tipo (Cor)</label>
+              <select class="form-select" id="inputCor">
+                <option value="#2988CA">Azul (Padrão)</option>
+                <option value="#dc3545">Vermelho (Urgente)</option>
+                <option value="#198754">Verde (Pessoal)</option>
+                <option value="#ffc107">Amarelo (Lembrete)</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-danger d-none" id="btnExcluirModal" onclick="excluirDoModal()">
+            <i class="bi bi-trash"></i> Excluir
+          </button>
+          
+          <div class="d-flex gap-2 ms-auto">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" onclick="salvarCompromisso()">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="modal fade" id="recorrenciaModal" tabindex="-1" aria-labelledby="recorrenciaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="recorrenciaModalLabel">Gestão de Recorrências</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle me-2"></i> Funcionalidade em desenvolvimento.
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <script type="module" src="../assets/js/agenda.js"></script>
+
+</body>
+</html>

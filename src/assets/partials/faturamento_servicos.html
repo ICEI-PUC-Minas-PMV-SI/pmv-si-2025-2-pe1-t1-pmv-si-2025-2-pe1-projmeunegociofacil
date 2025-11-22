@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <title>Faturamento - Serviços</title>
+</head>
+
+<body>
+ 
+  <!-- Sidebar -->
+  <div class="app d-flex">
+
+    <!-- Main -->
+    <main class="d-flex flex-column flex-grow-1 p-4">
+      <div class="main-header">
+        <h1 class="h4">Faturamento de Serviços</h1>
+        <!-- Filters -->
+        <div class="container">
+          <div class="row g-2 align-items-center ms-1 me-1">
+
+            <div class="col-12 col-md-4 p-md-3 p-1">
+              <div class="input-group">
+                <input id="selected-client" data-bs-toggle="modal" data-bs-target="#select-client-modal" type="text"
+                  class="form-control input-modal-trigger" value="Consumidor Final" readonly style="cursor: pointer;">
+                <div id="button-unselect-client">
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-4 p-md-3 p-1">
+              <form id="products-form">
+                <input id="products-input" class="form-control" type="text" placeholder="Digite o código">
+              </form>
+            </div>
+            <div class="col-12 col-md-2 p-md-3 p-1">
+              <a class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#search-services-modal">Buscar
+                Serviço</a>
+            </div>
+            <div class="col-12 col-md-2 p-md-3 p-1">
+              <a class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#add-input-modal">Adicionar
+                Insumo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div class="main-content-flexible ms-md-4 me-md-4 mb-1">
+        <div class="flex-grow-1">
+          <div class="container">
+            <div class="products_list row g-2 align-items-center">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead class="table-light">
+                    <tr>
+                      <th class="text-center" scope="col">Código</th>
+                      <th class="text-start" scope="col">Descrição</th>
+                      <th class="text-center" scope="col">Unidade</th>
+                      <th class="text-center" scope="col">Quantidade</th>
+                      <th class="text-end" scope="col">Valor</th>
+                      <th class="text-center" scope="col">Ação</th>
+
+                    </tr>
+                  </thead>
+                  <tbody id="list-of-products" class="table-group-divider">
+
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+            <div class="div" id="inputs-div">
+
+
+
+              <!-- end insums inner -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-footer">
+        <!-- Totalizer -->
+        <div class="container">
+          <div class=" totalizer ms-3 me-3 py-2">
+            <div class="d-flex ms-3 me-3">
+              <div class="col text-end">
+
+
+
+                <span id="text-subtotal-services"></span>
+                  <span id="text-subtotal-inputs"></span>
+                  <strong class="ms-5">Total: </strong><span id="totalizer-total"></span>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- Buttons -->
+        <div class="container">
+          <div class="d-flex justify-content-center gap-2 d-md-block text-md-end mt-2 me-2">
+            <a id="btn-cancel" class="btn btn-secondary ps-4 pe-4 flex-grow-1 flex-md-grow-0 m-md-2" href="#"
+              role="button">Cancelar</a>
+
+            <a class="btn btn-secondary ps-4 pe-4 flex-grow-1 flex-md-grow-0 m-md-2" href="#" role="button"
+              data-bs-toggle="modal" data-bs-target="#save-modal">Gravar</a>
+
+            <a id="checkout-modal-btn" class="btn btn-primary ps-4 pe-4 flex-grow-1 flex-md-grow-0 m-md-2" href="#"
+              role="button" data-bs-toggle="modal" data-bs-target="#checkout-modal">Efetuar Pagamento</a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Modal Services -->
+  <div class="modal fade" id="search-services-modal" tabindex="-1" aria-labelledby="search-services-modalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="search-services-modalLabel">Buscar Serviço</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row g-2 align-items-center">
+              <div class="col-12 col-md-9 pe-3">
+                <input id="search-services-input" class="form-control" type="text" placeholder="Buscar">
+              </div>
+              <div class="col-12 col-md-3 p-3">
+                <a id="btn-search-products" class="btn btn-primary w-100" href="#">Buscar</a>
+              </div>
+            </div>
+
+            <div class="card mb-4">
+              <div class="card-body p-0">
+                <div id="table-services-search">
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Clientes -->
+  <div class="modal fade" id="select-client-modal" tabindex="-1" aria-labelledby="select-client-modalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="select-client-modalLabel">Selecionar Cliente</h5>
+          <button id="modal-clients-close" type="button" class="btn-close" data-bs-dismiss="modal"
+            aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input id="search-client" class="form-control mb-3" type="text" placeholder="Buscar">
+          <div class="card mb-4">
+            <div class="card-body p-0">
+              <div class="table-responsive tabelaModal">
+                <table class="table table-hover mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th scope="col">Selecione o cliente</th>
+                    </tr>
+                  </thead>
+                  <tbody id="list-of-clients">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Checkout -->
+  <div class="modal fade" id="checkout-modal" tabindex="-1" aria-labelledby="checkout-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="checkout-modalLabel">Efetuar Pagamento</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row align-items-center">
+            <div class="col-4 ">
+              <div class="row">
+                <div class="col"></div>
+                <h6 class="mb-0"><small>Subtotal: <strong> <span id="totalizer-subtotal"></span></strong></small></h6>
+              </div>
+              <div id="discount-view"></div>
+              <h5 class="mb-0">Total:<strong> <span id="total-span"></span> </strong></h5>
+              <h6 class="mb-0 text-end"> <span id="view-parc-span"></span> </h6>
+            </div>
+            <div class="col-8">
+              <div class="row">
+                <div class="col">
+                  <h6 class="text-center">Desconto/Acréscimo</h6>
+                </div>
+                <div class="row align-items-center">
+                  <div class="col-12 mb-2">
+                    <select id="discount-incriase" class="form-select" aria-placeholder="">
+                      <option value="discount">Desconto</option>
+                      <option value="increase">Acréscimo</option>
+                    </select>
+                  </div>
+                  <div class="col-4">
+                    <select id="type-discount-incriase" class="form-select" aria-placeholder="">
+                      <option value="%">%</option>
+                      <option value="R$">R$</option>
+                    </select>
+                  </div>
+                  <div class="col-4"><input class="form-control" id="valor-discount-incriase" type="number"
+                      placeholder="10">
+                  </div>
+                  <div class="col-4"><button id="btn-insert-discount-incriase" type="button"
+                      class="btn btn-primary w-100">Inserir</button></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <div class="row">
+            <h6>Forma de Pagamento</h6>
+            <div class="col">
+              <select id="payment-method" class="form-select" aria-placeholder="">
+                <option value="" selected disabled>Selecione...</option>
+                <option value="dinheiro">Dinheiro</option>
+                <option value="debito">Débito</option>
+                <option value="credito">Crédito</option>
+                <option value="boleto">Boleto</option>
+              </select>
+            </div>
+            <div id="col-payment-installment" class="col" style="display: none;">
+              <select id="selected-payment-installment" class="form-select" aria-placeholder="">
+                <option value="1">Á Vista</option>
+                <option value="2">Crédito 2x</option>
+                <option value="3">Crédito 3x</option>
+                <option value="4">Crédito 4x</option>
+                <option value="5">Crédito 5x</option>
+                <option value="6">Crédito 6x</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button id="btn-finish-sale" type="button" class="btn btn-primary">FinalizarVenda</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Save -->
+  <div class="modal fade" id="save-modal" tabindex="-1" aria-labelledby="save-modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="save-modalLabel">Gravar Venda</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="d-flex align-items-center text-start flex-wrap gap-2">
+              <div class="form-group">
+                <label for="save-client">Cliente:*</label>
+                <input id="save-client" class="form-control" style="max-width: 260px;"
+                  placeholder="Digite o nome do cliente" required>
+                <div class="invalid-feedback">
+                  Digite o nome do cliente corretamente.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="save-telefone">Telefone:</label>
+                <input id="save-telefone" class="form-control" placeholder="Digite o telefone">
+              </div>
+              <div class="form-group">
+                <label for="save-cpf-cnpj" class="">CPF/CNPJ</label>
+                <input id="save-cpf-cnpj" class="form-control" placeholder="Digite o CPF/CNPJ">
+              </div>
+              <div class="form-group">
+                <label for="save-observacoes" class="">Observações</label>
+                <textarea id="save-observacoes" class="form-control mb-3" style="width: 240px;"
+                  placeholder="Digite o CPF/CNPJ"> </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button id="save-btn" type="button" class="btn btn-primary">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal  Add Input-->
+  <div class="modal fade" id="add-input-modal" tabindex="-1" aria-labelledby="add-input-modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="add-input-modalLabel">Adicionar Insumo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-body">
+            <form id="formContaPagar">
+              <div class="row g-2 align-items-center">
+                <div class="col-12 col-md-6">
+                  <label for="add-input-quantity" class="form-label">Quantidade</label>
+                  <input id="add-input-quantity" step="0.01" class="form-control text-end" type="number"
+                    placeholder="1">
+                </div>
+                <!-- <div class="col-12 col-md-4 p-1 pe-3">
+                  <label for="add-input-unity" class="form-label">Unidade</label>
+                  <input id="add-input-unity" class="form-control text-end" type="text" placeholder="M">
+                </div> -->
+
+                <div class="col-12 col-md-6 justify-content-end">
+                  <label for="add-input-unit-price" class="form-label text-end">Valor Unitário</label>
+                  <input type="number" step="0.01" class="form-control  text-end" id="add-input-unit-price"
+                    placeholder="0,00">
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="add-input-desc" class="form-label">Descrição</label>
+                  <input id="add-input-desc" class="form-control" type="text" placeholder="Descrição">
+                </div>
+              </div>
+
+            </form>
+            <div class="col-12 d-flex justify-content-end text-end mt-2">
+              <div class="col-4"> <label for="add-input-total" class="form-label">Valor Total:</label>
+                <input type="text" class="form-control  text-end" id="add-input-total" placeholder="0,00">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="add-input-add">Salvar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Modal Finish -->
+  <div class="modal fade" id="finish-modal" tabindex="-1" aria-labelledby="finish-modalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="finish-modalLabel">Concluído com sucesso</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="html-finish-modal">
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="../assets/js/faturamento-servicos.js"></script>
+</body>
+
+</html>

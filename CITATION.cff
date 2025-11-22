@@ -1,0 +1,47 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Projeto Meu Negócio Fácil
+message: >-
+
+type: software
+authors:
+  - given-names: Alex Daniel
+    family-names: Muzzi Souza
+    # email: aluno@pucminas.br
+    affiliation: PUC Minas
+  - given-names: Augustus Dayrell
+    family-names: de Moura Souza
+    # email: aluno@pucminas.br
+    affiliation: PUC Minas
+  - given-names: Lucas
+    family-names: Mendes Fernandes
+    # email: aluno@pucminas.br
+    affiliation: PUC Minas
+  - given-names: Matteo Leonardo
+    family-names: Gysel
+    # email: aluno@pucminas.br
+    affiliation: PUC Minas
+  - given-names: Vitor 
+    family-names: Martins de Moraes
+    # email: aluno@pucminas.br
+    affiliation: PUC Minas
+  - given-names: Marco
+    name-particle: 'R '
+    family-names: Costa
+    name-suffix: Prof.
+    # email: hugo@pucminas.br
+    affiliation: PUC Minas
+    # orcid: 'https://orcid.org/0000-0002-6193-3205'
+repository-code: >-
+  https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-2-pe1-t1-pmv-si-2025-2-pe1-projmeunegociofacil
+abstract: >-
+  Projeto de sistema de gestão gratuito para pequenos empreendedores.
+keywords:
+  - Desenvolvimento Web
+  - HTML
+  - CSS
+  - JavaScript
+  - Template
+date-released: '2025-11-19'

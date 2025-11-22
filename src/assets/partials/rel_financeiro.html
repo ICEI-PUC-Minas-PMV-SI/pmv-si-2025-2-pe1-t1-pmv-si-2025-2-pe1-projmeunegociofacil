@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <title>Relatório Financeiro</title>
+  <script type="module" src="../assets/js/rel-financeiro.js"></script>
+</head>
+
+<body>
+  
+  <div class="app d-flex">
+
+    <main class="flex-grow-1 p-4">
+
+      <div class="container-fluid px-0">
+        <div class="row g-3 align-items-end">
+          <h1 class="h4 mb-3">Relatório Financeiro</h1>
+          
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-center flex-wrap gap-2">
+              <label class="me-2 mb-0 fw-semibold">Período:</label>
+              <input type="date" class="form-control" style="max-width: 200px;" id="filtroInicio">
+              <span class="mx-1">a</span>
+              <input type="date" class="form-control" style="max-width: 200px;" id="filtroFim">
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-center justify-content-md-end flex-wrap gap-2">
+              <label class="me-2 mb-0 fw-semibold">Status:</label>
+              <select class="form-select" style="max-width: 260px;" id="filtroStatus">
+                <option value="">Todos</option>
+                <option value="pendente">Pendente</option>
+                <option value="pago">Pago / Recebido</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-center flex-wrap gap-2">
+              <label class="me-2 mb-0 fw-semibold">Tipo:</label>
+              <select class="form-select" style="max-width: 260px;" id="filtroTipo">
+                <option value="">Todos</option>
+                <option value="receber">A receber</option>
+                <option value="pagar">A pagar</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-center justify-content-md-end flex-wrap gap-2">
+              <label class="me-2 mb-0 fw-semibold">Cliente/Fornecedor:</label>
+              <select class="form-select" style="max-width: 360px;" id="filtroPessoa">
+                <option value="">Todos</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="d-flex justify-content-md-end gap-2">
+              <button class="btn btn-primary" type="button" id="btnFiltrarFinanceiro">
+                <i class="bi bi-filter me-2"></i>Filtrar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <div class="bg-white border rounded p-3">
+          <div class="w-100" style="overflow-x:auto;">
+            <svg viewBox="0 0 1100 380" width="100%" height="380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gráfico de Receitas e Despesas">
+              <rect x="0" y="0" width="1100" height="380" fill="#ffffff" />
+
+              <g transform="translate(60,20)">
+                <g font-family="Outfit, sans-serif" font-size="12" fill="#6c757d">
+                  <line x1="0" y1="0" x2="1000" y2="0" stroke="#e9ecef" />
+                  <text x="-45" y="4">10k</text>
+                  <line x1="0" y1="78" x2="1000" y2="78" stroke="#e9ecef" />
+                  <text x="-40" y="82">7.5k</text>
+                  <line x1="0" y1="156" x2="1000" y2="156" stroke="#e9ecef" />
+                  <text x="-40" y="160">5k</text>
+                  <line x1="0" y1="234" x2="1000" y2="234" stroke="#e9ecef" />
+                  <text x="-40" y="238">2.5k</text>
+                  <line x1="0" y1="312" x2="1000" y2="312" stroke="#e9ecef" />
+                  <text x="-33" y="316">0</text>
+                </g>
+
+                <g font-family="Outfit, sans-serif" font-size="12" fill="#6c757d" transform="translate(0,330)">
+                  <text x="0" y="0">Jan</text>
+                  <text x="83" y="0">Fev</text>
+                  <text x="166" y="0">Mar</text>
+                  <text x="249" y="0">Abr</text>
+                  <text x="332" y="0">Mai</text>
+                  <text x="415" y="0">Jun</text>
+                  <text x="498" y="0">Jul</text>
+                  <text x="581" y="0">Ago</text>
+                  <text x="664" y="0">Set</text>
+                  <text x="747" y="0">Out</text>
+                  <text x="830" y="0">Nov</text>
+                  <text x="913" y="0">Dez</text>
+                </g>
+
+                <polyline id="linhaReceitas" fill="none" stroke="#2988CA" stroke-width="3" points="" />
+                <g id="pontosReceitas" fill="#2988CA" stroke="#fff" stroke-width="2"></g>
+
+                <polyline id="linhaDespesas" fill="none" stroke="#e74c3c" stroke-width="3" points="" />
+                <g id="pontosDespesas" fill="#e74c3c" stroke="#fff" stroke-width="2"></g>
+
+              </g>
+            </svg>
+          </div>
+
+          <div class="d-flex align-items-center mt-2" style="gap: 24px;">
+            <span class="d-inline-flex align-items-center">
+              <span class="me-2" style="display:inline-block;width:16px;height:16px;border:3px solid #e74c3c;border-radius:50%;"></span>
+              Despesas
+            </span>
+            <span class="d-inline-flex align-items-center">
+              <span class="me-2" style="display:inline-block;width:16px;height:16px;border:3px solid #2988CA;border-radius:50%;"></span>
+              Receitas
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-4">
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>Data</th>
+                  <th>Cliente/Fornecedor</th>
+                  <th>Status</th>
+                  <th>Descrição</th>
+                  <th>Valor</th>
+                  <th class="text-center">Tipo</th>
+                </tr>
+              </thead>
+              <tbody id="corpoRelFinanceiro">
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

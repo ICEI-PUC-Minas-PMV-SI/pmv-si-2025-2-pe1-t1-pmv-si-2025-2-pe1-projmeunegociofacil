@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <title>Relatório de Produtos/Serviços</title>
+</head>
+
+<body>
+
+  <div class="app d-flex">
+
+    <main class="flex-grow-1 p-4">
+
+      <div class="container-fluid px-0">
+        <h1 class="h4 mb-3">Relatório de Produtos/Serviços</h1>
+
+        <form onsubmit="return false;">
+          <div class="row g-3 align-items-end">
+
+            <div class="col-12 col-md-4">
+              <label class="form-label fw-semibold">Tipo:</label>
+              <select id="filtroTipo" class="form-select">
+                <option value="Todos" selected>Todos</option>
+                <option value="produto">Produto</option>
+                <option value="servico">Serviço</option>
+              </select>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label fw-semibold">Buscar (Nome/Código):</label>
+              <input type="text" id="filtroBusca" class="form-control" placeholder="Digite para buscar...">
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label fw-semibold">Saldo em Estoque:</label>
+              <select id="filtroSaldo" class="form-select">
+                <option value="Todos" selected>Todos</option>
+                <option value="Em Estoque">Em Estoque (> 0)</option>
+                <option value="Sem Estoque">Sem Estoque (0 ou negativo)</option>
+              </select>
+            </div>
+
+            <div class="col-12 text-end mt-4">
+              <button id="btn-filtrar" class="btn btn-primary">
+                <i class="bi bi-filter me-2"></i>Filtrar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="card mb-4 mt-4">
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0" id="tabelaProdutosServicos">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">Código</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Descrição</th>
+                  <th scope="col" class="text-center">Unidade</th>
+                  <th scope="col" class="text-end">Preço Venda</th>
+                  <th scope="col" class="text-center">Saldo Atual</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+  <script type="module" src="../assets/js/rel-produtos-servicos.js"></script>
+
+</body>
+
+</html>
