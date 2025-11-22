@@ -236,3 +236,4 @@ function atualizarGrafico(dados) {
     if(linhaDesp) linhaDesp.setAttribute('points', ptsDesp.trim());
     if(grupoDesp) grupoDesp.innerHTML = htmlCirclesDesp;
 }
+initPage()
