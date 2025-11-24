@@ -15,13 +15,11 @@ const inputsDiv = document.getElementById('inputs-div')
 const paymentTitle = document.getElementById('installments-title')
 
 
-
 function allUserSales() {
     return JSON.parse(localStorage.getItem('vendas')).filter(item => {
         return item.usuarioId === loggedUser().id;
     });
 }
-
 
 function allUserClients() {
     return JSON.parse(localStorage.getItem('clientesFornecedores')).filter(item => {
@@ -103,7 +101,6 @@ htmlSalesData.innerHTML = ` <div class="sale-data row ms-2 me-2 mb-4">
 const saleDateString = new Date(currentSale.dataVenda).toLocaleDateString('pt-BR')
 const buyerName = currentClient.nomeRazaoSocial
 
-
 const htmlInputsData = `<span><strong>Serviços: </strong>${makeDecimal(currentSale.valorTotal-totalizerInputs())}</span><br>
                         <span><strong>Insumos: </strong>${makeDecimal(totalizerInputs())}</span><br>
                         `
@@ -111,7 +108,6 @@ const htmlCalcDiscountData = ` <span><strong>Subtotal: </strong>${makeDecimal(cu
                             <span><strong>Desconto: </strong> ${makeDecimal(currentSale.valorDescontoAcrescimo)}</span><br>
                             <span> <strong>Valor Total: </strong>${makeDecimal(currentSale.valorComDesconto)}</span> `
 paymentTitle.innerHTML = `Forma de Pagamento: ${currentSale.formaDePagamento}`
-
 
 htmlNameBuyer.innerHTML = buyerName
 htmlSaleDate.innerHTML = saleDateString
@@ -145,8 +141,6 @@ tbodyProducts.innerHTML = htmlTbodyProducts;
 tbodyInstallments.innerHTML = htmlTbodyInstallments
 title.innerHTML = "Meu Negócio Fácil - Comprovante " + String(currentSale.meuId).padStart(5, '0')
 
-
-
 const inputsInitHtml = `<div class="container p-2"></div>
          <span> <strong>Insumos Utilizados: </span> </strong>
         <div class="sale-itens card mb-4">
@@ -163,7 +157,8 @@ const inputsInitHtml = `<div class="container p-2"></div>
         <th class="text-end" scope="col">Subtotal</th>
         </tr>
         </thead>
-        <tbody id="tbody-inputs-div" class="table-group-divider" style="font-size: small"> `
+        <tbody id="tbody-inputs-div" class="table-group-divider" style="font-size: small"> 
+        `
 
 const inputsEndHtml = `     
         </tbody>
@@ -171,7 +166,8 @@ const inputsEndHtml = `
         </div>
         </div>
         </div>
-        </div>`
+        </div>
+        `
 
 if (currentSale.insumosServico.length > 0) {
     const inputsRowsHtml = currentSale.insumosServico.map(input => {

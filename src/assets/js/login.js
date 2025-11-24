@@ -8,12 +8,10 @@ const radioInstPj = document.getElementById('sign-up-isnt-pj')
 const divCpfCnpj = document.getElementById('div-cpf-cnpj')
 const divNomeDaEmpresa = document.getElementById('div-nome-da-empresa')
 
-
-
-
+document.getElementById('login-form').addEventListener('submit', performLogin);
+document.getElementById('signup-form').addEventListener('submit', newUser);
 
 async function makeTest() {
-
     if (localStorage.length === 0) {
         alert('LocalStorage vazio, carregando arquivos de teste...');
 
@@ -39,7 +37,6 @@ async function makeTest() {
     }
 }
 
-
 function searchUser(email_login, senha) {
     if (allUsers().length !== 0) {
         const userToLogin = allUsers().find(user => user.email_login === email_login && user.senha === senha);
@@ -49,7 +46,6 @@ function searchUser(email_login, senha) {
         }
     }
 }
-
 
 function performLogin(event) {
     event.preventDefault();
@@ -66,10 +62,7 @@ function performLogin(event) {
     }
 }
 
-document.getElementById('login-form').addEventListener('submit', performLogin);
-
-document.getElementById('signup-form').addEventListener('submit', newUser);
-
+// CHANGER PJ/PF
 radioPj.addEventListener('change', () => {
     if (radioPj.checked) {
         divNomeFantasia.innerHTML = ` <label for="sign-up-nome">Nome Fantasia</label>
@@ -89,6 +82,5 @@ radioInstPj.addEventListener('change', () => {
         divNomeDaEmpresa.classList.add('d-none');
     }
 });
-
 
 makeTest()

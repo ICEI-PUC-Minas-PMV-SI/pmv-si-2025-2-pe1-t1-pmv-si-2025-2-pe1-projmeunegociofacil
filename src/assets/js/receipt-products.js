@@ -17,7 +17,6 @@ function allUserSales() {
     });
 }
 
-
 function allUserClients() {
     return JSON.parse(localStorage.getItem('clientesFornecedores')).filter(item => {
         return item.tipo === "cliente" && item.usuarioId === loggedUser().id;
@@ -88,9 +87,8 @@ const saleDateString = new Date(currentSale.dataVenda).toLocaleDateString('pt-BR
 const buyerName = currentClient.nomeRazaoSocial
 const htmlCalcDiscountData = ` <span><strong>Subtotal: </strong>${makeDecimal(currentSale.valorTotal)}</span><br>
                             <span><strong>Desconto: </strong> ${makeDecimal(currentSale.valorDescontoAcrescimo)}</span><br>
-                            <span> <strong>Valor Total: </strong>${makeDecimal(currentSale.valorComDesconto)}</span> `
-
-
+                            <span> <strong>Valor Total: </strong>${makeDecimal(currentSale.valorComDesconto)}</span> 
+                            `
 
 htmlNameBuyer.innerHTML = buyerName
 htmlSaleDate.innerHTML = saleDateString
@@ -121,5 +119,3 @@ const htmlTbodyProducts = currentSale.itens.map(product => {
 tbodyProducts.innerHTML = htmlTbodyProducts;
 tbodyInstallments.innerHTML = htmlTbodyInstallments
 title.innerHTML = "Meu Negócio Fácil - Comprovante " + String(currentSale.meuId).padStart(5, '0')
-
-

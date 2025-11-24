@@ -31,7 +31,6 @@ function renderData() {
     email.value = loggedUser().email_login
 }
 
-
 function performUpdateUser(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senha) {
 
     const userIndex = db.findIndex(usuario => usuario.id === currentUser.id);

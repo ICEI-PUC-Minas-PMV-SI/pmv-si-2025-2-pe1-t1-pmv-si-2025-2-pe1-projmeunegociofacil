@@ -82,7 +82,6 @@ finishModal.addEventListener('hidden.bs.modal', () => { location.reload() })
 // UNCLOSED SALES
 
 const urlParams = new URLSearchParams(window.location.search);
-
 const unclosedId = urlParams.get('unclosed-sale');
 const currentUnclosedSale = allUserUnclosedSales().find(item => item.meuId == unclosedId)
 
@@ -120,7 +119,6 @@ function deleteUnclosed() {
     }
 }
 
-
 // INIT
 function allUserUnclosedSales() {
     try {
@@ -152,8 +150,6 @@ function allSales() {
 }
 
 function allUserProducts() {
-
-
     try {
         return JSON.parse(localStorage.getItem('produtosServicos')).filter(item => {
             return item.tipo === "produto" && item.usuarioId === loggedUser().id;
@@ -165,8 +161,6 @@ function allUserProducts() {
 }
 
 function allItens() {
-
-
     try {
         return JSON.parse(localStorage.getItem('produtosServicos'))
     }
@@ -208,7 +202,6 @@ function cancelSale() {
         location.reload();
     }
 }
-
 
 function totalizerQuantity(iProductsToSale = productsToSale) {
     const quantify = iProductsToSale.reduce((acumulador, produto) => {
@@ -300,7 +293,6 @@ function renderProducts(iProductsToSale = productsToSale) {
     }).join('');
     tbodyListOfProducts.innerHTML = rowsHtml;
 }
-
 
 function listenerListOfProducts() {
     function saveProductQuantity(row, input) {
@@ -543,7 +535,6 @@ function removeClient(event) {
 }
 
 // SAVE
-
 function save() {
     if (!selectedClient && saveClient.value.length < 5) {
         saveClient.classList.add('is-invalid');
@@ -582,8 +573,6 @@ function save() {
 }
 
 // CHECKOUT
-
-
 function updateStock(soldItems) {
 
     const allProductsServices = JSON.parse(localStorage.getItem('produtosServicos')) || [];

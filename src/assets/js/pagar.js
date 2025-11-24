@@ -2,9 +2,7 @@ import { loggedUser, logoutUser } from "./auth.js";
 import { LOGIN_URL } from "./config.js";
 import { makeDecimal, newMyId } from "./utils.js";
 
-// ==========================================
-// 1. AUTENTICAÇÃO E DADOS GLOBAIS
-// ==========================================
+
 const usuarioCorrente = loggedUser();
 
 if (!usuarioCorrente || !usuarioCorrente.email_login) {
@@ -12,10 +10,6 @@ if (!usuarioCorrente || !usuarioCorrente.email_login) {
 }
 
 const ID_LOGIN_GLOBAL = usuarioCorrente.id;
-
-// ==========================================
-// 2. FUNÇÕES DE BUSCA DE DADOS
-// ==========================================
 
 function allContasPagar() {
     try {
@@ -25,11 +19,10 @@ function allContasPagar() {
     }
 }
 
-// CORREÇÃO AQUI: Traz TODOS (Clientes e Fornecedores)
 function allUserSuppliers() {
     try {
         const db = JSON.parse(localStorage.getItem('clientesFornecedores')) || [];
-        
+
         return db.filter(item => {
             // Alterado: Removemos a verificação de tipo. Agora traz tudo.
             // Mantemos a conversão String() para garantir segurança na comparação de IDs
@@ -49,9 +42,6 @@ function saveContasPagar(data) {
     localStorage.setItem('contasPagar', JSON.stringify(data));
 }
 
-// ==========================================
-// 3. INICIALIZAÇÃO
-// ==========================================
 
 function initPage() {
     document.getElementById('btn_logout').addEventListener('click', logoutUser);
@@ -65,9 +55,6 @@ function initPage() {
     renderizarTabela();
 }
 
-// ==========================================
-// 4. RENDERIZAÇÃO E UTILITÁRIOS
-// ==========================================
 
 function formatarDataParaExibicao(dataString) {
     if (!dataString) return '';
@@ -87,25 +74,24 @@ function getNomeFornecedor(id) {
     return fornecedor ? fornecedor.nomeRazaoSocial : 'Desconhecido';
 }
 
-// Preenche o Select do Modal
+
 function listOfSuppliers() {
     const select = document.getElementById('modalFornecedorConta');
-    if(!select) return;
+    if (!select) return;
 
-    const contatos = allUserSuppliers(); // Agora traz clientes e fornecedores
-    
+    const contatos = allUserSuppliers();
+
     let optionsHtml = `<option value="">Selecione um favorecido...</option>`;
-    
+
     if (contatos.length > 0) {
         optionsHtml += contatos.map(contato => {
-            // Mostra o Tipo ao lado do nome para facilitar (Ex: João Silva (Cliente))
             const tipoFmt = contato.tipo ? ` (${contato.tipo.charAt(0).toUpperCase() + contato.tipo.slice(1)})` : '';
             return `<option value="${contato.meuId}">${contato.nomeRazaoSocial}${tipoFmt}</option>`;
         }).join('');
     } else {
         optionsHtml += `<option value="" disabled>Nenhum cadastro encontrado</option>`;
     }
-    
+
     select.innerHTML = optionsHtml;
 }
 
@@ -116,7 +102,7 @@ function renderizarTabela() {
 
     const contas = allContasPagar();
 
-    // Filtra contas do usuário
+
     let listaFiltrada = contas.filter(c => String(c.usuarioId) === String(ID_LOGIN_GLOBAL));
 
     const termo = document.getElementById('busca-pagar')?.value.toLowerCase();
@@ -127,7 +113,6 @@ function renderizarTabela() {
         );
     }
 
-    // Ordenação
     listaFiltrada.sort((a, b) => {
         if (a.status === 'pendente' && b.status !== 'pendente') return -1;
         if (a.status !== 'pendente' && b.status === 'pendente') return 1;
@@ -143,7 +128,6 @@ function renderizarTabela() {
         const vencimentoFormatado = formatarDataParaExibicao(conta.data_vencimento);
         const nomeFornecedor = getNomeFornecedor(conta.clientes_fornecedoresId);
 
-        // Prioriza valor
         let valorRaw = conta.valor !== undefined ? conta.valor : conta.valor;
         const valorFormatado = makeDecimal(Number(valorRaw));
 
@@ -172,9 +156,6 @@ function renderizarTabela() {
     });
 }
 
-// ==========================================
-// 5. CRUD (MODAL)
-// ==========================================
 
 function abrirModalContaPagar(id) {
     const modalTitle = document.getElementById('contaPagarModalLabel');
@@ -182,7 +163,6 @@ function abrirModalContaPagar(id) {
     form.reset();
     document.getElementById('contaPagarId').value = '';
 
-    // Carrega a lista completa (Clientes + Fornecedores)
     listOfSuppliers();
 
     if (id) {
@@ -193,7 +173,7 @@ function abrirModalContaPagar(id) {
         const conta = contas.find(c => c.meuId == id && String(c.usuarioId) === String(ID_LOGIN_GLOBAL));
 
         if (conta) {
-            document.getElementById('modalStatusConta').value = conta.status; 
+            document.getElementById('modalStatusConta').value = conta.status;
             document.getElementById('modalFornecedorConta').value = conta.clientes_fornecedoresId || "";
             document.getElementById('modalDescricaoConta').value = conta.descricao;
 
@@ -217,7 +197,7 @@ function abrirModalContaPagar(id) {
 
 function salvarContaPagar() {
     const id = document.getElementById('contaPagarId').value;
-    
+
     const status = document.getElementById('modalStatusConta').value;
     const fornecedorId = document.getElementById('modalFornecedorConta').value;
     const descricao = document.getElementById('modalDescricaoConta').value;

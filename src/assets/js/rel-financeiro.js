@@ -23,10 +23,6 @@ function initPage() {
     atualizarGrafico(listaUnificada);
 }
 
-// =========================================================
-// 3. LEITURA E NORMALIZAÇÃO DE DADOS
-// =========================================================
-
 function carregarDadosReais() {
     const contasReceber = JSON.parse(localStorage.getItem('contasReceber')) || [];
     const contasPagar = JSON.parse(localStorage.getItem('contasPagar')) || [];
@@ -35,11 +31,9 @@ function carregarDadosReais() {
     const minhasReceitas = contasReceber.filter(c => c.usuarioId === usuarioCorrente.id);
     const minhasDespesas = contasPagar.filter(c => c.usuarioId === usuarioCorrente.id);
 
-    // --- RECEITAS ---
     const receitasNormalizadas = minhasReceitas.map(r => {
         let nomePessoa = "Consumidor Final";
         
-        // Ajuste para estrutura nova (Objeto) ou antiga (ID)
         if (r.clientes_fornecedoresId || r.clientesFornecedoresMeuId) {
             const idCli = r.clientes_fornecedoresId || 
                           (typeof r.clientesFornecedoresMeuId === 'object' ? r.clientesFornecedoresMeuId.meuId : r.clientesFornecedoresMeuId);
@@ -48,7 +42,6 @@ function carregarDadosReais() {
             if(cli) nomePessoa = cli.nomeRazaoSocial;
         }
 
-        // Prioridade Valor
         let valorFinal = 0;
         if (r.valorComDesconto !== undefined) valorFinal = r.valorComDesconto;
         else if (r.valor !== undefined) valorFinal = r.valor;
@@ -56,7 +49,6 @@ function carregarDadosReais() {
         return {
             origem: 'receber',
             id: r.meuId,
-            // Prioridade Data
             data: r.data_pagamento || r.data_vencimento || new Date().toISOString(),
             pessoa: nomePessoa,
             status: r.status || 'pago', 
@@ -65,7 +57,6 @@ function carregarDadosReais() {
         };
     });
 
-    // --- DESPESAS ---
     const despesasNormalizadas = minhasDespesas.map(d => {
         let nomePessoa = "Fornecedor Diverso";
         
@@ -93,10 +84,6 @@ function carregarDadosReais() {
     listaUnificada = [...receitasNormalizadas, ...despesasNormalizadas];
     listaUnificada.sort((a, b) => new Date(b.data) - new Date(a.data));
 }
-
-// =========================================================
-// 4. FILTROS
-// =========================================================
 
 function preencherFiltroPessoas() {
     const select = document.getElementById('filtroPessoa');
@@ -132,10 +119,6 @@ function aplicarFiltros(e) {
     renderizarTabela(filtrados);
     atualizarGrafico(filtrados);
 }
-
-// =========================================================
-// 5. RENDERIZAÇÃO DA TABELA
-// =========================================================
 
 function renderizarTabela(lista) {
     const tbody = document.getElementById('corpoRelFinanceiro');
@@ -174,10 +157,6 @@ function renderizarTabela(lista) {
         tbody.appendChild(tr);
     });
 }
-
-// =========================================================
-// 6. RENDERIZAÇÃO DO GRÁFICO SVG
-// =========================================================
 
 function atualizarGrafico(dados) {
     const receitasPorMes = Array(12).fill(0);

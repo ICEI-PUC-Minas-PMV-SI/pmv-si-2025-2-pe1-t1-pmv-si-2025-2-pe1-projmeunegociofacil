@@ -2,8 +2,6 @@ import { loggedUser } from "./auth.js";
 import { makeDecimal } from "./utils.js";
 const divRender = document.getElementById('div-render')
 
-
-
 function allUserUnclosedSales() {
   try {
     return JSON.parse(localStorage.getItem('vendasEmAberto')).filter(item => {
@@ -14,8 +12,6 @@ function allUserUnclosedSales() {
     return []
   }
 }
-
-
 
 function init() {
   if (allUserUnclosedSales().length > 0) {
@@ -69,8 +65,6 @@ function init() {
   }
 }
 
-init()
-
 function listenerListOfSales() {
   const tbodyListOfSales = document.getElementById('list-of-sales')
   tbodyListOfSales.addEventListener('click', (event) => {
@@ -100,3 +94,5 @@ function listenerListOfSales() {
     }
   });
 }
+
+init()

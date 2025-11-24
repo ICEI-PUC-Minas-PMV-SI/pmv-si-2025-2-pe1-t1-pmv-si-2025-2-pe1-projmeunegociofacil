@@ -2,9 +2,6 @@ import { loggedUser, logoutUser } from "./auth.js";
 import { LOGIN_URL } from "./config.js";
 import { makeDecimal, newMyId } from "./utils.js";
 
-// ==========================================
-// 1. AUTENTICAÇÃO E DADOS GLOBAIS
-// ==========================================
 const usuarioCorrente = loggedUser();
 
 if (!usuarioCorrente || !usuarioCorrente.email_login) {
@@ -12,10 +9,6 @@ if (!usuarioCorrente || !usuarioCorrente.email_login) {
 }
 
 const ID_LOGIN_GLOBAL = usuarioCorrente.id;
-
-// ==========================================
-// 2. FUNÇÕES DE BUSCA DE DADOS
-// ==========================================
 
 function allContasReceber() {
     try {
@@ -40,10 +33,6 @@ function saveContasReceber(data) {
     localStorage.setItem('contasReceber', JSON.stringify(data));
 }
 
-// ==========================================
-// 3. INICIALIZAÇÃO
-// ==========================================
-
 function initPage() {
   document.getElementById('btn_logout').addEventListener('click', logoutUser);
   document.getElementById('nomeUsuario').innerHTML = usuarioCorrente.nome; 
@@ -55,10 +44,6 @@ function initPage() {
 
   renderizarTabela(); 
 }
-
-// ==========================================
-// 4. RENDERIZAÇÃO E UTILITÁRIOS
-// ==========================================
 
 function formatarDataParaExibicao(dataString) {
     if (!dataString) return '';
@@ -97,10 +82,8 @@ function listOfContacts() {
     select.innerHTML = optionsHtml;
 }
 
-// --- CORREÇÃO: LÓGICA DE RECIBO NO MODAL ---
 function gerarRecibo(id) {
     const contas = allContasReceber();
-    // Busca a conta pelo ID
     const conta = contas.find(c => c.meuId == id && String(c.usuarioId) === String(ID_LOGIN_GLOBAL));
     
     if(!conta) {
@@ -108,7 +91,6 @@ function gerarRecibo(id) {
         return;
     }
 
-    // Coleta dados para o recibo
     const nomeEmitente = usuarioCorrente.razao_social || usuarioCorrente.nome;
     const cpfCnpjEmitente = usuarioCorrente.cpf_cnpj;
     
@@ -119,9 +101,8 @@ function gerarRecibo(id) {
     
     const dataPagamento = conta.data_pagamento 
         ? new Date(conta.data_pagamento).toLocaleDateString('pt-BR') 
-        : new Date().toLocaleDateString('pt-BR'); // Se não pago, usa hoje como data do recibo
+        : new Date().toLocaleDateString('pt-BR');
 
-    // Monta o HTML do Recibo
     const htmlRecibo = `
         <div style="border: 2px dashed #333; padding: 30px; background-color: #fff; font-family: 'Courier New', Courier, monospace;">
             <div class="text-center mb-4">
@@ -218,7 +199,6 @@ function renderizarTabela() {
         const contaId = conta.meuId;
 
         let statusBadge = '';
-        // Normaliza status para minúsculo para comparação segura
         const statusNormalized = (conta.status || '').toLowerCase();
 
         if(statusNormalized === 'pago') {
@@ -229,7 +209,6 @@ function renderizarTabela() {
             statusBadge = '<span class="badge bg-warning text-dark">Pendente</span>';
         }
 
-        // CORREÇÃO: Botão de Recibo só aparece se estiver PAGO
         const btnRecibo = (statusNormalized === 'pago') 
             ? `<button class="btn btn-outline-dark btn-sm me-1" title="Gerar Recibo" onclick="gerarRecibo(${contaId})"><i class="bi bi-receipt"></i></button>`
             : '';
@@ -252,10 +231,6 @@ function renderizarTabela() {
         );
     });
 }
-
-// ==========================================
-// 5. CRUD (MODAL)
-// ==========================================
 
 function abrirModalContaReceber(id) {
     const modalTitle = document.getElementById('contaReceberModalLabel');
@@ -365,7 +340,6 @@ function excluirItem(id) {
     renderizarTabela();
 }
 
-// Expor funções globalmente
 window.gerarRecibo = gerarRecibo;
 window.imprimirRecibo = imprimirRecibo;
 window.abrirModalContaReceber = abrirModalContaReceber;

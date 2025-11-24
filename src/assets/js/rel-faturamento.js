@@ -115,6 +115,7 @@ function makeFilter(event) {
     filterPayment.value = ""
     clientsFilter.value = ""
 }
+
 function renderFilter() {
     if (filtredSales.length > 0) {
         const initHtml = `<div class="card mb-4">
@@ -212,6 +213,5 @@ function listenerListOfSales() {
         }
     });
 }
-
 
 listOfClients();

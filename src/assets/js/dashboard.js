@@ -145,9 +145,9 @@ function renderMissingProducts() {
             tdSaldo.textContent = produto.estoqueAtual;
 
             tr.appendChild(tdCodigo);
-            tr.appendChild(tdDescricao); // Substituindo a coluna "Tipo" visualmente pela descrição
-            tr.appendChild(tdPreco);     // Substituindo Nome
-            tr.appendChild(tdSaldo);     // Substituindo Unidade
+            tr.appendChild(tdDescricao); 
+            tr.appendChild(tdPreco);     
+            tr.appendChild(tdSaldo);   
 
             tableBody.appendChild(tr);
         });
@@ -156,9 +156,5 @@ function renderMissingProducts() {
     }
 }
 
-function init() {
-    renderSalesChart();
-    renderMissingProducts();
-}
-
-init();
+renderSalesChart();
+renderMissingProducts();

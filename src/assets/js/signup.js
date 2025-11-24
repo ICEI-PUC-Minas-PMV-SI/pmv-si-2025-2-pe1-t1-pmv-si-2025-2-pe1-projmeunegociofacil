@@ -1,10 +1,7 @@
 import { newUserId, allUsers } from "./utils.js"
 const db = allUsers();
 
-
-
 function addUser(nome, nomeRazao, isPj, cpfCNPJ, endereco, telefone, email, senha) {
-
     const newId = newUserId(allUsers())
     // Cria um objeto de usuario para o novo usuario 
     const usuario = {

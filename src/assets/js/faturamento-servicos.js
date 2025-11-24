@@ -86,6 +86,7 @@ addInputsQuantity.addEventListener('input', updateInputTotal)
 addInputsUnitPrice.addEventListener('input', updateInputTotal)
 btnAddInputs.addEventListener('click', addInput)
 
+// UNCLOSED SALE
 const urlParams = new URLSearchParams(window.location.search);
 
 const unclosedId = urlParams.get('unclosed-sale');
@@ -319,7 +320,6 @@ function renderProducts(iproductsToSale = productsToSale) {
     }).join('');
     tbodyListOfProducts.innerHTML = rowsHtml;
 }
-
 
 function listenerListOfProducts() {
     function saveProductQuantity(row, input) {
@@ -562,7 +562,6 @@ function removeClient(event) {
 
 
 // INPUTS
-
 function updateInputTotal() {
     const quantity = addInputsQuantity.value
     const unit = addInputsUnitPrice.value
@@ -662,7 +661,6 @@ function renderInputs(iInputsToSale = inputsToSale) {
     if (inputsToSale.length > 0) { inputsDiv.innerHTML = initHtml + rowsHtml + endHtml } else { inputsDiv.innerHTML = "" }
 }
 
-
 function listenerListOfInputs() {
     inputsDiv.addEventListener('click', (event) => {
         event.preventDefault();
@@ -685,7 +683,6 @@ function listenerListOfInputs() {
 }
 
 // SAVE
-
 function save() {
     if (!selectedClient && saveClient.value.length < 5) {
         saveClient.classList.add('is-invalid');
@@ -724,7 +721,6 @@ function save() {
 }
 
 // CHECKOUT
-
 function blockInstallments() {
     if (paymentMethod.value == 'credito' || paymentMethod.value == 'boleto') {
         colPaymentInstallment.style.display = 'block';

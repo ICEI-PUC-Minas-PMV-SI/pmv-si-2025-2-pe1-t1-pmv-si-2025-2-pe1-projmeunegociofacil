@@ -2,9 +2,6 @@ import { loggedUser, logoutUser } from "./auth.js";
 import { LOGIN_URL } from "./config.js";
 import { newMyId, makeDecimal } from "./utils.js";
 
-// =========================================================
-// 1. AUTENTICAÇÃO
-// =========================================================
 const usuarioCorrente = loggedUser();
 
 if (!usuarioCorrente || !usuarioCorrente.email_login) {
@@ -13,12 +10,8 @@ if (!usuarioCorrente || !usuarioCorrente.email_login) {
 
 const KEY_DB = 'produtosServicos';
 
-// =========================================================
-// 2. BANCO DE DADOS
-// =========================================================
 
 function getDB() {
-    // Tenta pegar o array direto, se não conseguir, tenta pegar objeto com .items (legado)
     try {
         const data = JSON.parse(localStorage.getItem(KEY_DB));
         if (Array.isArray(data)) return data;
@@ -33,15 +26,10 @@ function saveDB(db) {
     localStorage.setItem(KEY_DB, JSON.stringify(db));
 }
 
-// =========================================================
-// 3. INICIALIZAÇÃO
-// =========================================================
-
 async function initPage() {
     document.getElementById('btn_logout').addEventListener('click', logoutUser);
     document.getElementById('nomeUsuario').innerHTML = usuarioCorrente.nome;
 
-    // Configura busca
     const inputBusca = document.querySelector('input[placeholder="Buscar"]');
     if (inputBusca) {
         inputBusca.addEventListener('input', carregarTabelaProdutosServicos);
@@ -49,10 +37,6 @@ async function initPage() {
 
     carregarTabelaProdutosServicos();
 }
-
-// =========================================================
-// 4. CRUD
-// =========================================================
 
 function carregarTabelaProdutosServicos() {
     const tbody = document.querySelector('#tabelaProdutosServicos tbody');
@@ -62,7 +46,6 @@ function carregarTabelaProdutosServicos() {
     const db = getDB();
     const termo = document.querySelector('input[placeholder="Buscar"]')?.value.toLowerCase() || '';
 
-    // Filtra por USUÁRIO e BUSCA
     const itensUsuario = db.filter(item => {
         const isUser = String(item.usuarioId) === String(usuarioCorrente.id);
         if (!isUser) return false;
@@ -116,11 +99,9 @@ function abrirModalProdutoServico(id) {
     const form = document.getElementById('formProdutoServico');
     form.reset();
 
-    // Bloqueia edição do código
     const campoCodigo = document.getElementById('modalCodigo');
     campoCodigo.disabled = true;
 
-    // EDIÇÃO
     if (id) {
         modalTitle.textContent = 'Editar Item';
         const db = getDB();
@@ -137,14 +118,12 @@ function abrirModalProdutoServico(id) {
             document.getElementById('modalEstoqueInicial').value = item.estoqueAtual !== undefined ? item.estoqueAtual : item.estoqueInicial;
         }
     }
-    // NOVO
     else {
         modalTitle.textContent = 'Adicionar Novo Item';
         const db = getDB();
         campoCodigo.value = newMyId(db);
     }
 
-    // Abre modal
     const el = document.getElementById('produtoServicoModal');
     if (el) {
         const modal = bootstrap.Modal.getOrCreateInstance(el);
@@ -172,7 +151,6 @@ function salvarProdutoServico() {
     let db = getDB();
 
     if (id) {
-        // EDITAR
         const index = db.findIndex(item => (item.meuId == id || item.id == id) && String(item.usuarioId) === String(usuarioCorrente.id));
 
         if (index !== -1) {
@@ -181,17 +159,16 @@ function salvarProdutoServico() {
             db[index].unidade = unidade;
             db[index].precoVenda = precoVenda;
             db[index].precoCusto = precoCusto;
-            db[index].estoqueAtual = estoque; // Atualiza estoque atual
+            db[index].estoqueAtual = estoque;
         }
     } else {
-        // NOVO
         const novoId = newMyId(db);
 
         db.push({
             meuId: novoId,
-            id: novoId, // Compatibilidade
-            usuarioId: usuarioCorrente.id, // VÍNCULO DE SEGURANÇA
-            tipo, // produto ou servico
+            id: novoId,
+            usuarioId: usuarioCorrente.id,
+            tipo,
             descricao,
             unidade,
             precoVenda,
@@ -220,7 +197,6 @@ function excluirItem(id) {
     carregarTabelaProdutosServicos();
 }
 
-// Expõe globalmente
 window.abrirModalProdutoServico = abrirModalProdutoServico;
 window.salvarProdutoServico = salvarProdutoServico;
 window.excluirItem = excluirItem;

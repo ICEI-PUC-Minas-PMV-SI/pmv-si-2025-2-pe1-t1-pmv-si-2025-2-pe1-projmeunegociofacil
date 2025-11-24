@@ -51,7 +51,6 @@ document.addEventListener('click', e => {
     e.preventDefault();
     loadPage(el);
 
-    // Fecha o menu mobile se estiver aberto
     const offcanvasEl = document.getElementById('offcanvasSidebar');
     if (offcanvasEl) {
       const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
