@@ -7,14 +7,22 @@ const divNomeFantasia = document.getElementById('div-nome-fantasia')
 const radioInstPj = document.getElementById('sign-up-isnt-pj')
 const divCpfCnpj = document.getElementById('div-cpf-cnpj')
 const divNomeDaEmpresa = document.getElementById('div-nome-da-empresa')
+const firstAcessModal = document.getElementById('first-acess-modal')
 
 document.getElementById('login-form').addEventListener('submit', performLogin);
 document.getElementById('signup-form').addEventListener('submit', newUser);
 
+// if (firstAcessModal) {
+//     const ModalInstance = bootstrap.Modal.getOrCreateInstance(firstAcessModal);
+//     ModalInstance.show();
+// }
+
 async function makeTest() {
     if (localStorage.length === 0) {
-        alert('LocalStorage vazio, carregando arquivos de teste...');
-
+        if (firstAcessModal) {
+            const ModalInstance = bootstrap.Modal.getOrCreateInstance(firstAcessModal);
+            ModalInstance.show();
+        }
         try {
             const response = await fetch('assets/data/maketest.json');
             const makeTestData = await response.json();
@@ -23,7 +31,7 @@ async function makeTest() {
                 localStorage.setItem(key, JSON.stringify(data));
             })
 
-            alert('Arquivos de teste carregados com sucesso. \n\nEfetue login utilizando os dados:\nLOGIN: admin@admin.com\nSENHA: admin');
+            // alert('Arquivos de teste carregados com sucesso. \n\nEfetue login utilizando os dados:\nLOGIN: admin@admin.com\nSENHA: admin');
             console.log(localStorage.getItem('usuarios'))
             console.log(localStorage.getItem('clientes_fornecedores'))
             console.log(localStorage.getItem('produtos_servicos'))
