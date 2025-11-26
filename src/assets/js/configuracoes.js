@@ -13,6 +13,8 @@ const telefone = document.getElementById('sign-up-telefone')
 const email = document.getElementById('sign-up-email')
 
 document.getElementById('btn-salvar').addEventListener('click', updateUser);
+document.getElementById('btn-reset').addEventListener('click', resetSystem);
+
 
 const db = allUsers();
 const currentUser = loggedUser();
@@ -113,6 +115,14 @@ export function updateUser(event) {
     alert('Dados atualizados com sucesso!');
 
     logoutUser()
+}
+
+function resetSystem() {
+    if (confirm(`Confirma o RESET TOTAL do sistema? 
+    Todos os dados serão apagados.`)) { 
+        localStorage.clear()
+        logoutUser()
+     }
 }
 
 renderData()
