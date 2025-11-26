@@ -64,7 +64,7 @@ function listOfClients() {
 function makeFilter(event) {
     filtredSales = allUserSales()
     const clientsFilter = document.getElementById('clients-filter')
-    event.preventDefault();
+    if (event) {event.preventDefault();}
 
     function filterDate() {
         if (initDate.value || endDate.value) {
@@ -215,3 +215,4 @@ function listenerListOfSales() {
 }
 
 listOfClients();
+makeFilter()

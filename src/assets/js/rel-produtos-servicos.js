@@ -27,9 +27,9 @@ function initPage() {
         btnFiltrar.addEventListener('click', aplicarFiltros);
     }
     
-    document.getElementById('filtroBusca').addEventListener('input', aplicarFiltros);
-    document.getElementById('filtroTipo').addEventListener('change', aplicarFiltros);
-    document.getElementById('filtroSaldo').addEventListener('change', aplicarFiltros);
+    // document.getElementById('filtroBusca').addEventListener('input', aplicarFiltros);
+    // document.getElementById('filtroTipo').addEventListener('change', aplicarFiltros);
+    // document.getElementById('filtroSaldo').addEventListener('change', aplicarFiltros);
 
     aplicarFiltros();
 }
