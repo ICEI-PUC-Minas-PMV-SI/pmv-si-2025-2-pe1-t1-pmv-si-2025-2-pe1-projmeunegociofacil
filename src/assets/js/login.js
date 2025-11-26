@@ -8,21 +8,33 @@ const radioInstPj = document.getElementById('sign-up-isnt-pj')
 const divCpfCnpj = document.getElementById('div-cpf-cnpj')
 const divNomeDaEmpresa = document.getElementById('div-nome-da-empresa')
 const firstAcessModal = document.getElementById('first-acess-modal')
+const btnIgnoreHelpModal = document.getElementById('btn-ignore-help=modal')
 
 document.getElementById('login-form').addEventListener('submit', performLogin);
 document.getElementById('signup-form').addEventListener('submit', newUser);
 
-if (firstAcessModal) {
-    const ModalInstance = bootstrap.Modal.getOrCreateInstance(firstAcessModal);
-    ModalInstance.show();
-}
+btnIgnoreHelpModal.addEventListener('click', makeIgnoreHelpModal)
 
-async function makeTest() {
-    if (localStorage.length === 0) {
+function helpModal() {
+    const ignoreHelpModal = JSON.parse(localStorage.getItem('ignoreHelpModal'))
+    if (!ignoreHelpModal) {
         if (firstAcessModal) {
             const ModalInstance = bootstrap.Modal.getOrCreateInstance(firstAcessModal);
             ModalInstance.show();
         }
+    }
+}
+
+function makeIgnoreHelpModal() {
+    localStorage.setItem('ignoreHelpModal', JSON.stringify(true));
+    if (firstAcessModal) {
+        const ModalInstance = bootstrap.Modal.getOrCreateInstance(firstAcessModal);
+        ModalInstance.hide();
+    }
+}
+
+async function makeTest() {
+    if (localStorage.length === 0) {
         try {
             const response = await fetch('assets/data/maketest.json');
             const makeTestData = await response.json();
@@ -32,17 +44,10 @@ async function makeTest() {
             })
 
             // alert('Arquivos de teste carregados com sucesso. \n\nEfetue login utilizando os dados:\nLOGIN: admin@admin.com\nSENHA: admin');
-            console.log(localStorage.getItem('usuarios'))
-            console.log(localStorage.getItem('clientes_fornecedores'))
-            console.log(localStorage.getItem('produtos_servicos'))
-            console.log(localStorage.getItem('vendas'))
-            console.log(localStorage.getItem('faturas'))
-            console.log(localStorage.getItem('agenda_compromissos'))
-
         } catch {
             alert('Ocorreu um erro ao carregar os dados de teste.');
         }
-    }
+    } helpModal()
 }
 
 function searchUser(email_login, senha) {

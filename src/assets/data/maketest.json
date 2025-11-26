@@ -3814,5 +3814,6 @@
       ],
       "formaDePagamento": "1"
     }
-  ]
+  ],
+  "ignoreHelpModal": false
 }
