@@ -12,10 +12,10 @@ const firstAcessModal = document.getElementById('first-acess-modal')
 document.getElementById('login-form').addEventListener('submit', performLogin);
 document.getElementById('signup-form').addEventListener('submit', newUser);
 
-// if (firstAcessModal) {
-//     const ModalInstance = bootstrap.Modal.getOrCreateInstance(firstAcessModal);
-//     ModalInstance.show();
-// }
+if (firstAcessModal) {
+    const ModalInstance = bootstrap.Modal.getOrCreateInstance(firstAcessModal);
+    ModalInstance.show();
+}
 
 async function makeTest() {
     if (localStorage.length === 0) {
