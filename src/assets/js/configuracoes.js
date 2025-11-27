@@ -118,8 +118,7 @@ export function updateUser(event) {
 }
 
 function resetSystem() {
-    if (confirm(`Confirma o RESET TOTAL do sistema? 
-    Todos os dados serão apagados.`)) { 
+    if (confirm(`Confirma o RESET TOTAL do sistema?\nTodos os dados serão apagados.`)) { 
         localStorage.clear()
         logoutUser()
      }

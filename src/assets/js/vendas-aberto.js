@@ -46,11 +46,13 @@ function init() {
       } else if (sale.tipoVenda == "servico") {
         url = "../auth/index.html?page=faturamento_servicos&unclosed-sale=" + sale.meuId
       }
+      const clientName = typeof(sale.clientesFornecedoresMeuId) == "string" ? sale.clientesFornecedoresMeuId : sale.clientesFornecedoresMeuId.nomeRazaoSocial
+
       return `
 
 <tr data-id="${sale.meuId}">
                   <td>${sale.meuId}</td>
-                  <td>${sale.clientesFornecedoresMeuId.nomeRazaoSocial}</td>
+                  <td>${clientName}</td>
                   <td>${tipoVenda}</td>
                   <td class="text-end">${makeDecimal(sale.valorTotal)}</td>
                   <td class="text-center">

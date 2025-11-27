@@ -76,7 +76,11 @@ productsForm.addEventListener('submit', insertProductFromInput);
 checkoutModal.addEventListener('show.bs.modal', verifyProductsIsValid)
 saveModal.addEventListener('show.bs.modal', verifyProductsIsValid)
 selectedPaymentInstallment.addEventListener('change', updatePayment)
-finishModal.addEventListener('hidden.bs.modal', () => { location.reload() })
+finishModal.addEventListener('hidden.bs.modal', () => {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('unclosed-sale');
+    window.location.replace(url.toString());
+})
 
 
 // UNCLOSED SALES
@@ -101,6 +105,8 @@ if (unclosedId && currentUnclosedSale) {
                 <div class="input-group-append">
                 <button id="unselect-client" class="btn btn-outline-secondary selected-client" type="button">x</button>
                 </div>`;
+    } else {
+        saveClient.value = currentUnclosedSale.clientesFornecedoresMeuId;
     }
 }
 
@@ -199,7 +205,9 @@ function cleanSearch() {
 
 function cancelSale() {
     if (confirm('Deseja realmente cancelar a venda?')) {
-        location.reload();
+        const url = new URL(window.location.href);
+        url.searchParams.delete('unclosed-sale');
+        window.location.replace(url.toString());
     }
 }
 
@@ -565,7 +573,9 @@ function save() {
         }
         deleteUnclosed()
         alert('Venda gravada com sucesso!')
-        location.reload();
+        const url = new URL(window.location.href);
+        url.searchParams.delete('unclosed-sale');
+        window.location.replace(url.toString());
 
     }
 
@@ -804,7 +814,9 @@ function finishSale() {
         finishModalInstance.show();
     } else {
         alert('Venda gravada com sucesso!');
-        location.reload();
+        const url = new URL(window.location.href);
+        url.searchParams.delete('unclosed-sale');
+        window.location.replace(url.toString());
     }
 }
 

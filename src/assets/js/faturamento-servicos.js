@@ -81,7 +81,11 @@ productsForm.addEventListener('submit', insertProductFromInput);
 checkoutModal.addEventListener('show.bs.modal', verifyProductsIsValid)
 saveModal.addEventListener('show.bs.modal', verifyProductsIsValid)
 selectedPaymentInstallment.addEventListener('change', updatePayment)
-finishModal.addEventListener('hidden.bs.modal', () => { location.reload() })
+finishModal.addEventListener('hidden.bs.modal', () => {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('unclosed-sale');
+    window.location.replace(url.toString());
+})
 addInputsQuantity.addEventListener('input', updateInputTotal)
 addInputsUnitPrice.addEventListener('input', updateInputTotal)
 btnAddInputs.addEventListener('click', addInput)
@@ -110,6 +114,8 @@ if (unclosedId && currentUnclosedSale) {
                 <div class="input-group-append">
                 <button id="unselect-client" class="btn btn-outline-secondary selected-client" type="button">x</button>
                 </div>`;
+    } else {
+        saveClient.value = currentUnclosedSale.clientesFornecedoresMeuId;
     }
 }
 
@@ -201,7 +207,9 @@ function cleanSearch() {
 
 function cancelSale() {
     if (confirm('Deseja realmente cancelar a venda?')) {
-        location.reload();
+        const url = new URL(window.location.href);
+        url.searchParams.delete('unclosed-sale');
+        window.location.replace(url.toString());
     }
 }
 
@@ -620,7 +628,8 @@ function addInput(event) {
 }
 
 function renderInputs(iInputsToSale = inputsToSale) {
-    const initHtml = `<div class="container p-2"></div>
+    if (inputsToSale.length > 0) {
+        const initHtml = `<div class="container p-2"></div>
         <hr class="sep-insumos-produtos">
         <p class="titulo-sep-insumos-produtos" style="font-size: small">Insumos Utilizados:</p>
         <div class="container">
@@ -639,14 +648,14 @@ function renderInputs(iInputsToSale = inputsToSale) {
         </thead>
         <tbody id="tbody-inputs-div" class="table-group-divider" style="font-size: small"> `
 
-    const endHtml = `     
+        const endHtml = `     
         </tbody>
 
         </table>
         </div>
         </div>`
-    const rowsHtml = iInputsToSale.map(input => {
-        return `
+        const rowsHtml = iInputsToSale.map(input => {
+            return `
            <tr data-id="${input.meuId}">
             <th class="text-start" scope="col">${input.descricao}</th>
             <th class="text-center" scope="col">${makeDecimal(input.quantidade)}</th>
@@ -657,8 +666,9 @@ function renderInputs(iInputsToSale = inputsToSale) {
             </td>
             </tr>
             `;
-    }).join('');
-    if (inputsToSale.length > 0) { inputsDiv.innerHTML = initHtml + rowsHtml + endHtml } else { inputsDiv.innerHTML = "" }
+        }).join('');
+        inputsDiv.innerHTML = initHtml + rowsHtml + endHtml
+    } else { inputsDiv.innerHTML = "" }
 }
 
 function listenerListOfInputs() {
@@ -713,8 +723,9 @@ function save() {
         }
         deleteUnclosed()
         alert('Venda gravada com sucesso!')
-        location.reload();
-
+        const url = new URL(window.location.href);
+        url.searchParams.delete('unclosed-sale');
+        window.location.replace(url.toString());
     }
 
 
@@ -928,9 +939,10 @@ function finishSale() {
         const finishModalInstance = bootstrap.Modal.getOrCreateInstance(finishModal);
         finishModalInstance.show();
     } else {
-    
         alert('Venda gravada com sucesso!');
-        location.reload();
+        const url = new URL(window.location.href);
+        url.searchParams.delete('unclosed-sale');
+        window.location.replace(url.toString());
     }
 }
 
