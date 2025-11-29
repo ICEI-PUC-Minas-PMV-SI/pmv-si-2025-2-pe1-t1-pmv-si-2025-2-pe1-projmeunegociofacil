@@ -421,7 +421,8 @@ function searchProducts() {
 }
 
 function renderProductsSearch(productsToShow) {
-    const initrows = `
+    if (productsToShow.length > 0) {
+        const initrows = `
     <div class="table-responsive">
     <table class="table table-hover mb-0 tabelaModal">
     <thead class="table-light">
@@ -433,8 +434,8 @@ function renderProductsSearch(productsToShow) {
     </tr>
     </thead>
     <tbody id="list-of-products-search"> `
-    const rowsHtml = productsToShow.map(product => {
-        return `
+        const rowsHtml = productsToShow.map(product => {
+            return `
     <tr data-id="${product.meuId}">
     <th scope="row">${product.meuId}</th>
       <td>${product.referencia ?? ""}</td>
@@ -442,12 +443,13 @@ function renderProductsSearch(productsToShow) {
       <td>${makeDecimal(product.precoVenda)}</td>
     </tr>
   `;
-    }).join('');
-    const endrows = `
+        }).join('');
+        const endrows = `
     </tbody>
     </table>
     </div>`
-    tableProductsSearch.innerHTML = initrows + rowsHtml + endrows;
+        tableProductsSearch.innerHTML = initrows + rowsHtml + endrows;
+    } else { tableProductsSearch.innerHTML = "" }
 }
 
 function listOfProductsSearch() {
