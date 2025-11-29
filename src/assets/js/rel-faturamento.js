@@ -109,11 +109,11 @@ function makeFilter(event) {
     filterClient()
     filterPayment()
     renderFilter(filtredSales)
-    initDate.value = ""
-    endDate.value = ""
-    filterTypeInput.value = ""
-    filterPayment.value = ""
-    clientsFilter.value = ""
+    // initDate.value = ""
+    // endDate.value = ""
+    // filterTypeInput.value = ""
+    // filterPayment.value = ""
+    // clientsFilter.value = ""
 }
 
 function renderFilter() {
