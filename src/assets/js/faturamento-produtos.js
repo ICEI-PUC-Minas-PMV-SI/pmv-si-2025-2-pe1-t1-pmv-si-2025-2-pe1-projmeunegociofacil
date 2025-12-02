@@ -409,6 +409,7 @@ function searchProducts() {
     }
 
     btnSearchProducts.addEventListener('click', () => {
+        event.preventDefault();
         makeSearch();
     });
 
