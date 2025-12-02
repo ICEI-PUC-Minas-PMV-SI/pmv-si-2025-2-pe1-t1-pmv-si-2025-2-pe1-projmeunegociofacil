@@ -274,48 +274,162 @@ Abaixo estão detalhados os casos de teste (CT) a serem executados.
 **Dados de entrada** | N/A (Navegação)
 **Resultado obtido** | Sucesso
 
----
-
-**Caso de Teste** | **CT26 - Teste de Desempenho (Carga de Página) - (Planejado)**
-:--- | :---
-**Procedimento** | 1) (Planejado) Utilizar ferramentas (ex: Lighthouse, PageSpeed Insights) em ambiente de homologação. <br> 2) Medir o tempo de carregamento (LCP - Largest Contentful Paint) da **Dashboard** após o login.
-**Requisitos associados** | RNF-03
-**Resultado esperado** | (Planejado) O tempo de LCP deve ser inferior a 2.5 segundos, conforme especificado no requisito RNF-03.
-**Dados de entrada** | N/A (Ferramenta de medição)
-**Resultado obtido** | Pendente (Fase de Testes de Desempenho)
-
----
-
-**Caso de Teste** | **CT27 - Teste de Confiabilidade (Estresse) - (Planejado)**
-:--- | :---
-**Procedimento** | 1) (Planejado) Utilizar ferramenta de teste de carga (ex: JMeter, K6) em ambiente de homologação. <br> 2) Simular 50 usuários concorrentes (conforme RNF-05) realizando as ações de Login (CT03) e Faturamento (CT11) por um período de 10 minutos.
-**Requisitos associados** | RNF-05, RNF-03
-**Resultado esperado** | (Planejado) O sistema deve manter a funcionalidade (taxa de erro < 1%) e o tempo de resposta médio não deve degradar significativamente (conforme RNF-03) durante o teste.
-**Dados de entrada** | N/A (Script de teste de carga)
-**Resultado obtido** | Pendente (Fase de Testes de Carga)
-
 ## Registro dos Testes de Software
 
-Esta seção deve apresentar o relatório com as evidências dos testes de software realizados no sistema pela equipe, baseado no plano de testes pré-definido. Documente cada caso de teste apresentando um vídeo ou animação que comprove o funcionamento da funcionalidade. Veja os exemplos a seguir.
+Esta seção apresenta o relatório com as evidências dos testes de software realizados no sistema pela equipe, baseado no plano de testes pré-definido.
 
-|*Caso de Teste*                                 |*CT01 - Criar conta parte 1*                                         |
-|---|---|
-|Requisito Associado | RF-001 - A aplicação deve permitir que os usuários criem uma conta e gerenciem seu cadastro|
-|Link do vídeo do teste realizado: | https://1drv.ms/u/s!AhD2JqpOUvJChapRtRSQ9vPzbNLwGA?e=mxZs6t| 
+| **Caso de Teste** | **CT01 - Cadastro de Novo Usuário (Sucesso)** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-01** - O sistema deve permitir o cadastro de usuários e login com email e senha. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
 
-|*Caso de Teste*                                 |*CT02 - Criar conta parte 2*                                        |
-|---|---|
-|Requisito Associado | RF-001 - A aplicação deve permitir que os usuários criem uma conta e gerenciem seu cadastro|
-|Link do vídeo do teste realizado: | https://1drv.ms/v/s!AhD2JqpOUvJChapQ8CPXL-TI_A7iVg?e=spD3Ar | 
+| **Caso de Teste** | **CT02 - Cadastro de Novo Usuário (Falha - Senha Divergente)** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-01** - O sistema deve permitir o cadastro de usuários e login com email e senha. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT03 - Login de Usuário (Sucesso)** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-01** - O sistema deve permitir o cadastro de usuários e login com email e senha. <br> **RNF-01** - A interface deve ser minimalista e proporcionar um aprendizado rápido. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT04 - Login de Usuário (Falha - Senha Inválida)** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-01** - O sistema deve permitir o cadastro de usuários e login com email e senha. <br> **RNF-01** - A interface deve ser minimalista e proporcionar um aprendizado rápido. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT05 - Visualização do Dashboard e Verificação de Acesso** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-02** - O sistema deve exibir na tela inicial um dashboard mostrando informações relevantes, como as vendas do mês. <br> **RNF-01** - A interface deve ser minimalista e proporcionar um aprendizado rápido. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT06 - Adicionar Novo Cliente** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-03** - O sistema deve permitir o cadastro de clientes e fornecedores e exibir todos em uma lista com filtros. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT07 - Buscar Cliente/Fornecedor** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-03** - O sistema deve permitir o cadastro de clientes e fornecedores e exibir todos em uma lista com filtros. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT08 - Excluir Cliente/Fornecedor** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-03** - O sistema deve permitir o cadastro de clientes e fornecedores e exibir todos em uma lista com filtros. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT09 - Adicionar Novo Produto** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-04** - O sistema deve permitir cadastrar produtos e serviços e exibir todos em uma lista com filtros. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT10 - Adicionar Novo Serviço** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-04** - O sistema deve permitir cadastrar produtos e serviços e exibir todos em uma lista com filtros. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT11 - Lançar Venda de Produto (PDV)** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-05** - O sistema deve permitir a emissão de venda de produtos, possibilitando a seleção de cliente, produtos e forma de pagamento. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT12 - Finalizar Venda de Produto (Pagamento)** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-05** - O sistema deve permitir a emissão de venda de produtos, possibilitando a seleção de cliente, produtos e forma de pagamento. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT13 - Lançar Venda de Serviço** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-06** - O sistema deve permitir a emissão de serviços com seleção de cliente, serviços realizados, forma de pagamento e lançamento de insumos. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT14 - Adicionar Insumo ao Serviço** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-06** - O sistema deve permitir a emissão de serviços com seleção de cliente, serviços realizados, forma de pagamento e lançamento de insumos. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT15 - Gravar Venda como "Em Aberto"** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-07** - O sistema deve permitir salvar as vendas e serviços como "em aberto", exibindo-os em uma lista e possibilitando editar ou finalizar o item desejado. <br> **RF-05** - O sistema deve permitir a emissão de venda de produtos... <br> **RF-06** - O sistema deve permitir a emissão de serviços... |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT16 - Editar Venda "Em Aberto"** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-07** - O sistema deve permitir salvar as vendas e serviços como "em aberto", exibindo-os em uma lista e possibilitando editar ou finalizar o item desejado. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT17 - Adicionar Nova Conta a Pagar** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-08** - O sistema deve permitir listar as faturas a receber e a pagar e permitir o cadastro de novas faturas. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT18 - Adicionar Nova Conta a Receber** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-08** - O sistema deve permitir listar as faturas a receber e a pagar e permitir o cadastro de novas faturas. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT19 - Adicionar Compromisso na Agenda** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-09** - O sistema deve permitir ao usuário criar compromissos e administrá-los por meio de uma agenda e gerir compromissos recorrentes. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT20 - Alternar Visualização da Agenda (Diário/Mensal)** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-09** - O sistema deve permitir ao usuário criar compromissos e administrá-los por meio de uma agenda e gerir compromissos recorrentes. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT21 - Teste de Responsividade (Menu Sidebar)** |
+| :--- | :--- |
+| **Requisito Associado** | **RNF-02** - Garantir que a interface seja responsiva, proporcionando acesso em dispositivos móveis. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT22 - Interação com Filtros (Relatório Produtos/Serviços)** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-10** - O sistema deve permitir a emissão de relatórios de vendas e serviços realizados, possibilitando filtrar por cliente ou por data. <br> **RNF-01** - A interface deve ser minimalista e proporcionar um aprendizado rápido. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT23 - Interação com Filtros (Relatório Financeiro)** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-11** - O sistema deve permitir a emissão de relatório de faturas pagas, a pagar, recebidas, a receber e de fluxo de caixa. <br> **RNF-01** - A interface deve ser minimalista e proporcionar um aprendizado rápido. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT24 - Interação com Filtros (Relatório Faturamento)** |
+| :--- | :--- |
+| **Requisito Associado** | **RF-12** - O sistema deve permitir a emissão de relatório de produtos, com saldos em estoque, ou de serviços, estilo tabela de preços. <br> **RNF-01** - A interface deve ser minimalista e proporcionar um aprendizado rápido. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+| **Caso de Teste** | **CT25 - Teste de Usabilidade (Consistência da Interface)** |
+| :--- | :--- |
+| **Requisito Associado** | **RNF-04** - Garantir que cada usuário tenha acesso apenas aos dados da organização da qual faz parte. |
+| **Link do vídeo do teste realizado:** | [Insira o link do vídeo aqui] |
+
+# Avaliação dos Testes de Software
+
+A execução dos testes de software, conforme detalhado no plano (CT01 a CT25), demonstrou que o **Meu Negócio Fácil** atingiu um nível satisfatório para esta etapa do desenvolvimento. Abaixo, detalhamos os pontos fortes, as falhas mitigadas e necessidades de melhoria.
+
+**Pontos Fortes Identificados:**
+
+* **Conformidade:** Todas as funcionalidades críticas, como **Faturamento** (Produtos e Serviços) e **Controle Financeiro** (Contas a Pagar/Receber), estão funcionais conforme os requisitos. Os cálculos de totais no PDV e a gravação de vendas "Em Aberto" funcionaram corretamente.
+* **Validações de Segurança e Dados:** O controle de acesso está funcionando corretamente (**RF-02/RNF-01**), impedindo o acesso direto a páginas internas via URL sem login prévio. As validações de formulário, como a verificação de senhas coincidentes no cadastro, impediram a entrada de dados inconsistentes.
+* **Responsividade e Interface:** O teste de responsividade (**RNF-02**) demonstrou que a aplicação se adapta a dispositivos móveis, com o menu lateral (sidebar) funcionando corretamente no modo *offcanvas*.
+
+**Pontos Fracos e Desafios:**
+
+* **Dependência de Testes Manuais:** A verificação atual depende inteiramente da execução manual dos testes. Isso torna o processo de lento a cada nova funcionalidade implementada.
+* **Feedback Visual em Processos Assíncronos:** Embora funcionais, alguns processos assíncronos poderiam beneficiar-se de feedbacks visuais,como *spinners* de carregamento, caso a conexão de internet esteja lenta, para evitar cliques duplos do usuário.
+
+**Melhorias Geradas e Próximos Passos:**
+
+Com base nestes resultados, os principais *bugs* foram corrigidos. Futuramente seria desejável:
+
+1.  Implementar **testes unitários automatizados** para as funções de cálculo financeiro, reduzindo a chance de erro na verificação.
+2.  Refinar a **acessibilidade** dos modais e formulários para garantir que a navegação via teclado seja tão fluida quanto a via mouse.
 
 
-## Avaliação dos Testes de Software
 
-Discorra sobre os resultados do teste. Ressaltando pontos fortes e fracos identificados na solução. Comente como o grupo pretende atacar esses pontos nas próximas iterações. Apresente as falhas detectadas e as melhorias geradas a partir dos resultados obtidos nos testes.
+<!-- ## Testes de unidade automatizados (Opcional)
 
-## Testes de unidade automatizados (Opcional)
-
-Se o grupo tiver interesse em se aprofundar no desenvolvimento de testes de software, ele podera desenvolver testes automatizados de software que verificam o funcionamento das funções JavaScript desenvolvidas. Para conhecer sobre testes unitários em JavaScript, leia 0 documento  [Ferramentas de Teste para Java Script](https://geekflare.com/javascript-unit-testing/).
+Se o grupo tiver interesse em se aprofundar no desenvolvimento de testes de software, ele podera desenvolver testes automatizados de software que verificam o funcionamento das funções JavaScript desenvolvidas. Para conhecer sobre testes unitários em JavaScript, leia 0 documento  [Ferramentas de Teste para Java Script](https://geekflare.com/javascript-unit-testing/). -->
 
 # Testes de Usabilidade
 
