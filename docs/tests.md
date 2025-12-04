@@ -401,7 +401,7 @@ Esta seção apresenta o relatório com as evidências dos testes de software re
 | **Caso de Teste** | **CT25 - Teste de Usabilidade (Consistência da Interface)** |
 | :--- | :--- |
 | **Requisito Associado** | **RNF-04** - Garantir que cada usuário tenha acesso apenas aos dados da organização da qual faz parte. |
-| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/25.jpeg" width="600" alt="Evidencia CT25"></details> |
+| **Evidência do Teste:** | <details> <summary>🎥 Ver Vídeo da Execução</summary> <video width="600" controls> <source src="img/tests/25.mp4" type="video/mp4"> Seu navegador não suporta a tag de vídeo. </video> </details> |
 
 # Avaliação dos Testes de Software
 
