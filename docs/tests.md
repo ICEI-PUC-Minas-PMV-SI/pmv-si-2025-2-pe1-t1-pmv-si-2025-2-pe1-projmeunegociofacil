@@ -321,12 +321,12 @@ Esta seção apresenta o relatório com as evidências dos testes de software re
 | **Caso de Teste** | **CT09 - Adicionar Novo Produto** |
 | :--- | :--- |
 | **Requisito Associado** | **RF-04** - O sistema deve permitir cadastrar produtos e serviços e exibir todos em uma lista com filtros. |
-| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/09.jpeg" width="600" alt="Evidencia CT09"></details> |
+| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/09.png" width="600" alt="Evidencia CT09"></details> |
 
 | **Caso de Teste** | **CT10 - Adicionar Novo Serviço** |
 | :--- | :--- |
 | **Requisito Associado** | **RF-04** - O sistema deve permitir cadastrar produtos e serviços e exibir todos em uma lista com filtros. |
-| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/10.jpeg" width="600" alt="Evidencia CT10"></details> |
+| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/10.png" width="600" alt="Evidencia CT10"></details> |
 
 | **Caso de Teste** | **CT11 - Lançar Venda de Produto (PDV)** |
 | :--- | :--- |
@@ -361,12 +361,12 @@ Esta seção apresenta o relatório com as evidências dos testes de software re
 | **Caso de Teste** | **CT17 - Adicionar Nova Conta a Pagar** |
 | :--- | :--- |
 | **Requisito Associado** | **RF-08** - O sistema deve permitir listar as faturas a receber e a pagar e permitir o cadastro de novas faturas. |
-| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/17.jpeg" width="600" alt="Evidencia CT17"></details> |
+| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/17.png" width="600" alt="Evidencia CT17"></details> |
 
 | **Caso de Teste** | **CT18 - Adicionar Nova Conta a Receber** |
 | :--- | :--- |
 | **Requisito Associado** | **RF-08** - O sistema deve permitir listar as faturas a receber e a pagar e permitir o cadastro de novas faturas. |
-| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/18.jpeg" width="600" alt="Evidencia CT18"></details> |
+| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/18.png" width="600" alt="Evidencia CT18"></details> |
 
 | **Caso de Teste** | **CT19 - Adicionar Compromisso na Agenda** |
 | :--- | :--- |
@@ -386,12 +386,12 @@ Esta seção apresenta o relatório com as evidências dos testes de software re
 | **Caso de Teste** | **CT22 - Interação com Filtros (Relatório Produtos/Serviços)** |
 | :--- | :--- |
 | **Requisito Associado** | **RF-10** - O sistema deve permitir a emissão de relatórios de vendas e serviços realizados, possibilitando filtrar por cliente ou por data. <br> **RNF-01** - A interface deve ser minimalista e proporcionar um aprendizado rápido. |
-| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/22.jpeg" width="600" alt="Evidencia CT22"></details> |
+| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/22.png" width="600" alt="Evidencia CT22"></details> |
 
 | **Caso de Teste** | **CT23 - Interação com Filtros (Relatório Financeiro)** |
 | :--- | :--- |
 | **Requisito Associado** | **RF-11** - O sistema deve permitir a emissão de relatório de faturas pagas, a pagar, recebidas, a receber e de fluxo de caixa. <br> **RNF-01** - A interface deve ser minimalista e proporcionar um aprendizado rápido. |
-| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/23.jpeg" width="600" alt="Evidencia CT23"></details> |
+| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/23.png" width="600" alt="Evidencia CT23"></details> |
 
 | **Caso de Teste** | **CT24 - Interação com Filtros (Relatório Faturamento)** |
 | :--- | :--- |
