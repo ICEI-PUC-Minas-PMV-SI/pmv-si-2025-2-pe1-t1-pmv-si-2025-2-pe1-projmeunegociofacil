@@ -306,17 +306,17 @@ Esta seção apresenta o relatório com as evidências dos testes de software re
 | **Caso de Teste** | **CT06 - Adicionar Novo Cliente** |
 | :--- | :--- |
 | **Requisito Associado** | **RF-03** - O sistema deve permitir o cadastro de clientes e fornecedores e exibir todos em uma lista com filtros. |
-| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/06.jpeg" width="600" alt="Evidencia CT06"></details> |
+| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/06.png" width="600" alt="Evidencia CT06"></details> |
 
 | **Caso de Teste** | **CT07 - Buscar Cliente/Fornecedor** |
 | :--- | :--- |
 | **Requisito Associado** | **RF-03** - O sistema deve permitir o cadastro de clientes e fornecedores e exibir todos em uma lista com filtros. |
-| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/07.jpeg" width="600" alt="Evidencia CT07"></details> |
+| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/07.png" width="600" alt="Evidencia CT07"></details> |
 
 | **Caso de Teste** | **CT08 - Excluir Cliente/Fornecedor** |
 | :--- | :--- |
 | **Requisito Associado** | **RF-03** - O sistema deve permitir o cadastro de clientes e fornecedores e exibir todos em uma lista com filtros. |
-| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/08.jpeg" width="600" alt="Evidencia CT08"></details> |
+| **Evidência do Teste:** | <details><summary>📷 Ver Imagem</summary><img src="img/tests/08.png" width="600" alt="Evidencia CT08"></details> |
 
 | **Caso de Teste** | **CT09 - Adicionar Novo Produto** |
 | :--- | :--- |
