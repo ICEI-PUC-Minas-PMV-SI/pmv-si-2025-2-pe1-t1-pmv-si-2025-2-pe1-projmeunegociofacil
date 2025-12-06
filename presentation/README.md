@@ -6,20 +6,20 @@ Este diretório contém os artefatos relacionados à apresentação e divulgaç�
 
 O desenvolvimento do projeto seguiu uma metodologia ágil (Scrum), dividida em Sprints semanais, partindo da compreensão profunda do problema enfrentado por pequenos empreendedores no Brasil: a falta de ferramentas de gestão acessíveis.
 
-  **Concepção e Diagnóstico:**
+ * **Concepção e Diagnóstico:**
     * Análise do cenário atual, onde 61% dos empreendedores ainda usam cadernos para controle financeiro.
     * Definição de Personas (João, o Comerciante e Roberto, o Prestador de Serviços) para guiar as funcionalidades.
     * Elaboração de Histórias de Usuários e Requisitos Funcionais/Não Funcionais.
 
-  **Design e Prototipagem:**
+ * **Design e Prototipagem:**
     * Criação de *User Flows* e *Wireframes* focados em uma jornada fluida e minimalista.
     * Definição da identidade visual (cores e tipografia) para garantir acessibilidade e intuição no uso.
 
-  **Desenvolvimento e Implementação:**
+*  **Desenvolvimento e Implementação:**
     * Utilização de tecnologias Web (HTML, CSS, JavaScript) e Local Storage.
     * Implementação modular: Dashboard, Cadastros, Faturamento (Produtos e Serviços), Agenda e Financeiro.
 
-  **Testes e Validação:**
+ * **Testes e Validação:**
     * Realização de testes de software (Caixa Preta) para validação de requisitos.
     * Testes de usabilidade com usuários reais, atingindo 100% de taxa de sucesso nas tarefas críticas e alta satisfação.
 
@@ -29,9 +29,9 @@ O desenvolvimento do projeto seguiu uma metodologia ágil (Scrum), dividida em S
 
 Abaixo estão listados os arquivos de apresentação produzidos pela equipe:
 
-* **[Pitch Inicial (PDF)](./initial-pitch.pdf)**: Apresentação da proposta, problema, solução e roteiro inicial do projeto.
-* **[Apresentação Final (PDF)](./presentation.pdf)**: Slides utilizados na defesa final do projeto, contendo a demonstração das funcionalidades, fluxo do usuário e resultados alcançados.
-* **[Vídeo de Demonstração (MP4)](./video-demonstracao.mp4)**: Vídeo curto demonstrando a navegação e o uso do sistema na prática.
+* **[Pitch inicial](./pitch-inicial.pdf):** Apresentação da proposta, problema, solução e roteiro inicial do projeto.
+* **[Apresentação final](./sample-presentation.pdf):** Arquivo com os slides da apresentação final.
+* **[Vídeo de demonstração](./sample-video.mp4):** Vídeo curto com apresentação o uso do sistema na prática.
 
 <!-- ---
 
