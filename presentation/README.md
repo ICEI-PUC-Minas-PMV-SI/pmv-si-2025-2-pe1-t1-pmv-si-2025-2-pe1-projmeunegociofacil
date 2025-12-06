@@ -29,8 +29,8 @@ O desenvolvimento do projeto seguiu uma metodologia ágil (Scrum), dividida em S
 
 Abaixo estão listados os arquivos de apresentação produzidos pela equipe:
 
-* **[Pitch inicial](./pitch-inicial.pdf):** Apresentação da proposta, problema, solução e roteiro inicial do projeto.
-* **[Apresentação final](./sample-presentation.pdf):** Arquivo com os slides da apresentação final.
+* **[Pitch inicial](./initial-pitch.pdf):** Apresentação da proposta, problema, solução e roteiro inicial do projeto.
+* **[Apresentação final](./presentation.pdf):** Arquivo com os slides da apresentação final.
 * **[Vídeo de demonstração](./sample-video.mp4):** Vídeo curto com apresentação o uso do sistema na prática.
 
 <!-- ---
