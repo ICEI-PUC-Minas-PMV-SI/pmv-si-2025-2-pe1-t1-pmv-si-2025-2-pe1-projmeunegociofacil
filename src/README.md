@@ -4,9 +4,26 @@
 Um projeto web estático (HTML, CSS, JavaScript) desenvolvido para ajudar pequenos empresários a gerir seu negócios.
 
 ## Funcionalidades
-*   Design responsivo para diferentes dispositivos.
-*   Navegação intuitiva.
-*   [Adicionar outras funcionalidades específicas do projeto, ex: formulário de contato, galeria de produtos, etc.]
+
+### Acesso e Dashboard
+* **Controle de Acesso:** Cadastro e login com autenticação de e-mail e senha.
+* **Dashboard:** Painel inicial com resumo das vendas do mês e produtos sem estoque..
+
+### Cadastros
+* **Clientes e Fornecedores:** Cadastro completo de Clientes e Fornecedores com filtros de busca.
+* **Produtos e Serviços:** Cadastro de Produtos (com controle de estoque) e Serviços (com tabela de preços).
+
+### Faturamento e Vendas
+* **Venda de Produtos:** Emissão de vendas com seleção de cliente, itens e formas de pagamento (PDV).
+* **Venda de Serviços:** Registro de serviços realizados com opção de adicionar insumos e custos extras.
+* **Vendas em Aberto:** Possibilidade de salvar vendas ou orçamentos para finalização posterior.
+
+###  Organização e Financeiro
+* **Controle Financeiro:** Gestão completa de Contas a Pagar e Contas a Receber (lançamento e baixa).
+* **Agenda:** Calendário para gestão de compromissos, reuniões e eventos
+
+### Relatórios
+* **Relatórios Completos:** Geração de relatórios detalhados de Faturamento, Fluxo de Caixa e Estoque/Preços.
 
 ## Tecnologias Utilizadas
 *   HTML5

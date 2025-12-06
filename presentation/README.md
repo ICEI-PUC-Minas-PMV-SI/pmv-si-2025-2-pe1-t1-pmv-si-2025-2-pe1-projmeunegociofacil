@@ -1,3 +1,57 @@
+# Apresentação do Projeto: Meu Negócio Fácil
+
+Este diretório contém os artefatos relacionados à apresentação e divulgação do projeto **Meu Negócio Fácil**, um sistema de gestão (ERP) simplificado e gratuito focado em microempreendedores e trabalhadores autônomos.
+
+## Processo de Desenvolvimento
+
+O desenvolvimento do projeto seguiu uma metodologia ágil (Scrum), dividida em Sprints semanais, partindo da compreensão profunda do problema enfrentado por pequenos empreendedores no Brasil: a falta de ferramentas de gestão acessíveis.
+
+  **Concepção e Diagnóstico:**
+    * Análise do cenário atual, onde 61% dos empreendedores ainda usam cadernos para controle financeiro.
+    * Definição de Personas (João, o Comerciante e Roberto, o Prestador de Serviços) para guiar as funcionalidades.
+    * Elaboração de Histórias de Usuários e Requisitos Funcionais/Não Funcionais.
+
+  **Design e Prototipagem:**
+    * Criação de *User Flows* e *Wireframes* focados em uma jornada fluida e minimalista.
+    * Definição da identidade visual (cores e tipografia) para garantir acessibilidade e intuição no uso.
+
+  **Desenvolvimento e Implementação:**
+    * Utilização de tecnologias Web (HTML, CSS, JavaScript) e Local Storage.
+    * Implementação modular: Dashboard, Cadastros, Faturamento (Produtos e Serviços), Agenda e Financeiro.
+
+  **Testes e Validação:**
+    * Realização de testes de software (Caixa Preta) para validação de requisitos.
+    * Testes de usabilidade com usuários reais, atingindo 100% de taxa de sucesso nas tarefas críticas e alta satisfação.
+
+---
+
+## Apresentação
+
+Abaixo estão listados os arquivos de apresentação produzidos pela equipe:
+
+* **[Pitch Inicial (PDF)](./initial-pitch.pdf)**: Apresentação da proposta, problema, solução e roteiro inicial do projeto.
+* **[Apresentação Final (PDF)](./presentation.pdf)**: Slides utilizados na defesa final do projeto, contendo a demonstração das funcionalidades, fluxo do usuário e resultados alcançados.
+* **[Vídeo de Demonstração (MP4)](./video-demonstracao.mp4)**: Vídeo curto demonstrando a navegação e o uso do sistema na prática.
+
+<!-- ---
+
+## Identidade Visual
+
+A identidade visual do **Meu Negócio Fácil** foi projetada para transmitir simplicidade e eficiência, removendo barreiras visuais para usuários com pouca familiaridade tecnológica.
+
+### Cores
+A paleta prioriza tons de azul para transmitir confiança e sobriedade, com contrastes claros para facilitar a leitura.
+
+![Paleta de Cores](../template/img/template_colors.png)
+
+### Tipografia
+Utilizou-se a fonte **Outfit** (Google Fonts), escolhida por sua modernidade e excelente legibilidade em diferentes tamanhos de tela (Desktop e Mobile).
+
+### Iconografia
+Ícones minimalistas foram empregados para representar visualmente cada módulo (ex: Dashboard, Cadastros, Faturamento), facilitando a identificação rápida das funções sem sobrecarregar a interface.
+
+---
+
 # Apresentação
 
 Faça uma apresentação de um resumo de todos o processo de desenvolvimento e no final apresente a solução desenvolvida, usando um pequeno vídeo.
@@ -5,7 +59,7 @@ Faça uma apresentação de um resumo de todos o processo de desenvolvimento e n
 Liste os arquivos produzidos e postados nesta pasta, com suas localizaçãoes e descrição do conteúdo neste arquivo Readme.md.
 
 
-* [Pitch inicial](./sample-pitch.pdf) -- arquivo com os slides da apresentação inicial
+* [Pitch inicial](./pitch-inicial.pdf) -- arquivo com os slides da apresentação inicial
 * [Apresentação final](./sample-presentation.pdf) -- arquivo com os slides da apresentação final
 * [Vídeo de demonstração](./sample-video.mp4) -- arquivo com a demonstração do funcionamento do sistema
 
@@ -44,4 +98,4 @@ O grupo deverá gravar um vídeo de demonstração do site desenvolvido.
 > - Não é necessário que todos os integrantes do grupo participem da gravação.
 > - Não é necessário que a face de algum integrante do grupo apareça na gravação.
 > - Uma ótima ferramenta open-source para gravação de vídeos é o [OBS](https://obsproject.com/pt-br/download)
-
+ -->
