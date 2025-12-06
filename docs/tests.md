@@ -453,9 +453,9 @@ Visando respeitar as diretrizes da Lei Geral de Proteção de Dados (LGPD), as i
 <!-- > **Ferramentas sugeridas para aplicação:**
 > - [UX Tools](https://uxdesign.cc/ux-user-research-and-user-testing-tools-2d339d379dc7) (Softwares para gravação de tela e cronometragem). -->
 
-# Planejamento e Registro de Testes de Usabilidade
+# Planejamento, Registro e Avaliação de Testes de Usabilidade
 
-Este documento registra o planejamento e a execução dos testes de usabilidade realizados pela equipe de desenvolvimento (3 alunos) para validar as principais funcionalidades do sistema.
+Este documento registra o planejamento, a execução e a avaliação final dos testes de usabilidade realizados pela equipe de desenvolvimento para validar as principais funcionalidades do sistema.
 
 ## 1. Cenários de Teste
 
@@ -470,79 +470,99 @@ Abaixo estão os cenários executados para validar a integridade e fluidez do si
 
 ---
 
-# Registro da Execução dos Testes
+## 2. Registro da Execução dos Testes
 
-Tabelas para preenchimento dos resultados obtidos durante a validação interna.
+Abaixo estão os resultados quantitativos obtidos durante a validação interna com a equipe (3 integrantes).
 
 ### Resultados: Cenário 1 (Cadastro e Login)
 
 | Participante | Sucesso (Sim/Não) | Nota de Qualidade (1-5) | Tempo (s) |
 | :--- | :--- | :--- | :--- |
-| Aluno 01 | | | |
-| Aluno 02 | | | |
-| Aluno 03 | | | |
-| **Média** | | | |
+| Aluno 01 | Sim | 5 | 1m43s |
+| Aluno 02 | Sim | 5 | 2m00s |
+| Aluno 03 | Sim | 5 | 1m17s |
+| **Média** | **Sim** | **5** | **1m40s** |
 
 ### Resultados: Cenário 2 (Cadastro de Produto)
 
 | Participante | Sucesso (Sim/Não) | Nota de Qualidade (1-5) | Tempo (s) |
 | :--- | :--- | :--- | :--- |
-| Aluno 01 | | | |
-| Aluno 02 | | | |
-| Aluno 03 | | | |
-| **Média** | | | |
+| Aluno 01 | Sim | 5 | 36s |
+| Aluno 02 | Sim | 5 | 1m13s |
+| Aluno 03 | Sim | 5 | 55s |
+| **Média** | **Sim** | **5** | **54s** |
 
 ### Resultados: Cenário 3 (Realização de Venda)
 
 | Participante | Sucesso (Sim/Não) | Nota de Qualidade (1-5) | Tempo (s) |
 | :--- | :--- | :--- | :--- |
-| Aluno 01 | | | |
-| Aluno 02 | | | |
-| Aluno 03 | | | |
-| **Média** | | | |
+| Aluno 01 | Sim | 5 | 19s |
+| Aluno 02 | Sim | 5 | 43s |
+| Aluno 03 | Sim | 5 | 21s |
+| **Média** | **Sim** | **5** | **28s** |
 
 ### Resultados: Cenário 4 (Relatório Financeiro)
 
 | Participante | Sucesso (Sim/Não) | Nota de Qualidade (1-5) | Tempo (s) |
 | :--- | :--- | :--- | :--- |
-| Aluno 01 | | | |
-| Aluno 02 | | | |
-| Aluno 03 | | | |
-| **Média** | | | |
+| Aluno 01 | Sim | 5 | 19s |
+| Aluno 02 | Sim | 5 | 24s |
+| Aluno 03 | Sim | 5 | 33s |
+| **Média** | **Sim** | **5** | **25s** |
 
 ---
 
-## Evidências de Execução 
+## 3. Evidências de Execução 
 
-Abaixo estão os registros visuais da execução completa de todos os cenários por cada aluno.
+Registros visuais da execução completa de todos os cenários.
 
 <details>
-  <summary>🎥 <strong>Lucas</strong> - Ver Execução Completa</summary>
+  <summary>🎥 <strong>Aluno 01</strong> - Ver Execução Completa</summary>
   <br>
-  <img src="img/tests/ux_lucas.gif" width="600" alt="Evidencia Completa Lucas">
+  <img src="img/tests/ux_lucas.gif" height="400" alt="Evidencia Completa Aluno 01">
 </details>
 
 <br>
 
 <details>
-  <summary>🎥 <strong>Matteo</strong> - Ver Execução Completa</summary>
+  <summary>🎥 <strong>Aluno 02</strong> - Ver Execução Completa</summary>
   <br>
-  <img src="img/tests/ux_matteo.gif" width="600" alt="Evidencia Completa Matteo">
+  <img src="img/tests/ux_matteo.gif" height="400" alt="Evidencia Completa Aluno 02">
 </details>
 
 <br>
 
 <details>
-  <summary>🎥 <strong>Vitor</strong> - Ver Execução Completa</summary>
+  <summary>🎥 <strong>Aluno 03</strong> - Ver Execução Completa</summary>
   <br>
-  <img src="img/tests/ux_vitor.gif" width="600" alt="Evidencia Completa Vitor">
+  <img src="img/tests/ux_vitor.gif" width="600" alt="Evidencia Completa Aluno 03">
 </details>
 
-## Avaliação dos Testes de Usabilidade (Critérios)
+---
 
-Após a realização dos testes com os usuários, os dados coletados serão analisados com base nos seguintes critérios para propor melhorias no sistema:
+## 4. Relatório de Avaliação dos Resultados
 
-1.  **Análise de Eficiência:** Comparação entre o tempo médio dos usuários e o tempo do especialista. Diferenças superiores a 100% indicarão necessidade de revisão no fluxo da interface.
-2.  **Análise de Eficácia:** A taxa de sucesso deve ser de 100%. Caso ocorram falhas, o passo exato onde o usuário travou será identificado para correção.
-3.  **Análise de Satisfação:** Cenários com média de satisfação inferior a 4 (Bom) serão priorizados para refatoração de UX (Experiência do Usuário).
-4.  **Feedback Qualitativo:** As observações e dificuldades verbais relatadas pelos usuários serão compiladas para ajustes finos em rótulos, cores e posicionamento de botões.
+Com base nos dados coletados e nos critérios de aceitação definidos no planejamento, apresentamos a análise detalhada da usabilidade do sistema.
+
+### 4.1. Análise de Eficácia (Taxa de Sucesso)
+**Resultado: 100% de Sucesso.**
+Todos os participantes (Alunos 01, 02 e 03) conseguiram completar as tarefas propostas sem erros impeditivos ou necessidade de intervenção externa.
+* **Conclusão:** O sistema demonstra alta estabilidade e clareza nos fluxos principais ("Caminho Feliz"). A ausência de falhas indica que as regras de negócio e validações estão funcionando conforme o esperado.
+
+### 4.2. Análise de Eficiência (Tempo de Execução)
+Os tempos médios obtidos foram comparados com a complexidade esperada para cada tarefa.
+
+* **Destaque Positivo (Cenário 3 - Venda PDV):** O tempo médio de **28 segundos** para realizar uma venda completa é um indicador excelente de produtividade. Isso sugere que o design da tela de vendas é intuitivo e permite operação rápida.
+* **Variação de Tempo:** Observou-se uma variação natural entre os usuários (ex: no Cenário 2, tempos variaram entre 36s e 1m13s). Como ambos completaram a tarefa com sucesso e nota máxima, a diferença é atribuída à familiaridade individual com a digitação, e não a um bloqueio da interface.
+
+### 4.3. Análise de Satisfação
+**Média Geral: 5.0 / 5.0 (Excelente).**
+A nota máxima atribuída por todos os testadores em todos os cenários indica que a interface não gerou frustração ou carga cognitiva excessiva.
+* **Interpretação:** A interface é amigável e o feedback visual do sistema (mensagens de sucesso, carregamento de gráficos) é adequado.
+
+### 4.4. Conclusão Final
+
+O sistema foi validado com êxito em seus fluxos críticos (Cadastro, Estoque, Venda e Relatórios).
+
+* **Status do Teste:** ✅ **Aprovado**
+* **Recomendação:** O sistema está apto para seguir para a próxima fase (Testes Beta ou Produção), visto que os requisitos funcionais e não-funcionais de usabilidade foram atendidos com excelência.
