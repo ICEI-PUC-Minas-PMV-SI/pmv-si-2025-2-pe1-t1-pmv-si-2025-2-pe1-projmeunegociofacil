@@ -32,7 +32,7 @@ Abaixo estão listados os arquivos de apresentação produzidos pela equipe:
 * **[Pitch inicial](./initial-pitch.pdf):** Apresentação da proposta, problema, solução e roteiro inicial do projeto.
 * **[Apresentação final](./presentation.pdf):** Arquivo com os slides da apresentação final.
 * **[Vídeo de demonstração em SD](./video-presentation.mp4):** Vídeo curto com apresentação o uso do sistema na prática em **baixa resolução**.
-* **[Vídeo de demonstração em HD](https://drive.google.com/file/d/10FrBRylGD5IUfDJOxiuzaW0AL2FqN1OG/view?usp=sharing):** Vídeo curto com apresentação o uso do sistema na prática em **alta resolução**.
+* **[Vídeo de demonstração em HD](https://drive.google.com/file/d/1X4sUEyqBvFiTPuoc9fNtly4F6adJLtZh/view?usp=sharing):** Vídeo curto com apresentação o uso do sistema na prática em **alta resolução**.
 
 <!-- ---
 
