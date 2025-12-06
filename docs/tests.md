@@ -457,7 +457,7 @@ Visando respeitar as diretrizes da Lei Geral de Proteção de Dados (LGPD), as i
 
 Este documento registra o planejamento, a execução e a avaliação final dos testes de usabilidade realizados pela equipe de desenvolvimento para validar as principais funcionalidades do sistema.
 
-## 1. Cenários de Teste
+## Cenários de Teste de Usabilidade
 
 Abaixo estão os cenários executados para validar a integridade e fluidez do sistema.
 
@@ -470,7 +470,7 @@ Abaixo estão os cenários executados para validar a integridade e fluidez do si
 
 ---
 
-## 2. Registro da Execução dos Testes
+## Registro dos Testes de Usabilidade
 
 Abaixo estão os resultados quantitativos obtidos durante a validação interna com a equipe (3 integrantes).
 
@@ -540,27 +540,27 @@ Registros visuais da execução completa de todos os cenários.
 
 ---
 
-## 4. Relatório de Avaliação dos Resultados
+## Avaliação dos Testes de Usabilidade
 
 Com base nos dados coletados e nos critérios de aceitação definidos no planejamento, apresentamos a análise detalhada da usabilidade do sistema.
 
-### 4.1. Análise de Eficácia (Taxa de Sucesso)
+### Análise de Eficácia (Taxa de Sucesso)
 **Resultado: 100% de Sucesso.**
 Todos os participantes (Alunos 01, 02 e 03) conseguiram completar as tarefas propostas sem erros impeditivos ou necessidade de intervenção externa.
 * **Conclusão:** O sistema demonstra alta estabilidade e clareza nos fluxos principais ("Caminho Feliz"). A ausência de falhas indica que as regras de negócio e validações estão funcionando conforme o esperado.
 
-### 4.2. Análise de Eficiência (Tempo de Execução)
+### Análise de Eficiência (Tempo de Execução)
 Os tempos médios obtidos foram comparados com a complexidade esperada para cada tarefa.
 
 * **Destaque Positivo (Cenário 3 - Venda PDV):** O tempo médio de **28 segundos** para realizar uma venda completa é um indicador excelente de produtividade. Isso sugere que o design da tela de vendas é intuitivo e permite operação rápida.
 * **Variação de Tempo:** Observou-se uma variação natural entre os usuários (ex: no Cenário 2, tempos variaram entre 36s e 1m13s). Como ambos completaram a tarefa com sucesso e nota máxima, a diferença é atribuída à familiaridade individual com a digitação, e não a um bloqueio da interface.
 
-### 4.3. Análise de Satisfação
+### Análise de Satisfação
 **Média Geral: 5.0 / 5.0 (Excelente).**
 A nota máxima atribuída por todos os testadores em todos os cenários indica que a interface não gerou frustração ou carga cognitiva excessiva.
 * **Interpretação:** A interface é amigável e o feedback visual do sistema (mensagens de sucesso, carregamento de gráficos) é adequado.
 
-### 4.4. Conclusão Final
+### Conclusão Final
 
 O sistema foi validado com êxito em seus fluxos críticos (Cadastro, Estoque, Venda e Relatórios).
 
