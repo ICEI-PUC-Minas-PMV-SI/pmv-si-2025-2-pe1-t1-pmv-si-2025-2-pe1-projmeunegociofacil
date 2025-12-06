@@ -5,7 +5,7 @@ Neste projeto serão realizados dois tipos de testes:
  - O **Teste de Software**, que utiliza uma abordadem de caixa preta, e tem por objetivo verificar a conformidade do software com os requisitos funcionais e não funcionais do sistema.
  - O **Teste de Usabilidade**, que busca avaliar a qualidade do uso do sistema por um usuário do público alvo. 
 
-Se quiser conhecer um pouco mais sobre os tipos de teste de software, leia o documento [Teste de Software: Conceitos e tipos de testes](https://blog.onedaytesting.com.br/teste-de-software/).
+<!-- Se quiser conhecer um pouco mais sobre os tipos de teste de software, leia o documento [Teste de Software: Conceitos e tipos de testes](https://blog.onedaytesting.com.br/teste-de-software/). -->
 
 A documentação dos testes é dividida nas seguintes seções:
 
@@ -547,7 +547,7 @@ Com base nos dados coletados e nos critérios de aceitação definidos no planej
 ### Análise de Eficácia (Taxa de Sucesso)
 **Resultado: 100% de Sucesso.**
 Todos os participantes (Alunos 01, 02 e 03) conseguiram completar as tarefas propostas sem erros impeditivos ou necessidade de intervenção externa.
-* **Conclusão:** O sistema demonstra alta estabilidade e clareza nos fluxos principais ("Caminho Feliz"). A ausência de falhas indica que as regras de negócio e validações estão funcionando conforme o esperado.
+* **Conclusão:** O sistema demonstra estabilidade e clareza nos fluxos principais. A ausência de falhas indica que as regras de negócio e validações estão funcionando conforme o esperado.
 
 ### Análise de Eficiência (Tempo de Execução)
 Os tempos médios obtidos foram comparados com a complexidade esperada para cada tarefa.
@@ -565,4 +565,3 @@ A nota máxima atribuída por todos os testadores em todos os cenários indica q
 O sistema foi validado com êxito em seus fluxos críticos (Cadastro, Estoque, Venda e Relatórios).
 
 * **Status do Teste:** ✅ **Aprovado**
-* **Recomendação:** O sistema está apto para seguir para a próxima fase (Testes Beta ou Produção), visto que os requisitos funcionais e não-funcionais de usabilidade foram atendidos com excelência.
