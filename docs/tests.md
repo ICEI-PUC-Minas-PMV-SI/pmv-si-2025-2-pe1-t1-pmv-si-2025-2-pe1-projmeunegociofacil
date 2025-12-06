@@ -450,59 +450,93 @@ Serão convidados de 3 a 5 voluntários que se encaixem no perfil do público-al
 
 Visando respeitar as diretrizes da Lei Geral de Proteção de Dados (LGPD), as informações pessoais dos participantes não serão armazenadas, sendo identificados apenas por códigos (ex: Usuário 01) nos registros.
 
-> **Ferramentas sugeridas para aplicação:**
-> - [UX Tools](https://uxdesign.cc/ux-user-research-and-user-testing-tools-2d339d379dc7) (Softwares para gravação de tela e cronometragem).
+<!-- > **Ferramentas sugeridas para aplicação:**
+> - [UX Tools](https://uxdesign.cc/ux-user-research-and-user-testing-tools-2d339d379dc7) (Softwares para gravação de tela e cronometragem). -->
 
-## Cenários de Teste de Usabilidade
+# Planejamento e Registro de Testes de Usabilidade
 
-Abaixo estão descritos os cenários planejados para demonstrar as principais funcionalidades do sistema sendo realizadas por um usuário final.
+Este documento registra o planejamento e a execução dos testes de usabilidade realizados pela equipe de desenvolvimento (3 alunos) para validar as principais funcionalidades do sistema.
 
-| Nº do Cenário | Descrição da Tarefa | Objetivo do Teste |
+## 1. Cenários de Teste
+
+Abaixo estão os cenários executados para validar a integridade e fluidez do sistema.
+
+| Nº do Cenário | Descrição da Tarefa | Objetivo da Validação |
 | :--- | :--- | :--- |
-| **1** | Você é um novo empreendedor acessando o sistema pela primeira vez. Realize o cadastro de uma nova conta (Pessoa Jurídica) e, em seguida, faça o login para acessar o Dashboard. | Avaliar a facilidade de entrada no sistema (Onboarding) e clareza do formulário de cadastro. |
-| **2** | Você recebeu um novo lote de mercadorias. Acesse o módulo de cadastros e insira um novo produto (ex: "Mouse Sem Fio"), definindo seu preço de venda e a unidade. | Avaliar a intuitividade das operações de cadastro (CRUD) e navegação no menu. |
-| **3** | Um cliente está no balcão aguardando. Realize uma venda de 2 unidades de um produto para um cliente já cadastrado, selecione a forma de pagamento e finalize a operação. | Avaliar a eficiência do fluxo principal de negócio (Venda/PDV) e contar a quantidade de cliques necessária. |
-| **4** | Você precisa analisar a saúde financeira da empresa. Acesse o Relatório Financeiro, filtre pelos lançamentos do tipo "A receber" e identifique o gráfico de resultados. | Avaliar a capacidade do usuário de extrair informações gerenciais e interpretar os gráficos. |
+| **1** | **Cadastro e Primeiro Acesso:** Simule ser um novo usuário. Realize o cadastro de uma nova conta (PJ) e faça o login para acessar o Dashboard. | Verificar se o fluxo de criação de conta está funcional e se o redirecionamento para o Dashboard ocorre sem erros de sessão. |
+| **2** | **Gestão de Inventário:** Acesse o módulo de cadastros e insira um novo produto (ex: "Mouse Sem Fio"), definindo preço e unidade. | Garantir que o CRUD de produtos está persistindo os dados corretamente no banco e a navegação está fluida. |
+| **3** | **Fluxo de Venda (PDV):** Realize uma venda de 2 unidades de um produto para um cliente cadastrado, selecione o pagamento e finalize. | Validar a eficiência do processo de checkout, cálculo de totais e baixa de estoque (se aplicável). |
+| **4** | **Análise Gerencial:** Acesse o Relatório Financeiro, filtre por "A receber" e verifique a renderização do gráfico de resultados. | Confirmar se os filtros de data/tipo estão funcionando e se os gráficos carregam os dados corretos da base. |
 
-## Registro dos Testes de Usabilidade (Modelo)
+---
 
-Esta seção apresenta os modelos de tabelas que serão utilizados para registrar os dados durante a futura execução dos testes.
+# Registro da Execução dos Testes
 
-### Modelo: Cenário 1 (Cadastro e Login)
+Tabelas para preenchimento dos resultados obtidos durante a validação interna.
 
-| Usuário | Taxa de sucesso (Sim/Não) | Satisfação subjetiva (1-5) | Tempo para conclusão (s) | Comentários / Observações |
-| :--- | :--- | :--- | :--- | :--- |
-| Usuário 01 | | | | |
-| Usuário 02 | | | | |
-| Usuário 03 | | | | |
-| **Média** | | | | |
+### Resultados: Cenário 1 (Cadastro e Login)
 
-### Modelo: Cenário 2 (Cadastro de Produto)
+| Participante | Sucesso (Sim/Não) | Nota de Qualidade (1-5) | Tempo (s) |
+| :--- | :--- | :--- | :--- |
+| Aluno 01 | | | |
+| Aluno 02 | | | |
+| Aluno 03 | | | |
+| **Média** | | | |
 
-| Usuário | Taxa de sucesso (Sim/Não) | Satisfação subjetiva (1-5) | Tempo para conclusão (s) | Comentários / Observações |
-| :--- | :--- | :--- | :--- | :--- |
-| Usuário 01 | | | | |
-| Usuário 02 | | | | |
-| Usuário 03 | | | | |
-| **Média** | | | | |
+### Resultados: Cenário 2 (Cadastro de Produto)
 
-### Modelo: Cenário 3 (Realização de Venda)
+| Participante | Sucesso (Sim/Não) | Nota de Qualidade (1-5) | Tempo (s) |
+| :--- | :--- | :--- | :--- |
+| Aluno 01 | | | |
+| Aluno 02 | | | |
+| Aluno 03 | | | |
+| **Média** | | | |
 
-| Usuário | Taxa de sucesso (Sim/Não) | Satisfação subjetiva (1-5) | Tempo para conclusão (s) | Comentários / Observações |
-| :--- | :--- | :--- | :--- | :--- |
-| Usuário 01 | | | | |
-| Usuário 02 | | | | |
-| Usuário 03 | | | | |
-| **Média** | | | | |
+### Resultados: Cenário 3 (Realização de Venda)
 
-### Modelo: Cenário 4 (Relatório Financeiro)
+| Participante | Sucesso (Sim/Não) | Nota de Qualidade (1-5) | Tempo (s) |
+| :--- | :--- | :--- | :--- |
+| Aluno 01 | | | |
+| Aluno 02 | | | |
+| Aluno 03 | | | |
+| **Média** | | | |
 
-| Usuário | Taxa de sucesso (Sim/Não) | Satisfação subjetiva (1-5) | Tempo para conclusão (s) | Comentários / Observações |
-| :--- | :--- | :--- | :--- | :--- |
-| Usuário 01 | | | | |
-| Usuário 02 | | | | |
-| Usuário 03 | | | | |
-| **Média** | | | | |
+### Resultados: Cenário 4 (Relatório Financeiro)
+
+| Participante | Sucesso (Sim/Não) | Nota de Qualidade (1-5) | Tempo (s) |
+| :--- | :--- | :--- | :--- |
+| Aluno 01 | | | |
+| Aluno 02 | | | |
+| Aluno 03 | | | |
+| **Média** | | | |
+
+---
+
+## Evidências de Execução 
+
+Abaixo estão os registros visuais da execução completa de todos os cenários por cada aluno.
+
+<details>
+  <summary>🎥 <strong>Lucas</strong> - Ver Execução Completa</summary>
+  <br>
+  <img src="img/tests/ux_lucas.gif" width="600" alt="Evidencia Completa Lucas">
+</details>
+
+<br>
+
+<details>
+  <summary>🎥 <strong>Matteo</strong> - Ver Execução Completa</summary>
+  <br>
+  <img src="img/tests/ux_matteo.gif" width="600" alt="Evidencia Completa Matteo">
+</details>
+
+<br>
+
+<details>
+  <summary>🎥 <strong>Vitor</strong> - Ver Execução Completa</summary>
+  <br>
+  <img src="img/tests/ux_vitor.gif" width="600" alt="Evidencia Completa Vitor">
+</details>
 
 ## Avaliação dos Testes de Usabilidade (Critérios)
 
